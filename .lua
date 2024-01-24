@@ -463,6 +463,8 @@ function lib:Window(text, preset, closebind)
 		       end
                 return oldNamecall(self, ...)
             end)
+	end
+	
         local tabcontent = {}
         function tabcontent:Button(text, callback)
             local Button = Instance.new("TextButton")
