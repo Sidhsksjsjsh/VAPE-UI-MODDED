@@ -1,4 +1,4 @@
-local lib = {RainbowColorValue = 0, HueSelectionPosition = 0}
+local lib = {RainbowColorValue = 0,HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -446,7 +446,23 @@ function lib:Window(text, preset, closebind)
 	          return namecall(self, ...) 
             end)
         end
-        
+
+	function lib:HookCalled(func)
+		local gmt = getrawmetatable(game)
+                setreadonly(gmt, false)
+                local oldNamecall = gmt.__namecall
+                gmt.__namecall = newcclosure(function(self, ...)
+                       local Args = {...}
+                       local method = getnamecallmethod()
+		       if method == "FireServer" then
+				func(self.Name,Args)
+				return self.FireServer(self,unpack(Args))
+		       elseif method == "InvokeServer" then
+				func(self.Name,Args)
+				return self.InvokeServer(self,unpack(Args))
+		       end
+                return oldNamecall(self, ...)
+            end)
         local tabcontent = {}
         function tabcontent:Button(text, callback)
             local Button = Instance.new("TextButton")
