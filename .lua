@@ -433,6 +433,20 @@ function lib:Window(text, preset, closebind)
                 end
             end
         )
+
+        function lib:HookFunction(func)
+            local mt = getrawmetatable(game);
+            setreadonly(mt,false)
+            local namecall = mt.__namecall
+
+            mt.__namecall = newcclosure(function(self, ...)
+	             local Method = getnamecallmethod()
+	             local Args = {...}
+                 func(Method,self.Name,Args)
+	          return namecall(self, ...) 
+            end)
+        end
+        
         local tabcontent = {}
         function tabcontent:Button(text, callback)
             local Button = Instance.new("TextButton")
