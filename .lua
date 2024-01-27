@@ -466,9 +466,9 @@ function lib:Window(text, preset, closebind)
             end)
 	end
 		
-	function lib:addTable(gameservice,tbl)
+	function lib:AddTable(gameservice,tbl)
 		for i,v in pairs(gameservice:GetChildren()) do
-			table.insert()
+			table.insert(tbl,v.Name)
 		end
 	end
 	
