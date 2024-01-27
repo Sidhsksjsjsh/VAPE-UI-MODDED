@@ -542,6 +542,7 @@ function lib:Window(text, preset, closebind)
 
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
+	
         function tabcontent:Toggle(text,default, callback)
             local toggled = false
 
@@ -740,6 +741,7 @@ function lib:Window(text, preset, closebind)
 
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
+		
         function tabcontent:Slider(text, min, max, start, callback)
             local dragging = false
             local Slider = Instance.new("TextButton")
