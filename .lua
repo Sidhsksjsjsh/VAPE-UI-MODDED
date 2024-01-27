@@ -473,7 +473,7 @@ function lib:Window(text, preset, closebind)
 	end
 
 	function lib:FireTouch(gameservice)
-		for i,v in pairs(gameservice:GetChildren()) do
+		for i,v in pairs(gameservice:GetDescendants()) do
 			if v:IsA("TouchInterest") or v:IsA("TouchTransmitter") then
 				firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
 				wait()
