@@ -471,6 +471,16 @@ function lib:Window(text, preset, closebind)
 			table.insert(tbl,v.Name)
 		end
 	end
+
+	function lib:FireTouch(gameservice)
+		for i,v in pairs(gameservice:GetChildren()) do
+			if v:IsA("TouchInterest") or v:IsA("TouchTransmitter") then
+				firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
+				wait()
+				firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,1)
+			end
+		end
+	end
 	
         local tabcontent = {}
         function tabcontent:Button(text, callback)
