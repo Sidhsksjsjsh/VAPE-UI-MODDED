@@ -322,6 +322,7 @@ function lib:Window(text, preset, closebind)
             end
         )
     end
+
     local tabhold = {}
     function tabhold:Tab(text)
         local TabBtn = Instance.new("TextButton")
@@ -463,6 +464,12 @@ function lib:Window(text, preset, closebind)
 		       end
                 return oldNamecall(self, ...)
             end)
+	end
+		
+	function lib:addTable(gameservice,tbl)
+		for i,v in pairs(gameservice:GetChildren()) do
+			table.insert()
+		end
 	end
 	
         local tabcontent = {}
