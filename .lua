@@ -456,11 +456,9 @@ function lib:Window(text, preset, closebind)
                        local Args = {...}
                        local method = getnamecallmethod()
 		       if method == "FireServer" then
-				func(self.Name,Args)
-				return self.FireServer(self,unpack(Args))
+				func(self,Args)
 		       elseif method == "InvokeServer" then
-				func(self.Name,Args)
-				return self.InvokeServer(self,unpack(Args))
+				func(self,Args)
 		       end
                 return oldNamecall(self, ...)
             end)
