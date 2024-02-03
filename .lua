@@ -1527,7 +1527,8 @@ function lib:Window(text, preset, closebind)
             local Label = Instance.new("TextButton")
             local LabelCorner = Instance.new("UICorner")
             local LabelTitle = Instance.new("TextLabel")
-
+	    local lbl = {}
+			
             Label.Name = "Button"
             Label.Parent = Tab
             Label.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
@@ -1555,6 +1556,10 @@ function lib:Window(text, preset, closebind)
             LabelTitle.TextXAlignment = Enum.TextXAlignment.Left
 
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+	 function lbl:EditLabel(str)
+		kLabelTitle.Text = str
+	end
+		return lbl
         end
         function tabcontent:Textbox(text, disapper, callback)
             local Textbox = Instance.new("Frame")
