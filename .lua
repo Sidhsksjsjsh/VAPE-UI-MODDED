@@ -7,8 +7,12 @@ local Mouse = LocalPlayer:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 
+if game.CoreGui:FindFirstChild("VIP TURTLE HUB UI") then
+	game:GetService("CoreGui")["VIP TURTLE HUB UI"]:Destroy()
+end
+
 local ui = Instance.new("ScreenGui")
-ui.Name = "ui"
+ui.Name = "VIP TURTLE HUB UI"
 ui.Parent = game.CoreGui
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
