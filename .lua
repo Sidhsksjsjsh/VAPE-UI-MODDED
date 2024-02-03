@@ -1557,7 +1557,7 @@ function lib:Window(text, preset, closebind)
 
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 	 function lbl:EditLabel(str)
-		kLabelTitle.Text = str
+		LabelTitle.Text = str
 	end
 		return lbl
         end
