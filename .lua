@@ -133,7 +133,8 @@ function lib:Window(text, preset, closebind)
     Title.TextColor3 = Color3.fromRGB(68, 68, 68)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
-
+    Title.RichText = true
+	
     DragFrame.Name = "DragFrame"
     DragFrame.Parent = Main
     DragFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -205,7 +206,8 @@ function lib:Window(text, preset, closebind)
         NotificationHold.Text = ""
         NotificationHold.TextColor3 = Color3.fromRGB(0, 0, 0)
         NotificationHold.TextSize = 14.000
-
+        NotificationHold.RichText = true
+		
         TweenService:Create(
             NotificationHold,
             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
@@ -255,7 +257,8 @@ function lib:Window(text, preset, closebind)
         OkayBtnTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
         OkayBtnTitle.TextSize = 14.000
         OkayBtnTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+        OkayBtnTitle.RichText = true
+		
         NotificationTitle.Name = "NotificationTitle"
         NotificationTitle.Parent = NotificationFrame
         NotificationTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -267,7 +270,8 @@ function lib:Window(text, preset, closebind)
         NotificationTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
         NotificationTitle.TextSize = 18.000
         NotificationTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+        NotificationTitle.RichText = true
+		
         NotificationDesc.Name = "NotificationDesc"
         NotificationDesc.Parent = NotificationFrame
         NotificationDesc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -281,7 +285,8 @@ function lib:Window(text, preset, closebind)
         NotificationDesc.TextWrapped = true
         NotificationDesc.TextXAlignment = Enum.TextXAlignment.Left
         NotificationDesc.TextYAlignment = Enum.TextYAlignment.Top
-
+        NotificationDesc.RichText = true
+		
         OkayBtn.MouseEnter:Connect(
             function()
                 TweenService:Create(
@@ -354,7 +359,8 @@ function lib:Window(text, preset, closebind)
         TabTitle.TextColor3 = Color3.fromRGB(150, 150, 150)
         TabTitle.TextSize = 14.000
         TabTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+        TabTitle.RichText = true
+		
         TabBtnIndicator.Name = "TabBtnIndicator"
         TabBtnIndicator.Parent = TabBtn
         TabBtnIndicator.BackgroundColor3 = PresetColor
@@ -515,7 +521,8 @@ function lib:Window(text, preset, closebind)
             ButtonTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             ButtonTitle.TextSize = 14.000
             ButtonTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+            ButtonTitle.RichText = true
+			
             Button.MouseEnter:Connect(
                 function()
                     TweenService:Create(
@@ -586,7 +593,8 @@ function lib:Window(text, preset, closebind)
             ToggleTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             ToggleTitle.TextSize = 14.000
             ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+            ToggleTitle.RichText = true
+			
             FrameToggle1.Name = "FrameToggle1"
             FrameToggle1.Parent = Toggle
             FrameToggle1.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -780,7 +788,8 @@ function lib:Window(text, preset, closebind)
             SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             SliderTitle.TextSize = 14.000
             SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+            SliderTitle.RichText = true
+			
             SliderValue.Name = "SliderValue"
             SliderValue.Parent = Slider
             SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -913,7 +922,8 @@ function lib:Window(text, preset, closebind)
             DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             DropdownTitle.TextSize = 14.000
             DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+            DropdownTitle.RichText = true
+			
             ArrowImg.Name = "ArrowImg"
             ArrowImg.Parent = DropdownTitle
             ArrowImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -993,7 +1003,8 @@ function lib:Window(text, preset, closebind)
                 Item.Text = v
                 Item.TextColor3 = Color3.fromRGB(255, 255, 255)
                 Item.TextSize = 15.000
-
+                Item.RichText = true
+				
                 ItemCorner.CornerRadius = UDim.new(0, 4)
                 ItemCorner.Name = "ItemCorner"
                 ItemCorner.Parent = Item
@@ -1106,7 +1117,8 @@ function lib:Window(text, preset, closebind)
             ColorpickerTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             ColorpickerTitle.TextSize = 14.000
             ColorpickerTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+            ColorpickerTitle.RichText = true
+			
             BoxColor.Name = "BoxColor"
             BoxColor.Parent = ColorpickerTitle
             BoxColor.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
@@ -1558,7 +1570,8 @@ function lib:Window(text, preset, closebind)
             LabelTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             LabelTitle.TextSize = 14.000
             LabelTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+            LabelTitle.RichText = true
+			
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 	 function lbl:EditLabel(str)
 		LabelTitle.Text = str
@@ -1595,7 +1608,8 @@ function lib:Window(text, preset, closebind)
             TextboxTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             TextboxTitle.TextSize = 14.000
             TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+            TextboxTitle.RichText = true
+			
             TextboxFrame.Name = "TextboxFrame"
             TextboxFrame.Parent = TextboxTitle
             TextboxFrame.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
@@ -1662,7 +1676,8 @@ function lib:Window(text, preset, closebind)
             BindTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             BindTitle.TextSize = 14.000
             BindTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+            BindTitle.RichText = true
+			
             BindText.Name = "BindText"
             BindText.Parent = Bind
             BindText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
