@@ -68,8 +68,93 @@ end
 
 local ui = Instance.new("ScreenGui")
 ui.Name = "VIP TURTLE HUB UI"
-ui.Parent = game.CoreGui
+ui.Parent = game:GetService("CoreGui")
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local ScreenGuisForTH = Instance.new("ScreenGui")
+local THNFrame = Instance.new("Frame")
+local UIAspectRatioConstraints = Instance.new("UIAspectRatioConstraint")
+local UICorners = Instance.new("UICorner")
+local UIListLayouts = Instance.new("UIListLayout")
+local TextLabels = Instance.new("TextLabel")
+local TextButtons = Instance.new("TextButton")
+local TextButton_2s = Instance.new("TextButton")
+local UICorner_2s = Instance.new("UICorner")
+local UICorner_3s = Instance.new("UICorner")
+
+ScreenGuisForTH.Parent = ui
+ScreenGuisForTH.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGuisForTH.Enabled = false
+ScreenGuisForTH.Name = "Turtle UI Notify"
+
+THNFrame.Parent = ScreenGuisForTH
+THNFrame.BackgroundColor3 = Color3.fromRGB(19, 24, 52)
+THNFrame.Position = UDim2.new(0.5, 0, .5, 0)
+THNFrame.Size = UDim2.new(.55, 0, .6, 0)
+THNFrame.AnchorPoint = Vector2.new(.5,.5)
+
+UIAspectRatioConstraints.Parent = THNFrame
+UIAspectRatioConstraints.AspectRatio = 2.000
+
+UICorners.CornerRadius = UDim.new(0, 15)
+UICorners.Parent = THNFrame
+
+UIListLayouts.Parent = THNFrame
+UIListLayouts.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayouts.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayouts.VerticalAlignment = Enum.VerticalAlignment.Center
+UIListLayouts.Padding = UDim.new(.05, 0)
+
+TextLabels.Parent = THNFrame
+TextLabels.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabels.BackgroundTransparency = 1.000
+TextLabels.Position = UDim2.new(0.5, 0, 0.1, 0)
+TextLabels.Size = UDim2.new(1, 0, .5, 0)
+TextLabels.Font = Enum.Font.GothamBlack
+TextLabels.Text = "Error"
+TextLabels.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabels.TextSize = 17.000
+TextLabels.TextWrapped = true
+TextLabels.RichText = true
+
+TextButtons.Parent = THNFrame
+TextButtons.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+TextButtons.Size = UDim2.new(.5, 0, .15, 0)
+TextButtons.Font = Enum.Font.SourceSans
+TextButtons.Text = "(...)" -- Yes
+TextButtons.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButtons.TextSize = 41.000
+TextButtons.TextWrapped = true
+TextButtons.RichText = true
+            
+TextButton_2s.Parent = THNFrame
+TextButton_2s.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+TextButton_2s.Size = UDim2.new(.5, 0, .15, 0)
+TextButton_2s.Font = Enum.Font.SourceSans
+TextButton_2s.Text = "(...)" -- No
+TextButton_2s.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_2s.TextSize = 41.000
+TextButton_2s.TextWrapped = true
+TextButton_2s.RichText = true
+TextButton_2s.Visible = false
+
+UICorner_2s.CornerRadius = UDim.new(.1, 0)
+UICorner_2s.Parent = TextButtons
+UICorner_3s.CornerRadius = UDim.new(.1, 0)
+UICorner_3s.Parent = TextButton_2s
+TextButtons.MouseButton1Click:Connect(function()
+		ScreenGuisForTH.Enabled = false
+end)
+
+TextButton_2s.MouseButton1Click:Connect(function()
+		ScreenGuisForTH.Enabled = false
+end)
+  
+function lib:WarnUser(title)
+  TextLabels.Text = title
+  TextButtons.Text = "OK"
+  ScreenGuisForTH.Enabled = true
+end
 
 coroutine.wrap(
     function()
