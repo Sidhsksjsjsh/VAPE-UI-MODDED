@@ -1692,7 +1692,7 @@ function lib:Window(text, preset, closebind)
             Label.Name = "Button"
             Label.Parent = Tab
             Label.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Label.Size = UDim2.new(0, 363, 0, 42)
+            Label.Size = UDim2.new(0,363,0,42)
             Label.AutoButtonColor = false
             Label.Font = Enum.Font.SourceSans
             Label.Text = ""
@@ -1708,7 +1708,7 @@ function lib:Window(text, preset, closebind)
             LabelTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             LabelTitle.BackgroundTransparency = 1.000
             LabelTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            LabelTitle.Size = UDim2.new(0, 187, 0, 42)
+            LabelTitle.Size = UDim2.new(0,187,0,42)
             LabelTitle.Font = Enum.Font.Gotham
             LabelTitle.Text = text
             LabelTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -1716,7 +1716,12 @@ function lib:Window(text, preset, closebind)
             LabelTitle.TextXAlignment = Enum.TextXAlignment.Left
             LabelTitle.RichText = true
 			
-            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+            Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
+	    LabelTitle:GetPropertyChangedSignal("Text"):Connect(function()
+		LabelTitle.Size = UDim2.new(0,187,0,LabelTitle.TextBounds.Y)
+                Label.Size = UDim2.new(0,363,0,LabelTitle.TextBounds.Y + 35)
+	    end)
+			
 	 function lbl:EditLabel(str)
 		LabelTitle.Text = str
 	end
