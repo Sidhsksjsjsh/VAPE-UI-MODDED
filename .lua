@@ -90,7 +90,7 @@ ScreenGuisForTH.Name = "Turtle UI Notify"
 THNFrame.Parent = ScreenGuisForTH
 THNFrame.BackgroundColor3 = Color3.fromRGB(19, 24, 52)
 THNFrame.Position = UDim2.new(0.5, 0, .5, 0)
-THNFrame.Size = UDim2.new(.55, 0, .6, 0)
+THNFrame.Size = UDim2.new(.55,0,.6,0)
 THNFrame.AnchorPoint = Vector2.new(.5,.5)
 
 UIAspectRatioConstraints.Parent = THNFrame
@@ -143,17 +143,22 @@ UICorner_2s.Parent = TextButtons
 UICorner_3s.CornerRadius = UDim.new(.1, 0)
 UICorner_3s.Parent = TextButton_2s
 TextButtons.MouseButton1Click:Connect(function()
-		ScreenGuisForTH.Enabled = false
+		THNFrame:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+                            ScreenGuisForTH.Enabled = false
+                end)
 end)
 
 TextButton_2s.MouseButton1Click:Connect(function()
-		ScreenGuisForTH.Enabled = false
+		THNFrame:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+                            ScreenGuisForTH.Enabled = false
+                end)
 end)
   
 function lib:WarnUser(title)
   TextLabels.Text = title
   TextButtons.Text = "OK"
   ScreenGuisForTH.Enabled = true
+  THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
 end
 
 coroutine.wrap(
