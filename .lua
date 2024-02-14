@@ -174,6 +174,7 @@ function lib:WarnUser(title,params)
 	task.spawn(function()
 	for array = 1,params["Duration"] do
 		if params["CanClick"] == false then
+			wait(1)
 			TextButtons.Text = "OK (" .. array .. ")"
 		end
 	end
