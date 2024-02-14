@@ -142,23 +142,44 @@ UICorner_2s.CornerRadius = UDim.new(.1, 0)
 UICorner_2s.Parent = TextButtons
 UICorner_3s.CornerRadius = UDim.new(.1, 0)
 UICorner_3s.Parent = TextButton_2s
+local cc = true
+
+local function CloseWarnInterface()
+	THNFrame:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+			ScreenGuisForTH.Enabled = false
+	end)
+end
+
 TextButtons.MouseButton1Click:Connect(function()
-		THNFrame:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
-                            ScreenGuisForTH.Enabled = false
-                end)
+		if cc == true then
+			CloseWarnInterface()
+		end
 end)
 
 TextButton_2s.MouseButton1Click:Connect(function()
-		THNFrame:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
-                            ScreenGuisForTH.Enabled = false
-                end)
+		CloseWarnInterface()
 end)
   
-function lib:WarnUser(title)
+function lib:WarnUser(title,params)
+	CloseWarnInterface()
+	wait(1)
   TextLabels.Text = title
   TextButtons.Text = "OK"
   ScreenGuisForTH.Enabled = true
   THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
+  if params["AutoClose"] == true then
+	cc = params["CanClick"]
+	TextButtons.BackgroundTransparency = 0.7
+	TextButtons.TextTransparency = 0.5
+	task.spawn(function()
+	for array = 1,params["Duration"] do
+		if params["CanClick"] == false then
+			TextButtons.Text = "OK (" .. array .. ")"
+		end
+	end
+	CloseWarnInterface()
+	end)
+  end
 end
 
 coroutine.wrap(
