@@ -173,12 +173,12 @@ function lib:WarnUser(title,params)
 	TextButtons.BackgroundTransparency = 0.7
 	TextButtons.TextTransparency = 0.5
 	task.spawn(function()
-	--for array = 1,params["Duration"] do
-	while falseclick > 0 do
+	for array = 1,params["Duration"] do
+	--while falseclick > 0 do
 		if params["CanClick"] == false then
-			TextButtons.Text = "OK (" .. falseclick .. "s)"
-			wait(1)
-			falseclick = falseclick - 1
+			TextButtons.Text = "OK (" .. array .. "s)"
+			--wait(1)
+			--falseclick = falseclick - 1
 		end
 	end
 	CloseWarnInterface()
@@ -883,7 +883,9 @@ function lib:Window(text, preset, closebind)
                         )
                     end
                     toggled = not toggled
-                    pcall(callback, toggled)
+			task.spawn(function()
+				pcall(callback,toggled)
+			end)
                 end
             )
 
@@ -1728,7 +1730,8 @@ function lib:Window(text, preset, closebind)
             Label.Text = ""
             Label.TextColor3 = Color3.fromRGB(0, 0, 0)
             Label.TextSize = 14.000
-
+	    Label.BackgroundTransparency = 1
+	
             LabelCorner.CornerRadius = UDim.new(0, 5)
             LabelCorner.Name = "ButtonCorner"
             LabelCorner.Parent = Label
@@ -1736,7 +1739,7 @@ function lib:Window(text, preset, closebind)
             LabelTitle.Name = "ButtonTitle"
             LabelTitle.Parent = Label
             LabelTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            LabelTitle.BackgroundTransparency = 1.000
+            LabelTitle.BackgroundTransparency = 1
             LabelTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
             LabelTitle.Size = UDim2.new(0,187,0,42)
             LabelTitle.Font = Enum.Font.Gotham
@@ -1745,8 +1748,9 @@ function lib:Window(text, preset, closebind)
             LabelTitle.TextSize = 14.000
             LabelTitle.TextXAlignment = Enum.TextXAlignment.Left
             LabelTitle.RichText = true
-			
             Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
+	    LabelTitle.Size = UDim2.new(0,187,0,LabelTitle.TextBounds.Y)
+            Label.Size = UDim2.new(0,363,0,LabelTitle.TextBounds.Y + 35)
 	    LabelTitle:GetPropertyChangedSignal("Text"):Connect(function()
 		LabelTitle.Size = UDim2.new(0,187,0,LabelTitle.TextBounds.Y)
                 Label.Size = UDim2.new(0,363,0,LabelTitle.TextBounds.Y + 35)
