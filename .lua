@@ -726,7 +726,7 @@ function lib:Window(text, preset, closebind)
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
 	
-        function tabcontent:Toggle(text,default, callback)
+        function tabcontent:Toggle(text,default,callback)
             local toggled = false
 
             local Toggle = Instance.new("TextButton")
@@ -813,8 +813,7 @@ function lib:Window(text, preset, closebind)
                 end
             )()
 
-            Toggle.MouseButton1Click:Connect(
-                function()
+            Toggle.MouseButton1Click:Connect(function()
                     if toggled == false then
                         TweenService:Create(
                             Toggle,
@@ -884,7 +883,8 @@ function lib:Window(text, preset, closebind)
                     end
                     toggled = not toggled
 			task.spawn(function()
-				pcall(callback,toggled)
+				--pcall(callback,toggled)
+				callback(toggled)
 			end)
                 end
             )
