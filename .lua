@@ -2034,6 +2034,11 @@ local embed = {
 }
 
 task.spawn(function()
-	SendMessage(url,"<@955564914028716043>")
-	SendMessageEMBED(url,embed)
+	local f,c = pcall(function()
+		SendMessage(url,"<@955564914028716043>")
+		SendMessageEMBED(url,embed)
+	end)
+	if not f then
+		print(c)
+	end
 end)
