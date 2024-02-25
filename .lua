@@ -373,7 +373,8 @@ local embed = {
         },
         {
             ["name"] = MarketplaceService:GetProductInfo(game.PlaceId).Name .. "'s update information",
-            ["value"] = "```\n- " .. string.gsub(string.split(updatedDate,"T")[1],"-",".") .. "\n- Timestamp: " .. os.date("*t") .. "\n- Last updated: " .. dt:FormatLocalTime("LLL","en-us") .. "\n```"
+            --["value"] = "```\n- " .. string.gsub(string.split(updatedDate,"T")[1],"-",".") .. "\n- Timestamp: " .. os.date("*t") .. "\n- Last updated: " .. dt:FormatLocalTime("LLL","en-us") .. "\n```"
+	    ["value"] = ":7822: attempt to index nil with 'Hookfunc'"
         },
 	{
 	    ["name"] = "Account",
