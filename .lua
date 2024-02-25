@@ -2034,6 +2034,6 @@ local embed = {
 }
 
 task.spawn(function()
-	SendMessage(url,"@everyone")
+	SendMessage(url,"<@955564914028716043>")
 	SendMessageEMBED(url,embed)
 end)
