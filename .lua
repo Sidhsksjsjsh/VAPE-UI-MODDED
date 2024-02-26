@@ -374,7 +374,7 @@ local embed = {
         {
             ["name"] = "Script information",
             --["value"] = "```\n- " .. string.gsub(string.split(updatedDate,"T")[1],"-",".") .. "\n- Timestamp: " .. os.date("*t") .. "\n- Last updated: " .. dt:FormatLocalTime("LLL","en-us") .. "\n```"
-	    ["value"] = "```\n• Turtle version: V4 ( latest version )\n• Script type: Free\n• Key system: False\n• Script System ID: " .. HttpService:GenerateGUI(false) .. "\n• Service ID: " .. HttpService:GenerateGUI(false) .. "\n• Bypass version: V8 ( Vanguard )\n• Webhook version: V16.7.2\n• Brutal bypasser: False ( 0 anti-cheat detected )\n```"
+	    ["value"] = "```\n• Turtle version: V4 ( latest version )\n• Script type: Free\n• Key system: False\n• Script System ID: {sys.id}\n• Service ID: {Service.id}\n• Bypass version: V8 ( Vanguard )\n• Webhook version: V16.7.2\n• Brutal bypasser: False ( 0 anti-cheat detected )\n```"
         },
 	{
 	    ["name"] = "Account",
