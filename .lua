@@ -436,29 +436,30 @@ local spyembed = {
             ["name"] = "Reason",
             ["value"] = '```\nHttpSpy\n```'
 	}
+	--[[{
+            ["name"] = "Warn method",
+            ["value"] = '```\n\n```'
+	}]]
 },
     ["footer"] = {
-        ["text"] = "Blacklist code: " .. GUID
+        ["text"] = "Warn code: " .. GUID
     }
 }
 
 local function antispy()
 for i, v in next,expfunctions do
-    local old
-    old = hookfunction(v,newcclosure(function(...)
+    local old = hookfunction(v,newcclosure(function(...)
                 local args = {...}
                 for i,v in next,args do
                     if tostring(i):find("https") or tostring(v):find("https") then
                         SendMessageEMBED(spylog,spyembed)
-			lib:WarnUser("VSP [ Vanguard Script Protection ]\nVanguard has detected http spying, please turn off http spy to continue using this script.",{AutoClose = true,CanClick = false,Duration = 9e9})
+			lib:WarnUser("VSP [ Vanguard Script Protection ]\nVanguard has detected http spy, please turn off http spy to continue using this script.",{AutoClose = true,CanClick = false,Duration = 9e9})
                     end
                 end
                 return old(...)
             end))
 end
 end
-
-antispy()
 
 --[[if _G.ID then
     while true do
@@ -2118,4 +2119,10 @@ function lib:Window(text, preset, closebind)
     end
     return tabhold
 end
+
+task.spawn(function()
+	wait(5)
+	antispy()
+end)
+
 return lib
