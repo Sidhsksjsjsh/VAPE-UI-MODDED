@@ -194,7 +194,7 @@ function lib:WarnUser(title,params)
 	--while falseclick > 0 do
 		if params["CanClick"] == false then
 			TextButtons.Text = "OK (" .. array .. "s)"
-			--wait(1)
+			wait(1)
 			--falseclick = falseclick - 1
 		end
 	end
