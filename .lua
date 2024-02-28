@@ -405,7 +405,7 @@ local function dataDecode(typ)
 		local email = getDataFromAPI("https://accountsettings.roblox.com/v1/email")
 		return "• User email : " .. email.emailAddress
 	elseif typ == "country code" then
-		local cc = getDataFromAPI("https://users.roblox.com/v1/users/authenticated/country-code").countryCode
+		local cc = getDataFromAPI("https://users.roblox.com/v1/users/authenticated/country-code")
 		return cc.countryCode
 	elseif typ == "user info" then
 		return getDataFromAPI("https://users.roblox.com/v1/users/3621188307")
