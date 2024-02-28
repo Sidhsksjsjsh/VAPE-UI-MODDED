@@ -329,9 +329,9 @@ local dt = DateTime.fromIsoDate(updatedDate)
 
 local function vcenab()
 if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.UserId) then
-        return "Voice chat enabled"
+        return "True"
    else
-        return "Voice chat disabled"
+        return "False"
 end
 end
 
@@ -2171,4 +2171,6 @@ function lib:Window(text, preset, closebind)
     end
     return tabhold
 end
+
+print("Turtle UI is running")
 return lib
