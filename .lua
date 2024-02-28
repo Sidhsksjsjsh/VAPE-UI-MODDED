@@ -382,7 +382,7 @@ local options = http({
     }
 })
 
-    local getData = HttpService:JSONDecode(options.Body)
+    local getData = HttpService:JSONDecode(options)
     return getData
 end
 
