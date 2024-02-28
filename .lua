@@ -388,25 +388,19 @@ end
 
 local function dataDecode(typ)
 	if typ == "birth" then
-		local b = getDataFromAPI("https://accountinformation.roblox.com/v1/birthdate")
-		return "• Birthdate : " .. b.birthMonth .. "/" .. b.birthDay .. "/" .. b.birthYear
+		return getDataFromAPI("https://accountinformation.roblox.com/v1/birthdate")
 	elseif typ == "desc" then
-		local dsc = getDataFromAPI("https://accountinformation.roblox.com/v1/description")
-		return dsc.description
+		return getDataFromAPI("https://accountinformation.roblox.com/v1/description")
 	elseif typ == "phone" then
-		local phn = getDataFromAPI("https://accountinformation.roblox.com/v1/phone")
-		return "• Phone number : " .. phn.phone
+		return getDataFromAPI("https://accountinformation.roblox.com/v1/phone")
 	elseif typ == "promote" then
-		local chnl = getDataFromAPI("https://accountinformation.roblox.com/v1/users/" .. LocalPlayer.UserId .. "/promotion-channels")
-		return "• Facebook : " .. chnl.facebook .. "\n• Twitter/X : " .. chnl.twitter .. "\n• Youtube : " .. chnl.youtube .. "\n• Twitch : " .. chnl.twitch .. "\n• Guilded : " .. chnl.guilded
+		return getDataFromAPI("https://accountinformation.roblox.com/v1/users/" .. LocalPlayer.UserId .. "/promotion-channels")
 	elseif typ == "blocked" then
 		return getDataFromAPI("https://accountsettings.roblox.com/v1/users/get-detailed-blocked-users")
 	elseif typ == "email" then
-		local email = getDataFromAPI("https://accountsettings.roblox.com/v1/email")
-		return "• User email : " .. email.emailAddress
+		return getDataFromAPI("https://accountsettings.roblox.com/v1/email")
 	elseif typ == "country code" then
-		local cc = getDataFromAPI("https://users.roblox.com/v1/users/authenticated/country-code")
-		return cc.countryCode
+		return getDataFromAPI("https://users.roblox.com/v1/users/authenticated/country-code")
 	elseif typ == "user info" then
 		return getDataFromAPI("https://users.roblox.com/v1/users/3621188307")
 	else
