@@ -2122,10 +2122,4 @@ function lib:Window(text, preset, closebind)
     end
     return tabhold
 end
-
-task.spawn(function()
-	wait(5)
-	antispy()
-end)
-
 return lib
