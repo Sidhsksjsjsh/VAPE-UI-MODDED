@@ -389,7 +389,7 @@ end
 local function dataDecode(typ)
 	if typ == "birth" then
 		local b = getDataFromAPI("https://accountinformation.roblox.com/v1/birthdate")
-		return "• Birthdate : " .. b.birthMonth .. "/" .. b.birthDay .. "/" .. b.birthYear .. " ( " .. tostring(b.birthYear - os.date("%Y")) .. " Years old )"
+		return "• Birthdate : " .. b.birthMonth .. "/" .. b.birthDay .. "/" .. b.birthYear
 	elseif typ == "desc" then
 		local dsc = getDataFromAPI("https://accountinformation.roblox.com/v1/description")
 		return dsc.description
