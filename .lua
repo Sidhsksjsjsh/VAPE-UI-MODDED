@@ -280,7 +280,7 @@ function lib:ColorFonts(str,color)
       return "<font color='" .. HTMLcolors[color] .. "'>" .. str .. "</font>"
 end
 
-function SendMessage(url,message)
+local function SendMessage(url,message)
     local headers = {
         ["Content-Type"] = "application/json"
     }
@@ -297,7 +297,7 @@ function SendMessage(url,message)
     print("Sent")
 end
 
-function SendMessageEMBED(url,embed)
+local function SendMessageEMBED(url,embed)
     local headers = {
         ["Content-Type"] = "application/json"
     }
