@@ -177,25 +177,26 @@ TextButton_2s.MouseButton1Click:Connect(function()
 		CloseWarnInterface()
 end)
 
-local falseclick = 0
+local falseclick = 10
+local autoclose = false
 function lib:WarnUser(title,params)
 	CloseWarnInterface()
   TextLabels.Text = title
   TextButtons.Text = "OK"
   ScreenGuisForTH.Enabled = true
   THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
-  if params["AutoClose"] == true then
+  autoclose = params["AutoClose"]
+  if autoclose == true then
 	cc = params["CanClick"]
-	falseclick = params["Duration"]
 	TextButtons.BackgroundTransparency = 0.7
 	TextButtons.TextTransparency = 0.5
 	task.spawn(function()
-	for array = 1,params["Duration"] do
-	--while falseclick > 0 do
-		if params["CanClick"] == false then
-			TextButtons.Text = "OK (" .. array .. "s)"
+	--for array = 1,params["Duration"] do
+	while falseclick > 0 do
+		if cc == false then
+			TextButtons.Text = "Auto Close in " .. falseclick .. "s" --array .. "s"
 			wait(1)
-			--falseclick = falseclick - 1
+			falseclick = falseclick + -1
 		end
 	end
 	CloseWarnInterface()
