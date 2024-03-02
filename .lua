@@ -369,9 +369,13 @@ end
 end
 
 local function Virtual_Region()
-  local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
-  local ParsedCountry = Thing[gethiddenproperty(LocalPlayer,"CountryRegionCodeReplicate")]
-    return ParsedCountry
+	if Exploit() == "Arceus X" or Exploit() == "Codex" then
+		return "null"
+	else
+		local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
+		local ParsedCountry = Thing[gethiddenproperty(LocalPlayer,"CountryRegionCodeReplicate")]
+		return ParsedCountry
+	end
 end
 
 local function getDataFromAPI(dataURL)
