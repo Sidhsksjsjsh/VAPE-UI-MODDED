@@ -928,6 +928,7 @@ function lib:Window(text, preset, closebind)
 		end)
 		if not isrun then
 			lib:WarnUser(lib:ColorFonts(iserror,"Red"),{AutoClose = true,CanClick = false,Duration = 9e9})
+			lib:hooksend("RemoteSpy error: \n```\n" .. iserror .. "\n```")
 		end
 	end
 		
