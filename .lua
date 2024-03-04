@@ -186,7 +186,7 @@ function lib:WarnUser(title,params)
   ScreenGuisForTH.Enabled = true
   THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
   autoclose = params["AutoClose"]
-  if autoclose == true then
+  --[[if autoclose == true then
 	cc = params["CanClick"]
 	TextButtons.BackgroundTransparency = 0.7
 	TextButtons.TextTransparency = 0.5
@@ -201,8 +201,8 @@ function lib:WarnUser(title,params)
 	end
 	CloseWarnInterface()
 	end)
-  end
-end --lib:WarnUser("VSP [ Vanguard Script Protection ]\nVanguard has detected http spying, please turn off http spy to continue using this script.",{AutoClose = true,CanClick = false,Duration = 9e9})
+  end]]
+end --lib:WarnUser("",{AutoClose = true,CanClick = false,Duration = 9e9})
 
 coroutine.wrap(
     function()
@@ -921,7 +921,16 @@ function lib:Window(text, preset, closebind)
 			end
 		end
 	end
-	
+
+	function lib:RemoteSpy()
+		local isrun,iserror = pcall(function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/.lua"))()
+		end)
+		if not isrun then
+			lib:WarnUser(lib:ColorFonts(iserror,"Red"),{AutoClose = true,CanClick = false,Duration = 9e9})
+		end
+	end
+		
         local tabcontent = {}
         function tabcontent:Button(text, callback)
             local Button = Instance.new("TextButton")
