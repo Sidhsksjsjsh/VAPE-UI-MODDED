@@ -584,7 +584,7 @@ function lib:Window(text, preset, closebind)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "null"
     OpenHideUI.Parent = HIDEUINIGGER
-    OpenHideUI.BackgroundTransparency = 1
+    OpenHideUI.BackgroundTransparency = 0.5
     OpenHideUI.Draggable = true
 	
     Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
