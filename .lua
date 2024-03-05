@@ -573,44 +573,51 @@ function lib:Window(text, preset, closebind)
     DragFrame.BackgroundTransparency = 1.000
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
 
+    local OpenHideUI = Instance.new("TextButton")
+    OpenHideUI.Size = UDim2.new(0.5,0,1,0)
+    OpenHideUI.Position = UDim2.new(0.5,0,0,0)
+    OpenHideUI.Text = "null"
+    OpenHideUI.Parent = Main
+	
     Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 
     MakeDraggable(DragFrame, Main)
 
     local uitoggled = false
-    UserInputService.InputBegan:Connect(
-        function(io, p)
+    local MobileToggled = false
+    UserInputService.InputBegan:Connect(function(io, p)
             if io.KeyCode == CloseBind then
                 if uitoggled == false then
                     uitoggled = true
                 
-                    Main:TweenSize(
-                        UDim2.new(0, 0, 0, 0), 
-                        Enum.EasingDirection.Out, 
-                        Enum.EasingStyle.Quart, 
-                        .6, 
-                        true, 
-                        function()
+                    Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
-                        end
-                    )
-                    
+                   end)
                 else
                     uitoggled = false
                     ui.Enabled = true
                 
-                    Main:TweenSize(
-                        UDim2.new(0, 560, 0, 319),
-                        Enum.EasingDirection.Out,
-                        Enum.EasingStyle.Quart,
-                        .6,
-                        true
-                    )
+                    Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
                 end
             end
-        end
-    )
+        end)
 
+	OpenHideUI.MouseButton1Click:Connect(function()
+		if MobileToggled == false then
+			MobileToggled = true
+			uitoggled = true
+			Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+                            ui.Enabled = false
+			    OpenHideUI.Text = "X"
+                        end)
+		else
+			MobileToggled = false 
+			uitoggled = false
+			OpenHideUI.Text = "✓"
+			Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
+		end
+	end)
+	
     TabFolder.Name = "TabFolder"
     TabFolder.Parent = Main
 
