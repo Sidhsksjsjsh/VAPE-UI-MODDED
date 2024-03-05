@@ -106,7 +106,7 @@ ScreenGuisForTH.Name = "Turtle UI Notify"
 
 THNFrame.Parent = ScreenGuisForTH
 THNFrame.BackgroundColor3 = Color3.fromRGB(19, 24, 52)
-THNFrame.Position = UDim2.new(0.5, 0, .5, 0)
+THNFrame.Position = UDim2.new(0.5,0,.5,0)
 THNFrame.Size = UDim2.new(.55,0,.6,0)
 THNFrame.AnchorPoint = Vector2.new(.5,.5)
 
