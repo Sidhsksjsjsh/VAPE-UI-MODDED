@@ -521,6 +521,12 @@ setmetatable(
 )
 ]]
 
+local HIDEUINIGGER = Instance.new("Frame")
+HIDEUINIGGER.Size = UDim2.new(0,200,0,150)
+HIDEUINIGGER.Position = UDim2.new(0.5,-100,0.5,-75)
+HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+HIDEUINIGGER.Parent = LocalPlayer["PlayerGui"]
+
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
@@ -577,7 +583,9 @@ function lib:Window(text, preset, closebind)
     OpenHideUI.Size = UDim2.new(0.5,0,1,0)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "null"
-    OpenHideUI.Parent = Main
+    OpenHideUI.Parent = HIDEUINIGGER
+    OpenHideUI.BackgroundTransparency = 1
+    OpenHideUI.Draggable = true
 	
     Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 
