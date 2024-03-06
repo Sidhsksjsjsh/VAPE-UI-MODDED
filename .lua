@@ -527,7 +527,7 @@ THHUI.Parent = game:GetService("CoreGui")
 THHUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local HIDEUINIGGER = Instance.new("Frame")
-HIDEUINIGGER.Size = UDim2.new(0.5,0,1,0) --UDim2.new(0,200,0,150)
+HIDEUINIGGER.Size = UDim2.new(0.5,0,0,0) --UDim2.new(0,200,0,150)
 HIDEUINIGGER.Position = UDim2.new(0.5,0,0,0) --UDim2.new(0.5,-100,0.5,-75)
 HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255,255,255)
 HIDEUINIGGER.Parent = THHUI
