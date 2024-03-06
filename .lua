@@ -531,6 +531,7 @@ HIDEUINIGGER.Size = UDim2.new(0,200,0,150)
 HIDEUINIGGER.Position = UDim2.new(0.5,-100,0.5,-75)
 HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 HIDEUINIGGER.Parent = THHUI
+HIDEUINIGGER.BackgroundTransparency = 1
 
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
@@ -587,7 +588,7 @@ function lib:Window(text, preset, closebind)
     local OpenHideUI = Instance.new("TextButton")
     OpenHideUI.Size = UDim2.new(0.5,0,1,0)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
-    OpenHideUI.Text = "null"
+    OpenHideUI.Text = "HIDE UI"
     OpenHideUI.Parent = HIDEUINIGGER
     OpenHideUI.BackgroundTransparency = 0
     OpenHideUI.Draggable = true
@@ -619,15 +620,19 @@ function lib:Window(text, preset, closebind)
 		if MobileToggled == false then
 			MobileToggled = true
 			uitoggled = true
+			OpenHideUI.Text = "SHOW UI"
 			Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
-			    OpenHideUI.Text = "X"
                         end)
 		else
 			MobileToggled = false 
 			uitoggled = false
-			OpenHideUI.Text = "✓"
+			ui.Enabled = true
+			OpenHideUI.Text = "HIDE UI"
 			Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
+			--[[Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+                            ui.Enabled = true
+                        end)]]
 		end
 	end)
 	
