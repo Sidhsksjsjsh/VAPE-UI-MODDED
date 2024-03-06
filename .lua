@@ -521,11 +521,16 @@ setmetatable(
 )
 ]]
 
+local THHUI = Instance.new("ScreenGui")
+THHUI.Name = "VIP TURTLE HUB HIDE UI"
+THHUI.Parent = game:GetService("CoreGui")
+THHUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
 local HIDEUINIGGER = Instance.new("Frame")
 HIDEUINIGGER.Size = UDim2.new(0,200,0,150)
 HIDEUINIGGER.Position = UDim2.new(0.5,-100,0.5,-75)
 HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-HIDEUINIGGER.Parent = LocalPlayer["PlayerGui"]
+HIDEUINIGGER.Parent = THHUI
 
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
@@ -584,7 +589,7 @@ function lib:Window(text, preset, closebind)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "null"
     OpenHideUI.Parent = HIDEUINIGGER
-    OpenHideUI.BackgroundTransparency = 0.5
+    OpenHideUI.BackgroundTransparency = 0
     OpenHideUI.Draggable = true
 	
     Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
