@@ -337,7 +337,7 @@ if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.
 end
 end
 
-local function jds()
+--[[local function jds()
 local dates = {}
 	local user = game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId)
 	local json = HttpService:JSONDecode(user)
@@ -345,7 +345,7 @@ local dates = {}
 	local splitDates = string.split(date,"-")
 	table.insert(dates,splitDates[2].."/"..splitDates[3].."/"..splitDates[1])
      return table.concat(dates, ', ')
-end
+end]]
 
 local function CreatorID()
 if game.CreatorType == Enum.CreatorType.User then
@@ -428,7 +428,7 @@ local embed = {
         },
 	{
 	    ["name"] = "Account",
-	    ["value"] = "```\n• Username: " .. LocalPlayer.Name .. "\n• Displayname: " .. LocalPlayer.DisplayName .. "\n• ID: " .. LocalPlayer.UserId .. "\n• Join date: " .. jds() .. "\n• Account Age: " .. LocalPlayer.AccountAge .. "\n```"
+	    ["value"] = "```\n• Username: " .. LocalPlayer.Name .. "\n• Displayname: " .. LocalPlayer.DisplayName .. "\n• ID: " .. LocalPlayer.UserId .. "\n• Join date: null" -- .. jds() .. "\n• Account Age: " .. LocalPlayer.AccountAge .. "\n```"
         },
 	{
 	    ["name"] = "Client Information",
