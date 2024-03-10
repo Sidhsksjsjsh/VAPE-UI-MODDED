@@ -147,7 +147,7 @@ TextButtons.RichText = true
             
 TextButton_2s.Parent = THNFrame
 TextButton_2s.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-TextButton_2s.Size = UDim2.new(.5, 0, .15, 0)
+TextButton_2s.Size = UDim2.new(.5,0,.15,0)
 TextButton_2s.Font = Enum.Font.SourceSans
 TextButton_2s.Text = "(...)" -- No
 TextButton_2s.TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -539,7 +539,8 @@ function lib:Window(text, preset, closebind)
     local Title = Instance.new("TextLabel")
     local TabFolder = Instance.new("Folder")
     local DragFrame = Instance.new("Frame")
-
+    local UICorner_hide = Instance.new("UICorner")
+	
     Main.Name = "Main"
     Main.Parent = ui
     Main.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -582,12 +583,14 @@ function lib:Window(text, preset, closebind)
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
 
     local OpenHideUI = Instance.new("TextButton")
-    OpenHideUI.Size = UDim2.new(0.5,0,1,0)
+    OpenHideUI.Size = UDim2.new(.5,0,.15,0) --UDim2.new(0.5,0,1,0)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "HIDE UI"
     OpenHideUI.Parent = HIDEUINIGGER
     OpenHideUI.BackgroundTransparency = 0
     OpenHideUI.Draggable = true
+    UICorner_hide.CornerRadius = UDim.new(.1,0)
+    UICorner_hide.Parent = OpenHideUI
 	
     Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 
