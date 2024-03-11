@@ -867,7 +867,7 @@ function lib:Window(text, preset, closebind)
         TabLayout.Parent = Tab
         TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
         TabLayout.Padding = UDim.new(0,6)
-	
+	Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y + 30)
 	TabLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 		Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y + 30)
 	end)
