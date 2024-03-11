@@ -651,6 +651,10 @@ function lib:Window(text, preset, closebind)
         PresetColor = toch
     end
 
+    function lib:notify(str,time)
+	Notif:NotifyUser(str,time)
+    end
+	
     function lib:Notification(texttitle, textdesc, textbtn)
         local NotificationHold = Instance.new("TextButton")
         local NotificationFrame = Instance.new("Frame")
