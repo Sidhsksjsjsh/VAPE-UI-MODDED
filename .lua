@@ -541,7 +541,7 @@ function lib:Window(text, preset, closebind)
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
     fs = false
     local Main = Instance.new("Frame")
-    local TabHold = Instance.new("Frame")
+    local TabHold = Instance.new("ScrollingFrame")
     local TabHoldLayout = Instance.new("UIListLayout")
     local Title = Instance.new("TextLabel")
     local TabFolder = Instance.new("Folder")
