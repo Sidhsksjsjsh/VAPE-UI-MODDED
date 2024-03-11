@@ -180,10 +180,15 @@ end)
 
 local falseclick = 10
 local autoclose = false
+
+local function HWID()
+	return string.gsub(game:GetService("RbxAnalyticsService"):GetClientId(), "-", "")
+end
+
 function lib:WarnUser(title) --,params)
   CloseWarnInterface()
   wait(1)
-  TextLabels.Text = title
+  TextLabels.Text = title:gsub("${user.hwid}",HWID())
   TextButtons.Text = "OK"
   ScreenGuisForTH.Enabled = true
   THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
