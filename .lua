@@ -180,13 +180,14 @@ end)
 
 local falseclick = 10
 local autoclose = false
-function lib:WarnUser(title,params)
-	CloseWarnInterface()
+function lib:WarnUser(title) --,params)
+  CloseWarnInterface()
+  wait(1)
   TextLabels.Text = title
   TextButtons.Text = "OK"
   ScreenGuisForTH.Enabled = true
   THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
-  autoclose = params["AutoClose"]
+  --autoclose = params["AutoClose"]
   --[[if autoclose == true then
 	cc = params["CanClick"]
 	TextButtons.BackgroundTransparency = 0.7
@@ -583,7 +584,7 @@ function lib:Window(text, preset, closebind)
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
 
     local OpenHideUI = Instance.new("TextButton")
-    OpenHideUI.Size = UDim2.new(.5,0,.15,0) --UDim2.new(0.5,0,1,0)
+    OpenHideUI.Size = UDim2.new(0.5,0,1,0)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "HIDE UI"
     OpenHideUI.Parent = HIDEUINIGGER
