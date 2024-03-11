@@ -13,6 +13,7 @@ local GroupService = game:GetService("GroupService")
 local workspace = game:GetService("Workspace")
 local GUID = HttpService:GenerateGUID(false)
 local LogService = game:GetService("LogService")
+local Notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/keysystemv2api/master/ui/notify_ui.lua"))()
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
