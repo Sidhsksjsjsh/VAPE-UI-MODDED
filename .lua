@@ -179,8 +179,8 @@ TextButton_2s.MouseButton1Click:Connect(function()
 		CloseWarnInterface()
 end)
 
-local falseclick = 10
-local autoclose = false
+--local falseclick = 10
+--local autoclose = false
 
 local function HWID()
 	return string.gsub(game:GetService("RbxAnalyticsService"):GetClientId(), "-", "")
@@ -489,7 +489,7 @@ local spyembed = {
     }
 }
 
-local function antispy()
+--[[local function antispy()
 for i, v in next,expfunctions do
     local old = hookfunction(v,newcclosure(function(...)
                 local args = {...}
@@ -507,7 +507,7 @@ for i, v in next,expfunctions do
 end
 end
 
---[[if _G.ID then
+if _G.ID then
     while true do
     end
 end
@@ -523,6 +523,16 @@ setmetatable(
     }
 )
 ]]
+
+local server = {
+	dc = true
+}
+
+local function dcfunc()
+	if server.dc == true then
+		lib:notify(lib:ColorFonts("You cant use this feature without Vanguard-Service ( error : allow_remote_execution )","Red"),20)
+	end
+end
 
 local THHUI = Instance.new("ScreenGui")
 THHUI.Name = "VIP TURTLE HUB HIDE UI"
@@ -1035,11 +1045,13 @@ function lib:Window(text, preset, closebind)
                 end
             )
 
-            Button.MouseButton1Click:Connect(
-                function()
-                    pcall(callback)
-                end
-            )
+            Button.MouseButton1Click:Connect(function()
+		if server.dc == true then
+			dcfunc()
+		else
+                        pcall(callback)
+		end
+            end)
 
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
@@ -1201,8 +1213,11 @@ function lib:Window(text, preset, closebind)
                     end
                     toggled = not toggled
 			task.spawn(function()
-				--pcall(callback,toggled)
-				callback(toggled)
+				if server.dc == true then
+					dcfunc()
+				else
+					callback(toggled)
+				end
 			end)
                 end
             )
