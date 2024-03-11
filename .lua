@@ -829,7 +829,7 @@ function lib:Window(text, preset, closebind)
 
         TabBtnIndicatorCorner.Name = "TabBtnIndicatorCorner"
         TabBtnIndicatorCorner.Parent = TabBtnIndicator
-
+        
         coroutine.wrap(
             function()
                 while wait() do
@@ -856,8 +856,12 @@ function lib:Window(text, preset, closebind)
         TabLayout.Name = "TabLayout"
         TabLayout.Parent = Tab
         TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        TabLayout.Padding = UDim.new(0, 6)
-
+        TabLayout.Padding = UDim.new(0,6)
+	
+	TabLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+		Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y + 30)
+	end)
+		
         if fs == false then
             fs = true
             TabBtnIndicator.Size = UDim2.new(0, 13, 0, 2)
