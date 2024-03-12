@@ -525,7 +525,7 @@ setmetatable(
 ]]
 
 local server = {
-	dc = true
+	dc = false
 }
 
 local function dcfunc()
