@@ -612,12 +612,20 @@ function lib:Window(text, preset, closebind)
     DragFrame.BackgroundTransparency = 1.000
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
 
+    local IMAGEHIDE = Instance.new("ImageLabel")
+    IMAGEHIDE.Size = UDim2.new(0.5,0,1,0)
+    IMAGEHIDE.Position = UDim2.new(0.5,0,0,0)
+    IMAGEHIDE.Image = "rbxassetid://13040482802"
+    IMAGEHIDE.Parent = HIDEUINIGGER
+    IMAGEHIDE.BackgroundTransparency = 1
+	
     local OpenHideUI = Instance.new("TextButton")
     OpenHideUI.Size = UDim2.new(0.5,0,1,0)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "HIDE UI"
-    OpenHideUI.Parent = HIDEUINIGGER
-    OpenHideUI.BackgroundTransparency = 0
+    OpenHideUI.Parent = IMAGEHIDE
+    OpenHideUI.BackgroundTransparency = 1
+    OpenHideUI.TextTransparency = 1
     OpenHideUI.Draggable = true
     UICorner_hide.CornerRadius = UDim.new(.1,0)
     UICorner_hide.Parent = OpenHideUI
