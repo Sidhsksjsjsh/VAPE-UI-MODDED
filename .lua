@@ -534,6 +534,14 @@ local function dcfunc()
 	end
 end
 
+local function rotate(arraynumber,funct)
+	task.spawn(function()
+		for array = 1,arraynumber do
+			funct(array)
+		end
+	end)
+end
+
 local THHUI = Instance.new("ScreenGui")
 THHUI.Name = "VIP TURTLE HUB HIDE UI"
 THHUI.Parent = game:GetService("CoreGui")
@@ -545,7 +553,8 @@ HIDEUINIGGER.Position = UDim2.new(0.5,0,0,0) --UDim2.new(0.5,-100,0.5,-75)
 HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255,255,255)
 HIDEUINIGGER.Parent = THHUI
 HIDEUINIGGER.BackgroundTransparency = 1
-
+--Title.Rotation = 90
+local rotation = 0
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
@@ -618,6 +627,7 @@ function lib:Window(text, preset, closebind)
     IMAGEHIDE.Image = "rbxassetid://13040482802"
     IMAGEHIDE.Parent = HIDEUINIGGER
     IMAGEHIDE.BackgroundTransparency = 1
+    rotation = IMAGEHIDE.Rotation
 	
     local OpenHideUI = Instance.new("TextButton")
     OpenHideUI.Size = UDim2.new(0.5,0,1,0)
@@ -661,15 +671,18 @@ function lib:Window(text, preset, closebind)
 			Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
                         end)
+			rotate(rotation,function(mathematics)
+				IMAGEHIDE.Rotation = -mathematics
+			end)
 		else
 			MobileToggled = false 
 			uitoggled = false
 			ui.Enabled = true
 			OpenHideUI.Text = "HIDE UI"
 			Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
-			--[[Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
-                            ui.Enabled = true
-                        end)]]
+			rotate(rotation,function(mathematics)
+				IMAGEHIDE.Rotation = mathematics
+			end)
 		end
 	end)
 	
