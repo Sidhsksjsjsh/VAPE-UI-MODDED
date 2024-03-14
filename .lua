@@ -1077,6 +1077,7 @@ function lib:Window(text, preset, closebind)
 	
         function tabcontent:Toggle(text,default,callback)
             local toggled = false
+	    local asslabel = {}
 
             local Toggle = Instance.new("TextButton")
             local ToggleCorner = Instance.new("UICorner")
@@ -1277,7 +1278,12 @@ function lib:Window(text, preset, closebind)
                 toggled = not toggled
             end
 
-            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+		function asslabel:EditText(str)
+			ToggleTitle.Text = str
+		end
+
+            Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
+	    return asslabel
         end
 		
         function tabcontent:Slider(text, min, max, start, callback)
