@@ -542,6 +542,14 @@ local function rotate(arraynumber,funct)
 	end)
 end
 
+function lib:runtime(funct)
+	task.spawn(function()
+		while wait() do
+			funct()
+		end
+	end)
+end
+
 local THHUI = Instance.new("ScreenGui")
 THHUI.Name = "VIP TURTLE HUB HIDE UI"
 THHUI.Parent = game:GetService("CoreGui")
