@@ -585,12 +585,6 @@ function lib:Window(text, preset, closebind)
     Main.ClipsDescendants = true
     Main.Visible = true
 
-    --[[TabHold.Name = "TabHold"
-    TabHold.Parent = Main
-    TabHold.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TabHold.BackgroundTransparency = 1.000
-    TabHold.Position = UDim2.new(0.0339285731,0,0.147335425,0)
-    TabHold.Size = UDim2.new(0, 107, 0, 254)]]
     TabHold.Name = "TabHold"
     TabHold.Parent = Main
     TabHold.Active = true
