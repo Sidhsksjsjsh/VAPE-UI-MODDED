@@ -628,22 +628,14 @@ function lib:Window(text, preset, closebind)
     DragFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     DragFrame.BackgroundTransparency = 1.000
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
-
-    local IMAGEHIDE = Instance.new("ImageLabel")
-    IMAGEHIDE.Size = UDim2.new(0.5,0,1,0)
-    IMAGEHIDE.Position = UDim2.new(0.5,0,0,0)
-    IMAGEHIDE.Image = "rbxassetid://13040482802"
-    IMAGEHIDE.Parent = HIDEUINIGGER
-    IMAGEHIDE.BackgroundTransparency = 1
-    rotation = IMAGEHIDE.Rotation
 	
     local OpenHideUI = Instance.new("TextButton")
     OpenHideUI.Size = UDim2.new(0.5,0,1,0)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "HIDE UI"
-    OpenHideUI.Parent = IMAGEHIDE
+    OpenHideUI.Parent = HIDEUINIGGER
     OpenHideUI.BackgroundTransparency = 1
-    OpenHideUI.TextTransparency = 1
+    OpenHideUI.TextTransparency = 0
     OpenHideUI.Draggable = true
     UICorner_hide.CornerRadius = UDim.new(.1,0)
     UICorner_hide.Parent = OpenHideUI
@@ -679,18 +671,12 @@ function lib:Window(text, preset, closebind)
 			Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
                         end)
-			rotate(rotation,function(mathematics)
-				IMAGEHIDE.Rotation = -mathematics
-			end)
 		else
 			MobileToggled = false 
 			uitoggled = false
 			ui.Enabled = true
 			OpenHideUI.Text = "HIDE UI"
 			Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
-			rotate(rotation,function(mathematics)
-				IMAGEHIDE.Rotation = mathematics
-			end)
 		end
 	end)
 	
