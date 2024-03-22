@@ -1403,7 +1403,8 @@ function lib:Window(text, preset, closebind)
             local droptog = false
             local framesize = 0
             local itemcount = 0
-
+            local ahhts = {}
+			
             local Dropdown = Instance.new("Frame")
             local DropdownCorner = Instance.new("UICorner")
             local DropdownBtn = Instance.new("TextButton")
@@ -1575,7 +1576,13 @@ function lib:Window(text, preset, closebind)
 
                 DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
             end
+
+		function ahhts:EditText(str)
+			DropdownTitle.Text = str
+		end
+			
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+		return ahhts
         end
         function tabcontent:Colorpicker(text, preset, callback)
             local ColorPickerToggled = false
