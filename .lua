@@ -2258,5 +2258,9 @@ function lib:Window(text, preset, closebind)
     return tabhold
 end
 
+LocalPlayer.Idled:connect(function()
+	lib:notify("User is afk... manipulating server detection",10)
+end)
+
 print("Turtle UI is running")
 return lib
