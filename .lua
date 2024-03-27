@@ -14,6 +14,7 @@ local workspace = game:GetService("Workspace")
 local GUID = HttpService:GenerateGUID(false)
 local LogService = game:GetService("LogService")
 local Notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/keysystemv2api/master/ui/notify_ui.lua"))()
+local VirtualUser = game:GetService("VirtualUser")
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -1270,6 +1271,25 @@ function lib:Window(text, preset, closebind)
 			ToggleTitle.Text = str
 		end
 
+		function asslabel:Set(str)
+			if str == false then
+				TweenService:Create(Toggle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
+                                 TweenService:Create(FrameToggle1,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                                 TweenService:Create(FrameToggle2,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                                 TweenService:Create(FrameToggle3,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+                                 TweenService:Create(FrameToggleCircle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+                                 FrameToggleCircle:TweenPosition(UDim2.new(0.587,0,0.222000003,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
+			else
+                                 TweenService:Create(Toggle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(34, 34, 34)}):Play()
+                                 TweenService:Create(FrameToggle1,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+                                 TweenService:Create(FrameToggle2,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+                                 TweenService:Create(FrameToggle3,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                                 TweenService:Create(FrameToggleCircle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(50, 50, 50)}):Play()
+                                 FrameToggleCircle:TweenPosition(UDim2.new(0.127000004,0,0.222000003,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
+			end
+			callback(str)
+		end
+			
             Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
 	    return asslabel
         end
@@ -2260,6 +2280,9 @@ end
 
 LocalPlayer.Idled:connect(function()
 	lib:notify("User is afk... manipulating server detection",10)
+	VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	wait(1)
+	VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
 
 print("Turtle UI is running")
