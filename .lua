@@ -583,7 +583,12 @@ local emoji = ({
 	["01 10"] = lib:ColorFonts("🎂 ASYA'S BIRTHDAY 🎂","Pink"),
 	["05 05"] = lib:ColorFonts("🎂 AKBAR'S BIRTHDAY 🎂","Green"),
 	["04 12"] = lib:ColorFonts("🎉 TURTLE HUB ANNIVERSARY 🎉","Sky Blue"),
-	["04 15"] = lib:ColorFonts("🎉 VANGUARD ANNIVERSARY 🎉","Red")
+	["04 15"] = lib:ColorFonts("🎉 VANGUARD ANNIVERSARY 🎉","Red"),
+	["02 14"] = lib:ColorFonts("💕 VALENTINE'S DAY 💕","Pink"),
+	["03 08"] = lib:ColorFonts("👸🏻 INTERNATIONAL WOMEN'S DAY 👸🏻","Pink"),
+	["04 01"] = lib:ColorFonts("❌ LAST UPDATE ❌","Red"),
+	["05 01"] = lib:ColorFonts("🔪 INTERNATIONAL LABOR DAY 🔪","Red"),
+	["08 17"] = lib:ColorFonts("🇮🇩 INDONESIA'S INDEPENDENCE DAY 🇮🇩","Pink")
 })[os.date("%m %d")] --Light Green
 
 local THHUI = Instance.new("ScreenGui")
