@@ -2167,6 +2167,7 @@ function lib:Window(text, preset, closebind)
 	    LabelTitle:GetPropertyChangedSignal("Text"):Connect(function()
 		LabelTitle.Size = UDim2.new(0,187,0,LabelTitle.TextBounds.Y)
                 Label.Size = UDim2.new(0,363,0,LabelTitle.TextBounds.Y + 35)
+		Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
 	    end)
 			
 	 function lbl:EditLabel(str)
