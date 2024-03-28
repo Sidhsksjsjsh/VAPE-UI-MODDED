@@ -551,6 +551,41 @@ function lib:runtime(funct)
 	end)
 end
 
+function lib:notify(str,time)
+	Notif:NotifyUser(str,time)
+end
+
+local emoji = ({
+	["01 01"] = lib:ColorFonts("🎆 NEW YEAR 🎆","Bright Blue"),
+	[(function(Year)
+		local A = math.floor(Year/100)
+		local B = math.floor((13+8*A)/25)
+		local C = (15-B+A-math.floor(A/4))%30
+		local D = (4+A-math.floor(A/4))%7
+		local E = (19*(Year%19)+C)%30
+		local F = (2*(Year%4)+4*(Year%7)+6*E+D)%7
+		local G = (22+E+F)
+		if E == 29 and F == 6 then
+			return "04 19"
+		elseif E == 28 and F == 6 then
+			return "04 18"
+		elseif 31 < G then
+			return ("04 %02d"):format(G-31)
+		end
+		return ("03 %02d"):format(G)
+	end)(tonumber(os.date("%Y")))] = lib:ColorFonts("🥚 EASTER 🥚","Sky Blue"),
+	["10 31"] = lib:ColorFonts("🎃 HALLOWEEN 🎃","Gold"),
+	["12 25"] = lib:ColorFonts("🎄 CHRISTMAS 🎄","Green"),
+	["04 10"] = lib:ColorFonts("EID UL FITRI","Light Green"),
+	["04 11"] = lib:ColorFonts("EID UL FITRI","Light Green"),
+	["03 29"] = lib:ColorFonts("💞🎂 FAHRI'S GF'S BIRTHDAY 🎂💞","Pink"),
+	["01 29"] = lib:ColorFonts("🎂 FAHRI'S BIRTHDAY 🎂","Yellow"),
+	["01 10"] = lib:ColorFonts("🎂 ASYA'S BIRTHDAY 🎂","Pink"),
+	["05 05"] = lib:ColorFonts("🎂 AKBAR'S BIRTHDAY 🎂","Green"),
+	["04 12"] = lib:ColorFonts("🎉 TURTLE HUB ANNIVERSARY 🎉","Sky Blue"),
+	["04 15"] = lib:ColorFonts("🎉 VANGUARD ANNIVERSARY 🎉","Red")
+})[os.date("%m %d")] --Light Green
+
 local THHUI = Instance.new("ScreenGui")
 THHUI.Name = "VIP TURTLE HUB HIDE UI"
 THHUI.Parent = game:GetService("CoreGui")
@@ -617,6 +652,10 @@ function lib:Window(text, preset, closebind)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
     Title.RichText = true
+    if emoji then
+	Title.Text = ("%s | %s"):format(Title.Text,emoji)
+	lib:notify("Current event : " .. emoji,10)
+    end
 	
     DragFrame.Name = "DragFrame"
     DragFrame.Parent = Main
@@ -680,10 +719,6 @@ function lib:Window(text, preset, closebind)
 
     function lib:ChangePresetColor(toch)
         PresetColor = toch
-    end
-
-    function lib:notify(str,time)
-	Notif:NotifyUser(str,time)
     end
 	
     function lib:Notification(texttitle, textdesc, textbtn)
