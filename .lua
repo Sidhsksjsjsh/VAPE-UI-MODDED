@@ -588,7 +588,7 @@ local emoji = ({
 	["03 08"] = lib:ColorFonts("👸🏻 INTERNATIONAL WOMEN'S DAY 👸🏻","Pink"),
 	["04 01"] = lib:ColorFonts("❌ LAST UPDATE ❌","Red"),
 	["05 01"] = lib:ColorFonts("🔪 INTERNATIONAL LABOR DAY 🔪","Red"),
-	["08 17"] = lib:ColorFonts("🇮🇩 INDONESIA'S INDEPENDENCE DAY 🇮🇩","Pink")
+	["08 17"] = lib:ColorFonts("🇮🇩 INDONESIA'S INDEPENDENCE DAY 🇮🇩","Red")
 })[os.date("%m %d")] --Light Green
 
 local THHUI = Instance.new("ScreenGui")
@@ -652,13 +652,13 @@ function lib:Window(text, preset, closebind)
     Title.Position = UDim2.new(0.0339285731, 0, 0.0564263314, 0)
     Title.Size = UDim2.new(0, 200, 0, 23)
     Title.Font = Enum.Font.GothamSemibold
-    Title.Text = text
+    Title.Text = lib:ColorFonts(text,"White")
     Title.TextColor3 = Color3.fromRGB(68, 68, 68)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
     Title.RichText = true
     if emoji then
-	Title.Text = ("%s | %s"):format(Title.Text,emoji)
+	Title.Text = ("%s | %s"):format(Title.Text:sub(1,17),emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
     end
 	
