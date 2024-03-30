@@ -26,7 +26,8 @@ local HTMLcolors = {
     ["Dark Red"] = "rgb(139, 0, 0)",
     ["Dark Green"] = "rgb(0, 100, 0)",
     ["Dark Blue"] = "rgb(0, 0, 139)",
-    ["Gray"] = "rgb(128, 128, 128)",
+    ["Gray"] = "rgb(128,128,128)",
+    ["G2"] = "rgb(68,68,68)",
     ["Dark Purple"] = "rgb(128, 0, 128)",
     ["Dark Brown"] = "rgb(101, 67, 33)",
     ["Dark Purple"] = "rgb(128, 0, 128)",
@@ -652,13 +653,13 @@ function lib:Window(text, preset, closebind)
     Title.Position = UDim2.new(0.0339285731, 0, 0.0564263314, 0)
     Title.Size = UDim2.new(0, 200, 0, 23)
     Title.Font = Enum.Font.GothamSemibold
-    Title.Text = lib:ColorFonts(text,"White")
-    Title.TextColor3 = Color3.fromRGB(68, 68, 68)
+    Title.Text = text:gsub("VIP Turtle Hub V4",lib:ColorFonts("VIP Turtle Hub V4","White")):gsub(text:sub(18,#text),"")
+    Title.TextColor3 = Color3.fromRGB(68,68,68)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
     Title.RichText = true
     if emoji then
-	Title.Text = ("%s | %s"):format(Title.Text:sub(1,17),emoji) -- VIP Turtle Hub V4 (17)
+	Title.Text = ("%s | %s"):format(Title.Text,emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
     end
 	
