@@ -287,8 +287,22 @@ local function MakeDraggable(topbarobject, object)
     )
 end
 
+function lib:notify(str,time)
+	Notif:NotifyUser(str,time)
+end
+
 function lib:ColorFonts(str,color)
       return "<font color='" .. HTMLcolors[color] .. "'>" .. str .. "</font>"
+end
+
+function lib:TeleportMethod(mthd,str)
+	if mthd == "tween" then
+		TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str}):Play()
+	elseif mthd == "tp" then
+		LocalPlayer.Character.HumanoidRootPart.CFrame = str
+	else
+		lib:notify("Teleport method is invalid, try select another method",10)
+	end
 end
 
 local function SendMessage(url,message)
@@ -550,10 +564,6 @@ function lib:runtime(funct)
 			funct()
 		end
 	end)
-end
-
-function lib:notify(str,time)
-	Notif:NotifyUser(str,time)
 end
 
 local emoji = ({
