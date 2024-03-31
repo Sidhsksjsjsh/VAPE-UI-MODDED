@@ -584,7 +584,7 @@ local emoji = ({
 			return ("04 %02d"):format(G-31)
 		end
 		return ("03 %02d"):format(G)
-	end)(tonumber(os.date("%Y")))] = lib:ColorFonts("🥚 EASTER 🥚","Sky Blue"),
+	end)(tonumber(os.date("%Y")))] = lib:ColorFonts("🐰🥚 EASTER 🥚🐰","Sky Blue"),
 	["10 31"] = lib:ColorFonts("🎃 HALLOWEEN 🎃","Gold"),
 	["12 25"] = lib:ColorFonts("🎄 CHRISTMAS 🎄","Green"),
 	["04 10"] = lib:ColorFonts("EID UL FITRI","Light Green"),
@@ -612,7 +612,7 @@ HIDEUINIGGER.Size = UDim2.new(0.5,0,0.1,0) --UDim2.new(0,200,0,150)
 HIDEUINIGGER.Position = UDim2.new(0.5,0,0,0) --UDim2.new(0.5,-100,0.5,-75)
 HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255,255,255)
 HIDEUINIGGER.Parent = THHUI
-HIDEUINIGGER.BackgroundTransparency = 1
+HIDEUINIGGER.BackgroundTransparency = 0.7
 --Title.Rotation = 90
 local rotation = 0
 function lib:Window(text, preset, closebind)
@@ -684,7 +684,7 @@ function lib:Window(text, preset, closebind)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "HIDE UI"
     OpenHideUI.Parent = HIDEUINIGGER
-    OpenHideUI.BackgroundTransparency = 1
+    OpenHideUI.BackgroundTransparency = 0.7
     OpenHideUI.TextTransparency = 0
     OpenHideUI.Draggable = true
     UICorner_hide.CornerRadius = UDim.new(.1,0)
