@@ -613,7 +613,7 @@ HIDEUINIGGER.Size = UDim2.new(0.5,0,0.1,0) --UDim2.new(0,200,0,150)
 HIDEUINIGGER.Position = UDim2.new(0.5,0,0,0) --UDim2.new(0.5,-100,0.5,-75)
 HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255,255,255)
 HIDEUINIGGER.Parent = THHUI
-HIDEUINIGGER.BackgroundTransparency = 0.7
+HIDEUINIGGER.BackgroundTransparency = 1
 --Title.Rotation = 90
 local rotation = 0
 
@@ -747,7 +747,6 @@ function lib:Window(text, preset, closebind)
     UICorner_hide.CornerRadius = UDim.new(.1,0)
     UICorner_hide.Parent = OpenHideUI
     lib:runtime(function()
-		HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
 		OpenHideUI.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
     end)
 	
