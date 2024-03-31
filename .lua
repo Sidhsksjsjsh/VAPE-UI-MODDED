@@ -689,6 +689,10 @@ function lib:Window(text, preset, closebind)
     OpenHideUI.Draggable = true
     UICorner_hide.CornerRadius = UDim.new(.1,0)
     UICorner_hide.Parent = OpenHideUI
+    lib:runtime(function()
+		HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
+		OpenHideUI.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
+    end)
 	
     Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 
@@ -700,14 +704,14 @@ function lib:Window(text, preset, closebind)
             if io.KeyCode == CloseBind then
                 if uitoggled == false then
                     uitoggled = true
-                
+                    OpenHideUI.Text = "SHOW UI"
                     Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
                    end)
                 else
                     uitoggled = false
                     ui.Enabled = true
-                
+                    OpenHideUI.Text = "HIDE UI"
                     Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
                 end
             end
