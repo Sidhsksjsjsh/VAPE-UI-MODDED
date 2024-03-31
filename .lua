@@ -616,6 +616,62 @@ HIDEUINIGGER.Parent = THHUI
 HIDEUINIGGER.BackgroundTransparency = 0.7
 --Title.Rotation = 90
 local rotation = 0
+
+function lib:HookFunction(func)
+        local mt = getrawmetatable(game);
+        setreadonly(mt,false)
+        local namecall = mt.__namecall
+
+        mt.__namecall = newcclosure(function(self, ...)
+	        local Method = getnamecallmethod()
+	        local Args = {...}
+                func(Method,self.Name,Args)
+	        return namecall(self, ...) 
+        end)
+end
+
+function lib:HookCalled(func)
+	local gmt = getrawmetatable(game)
+        setreadonly(gmt, false)
+        local oldNamecall = gmt.__namecall
+        gmt.__namecall = newcclosure(function(self, ...)
+                local Args = {...}
+                local method = getnamecallmethod()
+		if method == "FireServer" then
+			func(self,Args)
+		elseif method == "InvokeServer" then
+			func(self,Args)
+		end
+        return oldNamecall(self, ...)
+        end)
+end
+		
+function lib:AddTable(gameservice,tbl)
+	for i,v in pairs(gameservice:GetChildren()) do
+		table.insert(tbl,v.Name)
+	end
+end
+
+function lib:FireTouch(gameservice)
+	for i,v in pairs(gameservice:GetDescendants()) do
+		if v:IsA("TouchInterest") or v:IsA("TouchTransmitter") then
+			firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
+			wait()
+			firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,1)
+		end
+	end
+end
+
+function lib:RemoteSpy()
+	local isrun,iserror = pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/.lua"))()
+	end)
+	if not isrun then
+		lib:WarnUser(lib:ColorFonts(iserror,"Red"),{AutoClose = true,CanClick = false,Duration = 9e9})
+		lib:hooksend("RemoteSpy error: \n```\n" .. iserror .. "\n```")
+	end
+end
+
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
@@ -1001,60 +1057,7 @@ function lib:Window(text, preset, closebind)
             end
         )
 
-        function lib:HookFunction(func)
-            local mt = getrawmetatable(game);
-            setreadonly(mt,false)
-            local namecall = mt.__namecall
-
-            mt.__namecall = newcclosure(function(self, ...)
-	             local Method = getnamecallmethod()
-	             local Args = {...}
-                 func(Method,self.Name,Args)
-	          return namecall(self, ...) 
-            end)
-        end
-
-	function lib:HookCalled(func)
-		local gmt = getrawmetatable(game)
-                setreadonly(gmt, false)
-                local oldNamecall = gmt.__namecall
-                gmt.__namecall = newcclosure(function(self, ...)
-                       local Args = {...}
-                       local method = getnamecallmethod()
-		       if method == "FireServer" then
-				func(self,Args)
-		       elseif method == "InvokeServer" then
-				func(self,Args)
-		       end
-                return oldNamecall(self, ...)
-            end)
-	end
-		
-	function lib:AddTable(gameservice,tbl)
-		for i,v in pairs(gameservice:GetChildren()) do
-			table.insert(tbl,v.Name)
-		end
-	end
-
-	function lib:FireTouch(gameservice)
-		for i,v in pairs(gameservice:GetDescendants()) do
-			if v:IsA("TouchInterest") or v:IsA("TouchTransmitter") then
-				firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
-				wait()
-				firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,1)
-			end
-		end
-	end
-
-	function lib:RemoteSpy()
-		local isrun,iserror = pcall(function()
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/.lua"))()
-		end)
-		if not isrun then
-			lib:WarnUser(lib:ColorFonts(iserror,"Red"),{AutoClose = true,CanClick = false,Duration = 9e9})
-			lib:hooksend("RemoteSpy error: \n```\n" .. iserror .. "\n```")
-		end
-	end
+        
 		
         local tabcontent = {}
         function tabcontent:Button(text, callback)
