@@ -653,6 +653,28 @@ function lib:AddTable(gameservice,tbl)
 	end
 end
 
+function lib:ErrorReader(func)
+	local shit,dick = pcall(function()
+		func()
+	end)
+	if not shit then
+		lib:notify(lib:ColorFonts(dick,"Red"),10)
+	end
+end
+
+function lib:SpyFunction(funct)
+	lib:ErrorReader(function()
+		local env = getfenv(1)
+		local mt = getmetatable(env) or {}
+		mt.__index = function(tbl,key,...)
+			local args = {...}
+			funct("Called function : " .. key .. "\nArguments: " .. table.concat(args,", ") .. "\nNumber of arguments : " .. select("#",...) .. "\nCalled from : " .. debug.traceback())
+		return rawget(tbl,key)
+		end
+		setmetatable(env,mt)
+	end)
+end
+
 function lib:synapse(bool)
 	Exploit:ShowThird(bool)
 end
