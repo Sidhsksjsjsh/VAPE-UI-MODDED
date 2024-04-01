@@ -2359,6 +2359,7 @@ LocalPlayer.Idled:connect(function()
 	lib:runtime(function()
 		if isafk.bool == false then break end
 			TextLabels.Text = ("User is afk, manipulating server detection.\n[ %s Day, %s Hour, %s Minute, %s Second ]"):format(isafk.d,isafk.h,isafk.m,isafk.s)
+			wait(1)
 			isafk.s = isafk.s + 1
 			if isafk.s < 59 then
 				isafk.m = isafk.m + 1
