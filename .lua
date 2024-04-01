@@ -16,6 +16,7 @@ local LogService = game:GetService("LogService")
 local Notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/keysystemv2api/master/ui/notify_ui.lua"))()
 local VirtualUser = game:GetService("VirtualUser")
 local workspace = game:GetService("Workspace")
+local Exploit = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VortexExecutor/main/Clone.lua"))()
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -650,6 +651,10 @@ function lib:AddTable(gameservice,tbl)
 	for i,v in pairs(gameservice:GetChildren()) do
 		table.insert(tbl,v.Name)
 	end
+end
+
+function lib:synapse(bool)
+	Exploit:ShowThird(bool)
 end
 
 function lib:FireTouch(gameservice)
