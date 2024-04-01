@@ -2337,11 +2337,38 @@ function lib:Window(text, preset, closebind)
     return tabhold
 end
 
+local isafk = {
+	s = 0,
+	m = 0,
+	h = 0,
+	d = 0
+	bool = false
+}
 LocalPlayer.Idled:connect(function()
-	lib:notify("User is afk... manipulating server detection",10)
+	--[[lib:notify("User is afk... manipulating server detection",10)
 	VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 	wait(1)
-	VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)]]
+	TextLabels.Text = "User is afk, manipulating server detection."
+	TextButtons.Text = "( Auto Close )"
+	ScreenGuisForTH.Enabled = true
+	isafk.bool = true
+	THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
+	lib:runtime(function()
+		if isafk.bool == false then break end
+			TextLabels.Text = ("User is afk, manipulating server detection.\n[ %s Day, %s Hour, %s Minute, %s Second ]"):format(isafk.d,isafk.h,isafk.m,isafk.s)
+			isafk.s = isafk.s + 1
+			if isafk.s < 59 then
+				isafk.m = isafk.m + 1
+				isafk.s = 0
+			elseif isafk.m < 59 then
+				isafk.h = isafk.h + 1
+				isafk.m = 0
+			elseif isafk.h < 23 then
+				isafk.d = isafk.d + 1
+				isafk.h = 0
+			end
+	end)
 end)
 
 print("Turtle UI is running")
