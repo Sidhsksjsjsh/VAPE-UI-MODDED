@@ -2351,6 +2351,8 @@ LocalPlayer.Idled:connect(function()
 	VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)]]
 	TextLabels.Text = "User is afk, manipulating server detection."
 	TextButtons.Text = "( Auto Close )"
+	TextButtons.BackgroundTransparency = 0.7
+	TextButtons.TextTransparency = 0.5
 	ScreenGuisForTH.Enabled = true
 	isafk.bool = true
 	THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
@@ -2369,6 +2371,17 @@ LocalPlayer.Idled:connect(function()
 				isafk.h = 0
 			end
 	end)
+end)
+
+UserInputService.InputBegan:Connect(function(input)
+	if isafk.bool == true then
+		CloseWarnInterface()
+		TextButtons.BackgroundTransparency = 0
+		TextButtons.TextTransparency = 0
+		isafk.bool = false
+		TextButtons.Text = "OK"
+		lib:notify("User is back... canceling the manipulation.",10)
+	end
 end)
 
 print("Turtle UI is running")
