@@ -2344,44 +2344,23 @@ local isafk = {
 	d = 0,
 	bool = false
 }
+
 LocalPlayer.Idled:connect(function()
-	--[[lib:notify("User is afk... manipulating server detection",10)
-	VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-	wait(1)
-	VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)]]
-	TextLabels.Text = "User is afk, manipulating server detection."
-	TextButtons.Text = "( Auto Close )"
-	TextButtons.BackgroundTransparency = 0.7
-	TextButtons.TextTransparency = 0.5
-	ScreenGuisForTH.Enabled = true
-	isafk.bool = true
-	THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
-	lib:runtime(function()
-		if isafk.bool == false then break end
-			TextLabels.Text = ("User is afk, manipulating server detection.\n[ %s Day, %s Hour, %s Minute, %s Second ]"):format(isafk.d,isafk.h,isafk.m,isafk.s)
-			wait(1)
-			isafk.s = isafk.s + 1
-			if isafk.s < 59 then
-				isafk.m = isafk.m + 1
-				isafk.s = 0
-			elseif isafk.m < 59 then
-				isafk.h = isafk.h + 1
-				isafk.m = 0
-			elseif isafk.h < 23 then
-				isafk.d = isafk.d + 1
-				isafk.h = 0
-			end
-	end)
+	if isafk.bool == false then
+		lib:WarnUser("User is afk... manipulating server detection")
+		isafk.bool = true
+		VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+		wait(1)
+		VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	end
 end)
 
 UserInputService.InputBegan:Connect(function(input)
 	if isafk.bool == true then
-		CloseWarnInterface()
-		TextButtons.BackgroundTransparency = 0
-		TextButtons.TextTransparency = 0
 		isafk.bool = false
-		TextButtons.Text = "OK"
-		lib:notify("User is back... canceling the manipulation.",10)
+		lib:WarnUser("User is back... canceling the manipulation.")
+		wait(3)
+		CloseWarnInterface()
 	end
 end)
 
