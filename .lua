@@ -2341,7 +2341,7 @@ local isafk = {
 	s = 0,
 	m = 0,
 	h = 0,
-	d = 0
+	d = 0,
 	bool = false
 }
 LocalPlayer.Idled:connect(function()
