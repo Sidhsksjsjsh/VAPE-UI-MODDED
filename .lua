@@ -544,7 +544,7 @@ setmetatable(
 
 local server = {
 	dc = false,
-	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard メ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis"}
+	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard メ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis","rgb bar mean that feature is special"}
 } -- server.quote
 
 local function dcfunc()
@@ -695,7 +695,7 @@ function lib:RemoteSpy()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/.lua"))()
 	end)
 	if not isrun then
-		lib:WarnUser(lib:ColorFonts(iserror,"Red"),{AutoClose = true,CanClick = false,Duration = 9e9})
+		lib:WarnUser(lib:ColorFonts(iserror,"Red"))
 		lib:hooksend("RemoteSpy error: \n```\n" .. iserror .. "\n```")
 	end
 end
@@ -758,7 +758,7 @@ function lib:Window(text, preset, closebind)
 	lib:notify("Current event : " .. emoji,10)
     else
 	--server.quote
-	Title.Text = ("%s | %s"):format(Title.Text,lib:ColorFonts(server.quote[math.random(1,#server.quote)],"White"))
+	Title.Text = ("%s | %s"):format(Title.Text,lib:ColorFonts(server.quote[math.random(1,#server.quote)],"Royal Blue"))
 	lib:notify("Current event : " .. lib:ColorFonts("NONE","Red"),10)
     end
 	
@@ -976,12 +976,13 @@ function lib:Window(text, preset, closebind)
     end
 
     local tabhold = {}
-    function tabhold:Tab(text)
+    function tabhold:Tab(text,srgb)
         local TabBtn = Instance.new("TextButton")
         local TabTitle = Instance.new("TextLabel")
         local TabBtnIndicator = Instance.new("Frame")
         local TabBtnIndicatorCorner = Instance.new("UICorner")
-
+        local isrgb = srgb or false
+		
         TabBtn.Name = "TabBtn"
         TabBtn.Parent = TabHold
         TabBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1014,14 +1015,14 @@ function lib:Window(text, preset, closebind)
         TabBtnIndicatorCorner.Name = "TabBtnIndicatorCorner"
         TabBtnIndicatorCorner.Parent = TabBtnIndicator
         
-        coroutine.wrap(
-            function()
-                while wait() do
-                    TabBtnIndicator.BackgroundColor3 = PresetColor
-                end
-            end
-        )()
-
+        lib:runtime(function()
+		if isrgb == true then
+			TabBtnIndicator.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
+		else
+			TabBtnIndicator.BackgroundColor3 = PresetColor
+		end
+	end)
+	
         local Tab = Instance.new("ScrollingFrame")
         local TabLayout = Instance.new("UIListLayout")
 
