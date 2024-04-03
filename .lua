@@ -543,8 +543,9 @@ setmetatable(
 ]]
 
 local server = {
-	dc = false
-}
+	dc = false,
+	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard メ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis"}
+} -- server.quote
 
 local function dcfunc()
 	if server.dc == true then
@@ -751,10 +752,14 @@ function lib:Window(text, preset, closebind)
     Title.TextColor3 = Color3.fromRGB(68,68,68)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
-    Title.RichText = true
+    Title.RichText = true --"Alya is the most beautiful woman 🎉"
     if emoji then
 	Title.Text = ("%s | %s"):format(Title.Text,emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
+    else
+	--server.quote
+	Title.Text = ("%s | %s"):format(Title.Text,lib:ColorFonts(server.quote[math.random(1,#server.quote)],"White"))
+	lib:notify("Current event : " .. lib:ColorFonts("NONE","Red"),10)
     end
 	
     DragFrame.Name = "DragFrame"
