@@ -367,7 +367,8 @@ local APIUrl = {
 	hf = {
 		sum = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
 		google = "https://api-inference.huggingface.co/models/google/flan-t5-base",
-		gpt2 = "https://api-inference.huggingface.co/models/gpt2-large"
+		gpt2 = "https://api-inference.huggingface.co/models/gpt2-large",
+		geminiv1 = "https://api-inference.huggingface.co/models/google/gemma-2b-it"
 	},
 	hfkey = {
 		write = "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",
@@ -577,7 +578,7 @@ local param = "q=" .. HttpService:UrlEncode(query)
 
 local success, response = pcall(function()
 	--return HttpService:GetAsync(APIUrl.booklib .. "?" .. param)
-	return loadstring(game:HttpGet(APIUrl.booklib .. "?" .. param))()
+	return game:HttpGet(APIUrl.booklib .. "?" .. param)
 end)
 
 if success then
@@ -593,6 +594,73 @@ if success then
 else
 	funct(lib:ColorFonts("Request failed: " .. response,"Red"))
 end
+end
+--APIUrl.hf.geminiv1
+local function GeminiV1(systemMessage,query,previousConversation,funct)
+local headers = {Authorization = APIUrl.hfkey.read}
+
+local function querys(payload)
+	local response = httpService:PostAsync(APIUrl.hf.geminiv1,httpService:JSONEncode(payload),Enum.HttpContentType.ApplicationJson,false,headers)
+	return httpService:JSONDecode(response)
+end
+
+	local conversation = {}
+	table.insert(conversation,"<start_of_turn>system\n" .. systemMessage .. "<end_of_turn>")
+	if previousConversation then
+		local everyother = 0
+		for key, line in previousConversation do
+			if everyother==0 then
+				everyother=1
+				table.insert(conversation,"<start_of_turn>user\n" .. line .. "<end_of_turn>")	
+			else 
+				everyother=0
+				table.insert(conversation,"<start_of_turn>model\n" .. line .. "<end_of_turn>")	
+			end	
+		end
+	end
+	table.insert(conversation,"<start_of_turn>user\n" .. query .. "<end_of_turn>")
+	table.insert(conversation,"<start_of_turn>model\n")
+	local output = querys({inputs = table.concat(conversation,"\n")})
+	print(output)
+	local generatedText = output[1]["generated_text"]
+	print(generatedText)
+	local lines = {}
+	for line in string.gmatch(generatedText, "[^\n]+") do
+		table.insert(lines, line)
+	end
+
+print(lines)
+	local result = ""
+	for i = #lines, 1, -1 do
+		if lines[i] == "<start_of_turn>model" then
+		--	local line = lines[i]
+			local lastline=#lines
+			for i2 = #lines, 1, -1 do
+				if i==i2 then break
+				else 	
+					local line = lines[i2]
+					result = line .. "\n" .. result	
+				end
+			end
+			break
+	
+		end
+	end
+print(result)
+
+--	local result=string.sub(generatedText, startIndex + 20, endIndex - 1)
+	if result then 
+		if string.sub(result,-12) == "<end_of_turn>" then
+			result = string.sub(result, 1, -13)
+	        end
+
+		if previousConversation == nil then
+			previousConversation={}
+		end
+		table.insert(previousConversation,query)
+		table.insert(previousConversation,result)
+	end
+	funct(result,previousConversation)
 end
 
 function lib:TurtleAI(str,model,funct)
@@ -623,6 +691,10 @@ function lib:TurtleAI(str,model,funct)
 	elseif model == "Book searching" then
 		search_book(str,function(v)
 			funct(v)
+		end)
+	elseif model == "Google Gemini V1" then
+		GeminiV1("You are a useful bot",str,nil,function(result,previous)
+			funct(result,previous)
 		end)
 	else
 		funct(lib:ColorFonts("API Models not found.\ntry use another API Models","Red"))
