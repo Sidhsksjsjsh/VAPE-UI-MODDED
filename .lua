@@ -362,6 +362,269 @@ if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.
 end
 end
 
+local APIUrl = {
+	wikipedia = "https://en.wikipedia.org/w/rest.php/v1/search/page?q=",
+	hf = {
+		sum = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
+		google = "https://api-inference.huggingface.co/models/google/flan-t5-base",
+		gpt2 = "https://api-inference.huggingface.co/models/gpt2-large"
+	},
+	hfkey = {
+		write = "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",
+		read = "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"
+	},
+	joke = "https://geek-jokes.sameerkumar.website/api?format=json",
+	booklib = "https://openlibrary.org/search.json"
+}
+
+local function SearchWikipedia(searchq,funct)
+local success, response = pcall(function()
+	return http({
+		Url = APIUrl.wikipedia .. searchq
+		})
+end)
+
+if success then
+	if response.StatusCode == 200 then
+		local data = HttpService:JSONDecode(response.Body)
+		local Filter = nil
+		local index = 0
+		local item
+		repeat
+			index=index+1
+			item = data.pages[index]
+			--Filter = chatmodule.SearchQuery(item.excerpt,badwords,true,true,false)
+		until Filter == nil or data.pages[index] == nil
+		local title = item.title
+		local excerpt = item.excerpt
+		local pattern = "<span class=\"searchmatch\">(.-)</span>"
+		
+		local text = excerpt:gsub(pattern, "%1")
+
+		funct(title,text)
+	else
+		funct(lib:ColorFonts("Error: " .. response.StatusCode .. " " .. response.StatusMessage,"Red"),10)
+	end
+	else
+		funct(lib:ColorFonts("Error: " .. response,"Red"),10)
+	end
+end
+
+local function SearchWikipedia2(searchq,funct)
+local success, response = pcall(function()
+	return http({
+		Url = APIUrl.wikipedia .. searchq
+	       })
+end)
+
+
+if success then
+	if response.StatusCode == 200 then
+		local data = HttpService:JSONDecode(response.Body)
+		local Filter = nil
+		local index = 0
+		local item
+		repeat
+			index = index + 1
+			item = data.pages[index]
+			--Filter=chatmodule.SearchQuery(item.excerpt,badwords,true,true,false)
+		until Filter == nil or data.pages[index] == nil
+		local title = item.title
+		local excerpt = item.excerpt
+		local pattern = "<span class=\"searchmatch\">(.-)</span>"
+		
+		local text = excerpt:gsub(pattern, "%1")
+		
+		--print(title)
+		--print(text)
+		funct("Generating response..")
+
+		local key = item.key
+
+
+		local base_url = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&explaintext&titles="
+		local article_url = base_url .. key.."&format=json"
+
+
+		local success, response = pcall(function()
+			return http({
+				Url = article_url,
+				Method = "GET"
+			       })
+		end)
+
+
+			if success then
+				if response.StatusCode == 200 then
+					local data = HttpService:JSONDecode(response.Body)
+					local pages = data.query.pages
+					local ext = nil
+
+					for key, value in pairs(pages) do
+					        local page_key = key
+						local extract = value.extract
+						ext = extract
+					end
+					print(data)
+					funct(title,text,data,ext)
+			else
+				funct(lib:ColorFonts("Error: " .. response.StatusCode .. " " .. response.StatusMessage,"Red"),10)
+			end
+	else
+		funct(lib:ColorFonts("Error: " .. response,"Red"),10)
+	end
+
+
+end 
+end
+end
+
+local function summarrization(inputq,funct)
+local headers = {
+	["Authorization"] = APIUrl.hfkey.write,
+	--["Content-Type"] = "application/json"
+}
+
+local payload = {
+	inputs = inputq
+}
+
+local payloadJSON = HttpService:JSONEncode(payload)
+
+local success, response = pcall(function()
+	return http({
+		Url = APIUrl.hf.sum,
+		Method = "POST",
+		Headers = headers,
+		Body = payloadJSON
+	       })
+end)
+
+if success then
+	local responseJSON = HttpService:JSONDecode(response.Body)
+	print(response)
+	if responseJSON[1].summary_text then
+		funct(responseJSON[1].summary_text)
+	else
+		funct(response)
+	end
+else
+	funct(lib:ColorFonts("Request failed: " .. response,"Red"),10)
+end
+
+end
+
+local function Instruct(inputText,funct)
+
+local headers = {
+	["Authorization"] = APIUrl.hfkey.write
+}
+
+local function query(payload)
+	local jsonPayload = HttpService:JSONEncode(payload)
+	local response = HttpService:PostAsync(APIUrl.hf.google,jsonPayload,Enum.HttpContentType.ApplicationJson,false,headers)
+	local jsonResponse = HttpService:JSONDecode(response)
+	return jsonResponse
+end
+
+local output = query({
+	["inputs"] = inputText
+})
+
+local generatedText = output[1]["generated_text"]
+funct(generatedText)
+end
+
+local function GPT2(inputText,funct)
+local headers = {
+	["Authorization"] = APIUrl.hfkey.write
+}
+
+local function query(payload)
+	local jsonPayload = HttpService:JSONEncode(payload)
+	local response = HttpService:PostAsync(APIUrl.hf.gpt2,jsonPayload,Enum.HttpContentType.ApplicationJson,false,headers)
+	local jsonResponse = HttpService:JSONDecode(response)
+	return jsonResponse
+end
+
+local output = query({
+	["inputs"] = inputText,
+	["max_length"] = 200,
+	["num_return_sequences"] =1,
+	["temperature"] = 2
+})
+
+local generatedText = output[1]["generated_text"]
+--print(output)
+funct(generatedText)
+end
+
+local function ExtractjokeTable(funct)
+	local response = HttpService:GetAsync(APIUrl.joke)
+
+	local data = HttpService:JSONDecode(response)
+	if data.joke then
+		table.insert(jokes,data.joke)
+		funct(data.joke)
+	end
+end
+
+local function search_book(query,funct)
+local param = "q=" .. HttpService:UrlEncode(query)
+
+local success, response = pcall(function()
+	return HttpService:GetAsync(APIUrl.booklib .. "?" .. param)
+end)
+
+if success then
+	local responseJSON = HttpService:JSONDecode(response)
+
+	if responseJSON.num_found > 0 then
+		local doc = responseJSON.docs[1]
+
+		funct("Title : " .. doc.title .. "\nAuthor : " .. (doc.author_name and doc.author_name[1] or "Unknown") .. "\nFirst published year : " .. (doc.first_publish_year or "Unknown") .. "\nOpen Library ID : " .. doc.key)
+	else
+		funct(lib:ColorFonts("No results found for query: "..response,"Red"))
+	end
+else
+	funct(lib:ColorFonts("Request failed: " .. response,"Red"))
+end
+end
+
+function lib:TurtleAI(str,model,funct)
+	if model == "Top result : wikipedia" then
+		SearchWikipedia(str,function(v,i)
+			funct("title : " .. v .. "\nText : " .. i)
+		end)
+	elseif model == "Entire article : wikipedia" then
+		SearchWikipedia2(str,function(v,i,a,z)
+			funct("title : " .. v .. "\nText : " .. i .. "\nData : " .. a .. "\nExtract : " .. z)
+		end)
+	elseif model == "Summarize paragraph AI" then
+		summarrization(str,function(v)
+			funct(v)
+		end)
+	elseif model == "Google Flan T5" then
+		Instruct(str,function(v)
+			funct(v)
+		end)
+	elseif model == "GPT2 Sentence Completion" then
+		GPT2(str,function(v)
+			funct(v)
+		end)
+	elseif model == "Chessy chuck norris jokes" then
+		ExtractjokeTable(function(v)
+			funct(v)
+		end)
+	elseif model == "Book searching" then
+		search_book(str,function(v)
+			funct(v)
+		end)
+	else
+		funct(lib:ColorFonts("API Models not found.\ntry use another API Models","Red"))
+	end
+end
+
 --[[local function jds()
 local dates = {}
 	local user = game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId)
