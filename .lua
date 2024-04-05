@@ -483,7 +483,7 @@ end
 
 local function summarrization(inputq,funct)
 local headers = {
-	["Authorization"] = APIUrl.hfkey.write
+	["Authorization"] = APIUrl.hfkey.read
 	--["Content-Type"] = "application/json"
 }
 
@@ -519,7 +519,7 @@ end
 local function Instruct(inputText,funct)
 
 local headers = {
-	["Authorization"] = APIUrl.hfkey.write
+	["Authorization"] = APIUrl.hfkey.read
 }
 
 local function query(payload)
@@ -539,7 +539,7 @@ end
 
 local function GPT2(inputText,funct)
 local headers = {
-	["Authorization"] = APIUrl.hfkey.write
+	["Authorization"] = APIUrl.hfkey.read
 }
 
 local function query(payload)
