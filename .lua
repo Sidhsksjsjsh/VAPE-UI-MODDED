@@ -520,12 +520,20 @@ end
 local function Instruct(inputText,funct)
 
 local headers = {
-	["Authorization"] = APIUrl.hfkey.read
+	["Authorization"] = APIUrl.hfkey.read,
+	["Content-Type"] = "application/json"
 }
 
 local function query(payload)
 	local jsonPayload = HttpService:JSONEncode(payload)
-	local response = HttpService:PostAsync(APIUrl.hf.google,jsonPayload,Enum.HttpContentType.ApplicationJson,false,headers)
+	--local response = HttpService:PostAsync(APIUrl.hf.google,jsonPayload,Enum.HttpContentType.ApplicationJson,false,headers)
+	local response = http({
+			Url = APIUrl.hf.google,
+			Method = "POST",
+			Headers = headers,
+			Body = jsonPayload
+		})
+
 	local jsonResponse = HttpService:JSONDecode(response)
 	return jsonResponse
 end
@@ -534,18 +542,25 @@ local output = query({
 	["inputs"] = inputText
 })
 
-local generatedText = output[1]["generated_text"]
-funct(generatedText)
+funct(output[1]["generated_text"])
 end
 
 local function GPT2(inputText,funct)
 local headers = {
-	["Authorization"] = APIUrl.hfkey.read
+	["Authorization"] = APIUrl.hfkey.read,
+	["Content-Type"] = "application/json"
 }
 
 local function query(payload)
 	local jsonPayload = HttpService:JSONEncode(payload)
-	local response = HttpService:PostAsync(APIUrl.hf.gpt2,jsonPayload,Enum.HttpContentType.ApplicationJson,false,headers)
+	--local response = HttpService:PostAsync(APIUrl.hf.gpt2,jsonPayload,Enum.HttpContentType.ApplicationJson,false,headers)
+	local response = http({
+			Url = APIUrl.hf.gpt2,
+			Method = "POST",
+			Headers = headers,
+			Body = jsonPayload
+		})
+		
 	local jsonResponse = HttpService:JSONDecode(response)
 	return jsonResponse
 end
@@ -557,9 +572,7 @@ local output = query({
 	["temperature"] = 2
 })
 
-local generatedText = output[1]["generated_text"]
---print(output)
-funct(generatedText)
+funct(output[1]["generated_text"])
 end
 
 local function ExtractjokeTable(funct)
@@ -662,7 +675,7 @@ print(result)
 		table.insert(previousConversation,query)
 		table.insert(previousConversation,result)
 	end
-	funct(result,previousConversation)
+	funct(result) --,previousConversation)
 end
 
 function lib:TurtleAI(str,model,funct)
@@ -688,15 +701,15 @@ function lib:TurtleAI(str,model,funct)
 		end)
 	elseif model == "Chessy chuck norris jokes" then
 		ExtractjokeTable(function(i,v)
-			funct(i .. "\n\n" .. v)
+			funct(i)
 		end)
 	elseif model == "Book searching" then
 		search_book(str,function(v)
 			funct(v)
 		end)
 	elseif model == "Google Gemini V1" then
-		GeminiV1("You are a useful bot",str,nil,function(result,previous)
-			funct(result .. "\n\n" .. previous)
+		GeminiV1("You are a useful bot",str,nil,function(result)
+			funct(result)
 		end)
 	else
 		funct(lib:ColorFonts("API Models not found.\ntry use another API Models","Red"))
