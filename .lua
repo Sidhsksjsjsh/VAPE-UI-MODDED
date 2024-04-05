@@ -2475,6 +2475,8 @@ function lib:Window(text, preset, closebind)
             LabelTitle.TextSize = 14.000
             LabelTitle.TextXAlignment = Enum.TextXAlignment.Left
             LabelTitle.RichText = true
+	    LabelTitle.TextWrapped = true
+			
             Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
 	    LabelTitle.Size = UDim2.new(0,187,0,LabelTitle.TextBounds.Y)
             Label.Size = UDim2.new(0,363,0,LabelTitle.TextBounds.Y + 35)
