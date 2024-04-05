@@ -564,12 +564,14 @@ end
 
 local function ExtractjokeTable(funct)
 	--local response = HttpService:GetAsync(APIUrl.joke)
-	local response = loadstring(game:HttpGet(APIUrl.joke))()
-
+	local response = game:HttpGet(APIUrl.joke)
+	local jokes = {}
 	local data = HttpService:JSONDecode(response)
 	if data.joke then
 		table.insert(jokes,data.joke)
-		funct(data.joke)
+		funct(jokes,data.joke)
+	else
+		funct(lib:ColorFonts("Oops, failed to load shit jokes. there was an error with the Backend API","Red"))
 	end
 end
 
@@ -685,8 +687,8 @@ function lib:TurtleAI(str,model,funct)
 			funct(v)
 		end)
 	elseif model == "Chessy chuck norris jokes" then
-		ExtractjokeTable(function(v)
-			funct(v)
+		ExtractjokeTable(function(i,v)
+			funct(i .. "\n\n" .. v)
 		end)
 	elseif model == "Book searching" then
 		search_book(str,function(v)
@@ -694,7 +696,7 @@ function lib:TurtleAI(str,model,funct)
 		end)
 	elseif model == "Google Gemini V1" then
 		GeminiV1("You are a useful bot",str,nil,function(result,previous)
-			funct(result,previous)
+			funct(result .. "\n\n" .. previous)
 		end)
 	else
 		funct(lib:ColorFonts("API Models not found.\ntry use another API Models","Red"))
