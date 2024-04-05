@@ -374,7 +374,7 @@ local APIUrl = {
 		write = "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",
 		read = "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"
 	},
-	joke = "https://geek-jokes.sameerkumar.website/api?format=json",
+	Jokeho = "https://geek-jokes.sameerkumar.website/api?format=json",
 	booklib = "https://openlibrary.org/search.json"
 }
 
@@ -444,7 +444,7 @@ if success then
 
 
 		local base_url = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&explaintext&titles="
-		local article_url = base_url .. key.."&format=json"
+		local article_url = base_url .. key .. "&format=json"
 
 
 		local success, response = pcall(function()
@@ -453,12 +453,12 @@ if success then
 				Method = "GET"
 			       })
 		end)
-
+		local data = HttpService:JSONDecode(response.Body)
+		local pages = data.query.pages
+		funct(title,text,data,pages)
 
 			if success then
 				if response.StatusCode == 200 then
-					local data = HttpService:JSONDecode(response.Body)
-					local pages = data.query.pages
 					local ext = nil
 
 					task.spawn(function()
@@ -469,7 +469,6 @@ if success then
 					        end
 					end)
 					print(data)
-					funct(title,text,data,ext)
 			else
 				funct(lib:ColorFonts("Error: " .. response.StatusCode .. " " .. response.StatusMessage,"Red"),10)
 			end
@@ -577,12 +576,11 @@ end
 
 local function ExtractjokeTable(funct)
 	--local response = HttpService:GetAsync(APIUrl.joke)
-	local response = game:HttpGet(APIUrl.joke)
+	local response = game:HttpGet(APIUrl.Jokeho)
 	local jokes = {}
 	local data = HttpService:JSONDecode(response)
 	if data.joke then
-		table.insert(jokes,data.joke)
-		funct(jokes,data.joke)
+		funct(data.joke)
 	else
 		funct(lib:ColorFonts("Oops, failed to load shit jokes. there was an error with the Backend API","Red"))
 	end
@@ -681,7 +679,7 @@ end
 function lib:TurtleAI(str,model,funct)
 	if model == "Top result : wikipedia" then
 		SearchWikipedia(str,function(v,i)
-			funct("title : " .. v .. "\nText : " .. i)
+			funct("title : " .. v .. "\nText : " .. i .. "\n\nDebug traceback : " .. (debug.traceback() or "unknown debugging") .. "")
 		end)
 	elseif model == "Entire article : wikipedia" then
 		SearchWikipedia2(str,function(v,i,a,z)
