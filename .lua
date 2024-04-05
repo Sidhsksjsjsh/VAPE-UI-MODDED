@@ -460,11 +460,13 @@ if success then
 					local pages = data.query.pages
 					local ext = nil
 
-					for key, value in pairs(pages) do
-					        local page_key = key
-						local extract = value.extract
-						ext = extract
-					end
+					task.spawn(function()
+						for key, value in pairs(pages) do
+							local page_key = key
+						        local extract = value.extract
+						         ext = extract
+					        end
+					end)
 					print(data)
 					funct(title,text,data,ext)
 			else
@@ -560,7 +562,8 @@ funct(generatedText)
 end
 
 local function ExtractjokeTable(funct)
-	local response = HttpService:GetAsync(APIUrl.joke)
+	--local response = HttpService:GetAsync(APIUrl.joke)
+	local response = loadstring(game:HttpGet(APIUrl.joke))()
 
 	local data = HttpService:JSONDecode(response)
 	if data.joke then
@@ -573,7 +576,8 @@ local function search_book(query,funct)
 local param = "q=" .. HttpService:UrlEncode(query)
 
 local success, response = pcall(function()
-	return HttpService:GetAsync(APIUrl.booklib .. "?" .. param)
+	--return HttpService:GetAsync(APIUrl.booklib .. "?" .. param)
+	return loadstring(game:HttpGet(APIUrl.booklib .. "?" .. param))()
 end)
 
 if success then
