@@ -481,7 +481,7 @@ end
 
 local function summarrization(inputq,funct)
 local headers = {
-	["Authorization"] = APIUrl.hfkey.write,
+	["Authorization"] = APIUrl.hfkey.write
 	--["Content-Type"] = "application/json"
 }
 
