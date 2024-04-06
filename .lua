@@ -1714,7 +1714,12 @@ function lib:Window(text, preset, closebind)
 			ToggleTitle.Text = str
 		end
 
+		function asslabel:GetValue()
+			return toggled
+		end
+			
 		function asslabel:Set(str)
+			toggled = str
 			if str == false then
 				TweenService:Create(Toggle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
                                  TweenService:Create(FrameToggle1,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
@@ -1730,7 +1735,7 @@ function lib:Window(text, preset, closebind)
                                  TweenService:Create(FrameToggleCircle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(50, 50, 50)}):Play()
                                  FrameToggleCircle:TweenPosition(UDim2.new(0.127000004,0,0.222000003,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
 			end
-			callback(str)
+			callback(toggled)
 		end
 			
             Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
