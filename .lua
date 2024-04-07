@@ -896,7 +896,7 @@ setmetatable(
 
 local server = {
 	dc = false,
-	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard メ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis","rgb bar mean that feature is special"}
+	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard ✘ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis","rgb bar mean that feature is special"}
 } -- server.quote
 
 local function dcfunc()
@@ -1100,7 +1100,7 @@ function lib:Window(text, preset, closebind)
     Title.Position = UDim2.new(0.0339285731, 0, 0.0564263314, 0)
     Title.Size = UDim2.new(0, 200, 0, 23)
     Title.Font = Enum.Font.GothamSemibold
-    Title.Text = text:gsub("VIP Turtle Hub V4",lib:ColorFonts("VIP Turtle Hub メ LuaInjection","White")):gsub(text:sub(18,#text),"")
+    Title.Text = text:gsub("VIP Turtle Hub V4",lib:ColorFonts("VIP Turtle Hub ✘ LuaInjection","White")):gsub(text:sub(18,#text),"")
     Title.TextColor3 = Color3.fromRGB(68,68,68)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
