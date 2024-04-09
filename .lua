@@ -17,6 +17,7 @@ local Notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsks
 local VirtualUser = game:GetService("VirtualUser")
 local workspace = game:GetService("Workspace")
 local Exploit = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VortexExecutor/main/Clone.lua"))()
+local TeleportService = game:GetService("TeleportService")
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -1050,6 +1051,71 @@ function lib:RemoteSpy()
 		lib:WarnUser(lib:ColorFonts(iserror,"Red"))
 		lib:hooksend("RemoteSpy error: \n```\n" .. iserror .. "\n```")
 	end
+end
+
+function lib:Serverhop(val)
+    local x = {}
+    local vartbl = val or "normal"
+    if vartbl == "normal" then
+	for _, v in ipairs(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+		if type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
+			x[#x + 1] = v.id
+		end
+	end
+    else
+	for _, v in ipairs(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+		if type(v) == "table" and v.playing < val and v.id ~= game.JobId then --v.maxPlayers > v.playing and v.id ~= game.JobId then
+			x[#x + 1] = v.id
+		end
+	end
+    end
+    if #x > 0 then
+        TeleportService:TeleportToPlaceInstance(game.PlaceId,x[math.random(1,#x)])
+    else
+        lib:notify(lib:ColorFonts("Cannot find a server","Red"),10)
+    end
+end
+ 
+function lib:CheckServers(n,funct)
+    local x = {}
+    local tgh = false
+    local chck = n or "normal"
+    if chck == "normal" then
+	for _, v in ipairs(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+		if type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
+			x[#x + 1] = v.id
+		end
+	end
+    else
+	for _, v in ipairs(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+		if type(v) == "table" and v.playing < chck and v.id ~= game.JobId then
+			x[#x + 1] = v.id
+		end
+	end
+    end
+    if #x > 0 then
+        tgh = true
+    else
+        tgh = false
+    end
+	funct(tgh)
+end
+
+--[[
+lib:CheckServers(3,function(vuln)
+if vuln == true then
+lib:Serverhop(3)
+end
+end)
+lib:rejoin()
+]]
+
+function lib:rejoin()
+    if #game.Players:GetPlayers() <= 1 then
+        TeleportService:Teleport(game.PlaceId,LocalPlayer)
+    else
+        TeleportService:TeleportToPlaceInstance(game.PlaceId,game.JobId,LocalPlayer)
+    end
 end
 
 function lib:Window(text, preset, closebind)
