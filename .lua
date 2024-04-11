@@ -308,6 +308,20 @@ function lib:TeleportMethod(mthd,str)
 	end
 end
 
+function lib:CustomTeleport(mthd,str,tip)
+	if mthd == "tween" and tip == "cframe" then
+		TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame}):Play()
+	elseif mthd == "tp" and tip == "cframe" then
+		str.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame
+	elseif mthd == "tween" and tip == "position" then
+		TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Position = LocalPlayer.Character.HumanoidRootPart.Position}):Play()
+	elseif mthd == "tp" and tip == "position" then
+		str.Position = LocalPlayer.Character.HumanoidRootPart.Position
+	else
+		lib:notify(":18927: Teleport method is invalid, try select another method",10)
+	end
+end
+
 local function SendMessage(url,message)
     local headers = {
         ["Content-Type"] = "application/json"
