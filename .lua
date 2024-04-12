@@ -1468,9 +1468,9 @@ function lib:Window(text, preset, closebind)
         lib:runtime(function()
 		if isrgb == true then
 			TabBtnIndicator.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
-			for i = 0,num do
+			for i = 0,numba do
 				local c = Color3.fromRGB(127 * math.sin(w*i + counterbz) + 128,127 * math.sin(w*i + 2 * math.pi/3 + counterbz) + 128,127*math.sin(w*i + 4*math.pi/3 + counterbz) + 128)
-				table.insert(CS,i+1,ColorSequenceKeypoint.new(i/num,c))
+				table.insert(CS,i+1,ColorSequenceKeypoint.new(i/numba,c))
 			end
 			local newCS = ColorSequence.new(CS)
 	
