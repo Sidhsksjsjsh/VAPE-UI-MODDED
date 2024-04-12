@@ -2841,30 +2841,10 @@ UserInputService.InputBegan:Connect(function(input)
 	end
 end)
 
-game:GetService("Players").CharacterAdded:Connect(function(character)
-	if character.Name == "Rivanda_Cheater" then
-		local ownerLabel = Instance.new("BillboardGui")
-		ownerLabel.Adornee = character.Head
-		ownerLabel.Size = UDim2.new(0,200,0,50)
-		ownerLabel.StudsOffset = Vector3.new(0,3,0)
-		ownerLabel.Name = "OwnerLabel"
-		ownerLabel.AlwaysOnTop = true
-
-		local ownerText = Instance.new("TextLabel",ownerLabel)
-		ownerText.Size = UDim2.new(1,0,1,0)
-		ownerText.Text = lib:ColorFonts("DEVELOPER","Sky Blue")
-		ownerText.TextColor3 = Color3.new(1,1,1)
-		ownerText.BackgroundTransparency = 1
-		ownerText.Font = Enum.Font.SourceSansBold
-		ownerText.FontSize = Enum.FontSize.Size24
-		ownerText.RichText = true
-	end
-end)
-
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 	if v.Name == "Rivanda_Cheater" then
 		local ownerLabel = Instance.new("BillboardGui")
-		ownerLabel.Adornee = character.Head
+		ownerLabel.Adornee = v.Character.Head
 		ownerLabel.Size = UDim2.new(0,200,0,50)
 		ownerLabel.StudsOffset = Vector3.new(0,3,0)
 		ownerLabel.Name = "OwnerLabel"
@@ -2878,6 +2858,24 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 		ownerText.Font = Enum.Font.SourceSansBold
 		ownerText.FontSize = Enum.FontSize.Size24
 		ownerText.RichText = true
+
+		v.CharacterAdded:Connect(function(character)
+			local ownerLabel = Instance.new("BillboardGui")
+			ownerLabel.Adornee = character.Head
+			ownerLabel.Size = UDim2.new(0,200,0,50)
+			ownerLabel.StudsOffset = Vector3.new(0,3,0)
+			ownerLabel.Name = "Turtle Label Manager"
+			ownerLabel.AlwaysOnTop = true
+
+			local ownerText = Instance.new("TextLabel",ownerLabel)
+			ownerText.Size = UDim2.new(1,0,1,0)
+			ownerText.Text = lib:ColorFonts("DEVELOPER","Sky Blue")
+			ownerText.TextColor3 = Color3.new(1,1,1)
+			ownerText.BackgroundTransparency = 1
+			ownerText.Font = Enum.Font.SourceSansBold
+			ownerText.FontSize = Enum.FontSize.Size24
+			ownerText.RichText = true
+		end)
 	end
 end
 --[[
