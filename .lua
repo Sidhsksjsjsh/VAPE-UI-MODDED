@@ -19,15 +19,6 @@ local workspace = game:GetService("Workspace")
 local Exploit = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VortexExecutor/main/Clone.lua"))()
 local TeleportService = game:GetService("TeleportService")
 local TextChatService = game:GetService("TextChatService")
-local counterbz = 0       
-local w = math.pi / 6 
-local CS = {}         
-local numba = 15 			
-local fucks = 0	
-local counting = 0
-local cskCache = {}
-local finalCacheCt = #cskCache
-local rotationshit = 1
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -1142,6 +1133,31 @@ function lib:rejoin()
     end
 end
 
+function lib:FormatRGB(str)
+	if str == "rgb" then
+		return Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
+	elseif str == "gradient" then
+		return ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 255))
+		}:Lerp(
+			ColorSequence.new{
+			ColorSequenceKeypoint.new(0,Color3.fromRGB(
+					math.floor(((math.sin(workspace.DistributedGameTime / 2) / 2) + 0.5) * 255),
+					math.floor(((math.sin(workspace.DistributedGameTime) / 2) + 0.5) * 255),
+					math.floor(((math.sin(workspace.DistributedGameTime * 1.5) / 2) + 0.5) * 255)
+			)),
+			ColorSequenceKeypoint.new(1,Color3.fromRGB(
+					math.floor(((math.sin(workspace.DistributedGameTime / 2) / 2) + 0.5) * 255),
+					math.floor(((math.sin(workspace.DistributedGameTime) / 2) + 0.5) * 255),
+					math.floor(((math.sin(workspace.DistributedGameTime * 1.5) / 2) + 0.5) * 255)
+			))
+		},
+		math.abs(math.sin(workspace.DistributedGameTime))
+		)
+	end
+end
+--lib:FormatRGB("gradient")
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
@@ -1450,6 +1466,7 @@ function lib:Window(text, preset, closebind)
         TabTitle.TextSize = 14.000
         TabTitle.TextXAlignment = Enum.TextXAlignment.Left
         TabTitle.RichText = true
+		
 	local UIGradient = Instance.new("UIGradient")
 	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,255))}
 	UIGradient.Rotation = 90
@@ -1467,44 +1484,10 @@ function lib:Window(text, preset, closebind)
         
         lib:runtime(function()
 		if isrgb == true then
-			TabBtnIndicator.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
-			for i = 0,numba do
-				local c = Color3.fromRGB(127 * math.sin(w*i + counterbz) + 128,127 * math.sin(w*i + 2 * math.pi/3 + counterbz) + 128,127*math.sin(w*i + 4*math.pi/3 + counterbz) + 128)
-				table.insert(CS,i+1,ColorSequenceKeypoint.new(i/numba,c))
-			end
-			local newCS = ColorSequence.new(CS)
-	
-			if #cskCache > 0 then
-				if newCS == cskCache[1] then
-					CS = {}
-					break
-				end
-			end
-			table.insert(cskCache,newCS)
-			CS = {}
-	
-			counterbz = counterbz + math.pi/40
-			if (counterbz >= math.pi * 2) then
-				counterbz = 0 
-			end	
+			TabBtnIndicator.BackgroundColor3 = lib:FormatRGB("rgb")
+			UIGradient.Color = lib:FormatRGB("gradient")
 		else
 			TabBtnIndicator.BackgroundColor3 = PresetColor
-		end
-	end)
-		
-	RunService.Heartbeat:Connect(function()
-		if isrgb == true then
-			if math.fmod(fucks,2) == 0 then
-				UIGradient.Color = cskCache[rotationshit]			
-				if rotationshit >= #cskCache then
-					rotationshit = 0
-				end
-				rotationshit = rotationshit + 1				
-			end
-			if fucks >= 1000 then 
-				fucks = 0
-			end
-			fucks = fucks + 1
 		end
 	end)
 		
