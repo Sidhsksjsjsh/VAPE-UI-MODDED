@@ -2923,7 +2923,7 @@ TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
 
 	--properties.Text = string.format(FORMAT_STRING, textChatMessage.Text)
-	properties.Text = lib:ColorFont(textChatMessage.Text,"Green")
+	properties.Text = lib:ColorFonts(textChatMessage.Text,"Green")
 
 	if textChatMessage.Translation then
 		--properties.Translation = string.format(FORMAT_STRING, textChatMessage.Translation)
