@@ -2901,9 +2901,9 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 			properties.PrefixText = lib:ColorFonts("[ CEO ]","Red") .. lib:ColorFonts("[ alya ] ","Pink") .. message.PrefixText
 		end
 	end
-	if message.Translation then
+	--[[if message.Translation then
 		properties.Translation = lib:ColorFonts(textChatMessage.Translation,"Red")
-	end
+	end]]
 
 	return properties
 end
