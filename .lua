@@ -2904,7 +2904,7 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	return properties
 end
 
-TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
+--[[TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
 
 	--local textSource = textChatMessage.TextSource
@@ -2932,6 +2932,7 @@ TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 
 	return properties
 end
+]]
 
 print("Turtle UI is running")
 return lib
