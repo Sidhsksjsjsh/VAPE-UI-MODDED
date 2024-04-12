@@ -2825,10 +2825,10 @@ LocalPlayer.Idled:connect(function()
 	if isafk.bool == false then
 		lib:WarnUser("User is afk... manipulating server detection")
 		isafk.bool = true
-		VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-		wait(1)
-		VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 	end
+	VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	wait(1)
+	VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
 
 UserInputService.InputBegan:Connect(function(input)
@@ -2839,6 +2839,46 @@ UserInputService.InputBegan:Connect(function(input)
 		CloseWarnInterface()
 	end
 end)
+
+game:GetService("Players").CharacterAdded:Connect(function(character)
+	if character.Name == "Rivanda_Cheater" then
+		local ownerLabel = Instance.new("BillboardGui")
+		ownerLabel.Adornee = character.Head
+		ownerLabel.Size = UDim2.new(0,200,0,50)
+		ownerLabel.StudsOffset = Vector3.new(0,3,0)
+		ownerLabel.Name = "OwnerLabel"
+		ownerLabel.AlwaysOnTop = true
+
+		local ownerText = Instance.new("TextLabel",ownerLabel)
+		ownerText.Size = UDim2.new(1,0,1,0)
+		ownerText.Text = lib:ColorFonts("DEVELOPER","Sky Blue")
+		ownerText.TextColor3 = Color3.new(1,1,1)
+		ownerText.BackgroundTransparency = 1
+		ownerText.Font = Enum.Font.SourceSansBold
+		ownerText.FontSize = Enum.FontSize.Size24
+		ownerText.RichText = true
+	end
+end)
+
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+	if v.Name == "Rivanda_Cheater" then
+		local ownerLabel = Instance.new("BillboardGui")
+		ownerLabel.Adornee = character.Head
+		ownerLabel.Size = UDim2.new(0,200,0,50)
+		ownerLabel.StudsOffset = Vector3.new(0,3,0)
+		ownerLabel.Name = "OwnerLabel"
+		ownerLabel.AlwaysOnTop = true
+
+		local ownerText = Instance.new("TextLabel",ownerLabel)
+		ownerText.Size = UDim2.new(1,0,1,0)
+		ownerText.Text = lib:ColorFonts("DEVELOPER","Sky Blue")
+		ownerText.TextColor3 = Color3.new(1,1,1)
+		ownerText.BackgroundTransparency = 1
+		ownerText.Font = Enum.Font.SourceSansBold
+		ownerText.FontSize = Enum.FontSize.Size24
+		ownerText.RichText = true
+	end
+end
 
 print("Turtle UI is running")
 return lib
