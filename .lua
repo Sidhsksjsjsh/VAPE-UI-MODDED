@@ -18,6 +18,7 @@ local VirtualUser = game:GetService("VirtualUser")
 local workspace = game:GetService("Workspace")
 local Exploit = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VortexExecutor/main/Clone.lua"))()
 local TeleportService = game:GetService("TeleportService")
+local TextChatService = game:GetService("TextChatService")
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -2878,6 +2879,60 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 		ownerText.FontSize = Enum.FontSize.Size24
 		ownerText.RichText = true
 	end
+end
+--[[
+local args = {
+    [1] = {
+        ["heroGuid"] = "3acd6428-3b5f-428a-91ea-398b464fc223",
+        ["attackType"] = 1,
+        ["userId"] = 3621188307,
+        ["enemyGuid"] = "2ac06468-57be-422d-915b-c9d6e0252769"
+    }
+}
+
+game:GetService("ReplicatedStorage")["Remotes"]["HeroUseSkill"]:FireServer(unpack(args))
+local player = Players:GetPlayerByUserId(message.TextSource.UserId)
+]]
+
+TextChatService.OnIncomingMessage = function(message: TextChatMessage)
+	local properties = Instance.new("TextChatMessageProperties")
+
+	if message.TextSource then
+		if message.TextSource.UserId == 3621188307 then
+			properties.PrefixText = lib:ColorFonts("[ CEO ]","Red") .. message.PrefixText
+		end
+	end
+
+	return properties
+end
+
+TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
+	local properties = Instance.new("TextChatMessageProperties")
+
+	--local textSource = textChatMessage.TextSource
+	if textChatMessage.TextSource.UserId == 3621188307 then
+		local index: number = (textChatMessage.TextSource.UserId % #nameColors) + 1
+		local randomColor: Color3 = nameColors[index]
+		--properties.PrefixText = string.format("<font color='#%s'>%s</font>", randomColor:ToHex(),textChatMessage.PrefixText)
+		properties.PrefixText = lib:ColorFonts(textChatMessage.PrefixText,"Red")
+	end
+
+
+	return properties
+end
+
+TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
+	local properties = Instance.new("TextChatMessageProperties")
+
+	--properties.Text = string.format(FORMAT_STRING, textChatMessage.Text)
+	properties.Text = lib:ColorFont(textChatMessage.Text,"Green")
+
+	if textChatMessage.Translation then
+		--properties.Translation = string.format(FORMAT_STRING, textChatMessage.Translation)
+		properties.Translation = lib:ColorFonts(textChatMessage.Translation,"Red")
+	end
+
+	return properties
 end
 
 print("Turtle UI is running")
