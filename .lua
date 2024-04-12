@@ -911,13 +911,13 @@ setmetatable(
 ]]
 
 local server = {
-	dc = false,
+	dc = true,
 	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard ✘ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis","rgb bar mean that feature is special"}
 } -- server.quote
 
 local function dcfunc()
 	if server.dc == true then
-		lib:notify(lib:ColorFonts("You cant use this feature without Vanguard-Service ( error : allow_remote_execution )","Red"),20)
+		lib:notify(lib:ColorFonts("VService Missing-Script","Red"),20)
 	end
 end
 
@@ -1138,10 +1138,6 @@ function lib:FormatRGB(str)
 		return Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
 	elseif str == "gradient" then
 		return ColorSequence.new{
-			ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
-			ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 255))
-		}:Lerp(
-			ColorSequence.new{
 			ColorSequenceKeypoint.new(0,Color3.fromRGB(
 					math.floor(((math.sin(workspace.DistributedGameTime / 2) / 2) + 0.5) * 255),
 					math.floor(((math.sin(workspace.DistributedGameTime) / 2) + 0.5) * 255),
@@ -1152,9 +1148,7 @@ function lib:FormatRGB(str)
 					math.floor(((math.sin(workspace.DistributedGameTime) / 2) + 0.5) * 255),
 					math.floor(((math.sin(workspace.DistributedGameTime * 1.5) / 2) + 0.5) * 255)
 			))
-		},
-		math.abs(math.sin(workspace.DistributedGameTime))
-		)
+		}
 	end
 end
 --lib:FormatRGB("gradient")
@@ -1466,11 +1460,12 @@ function lib:Window(text, preset, closebind)
         TabTitle.TextSize = 14.000
         TabTitle.TextXAlignment = Enum.TextXAlignment.Left
         TabTitle.RichText = true
-		
-	local UIGradient = Instance.new("UIGradient")
-	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,255))}
-	UIGradient.Rotation = 90
-	UIGradient.Parent = TabTitle
+	if isrgb == true then
+		local UIGradient = Instance.new("UIGradient")
+		UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,255))}
+		UIGradient.Rotation = 90
+		UIGradient.Parent = TabTitle
+	end
 		
         TabBtnIndicator.Name = "TabBtnIndicator"
         TabBtnIndicator.Parent = TabBtn
@@ -1485,7 +1480,7 @@ function lib:Window(text, preset, closebind)
         lib:runtime(function()
 		if isrgb == true then
 			TabBtnIndicator.BackgroundColor3 = lib:FormatRGB("rgb")
-			UIGradient.Color = lib:FormatRGB("gradient")
+			TabTitle.UIGradient.Color = lib:FormatRGB("gradient")
 		else
 			TabBtnIndicator.BackgroundColor3 = PresetColor
 		end
