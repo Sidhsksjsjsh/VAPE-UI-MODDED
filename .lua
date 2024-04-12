@@ -2894,11 +2894,15 @@ local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 
 TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
-
+	properties.Text = lib:ColorFonts(message.Text,"Green")
+	
 	if message.TextSource then
 		if message.TextSource.UserId == 3621188307 then
-			properties.PrefixText = lib:ColorFonts("[ CEO ]","Red") .. message.PrefixText
+			properties.PrefixText = lib:ColorFonts("[ CEO ]","Red") .. lib:ColorFonts("[ alya ] ","Pink") .. message.PrefixText
 		end
+	end
+	if message.Translation then
+		properties.Translation = lib:ColorFonts(textChatMessage.Translation,"Red")
 	end
 
 	return properties
