@@ -911,13 +911,13 @@ setmetatable(
 ]]
 
 local server = {
-	dc = false,
+	dc = true,
 	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard ✘ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis","rgb bar mean that feature is special"}
 } -- server.quote
 
 local function dcfunc()
 	if server.dc == true then
-		lib:notify(lib:ColorFonts("VService Missing-Script","Red"),20)
+		lib:notify(lib:ColorFonts(":18729: attempt to index nil with 'TurtleSetPanelFlag'","Red"),20)
 	end
 end
 
