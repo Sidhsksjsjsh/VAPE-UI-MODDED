@@ -911,7 +911,7 @@ setmetatable(
 ]]
 
 local server = {
-	dc = true,
+	dc = false,
 	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard ✘ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis","rgb bar mean that feature is special"}
 } -- server.quote
 
