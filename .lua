@@ -1045,7 +1045,9 @@ function lib:SpyFunction(funct)
 end
 
 function lib:synapse(bool)
-	rd3Exploit:ShowThird(bool)
+	lib:ErrorReader(function()
+		rd3Exploit:ShowThird(bool)
+	end)
 end
 
 function lib:FireTouch(gameservice)
