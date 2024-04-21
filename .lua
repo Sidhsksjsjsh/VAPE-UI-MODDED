@@ -730,6 +730,125 @@ function lib:TurtleAI(str,model,funct)
 	end
 end
 
+local function lib:TurtleExplorer()
+local Iris = loadstring(game:HttpGet("https://raw.githubusercontent.com/x0581/Iris-Exploit-Bundle/main/bundle.lua"))().Init(game:GetService("CoreGui"))
+local PropertyAPIDump = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
+
+local function GetPropertiesForInstance(Instance)
+    local Properties = {}
+    for i,v in next, PropertyAPIDump do
+        if v.Class == Instance.ClassName and v.type == "Property" then
+            pcall(function()
+                Properties[v.Name] = {
+                    Value = Instance[v.Name],
+                    Type = v.ValueType,
+                }
+            end)
+        end
+    end
+    return Properties
+end
+
+local ScriptContent = [[]]
+local SelectedInstance = nil
+local Properties = {}
+
+local function CrawlInstances(Inst)
+    for _, Instance in next, Inst:GetChildren() do
+        local InstTree = Iris.Tree({Instance.Name})
+
+        Iris.SameLine() do
+            if Instance:IsA("LocalScript") or Instance:IsA("ModuleScript") then
+                if Iris.SmallButton({"View Script"}).clicked then
+                    ScriptContent = decompile(Instance)
+                end
+            end
+            if Iris.SmallButton({"View and Copy Properties"}).clicked then
+                SelectedInstance = Instance
+                Properties = GetPropertiesForInstance(Instance)
+                --setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. "")
+                lib:notify("Copied " .. lib:ColorFonts(Instance.ClassName,"Green"),10)
+		if Instance:IsA("RemoteEvent") then
+			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()")
+		elseif Instance:IsA("RemoteFunction") then
+			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":InvokeServer()")
+		elseif Instance:IsA("BindableFunction") then
+			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Invoke()")
+		elseif Instance:IsA("BindableEvent") then
+			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()")
+		else
+			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE"))
+		end -- end
+            end
+            Iris.End()
+        end
+
+        if InstTree.state.isUncollapsed.value then
+            CrawlInstances(Instance)
+        end
+        Iris.End()
+    end
+end
+
+Iris:Connect(function()
+    local InstanceViewer = Iris.State(false)
+    local PropertyViewer = Iris.State(false)
+    local ScriptViewer = Iris.State(false)
+    local CopyProp = Iris.State(false)
+
+    Iris.Window({"Turtle Explorer Settings", [Iris.Args.Window.NoResize] = true}, {size = Iris.State(Vector2.new(400, 75)), position = Iris.State(Vector2.new(0, 0))}) do
+        Iris.SameLine() do
+            Iris.Checkbox({"Instance Viewer"}, {isChecked = InstanceViewer})
+            Iris.Checkbox({"Property Viewer"}, {isChecked = PropertyViewer})
+            Iris.Checkbox({"Script Viewer"}, {isChecked = ScriptViewer})
+            Iris.End()
+        end
+        Iris.End()
+    end
+
+    if InstanceViewer.value then
+        Iris.Window({"Turtle Explorer Instance Viewer", [Iris.Args.Window.NoClose] = true}, {size = Iris.State(Vector2.new(400, 300)), position = Iris.State(Vector2.new(0, 75))}) do
+            CrawlInstances(game)
+            Iris.End()
+        end
+    end
+
+    if PropertyViewer.value then
+        Iris.Window({"Turtle Explorer Property Viewer", [Iris.Args.Window.NoClose] = true}, {size = Iris.State(Vector2.new(400, 200)), position = Iris.State(Vector2.new(0, 375))}) do
+            Iris.Text({("Viewing Properties For: %s"):format(
+                SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE"
+            )})
+            Iris.Table({3, [Iris.Args.Table.RowBg] = true}) do
+                for PropertyName, PropDetails in next, Properties do
+                    Iris.Text({PropertyName})
+                    Iris.NextColumn()
+                    Iris.Text({PropDetails.Type})
+                    Iris.NextColumn()
+                    Iris.Text({tostring(PropDetails.Value)})
+                    Iris.NextColumn()
+                end
+                Iris.End()
+            end
+        end
+        Iris.End()
+    end
+
+    if ScriptViewer.value then
+        Iris.Window({"Turtle Explorer Script Viewer", [Iris.Args.Window.NoClose] = true}, {size = Iris.State(Vector2.new(600, 575)), position = Iris.State(Vector2.new(400, 0))}) do
+            if Iris.Button({"Copy Script"}).clicked then
+                setclipboard(ScriptContent)
+                lib:notify("Copied to the clipboard",10)
+            end
+            local Lines = ScriptContent:split("\n")
+            for I, Line in next, Lines do
+                Iris.Text({Line})
+            end
+            Iris.End()
+        end
+    end
+end)
+end
+
 --[[local function jds()
 local dates = {}
 	local user = game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId)
