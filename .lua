@@ -730,7 +730,7 @@ function lib:TurtleAI(str,model,funct)
 	end
 end
 
-local function lib:TurtleExplorer()
+function lib:TurtleExplorer()
 local Iris = loadstring(game:HttpGet("https://raw.githubusercontent.com/x0581/Iris-Exploit-Bundle/main/bundle.lua"))().Init(game:GetService("CoreGui"))
 local PropertyAPIDump = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
 
@@ -847,6 +847,10 @@ Iris:Connect(function()
         end
     end
 end)
+end
+
+function lib:DEX()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
 end
 
 --[[local function jds()
