@@ -2922,7 +2922,7 @@ local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 
 TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
-	properties.Text = lib:ColorFonts(message.Text,"Green")
+	properties.Text = lib:ColorFonts(message.Text,"Tomato")
 	
 	if message.TextSource then
 		if message.TextSource.UserId == 3621188307 then
