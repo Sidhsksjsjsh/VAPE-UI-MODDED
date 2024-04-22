@@ -19,6 +19,7 @@ local workspace = game:GetService("Workspace")
 local rd3Exploit = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VortexExecutor/main/Clone.lua"))()
 local TeleportService = game:GetService("TeleportService")
 local TextChatService = game:GetService("TextChatService")
+local Stats = game:GetService("Stats")
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -1335,7 +1336,7 @@ function lib:Window(text, preset, closebind)
 	lib:notify("Current event : " .. emoji,10)
     else
 	--server.quote
-	Title.Text = ("%s | %s"):format(Title.Text,lib:ColorFonts(server.quote[math.random(1,#server.quote)],"Royal Blue"))
+	Title.Text = ("%s | %s"):format(Title.Text,lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue"))
 	lib:notify("Current event : " .. lib:ColorFonts("NONE","Red"),10)
     end
 	
