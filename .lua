@@ -1335,9 +1335,9 @@ function lib:Window(text, preset, closebind)
 	Title.Text = ("%s | %s"):format(Title.Text,emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
     else
-	--server.quote
-	Title.Text = ("%s | %s"):format(Title.Text,lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue"))
-	lib:notify("Current event : " .. lib:ColorFonts("NONE","Red"),10)
+	lib:runtime(function()
+		Title.Text = ("%s | %s"):format(Title.Text,lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue"))
+	end)
     end
 	
     DragFrame.Name = "DragFrame"
