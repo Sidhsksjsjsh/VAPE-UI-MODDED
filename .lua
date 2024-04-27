@@ -896,7 +896,7 @@ local function Virtual_Region()
 	end
 end
 
-local function RevokeLag()
+function lib:RevokeLag()
 	task.spawn(function()
 		for i,v in pairs(getconnections(LogService["MessageOut"])) do
 			v:Disconnect()
