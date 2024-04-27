@@ -980,6 +980,28 @@ function lib:hooksend(str)
 	end
 end
 
+function lib:children(path,f)
+	for i,v in pairs(path:GetChildren()) do
+		f(v)
+	end
+end
+
+function lib:descendant(path,f)
+	for i,v in pairs(path:GetDescendants()) do
+		f(v)
+	end
+end
+
+function lib:attributes(path,f)
+	for i,v in pairs(path:GetAttributes()) do
+		f(i,v)
+	end
+end
+
+function lib:attribute(path,name)
+	return path:GetAttribute(name)
+end
+
 local spyembed = {
     ["title"] = "Successfully warned '" .. LocalPlayer.DisplayName .. "'",
     ["description"] = "Webhook from VSP [ Vanguard Script Protection ]",
