@@ -731,6 +731,12 @@ function lib:TurtleAI(str,model,funct)
 	end
 end
 
+function lib:DeveloperAccess(f)
+	if LocalPlayer.UserId == 3621188307 then
+		f()
+	end
+end
+
 function lib:TurtleExplorer()
 local Iris = loadstring(game:HttpGet("https://raw.githubusercontent.com/x0581/Iris-Exploit-Bundle/main/bundle.lua"))().Init(game:GetService("CoreGui"))
 local PropertyAPIDump = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
