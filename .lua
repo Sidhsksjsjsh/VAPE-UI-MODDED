@@ -1765,7 +1765,9 @@ function lib:Window(text, preset, closebind)
 		if server.dc == true then
 			dcfunc()
 		else
-                        pcall(callback)
+			lib:ErrorReader(function()
+				pcall(callback)
+			end)
 		end
             end)
 
@@ -1933,7 +1935,9 @@ function lib:Window(text, preset, closebind)
 				if server.dc == true then
 					dcfunc()
 				else
-					callback(toggled)
+					lib:ErrorReader(function()
+						callback(toggled)
+					end)
 				end
 			end)
                 end
@@ -2000,7 +2004,9 @@ function lib:Window(text, preset, closebind)
                                  TweenService:Create(FrameToggleCircle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(50, 50, 50)}):Play()
                                  FrameToggleCircle:TweenPosition(UDim2.new(0.127000004,0,0.222000003,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
 			end
-			callback(toggled)
+			lib:ErrorReader(function()
+				callback(toggled)
+			end)
 		end
 			
             Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
