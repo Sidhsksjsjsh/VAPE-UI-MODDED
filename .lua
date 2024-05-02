@@ -329,6 +329,36 @@ function lib:CustomTeleport(mthd,str,tip)
 	end
 end
 
+function lib:RemoteBypass()
+for k,v in pairs(getgc(true)) do
+   if pcall(function() return rawget(v, "indexInstance") end) and type(rawget(v, "indexInstance")) == "table" and (rawget(v, "indexInstance"))[1] == "kick" then
+       v.tvk = {"kick", function() 
+			return false
+		end}
+     end
+   end
+end
+
+function lib:VulnsBypass()
+for _, v in next,getgc(true) do
+	if typeof(v) == "table" and rawget(v, "Detected") and typeof(rawget(v, "Detected")) == "function" and rawget(v, "RLocked") then
+		for i, v in next,v do
+			warn(print,i,typeof(v))
+			if rawequal(i,"Detected") then
+				local old;
+				old = hookfunction(v, function(action, info, nocrash)
+					if rawequal(action, "_") and rawequal(info, "_") and rawequal(nocrash, true) then
+						return old(action, info, nocrash)
+					end
+					return task.wait(9e9)
+				end)
+				break
+			end
+		end
+	end
+end
+end
+
 function lib:ACPatch()
 setthreadidentity(2)
 
@@ -3155,7 +3185,11 @@ end
 lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
 	if detect.Name == "__FUNCTION" or detect.Name == "__FUNCTIONS" then
 		lib:ACPatch()
+		lib:notify("This takes 30s to patch 'Turtle Client' into server-side script",10)
+		wait(1)
+		lib:RemoteBypass()
 		detect.Parent:Destroy()
+		lib:notify("Successfully patch." .. lib:ColorFonts("ENJOY!","Green"),10)
 	end
 end)
 
