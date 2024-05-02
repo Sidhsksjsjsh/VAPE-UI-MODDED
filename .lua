@@ -88,8 +88,9 @@ local expfunctions = {
     readfile
 }
 
-if game.CoreGui:FindFirstChild("VIP TURTLE HUB UI") then
+if game:GetService("CoreGui"):FindFirstChild("VIP TURTLE HUB UI") then
 	game:GetService("CoreGui")["VIP TURTLE HUB UI"]:Destroy()
+	game:GetService("CoreGui")["VIP TURTLE HUB HIDE UI"]:Destroy()
 end
 
 local ui = Instance.new("ScreenGui")
