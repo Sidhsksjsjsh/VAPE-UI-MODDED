@@ -343,7 +343,7 @@ for i, v in getgc(true) do
             local Old; Old = hookfunction(Detected, function(Action, Info, NoCrash)
                 if Action ~= "_" then
                     if DEBUG then
-                        warn(`Adonis AntiCheat flagged\nMethod: {Action}\nInfo: {Info}`)
+                        lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}\nInfo: {Info}`,"Red"),10)
                     end
                 end
                 
@@ -357,7 +357,7 @@ for i, v in getgc(true) do
             Kill = KillFunc
             local Old; Old = hookfunction(Kill, function(Info)
                 if DEBUG then
-                    warn(`Adonis AntiCheat tried to kill (fallback): {Info}`)
+                    lib:notify(lib:ColorFonts(`Adonis Anti Cheat tried to kill (fallback): {Info}`,"Red"),10)
                 end
             end)
 
@@ -371,7 +371,7 @@ local Old; Old = hookfunction(getrenv().debug.info, newcclosure(function(...)
 
     if Detected and LevelOrFunc == Detected then
         if DEBUG then
-            warn(`zins | adonis bypassed`)
+            lib:notify("Turtle Script Patcher V10 | adonis bypassed",10)
         end
 
         return coroutine.yield(coroutine.running())
@@ -1263,9 +1263,9 @@ end
 function lib:FireTouch(gameservice)
 	for i,v in pairs(gameservice:GetDescendants()) do
 		if v:IsA("TouchInterest") or v:IsA("TouchTransmitter") then
-			firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
+			firetouchinterest(v.Parent,LocalPlayer.Character.HumanoidRootPart,0)
 			wait()
-			firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,1)
+			firetouchinterest(v.Parent,LocalPlayer.Character.HumanoidRootPart,1)
 		end
 	end
 end
@@ -3151,6 +3151,13 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 
 	return properties
 end
+
+lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
+	if detect.Name == "__FUNCTION" or detect.Name == "__FUNCTIONS" then
+		lib:ACPatch()
+		detect.Parent:Destroy()
+	end
+end)
 
 --[[TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
