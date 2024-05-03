@@ -3214,7 +3214,7 @@ lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
 		wait(1)
 		lib:RemoteBypass()
 		detect.Parent:Destroy()
-		lib:BypassKick()
+		lib:VulnsBypass()
 		lib:notify("Successfully patched. " .. lib:ColorFonts("ENJOY!","Green"),10)
 	end
 end)
