@@ -374,6 +374,7 @@ function lib:BypassKick()
 	mt.__namecall = protect(function(self, ...)
 	local method = getnamecallmethod()
 		if method == "Kick" then
+			lib:notify(lib:ColorFonts(`Tamper bypassed | {self} - {...}`,"Green"),10)
 			return
 		end
 	return old(self, ...)
