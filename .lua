@@ -373,7 +373,7 @@ for i, v in getgc(true) do
             local Old; Old = hookfunction(Detected, function(Action, Info, NoCrash)
                 if Action ~= "_" then
                     if DEBUG then
-                        lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}\nInfo: {Info}`,"Red"),10)
+                        lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}, Info: {Info}`,"Red"),10)
                     end
                 end
                 
@@ -3185,11 +3185,11 @@ end
 lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
 	if detect.Name == "__FUNCTION" or detect.Name == "__FUNCTIONS" then
 		lib:ACPatch()
-		lib:notify("This takes 30s to patch 'Turtle Client' into server-side script",10)
+		lib:notify("It took about 10s to patch the 'Turtle Client' into a server-side script",20) -- It took about 10s to patch the 'Client Tortoise' into a server side script
 		wait(1)
 		lib:RemoteBypass()
 		detect.Parent:Destroy()
-		lib:notify("Successfully patch." .. lib:ColorFonts("ENJOY!","Green"),10)
+		lib:notify("Successfully patched. " .. lib:ColorFonts("ENJOY!","Green"),10)
 	end
 end)
 
