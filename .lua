@@ -1111,6 +1111,24 @@ function lib:descendant(path,f)
 	end
 end
 
+function lib:GetPlayer(f)
+	for i,v in pairs(game.Players:GetPlayers()) do
+		f(v)
+	end
+end
+
+function lib:TrackPlayer(name,f)
+	lib:GetPlayer(function(v)
+		if name == "all" or name == "All" then
+			f(v)
+		else
+			if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) then
+				f(v)
+			end
+		end
+	end)
+end
+
 function lib:attributes(path,f)
 	for i,v in pairs(path:GetAttributes()) do
 		f(i,v)
