@@ -343,8 +343,8 @@ function lib:VulnsBypass()
 for _, v in next,getgc(true) do
 	if typeof(v) == "table" and rawget(v, "Detected") and typeof(rawget(v, "Detected")) == "function" and rawget(v, "RLocked") then
 		for i, v in next,v do
-			warn(print,i,typeof(v))
-			if rawequal(i,"Detected") then
+			lib:notify(i .. " | " .. typeof(v),15)
+			if rawequal(i, "Detected") then
 				local old;
 				old = hookfunction(v, function(action, info, nocrash)
 					if rawequal(action, "_") and rawequal(info, "_") and rawequal(nocrash, true) then
@@ -357,6 +357,30 @@ for _, v in next,getgc(true) do
 		end
 	end
 end
+end
+
+function lib:BypassKick()
+	local mt = getrawmetatable(game)
+	local old = mt.__namecall
+	local protect = newcclosure or protect_function
+
+	if not protect then
+		protect = function(f)
+			return f 
+		end
+	end
+
+	setreadonly(mt, false)
+	mt.__namecall = protect(function(self, ...)
+	local method = getnamecallmethod()
+		if method == "Kick" then
+			return
+		end
+	return old(self, ...)
+	end)
+	hookfunction(LocalPlayer.Kick,protect(function()
+			wait(9e9)
+	end))
 end
 
 function lib:ACPatch()
@@ -3189,6 +3213,7 @@ lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
 		wait(1)
 		lib:RemoteBypass()
 		detect.Parent:Destroy()
+		lib:BypassKick()
 		lib:notify("Successfully patched. " .. lib:ColorFonts("ENJOY!","Green"),10)
 	end
 end)
