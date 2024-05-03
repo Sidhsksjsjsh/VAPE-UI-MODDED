@@ -21,7 +21,7 @@ local TeleportService = game:GetService("TeleportService")
 local TextChatService = game:GetService("TextChatService")
 local Stats = game:GetService("Stats")
 local getinfo = getinfo or debug.getinfo
-local DEBUG = false
+local DEBUG = true
 local Hooked = {}
 local Detected, Kill
 local HTMLcolors = { 
