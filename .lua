@@ -1355,47 +1355,47 @@ function lib:UI_Trigger(path,typefunc,str)
 		end
 	elseif typefunc == "getconnection" then
 		if str == "MouseButton1Down" then
-			for i,v in pairs(getconnections(path.MouseButton1Down)) do 
+			for i,v in next,getconnections(path.MouseButton1Down) do 
 				v:Fire()
 			end
 		elseif str == "Activated" then
-			for i,v in pairs(getconnections(path.Activated)) do 
+			for i,v in next,getconnections(path.Activated) do 
 				v:Fire()
 			end
 		elseif str == "MouseEnter" then
-			for i,v in pairs(getconnections(path.MouseEnter)) do 
+			for i,v in next,getconnections(path.MouseEnter) do 
 				v:Fire()
 			end
 		elseif str == "MouseLeave" then
-			for i,v in pairs(getconnections(path.MouseLeave)) do 
+			for i,v in next,getconnections(path.MouseLeave) do 
 				v:Fire()
 			end
 		elseif str == "Once" then
-			for i,v in pairs(getconnections(path.Once)) do 
+			for i,v in next,getconnections(path.Once) do 
 				v:Fire()
 			end
 		elseif str == "Click" then
-			for i,v in pairs(getconnections(path.Click)) do 
+			for i,v in next,getconnections(path.Click) do 
 				v:Fire()
 			end
 		elseif str == "Clicked" then
-			for i,v in pairs(getconnections(path.Clicked)) do 
+			for i,v in next,getconnections(path.Clicked) do 
 				v:Fire()
 			end
 		elseif str == "MouseButton2Down" then
-			for i,v in pairs(getconnections(path.MouseButton2Down)) do 
+			for i,v in next,getconnections(path.MouseButton2Down) do 
 				v:Fire()
 			end
 		elseif str == "MouseButton1Click" then
-			for i,v in pairs(getconnections(path.MouseButton1Click)) do 
+			for i,v in next,getconnections(path.MouseButton1Click) do 
 				v:Fire()
 			end
 		elseif str == "MouseButton2Click" then
-			for i,v in pairs(getconnections(path.MouseButton2Click)) do 
+			for i,v in next,getconnections(path.MouseButton2Click) do 
 				v:Fire()
 			end
 		elseif str == "TouchLongPress" then
-			for i,v in pairs(getconnections(path.TouchLongPress)) do 
+			for i,v in next,getconnections(path.TouchLongPress) do 
 				v:Fire()
 			end
 		else
