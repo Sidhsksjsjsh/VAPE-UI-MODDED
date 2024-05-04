@@ -1322,7 +1322,85 @@ function lib:ErrorReader(func)
 		func()
 	end)
 	if not shit then
-		lib:notify(lib:ColorFonts(dick,"Red"),10)
+		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","_"):gsub(":" .. dick:sub(2,4) .. ":","_"):gsub(":" .. dick:sub(2,3) .. ":","_"):gsub(":" .. dick:sub(2,2) .. ":","_"),"Red"),10)
+	end
+end
+
+function lib:UI_Trigger(path,typefunc,str)
+	if typefunc == "signal" then
+		if str == "MouseButton1Down" then
+			firesignal(path.MouseButton1Down)
+		elseif str == "Activated" then
+			firesignal(path.Activated)
+		elseif str == "MouseEnter" then
+			firesignal(path.MouseEnter)
+		elseif str == "MouseLeave" then
+			firesignal(path.MouseLeave)
+		elseif str == "Once" then
+			firesignal(path.Once)
+		elseif str == "Click" then
+			firesignal(path.Click)
+		elseif str == "Clicked" then
+			firesignal(path.Clicked)
+		elseif str == "MouseButton2Down" then
+			firesignal(path.MouseButton2Down)
+		elseif str == "MouseButton2Click" then
+			firesignal(path.MouseButton2Click)
+		elseif str == "MouseButton1Click" then
+			firesignal(path.MouseButton1Click)
+		elseif str == "TouchLongPress" then
+			firesignal(path.TouchLongPress)
+		else
+			lib:notify(lib:ColorFonts(`{str} is not a valid trigger for TextButton`,"Red"),10)
+		end
+	elseif typefunc == "getconnection" then
+		if str == "MouseButton1Down" then
+			for i,v in pairs(getconnections(path.MouseButton1Down)) do 
+				v:Fire()
+			end
+		elseif str == "Activated" then
+			for i,v in pairs(getconnections(path.Activated)) do 
+				v:Fire()
+			end
+		elseif str == "MouseEnter" then
+			for i,v in pairs(getconnections(path.MouseEnter)) do 
+				v:Fire()
+			end
+		elseif str == "MouseLeave" then
+			for i,v in pairs(getconnections(path.MouseLeave)) do 
+				v:Fire()
+			end
+		elseif str == "Once" then
+			for i,v in pairs(getconnections(path.Once)) do 
+				v:Fire()
+			end
+		elseif str == "Click" then
+			for i,v in pairs(getconnections(path.Click)) do 
+				v:Fire()
+			end
+		elseif str == "Clicked" then
+			for i,v in pairs(getconnections(path.Clicked)) do 
+				v:Fire()
+			end
+		elseif str == "MouseButton2Down" then
+			for i,v in pairs(getconnections(path.MouseButton2Down)) do 
+				v:Fire()
+			end
+		elseif str == "MouseButton1Click" then
+			for i,v in pairs(getconnections(path.MouseButton1Click)) do 
+				v:Fire()
+			end
+		elseif str == "MouseButton2Click" then
+			for i,v in pairs(getconnections(path.MouseButton2Click)) do 
+				v:Fire()
+			end
+		elseif str == "TouchLongPress" then
+			for i,v in pairs(getconnections(path.TouchLongPress)) do 
+				v:Fire()
+			end
+		else
+			lib:notify(lib:ColorFonts(`{str} is not a valid trigger for TextButton`,"Red"),10)
+		end
 	end
 end
 
