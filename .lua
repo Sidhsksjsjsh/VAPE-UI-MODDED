@@ -24,6 +24,7 @@ local getinfo = getinfo or debug.getinfo
 local DEBUG = true
 local Hooked = {}
 local Detected, Kill
+local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -305,6 +306,12 @@ function lib:ColorFonts(str,color)
       return "<font color='" .. HTMLcolors[color] .. "'>" .. str .. "</font>"
 end
 
+local function Exploit()
+	if identifyexecutor then
+		return identifyexecutor()
+	end
+end
+
 function lib:TeleportMethod(mthd,str)
 	if mthd == "tween" then
 		TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str}):Play()
@@ -358,6 +365,17 @@ for _, v in next,getgc(true) do
 	end
 end
 end
+
+function lib:Queue_On_Teleport(str)
+    if (queue_on_teleport) then
+        if type(str) == "string" then
+		lib:notify("Requesting script...",10)
+		queue_on_teleport('loadstring(game:HttpGet("' .. str .. '"))()');
+	else
+		lib:notify(lib:ColorFonts(`Argument must be a string, got {typeof(str)} / {type(str)}`,"Red"),10)
+        end
+    end
+end	
 
 function lib:BypassKick()
 	local mt = getrawmetatable(game)
@@ -989,12 +1007,6 @@ if game.CreatorType == Enum.CreatorType.User then
 	elseif game.CreatorType == Enum.CreatorType.Group then
 		return GroupService:GetGroupInfoAsync(game.CreatorId).Owner.Id
 	end
-end
-
-local function Exploit()
-if identifyexecutor then
-    return identifyexecutor()
-    end
 end
 
 local function DeviceInfo()
