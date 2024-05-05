@@ -1322,7 +1322,7 @@ function lib:ErrorReader(func)
 		func()
 	end)
 	if not shit then
-		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","_"):gsub(":" .. dick:sub(2,4) .. ":","_"):gsub(":" .. dick:sub(2,3) .. ":","_"):gsub(":" .. dick:sub(2,2) .. ":","_"),"Red"),10)
+		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,4) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,3) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,2) .. ":","⚠️ |"),"Red"),10)
 	end
 end
 
