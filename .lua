@@ -369,11 +369,13 @@ end
 function lib:Queue_On_Teleport(str)
     if (queue_on_teleport) then
         if type(str) == "string" then
-		lib:notify("Requesting script...",10)
+		lib:notify("Auto execute is ready... this script will automatically execute when u join another game",10)
 		queue_on_teleport('loadstring(game:HttpGet("' .. str .. '"))()');
 	else
 		lib:notify(lib:ColorFonts(`Argument must be a string, got {typeof(str)} / {type(str)}`,"Red"),10)
         end
+    else
+	lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - queue_on_teleport`,"Red"),10)
     end
 end	
 
@@ -1322,7 +1324,7 @@ function lib:ErrorReader(func)
 		func()
 	end)
 	if not shit then
-		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,4) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,3) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,2) .. ":","⚠️ |"),"Red"),10)
+		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,4) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,3) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,2) .. ":","⚠️ |"),"Red"),9e9)
 	end
 end
 
