@@ -375,7 +375,7 @@ function lib:Queue_On_Teleport(str)
 		lib:notify(lib:ColorFonts(`Argument must be a string, got {typeof(str)} / {type(str)}`,"Red"),10)
         end
     else
-	lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - queue_on_teleport`,"Red"),10)
+	lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "queue_on_teleport"`,"Red"),10)
     end
 end	
 
@@ -868,6 +868,15 @@ function lib:DeveloperAccess(f)
 	if LocalPlayer.UserId == 3621188307 then
 		f()
 	end
+end
+
+function lib:Copy(txt)
+	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+	if clipBoard then
+           setclipboard(txt)
+	else
+	lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
+    end
 end
 
 function lib:TurtleExplorer()
