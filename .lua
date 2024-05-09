@@ -1866,7 +1866,6 @@ function lib:Window(text, preset, closebind)
         lib:runtime(function()
 		if isrgb == true then
 			TabBtnIndicator.BackgroundColor3 = lib:FormatRGB("rgb")
-			TabTitle.UIGradient.Color = lib:FormatRGB("gradient")
 		else
 			TabBtnIndicator.BackgroundColor3 = PresetColor
 		end
