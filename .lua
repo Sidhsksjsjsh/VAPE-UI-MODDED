@@ -1334,6 +1334,9 @@ function lib:ErrorReader(func)
 		func()
 	end)
 	if not shit then
+		lib:DeveloperAccess(function()
+			lib:notify(lib:ColorFonts(dick,"Red"),9e9)
+		end)
 		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,4) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,3) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,2) .. ":","⚠️ |"),"Red"),9e9)
 	end
 end
