@@ -870,10 +870,11 @@ function lib:DeveloperAccess(f)
 	end
 end
 
-function lib:Copy(txt)
+function lib:Copy(_get_string_from_script)
 	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	if clipBoard then
-           setclipboard(txt)
+           clipBoard(txt)
+	   lib:notify(`Copied! "{_get_string_from_script}"`,10)
 	else
 	lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
     end
