@@ -404,6 +404,14 @@ function lib:BypassKick()
 	end))
 end
 
+function lib.getToolHandleEvent(plr)
+    local toolName = plr.Character and plr.Character:FindFirstChildWhichIsA("Tool")
+    
+    if toolName ~= nil then
+        return toolName.Name
+    end
+end
+
 function lib:ACPatch()
 setthreadidentity(2)
 
