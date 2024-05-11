@@ -303,7 +303,27 @@ function lib:notify(str,time)
 end
 
 function lib:ColorFonts(str,color)
-      return "<font color='" .. HTMLcolors[color] .. "'>" .. str .. "</font>"
+	if color == "Bold" then
+		return "<strong>" .. str .. "</strong>"
+	elseif color == "Italic" then
+		return "<i>" .. str .. "</i>"
+	elseif color == "Underline" then
+		return "<u>" .. str .. "</u>"
+	elseif color == "Strike" then
+		return "<s>" .. str .. "</s>"
+	elseif color == "Sub" then
+		return "<sub>" .. str .. "</sub>"
+	elseif color == "Sup" then
+		return "<sup>" .. str .. "</sup>"
+	elseif color == "Small" then
+		return "<small>" .. str .. "</small>"
+	elseif color == "Big" then
+		return "<big>" .. str .. "</big>"
+	elseif color == "Span" then
+		return "<span>" .. str .. "</span>"
+	else
+		return "<font color='" .. HTMLcolors[color] .. "'>" .. str .. "</font>"
+	end
 end
 
 local function Exploit()
