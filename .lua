@@ -304,7 +304,7 @@ end
 
 function lib:ColorFonts(str,color)
 	if color == "Bold" then
-		return "<strong>" .. str .. "</strong>"
+		return "<b>" .. str .. "</b>"
 	elseif color == "Italic" then
 		return "<i>" .. str .. "</i>"
 	elseif color == "Underline" then
@@ -1468,12 +1468,10 @@ function lib:synapse(bool)
 end
 
 function lib:FireTouch(gameservice)
-	for i,v in pairs(gameservice:GetDescendants()) do
-		if v:IsA("TouchInterest") or v:IsA("TouchTransmitter") then
-			firetouchinterest(v.Parent,LocalPlayer.Character.HumanoidRootPart,0)
-			wait()
-			firetouchinterest(v.Parent,LocalPlayer.Character.HumanoidRootPart,1)
-		end
+	for i,v in pairs(gameservice:GetTouchingParts()) do
+		firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
+		wait()
+		firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,1)
 	end
 end
 
