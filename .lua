@@ -1151,15 +1151,25 @@ function lib:hooksend(str)
 	end
 end
 
-function lib:children(path,f)
+function lib:children(path,f,t)
+	local index = t or false
 	for i,v in pairs(path:GetChildren()) do
-		f(v)
+		if index == true then
+			f(i,v)
+		else
+			f(v)
+		end
 	end
 end
 
-function lib:descendant(path,f)
+function lib:descendant(path,f,t)
+	local index = t or false
 	for i,v in pairs(path:GetDescendants()) do
-		f(v)
+		if index == true then
+			f(i,v)
+		else
+			f(v)
+		end
 	end
 end
 
