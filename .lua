@@ -522,7 +522,7 @@ end
 function lib.getUserTag(label,name)
 	if type(label) == "string" then
 		if label == "get" then
-			return {"@everyone","@here","@fahri","@asya","@akbar"}
+			return {"@None","@everyone","@here","@fahri","@asya","@akbar"}
 		elseif label == "sent" then
 			return name:gsub("@fahri","<@955564914028716043>"):gsub("@asya","<@907148919207759912>"):gsub("@akbar","<@953630026266452008>")
 		end
