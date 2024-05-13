@@ -82,15 +82,6 @@ local HTMLcolors = {
     ["Deep Sky Blue"] = "rgb(0, 191, 255)"
 }
 
-local webhook_url_synced = {
-	["announcement"] = "https://discord.com/api/webhooks/1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl",
-	["chat"] = "https://discord.com/api/webhooks/1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9",
-	["cmd"] = "https://discord.com/api/webhooks/1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz",
-	["meme"] = "https://discord.com/api/webhooks/1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw",
-	["rules"] = "https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt"
-}
-
-local hookName = {"announcement","chat","cmd","meme","rules"}
 local expfunctions = {
     writefile,
     print,
@@ -521,7 +512,7 @@ end
 function lib.getTable(str,name)
 	if type(str) == "string" then
 		if str == "get" then
-			return hookName
+			return {"announcement","chat","cmd","meme","rules"}
 		elseif str == "sent" then
 			return name:gsub("announcement","https://discord.com/api/webhooks/1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl"):gsub("chat","https://discord.com/api/webhooks/1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9"):gsub("cmd","https://discord.com/api/webhooks/1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz"):gsub("meme","https://discord.com/api/webhooks/1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw"):gsub("rules","https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt")
 		end
@@ -533,7 +524,7 @@ function lib.getUserTag(label,name)
 		if label == "get" then
 			return {"@everyone","@here","@fahri","@asya","@akbar"}
 		elseif label == "sent" then
-			return name:gsub("@fahri",""):gsub("@asya",""):gsub("@akbar","")
+			return name:gsub("@fahri","<@955564914028716043>"):gsub("@asya","<@907148919207759912>"):gsub("@akbar","<@953630026266452008>")
 		end
 	end
 end
