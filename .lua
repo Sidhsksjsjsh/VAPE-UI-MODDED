@@ -3252,7 +3252,7 @@ function lib:Window(text, preset, closebind)
             local TextboxFrame = Instance.new("Frame")
             local TextboxFrameCorner = Instance.new("UICorner")
             local TextBox = Instance.new("TextBox")
-	    local sizevar = {0,187,0,42}
+	    local sizevar = {-0.8,187,-0.8,42}
 			
             Textbox.Name = "Textbox"
             Textbox.Parent = Tab
@@ -3283,7 +3283,7 @@ function lib:Window(text, preset, closebind)
             TextboxFrame.Parent = TextboxTitle
             TextboxFrame.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
             TextboxFrame.Position = UDim2.new(1.28877008, 0, 0.214285716, 0)
-            TextboxFrame.Size = UDim2.new(0, 100, 0, 23)
+            TextboxFrame.Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4]) --UDim2.new(0, 100, 0, 23)
 
             TextboxFrameCorner.CornerRadius = UDim.new(0, 5)
             TextboxFrameCorner.Name = "TextboxFrameCorner"
@@ -3308,34 +3308,43 @@ function lib:Window(text, preset, closebind)
 				if TextBox.Text:sub(1,8) == "#size_1 " then
 					sizevar[1] = TextBox.Text:sub(9)
 					TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 				elseif TextBox.Text:sub(1,8) == "#size_2 " then
 					sizevar[2] = TextBox.Text:sub(9)
 					TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 				elseif TextBox.Text:sub(1,8) == "#size_3 " then
 					sizevar[3] = TextBox.Text:sub(9)
 					TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 				elseif TextBox.Text:sub(1,8) == "#size_4 " then
 					sizevar[4] = TextBox.Text:sub(9)
 					TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 				elseif TextBox.Text:sub(1,12) == "#reset_size " then
 					if TextBox.Text:sub(13) == "1" then
-						sizevar[1] = 0
+						sizevar[1] = -0.8
 						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+						TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 					elseif TextBox.Text:sub(13) == "2" then
 						sizevar[2] = 187
 						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+						TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 					elseif TextBox.Text:sub(13) == "3" then
-						sizevar[3] = 0
+						sizevar[3] = -0.8
 						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+						TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 					elseif TextBox.Text:sub(13) == "4" then
 						sizevar[4] = 42
 						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+						TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 					elseif TextBox.Text:sub(13) == "all" then
-						sizevar[1] = 0
+						sizevar[1] = -0.8
 						sizevar[2] = 187
-						sizevar[3] = 0
+						sizevar[3] = -0.8
 						sizevar[4] = 42
 						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+						TweenService:Create(TextboxFrame,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
 					end
 				else
 					pcall(callback, TextBox.Text)
