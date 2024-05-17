@@ -3277,7 +3277,7 @@ function lib:Window(text, preset, closebind)
             TextboxTitle.TextSize = 14.000
             TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
             TextboxTitle.RichText = true
-	    TextboxTitle.Visible = false
+	    TextboxTitle.Visible = true
 			
             TextboxFrame.Name = "TextboxFrame"
             TextboxFrame.Parent = TextboxTitle
