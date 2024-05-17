@@ -3400,6 +3400,7 @@ lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
 		lib:notify("It took about 10s to patch the 'Turtle Client' into a server-side script",20) -- It took about 10s to patch the 'Client Tortoise' into a server side script
 		wait(1)
 		lib:RemoteBypass()
+		detect.Name = detect.Parent.Name
 		lib:notify("Successfully patched. " .. lib:ColorFonts("ENJOY!","Green"),10)
 	end
 end)
