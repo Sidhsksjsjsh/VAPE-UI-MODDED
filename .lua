@@ -1700,7 +1700,7 @@ function lib:Window(text, preset, closebind)
                 if uitoggled == false then
                     uitoggled = true
                     OpenHideUI.Text = "SHOW UI"
-		    RevokeLag()
+		    lib:RevokeLag()
                     Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
                    end)
@@ -1708,7 +1708,7 @@ function lib:Window(text, preset, closebind)
                     uitoggled = false
                     ui.Enabled = true
                     OpenHideUI.Text = "HIDE UI"
-		    RevokeLag()
+		    lib:RevokeLag()
                     Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
                 end
             end
@@ -1719,7 +1719,7 @@ function lib:Window(text, preset, closebind)
 			MobileToggled = true
 			uitoggled = true
 			OpenHideUI.Text = "SHOW UI"
-			--RevokeLag()
+			lib:RevokeLag()
 			Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
                         end)
@@ -1728,7 +1728,7 @@ function lib:Window(text, preset, closebind)
 			uitoggled = false
 			ui.Enabled = true
 			OpenHideUI.Text = "HIDE UI"
-			--RevokeLag()
+			lib:RevokeLag()
 			Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
 		end
 	end)
