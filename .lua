@@ -3245,6 +3245,107 @@ function lib:Window(text, preset, closebind)
             )
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
+	function tabcontent:Console(disapper, callback)
+            local Textbox = Instance.new("Frame")
+            local TextboxCorner = Instance.new("UICorner")
+            local TextboxTitle = Instance.new("TextLabel")
+            local TextboxFrame = Instance.new("Frame")
+            local TextboxFrameCorner = Instance.new("UICorner")
+            local TextBox = Instance.new("TextBox")
+	    local sizevar = {0,187,0,42}
+			
+            Textbox.Name = "Textbox"
+            Textbox.Parent = Tab
+            Textbox.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            Textbox.ClipsDescendants = true
+            Textbox.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
+            Textbox.Size = UDim2.new(0, 363, 0, 42)
+
+            TextboxCorner.CornerRadius = UDim.new(0, 5)
+            TextboxCorner.Name = "TextboxCorner"
+            TextboxCorner.Parent = Textbox
+
+            TextboxTitle.Name = "TextboxTitle"
+            TextboxTitle.Parent = Textbox
+            TextboxTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            TextboxTitle.BackgroundTransparency = 1.000
+            TextboxTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
+            TextboxTitle.Size = UDim2.new(0, 187, 0, 42)
+            TextboxTitle.Font = Enum.Font.Gotham
+            TextboxTitle.Text = ""
+            TextboxTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextboxTitle.TextSize = 14.000
+            TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
+            TextboxTitle.RichText = true
+	    TextboxTitle.Visible = false
+			
+            TextboxFrame.Name = "TextboxFrame"
+            TextboxFrame.Parent = TextboxTitle
+            TextboxFrame.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
+            TextboxFrame.Position = UDim2.new(1.28877008, 0, 0.214285716, 0)
+            TextboxFrame.Size = UDim2.new(0, 100, 0, 23)
+
+            TextboxFrameCorner.CornerRadius = UDim.new(0, 5)
+            TextboxFrameCorner.Name = "TextboxFrameCorner"
+            TextboxFrameCorner.Parent = TextboxFrame
+
+            TextBox.Parent = TextboxFrame
+            TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            TextBox.BackgroundTransparency = 1.000
+            TextBox.Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])
+            TextBox.Font = Enum.Font.Gotham
+            TextBox.Text = ""
+            TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextBox.TextSize = 14.000
+
+            TextBox.FocusLost:Connect(
+                function(ep)
+                    if ep then
+                        if #TextBox.Text > 0 then
+                            if disapper then
+				TextBox.Text = ""
+			    end
+				if TextBox.Text:sub(1,8) == "#size_1 " then
+					sizevar[1] = TextBox.Text:sub(9)
+					TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+				elseif TextBox.Text:sub(1,8) == "#size_2 " then
+					sizevar[2] = TextBox.Text:sub(9)
+					TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+				elseif TextBox.Text:sub(1,8) == "#size_3 " then
+					sizevar[3] = TextBox.Text:sub(9)
+					TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+				elseif TextBox.Text:sub(1,8) == "#size_4 " then
+					sizevar[4] = TextBox.Text:sub(9)
+					TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+				elseif TextBox.Text:sub(1,12) == "#reset_size " then
+					if TextBox.Text:sub(13) == "1" then
+						sizevar[1] = 0
+						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					elseif TextBox.Text:sub(13) == "2" then
+						sizevar[2] = 187
+						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					elseif TextBox.Text:sub(13) == "3" then
+						sizevar[3] = 0
+						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					elseif TextBox.Text:sub(13) == "4" then
+						sizevar[4] = 42
+						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					elseif TextBox.Text:sub(13) == "all" then
+						sizevar[1] = 0
+						sizevar[2] = 187
+						sizevar[3] = 0
+						sizevar[4] = 42
+						TweenService:Create(TextBox,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Size = UDim2.new(sizevar[1],sizevar[2],sizevar[3],sizevar[4])}):Play()
+					end
+				else
+					pcall(callback, TextBox.Text)
+				end
+                        end
+                    end
+                end
+            )
+            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+        end
         function tabcontent:Bind(text, keypreset, callback)
             local binding = false
             local Key = keypreset.Name
