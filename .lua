@@ -333,6 +333,30 @@ local function Exploit()
 	end
 end
 
+function lib.getCharacterElementChanged(name,f)
+	LocalPlayer.Character:GetPropertyChangedSignal(name):Connect(function()
+		f()
+	end)
+end
+
+function lib.getHumanoidElementChanged(name,f)
+	LocalPlayer.Character.Humanoid:GetPropertyChangedSignal(name):Connect(function()
+		f()
+	end)
+end
+
+function lib.getRootElementChanged(name,f)
+	LocalPlayer.Character.HumanoidRootPart:GetPropertyChangedSignal(name):Connect(function()
+		f()
+	end)
+end
+
+function lib.getElementChanged(instance,name,f)
+	instance:GetPropertyChangedSignal(name):Connect(function()
+		f()
+	end)
+end
+
 function lib:TeleportMethod(mthd,str)
 	if mthd == "tween" then
 		TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str}):Play()
