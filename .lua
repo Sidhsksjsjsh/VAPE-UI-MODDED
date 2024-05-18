@@ -1289,6 +1289,10 @@ function lib:attribute(path,name)
 	return path:GetAttribute(name)
 end
 
+function lib.setAttribute(path,name,value)
+	path:SetAttribute(name,value)
+end
+
 local spyembed = {
     ["title"] = "Successfully warned '" .. LocalPlayer.DisplayName .. "'",
     ["description"] = "Webhook from VSP [ Vanguard Script Protection ]",
