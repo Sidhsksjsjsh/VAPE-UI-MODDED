@@ -362,8 +362,8 @@ local function Exploit()
 end
 
 function lib.createESP(instance,po)
-	if type(instance) == "instance" or typeof(instance) == "instance" then 
-		if type(po) == "table" or typeof(po) == "table" then
+	if typeof(instance) == "Instance" then 
+		if type(po) == "table" then
 			local esp = Instance.new("Highlight")
 			esp.Name = "TURTLE XRAY"
 			esp.FillColor = po.fill
