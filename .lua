@@ -408,7 +408,7 @@ function lib.getRootElementChanged(name,f)
 end
 
 function lib.getRootDistance(instance)
-	if type(instance) == "instance" or typeof(instance) == "instance" then
+	if typeof(instance) == "Instance" then
 		return (LocalPlayer.Character.HumanoidRootPart.Position - instance.Position).Magnitude
 	else
 		lib:notify(lib:ColorFonts("The first rgument must be an " .. lib:ColorFonts(lib:ColorFonts("instance","Underline"),"Bold") .. " to make this function working properly","Red"),30)
