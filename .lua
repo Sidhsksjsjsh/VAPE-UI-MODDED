@@ -299,6 +299,34 @@ local function MakeDraggable(topbarobject, object)
     )
 end
 
+function lib:children(path,f,t)
+	local index = t or false
+	for i,v in pairs(path:GetChildren()) do
+		if index == true then
+			f(i,v)
+		else
+			f(v)
+		end
+	end
+end
+
+function lib:descendant(path,f,t)
+	local index = t or false
+	for i,v in pairs(path:GetDescendants()) do
+		if index == true then
+			f(i,v)
+		else
+			f(v)
+		end
+	end
+end
+
+function lib:GetPlayer(f)
+	for i,v in pairs(game.Players:GetPlayers()) do
+		f(v)
+	end
+end
+
 function lib:notify(str,time)
 	Notif:NotifyUser(str,time)
 end
@@ -333,6 +361,34 @@ local function Exploit()
 	end
 end
 
+function lib.createESP(instance,po)
+	if type(instance) == "instance" or typeof(instance) == "instance" then 
+		if type(po) == "table" or typeof(po) == "table" then
+			local esp = Instance.new("Highlight")
+			esp.Name = "TURTLE XRAY"
+			esp.FillColor = po.fill
+			esp.OutlineColor = po.outline
+			esp.FillTransparency = 0
+			esp.OutlineTransparency = 1
+			esp.Adornee = instance
+			esp.Parent = instance
+			esp.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+		else
+			lib:notify(lib:ColorFonts("The second argument must be a " .. lib:ColorFonts(lib:ColorFonts("table","Underline"),"Bold") .. " to make this function working properly","Red"),30)
+		end
+	else
+		lib:notify(lib:ColorFonts("The first argument must be an " .. lib:ColorFonts(lib:ColorFonts("instance","Underline"),"Bold") .. " to make this function working properly","Red"),30)
+	end
+end --lib.createESP(v,{fill = Color3.new(0,1,0),outline = Color3.new(1,1,1)})
+
+function lib.revokeESP()
+	lib:descendant(workspace,function(v)
+		if v:IsA("Highlight") and v.Name == "TURTLE XRAY" then
+			v:Destroy()
+		end
+	end)
+end
+
 function lib.getCharacterElementChanged(name,f)
 	LocalPlayer.Character:GetPropertyChangedSignal(name):Connect(function()
 		f()
@@ -352,10 +408,10 @@ function lib.getRootElementChanged(name,f)
 end
 
 function lib.getRootDistance(instance)
-	if type(instance) == "instance" then
+	if type(instance) == "instance" or typeof(instance) == "instance" then
 		return (LocalPlayer.Character.HumanoidRootPart.Position - instance.Position).Magnitude
 	else
-		lib:notify(lib:ColorFonts("Argument must be an " .. lib:ColorFonts(lib:ColorFonts("instance","Underline"),"Bold") .. " to make this function working properly","Red"),10)
+		lib:notify(lib:ColorFonts("The first rgument must be an " .. lib:ColorFonts(lib:ColorFonts("instance","Underline"),"Bold") .. " to make this function working properly","Red"),30)
 	end
 end
 
@@ -1208,34 +1264,6 @@ function lib:hooksend(str)
 	end)
 	if not f then
 		print(c)
-	end
-end
-
-function lib:children(path,f,t)
-	local index = t or false
-	for i,v in pairs(path:GetChildren()) do
-		if index == true then
-			f(i,v)
-		else
-			f(v)
-		end
-	end
-end
-
-function lib:descendant(path,f,t)
-	local index = t or false
-	for i,v in pairs(path:GetDescendants()) do
-		if index == true then
-			f(i,v)
-		else
-			f(v)
-		end
-	end
-end
-
-function lib:GetPlayer(f)
-	for i,v in pairs(game.Players:GetPlayers()) do
-		f(v)
 	end
 end
 
