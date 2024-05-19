@@ -3558,7 +3558,7 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	
 	if message.TextSource then
 		if message.TextSource.UserId == 3621188307 then
-			properties.PrefixText = lib:ColorFonts("[ CEO ]","Red") .. lib:ColorFonts("[ alya ] ","Pink") .. message.PrefixText
+			properties.PrefixText = lib:ColorFonts("[ CEO ]","Red") .. lib:ColorFonts("[ # ] ","Green") .. message.PrefixText
 		end
 	end
 	--[[if message.Translation then
@@ -3572,10 +3572,12 @@ lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
 	if detect.Name == "__FUNCTION" or detect.Name == "__FUNCTIONS" then
 		lib:ACPatch()
 		lib:notify("It took about 10s to patch the 'Turtle Client' into a server-side script",20) -- It took about 10s to patch the 'Client Tortoise' into a server side script
+		lib:notify("It takes 5 seconds to infect all adonis scripts to avoid " .. lib:ColorFonts(lib:ColorFonts("Anti-Exploit","Underline"),"Red") .. " / " .. lib:ColorFonts(lib:ColorFonts("Anti-Cheat","Underline"),"Red"),20)
 		wait(1)
 		lib:RemoteBypass()
 		detect.Name = detect.Parent.Name
 		lib:notify("Successfully patched. " .. lib:ColorFonts("ENJOY!","Green"),10)
+		lib:notify(lib:ColorFonts("Successfully","Green") .. " " .. lib:ColorFonts("infected","Red") .. " Adonis " .. lib:ColorFonts(lib:ColorFonts("Anti-Cheat ( Client-Tamper, Remote and Index )","Underline"),"Red"),30)
 	end
 end)
 
