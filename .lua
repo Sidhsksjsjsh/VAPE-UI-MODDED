@@ -25,6 +25,8 @@ local DEBUG = true
 local Hooked = {}
 local Detected, Kill
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
+local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
+local pows = {}
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -242,6 +244,19 @@ coroutine.wrap(
         end
     end
 )()
+
+for i = 1,#names do 
+  table.insert(pows,1000^i)
+end
+
+function lib:CurrencyFormat(x: number): string 
+	if math.abs(x) < 1000 then
+		return tostring(x)
+	end 
+	--local p = math.min(math.floor(math.log10(math.abs(x))/3),#names)
+	--local num = math.floor(math.abs(x)/pows[math.min(math.floor(math.log10(math.abs(x))/3),#names)]*100)/100
+	return math.floor(math.abs(x)/pows[math.min(math.floor(math.log10(math.abs(x))/3),#names)] * 100) / 100 * math.sign(x) .. names[math.min(math.floor(math.log10(math.abs(x))/3),#names)]
+end
 
 local function MakeDraggable(topbarobject, object)
     local Dragging = nil
