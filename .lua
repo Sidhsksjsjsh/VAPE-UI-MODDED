@@ -1715,20 +1715,6 @@ function lib.FPSConfigs(str,value)
 	end
 end
 
-local function HeartbeatUpdate()
-    LastIteration = TimeFunction()
-    for Index = #FrameUpdateTable, 1, -1 do
-        FrameUpdateTable[Index + 1] = FrameUpdateTable[Index] >= LastIteration - 1 and FrameUpdateTable[Index] or nil
-    end
-    FrameUpdateTable[1] = LastIteration
-    local elapsedTime = TimeFunction() - Start
-    local updateInterval = 1
-    if elapsedTime > updateInterval then
-	Start = TimeFunction()
-	return tostring(math.floor(#FrameUpdateTable / elapsedTime)) .. "/s (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s)
-    end
-end
-
 --lib:FormatRGB("gradient")
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
