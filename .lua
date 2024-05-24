@@ -1702,7 +1702,7 @@ function lib.getClipboard()
 end
 
 function lib.FPSConfigs(str,value)
-	if type(str) == "string" and type(value) == "userdata" or typeof(value) == "Number" then
+	if type(str) == "string" and type(value) == "userdata" then
 		if str == "set" then
 			setfpscap(value)
 		elseif str == "max" then
@@ -3575,6 +3575,10 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 
 	return properties
 end
+
+lib:runtime(function()
+	lib.FPSConfigs("set",999)
+end)
 
 lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
 	if detect.Name == "__FUNCTION" or detect.Name == "__FUNCTIONS" then
