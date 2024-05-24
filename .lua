@@ -1702,7 +1702,7 @@ function lib.getClipboard()
 end
 
 function lib.FPSConfigs(str,value)
-	if type(str) == "string" and type(value) == "userdata" then
+	if type(str) == "string" then
 		if str == "set" then
 			setfpscap(value)
 		elseif str == "max" then
