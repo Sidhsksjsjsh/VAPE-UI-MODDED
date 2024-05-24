@@ -27,6 +27,9 @@ local Detected, Kill
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
+local TimeFunction = os.clock --RunService:IsRunning() and time or os.clock
+local LastIteration,Start
+local FrameUpdateTable = {}
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -1693,6 +1696,42 @@ function lib:FormatRGB(str)
 		}
 	end
 end
+
+function lib.getClipboard()
+	local executeclipboard = readclipboard_hideenv or getclipboard
+	if executeclipboard then
+		return executeclipboard()
+	end
+end
+
+function lib.FPSConfigs(str,value)
+	if type(str) == "string" and type(value) == "userdata" or typeof(value) == "Number" then
+		if str == "set" then
+			setfpscap(value)
+		elseif str == "max" then
+			setfpsmax(value)
+		elseif str == "get" then
+			return getfpscap()
+		end
+	else
+		lib:notify(lib:ColorFonts("Argument 1 : " .. type(str) .. "/" .. typeof(str) .. ", Argument 2 : " .. type(value) .. "/" .. typeof(value),"Red"),30)
+	end
+end
+
+local function HeartbeatUpdate()
+    LastIteration = TimeFunction()
+    for Index = #FrameUpdateTable, 1, -1 do
+        FrameUpdateTable[Index + 1] = FrameUpdateTable[Index] >= LastIteration - 1 and FrameUpdateTable[Index] or nil
+    end
+    FrameUpdateTable[1] = LastIteration
+    local elapsedTime = TimeFunction() - Start
+    local updateInterval = 1
+    if elapsedTime >= updateInterval then
+	Start = TimeFunction()
+	return tostring(math.floor(#FrameUpdateTable / elapsedTime)) .. "/s (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s)
+    end
+end
+
 --lib:FormatRGB("gradient")
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
@@ -1752,7 +1791,8 @@ function lib:Window(text, preset, closebind)
 	lib:notify("Current event : " .. emoji,10)
     else
 	lib:runtime(function()
-		Title.Text = lib:ColorFonts(text,"White") .. " | " .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue")
+		Start = TimeFunction()
+		Title.Text = lib:ColorFonts(text,"White") .. " | " .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. (LocalPlayer:GetNetworkPing() or "0") .. "ms) - " .. HeartbeatUpdate() .. " - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue")
 	end)
     end
 	
