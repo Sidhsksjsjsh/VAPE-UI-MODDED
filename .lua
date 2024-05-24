@@ -1726,7 +1726,7 @@ local function HeartbeatUpdate()
     FrameUpdateTable[1] = LastIteration
     local elapsedTime = TimeFunction() - Start
     local updateInterval = 1
-    if elapsedTime >= updateInterval then
+    if elapsedTime > updateInterval then
 	Start = TimeFunction()
 	return tostring(math.floor(#FrameUpdateTable / elapsedTime)) .. "/s (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s)
     end
@@ -1792,9 +1792,9 @@ function lib:Window(text, preset, closebind)
     else
 	lib:runtime(function()
 		Start = TimeFunction()
-		Title.Text = lib:ColorFonts(text,"White") .. " | " .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. (LocalPlayer:GetNetworkPing() or "0") .. "ms) - " .. HeartbeatUpdate() .. " - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue")
+		Title.Text = lib:ColorFonts(text,"White") .. " | " .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms - " .. HeartbeatUpdate() .. " - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue")
 	end)
-    end
+    end --LocalPlayer:GetNetworkPing()
 	
     DragFrame.Name = "DragFrame"
     DragFrame.Parent = Main
