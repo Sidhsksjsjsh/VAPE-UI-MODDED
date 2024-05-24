@@ -27,9 +27,6 @@ local Detected, Kill
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
-local TimeFunction = os.clock --RunService:IsRunning() and time or os.clock
-local LastIteration,Start
-local FrameUpdateTable = {}
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -1792,7 +1789,7 @@ function lib:Window(text, preset, closebind)
     else
 	lib:runtime(function()
 		Start = TimeFunction()
-		Title.Text = lib:ColorFonts(text,"White") .. " | " .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms - " .. HeartbeatUpdate() .. " - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue")
+		Title.Text = lib:ColorFonts(text,"White") .. " | " .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue")
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
