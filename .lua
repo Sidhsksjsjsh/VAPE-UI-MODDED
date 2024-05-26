@@ -1774,7 +1774,7 @@ function lib:Window(text, preset, closebind)
 	lib:notify("Current event : " .. emoji,10)
     else
 	lib:runtime(function()
-		Title.Text = lib:ColorFonts(text,"White") .. " | " .. (LocalPlayer:GetNetworkPing() or 0) .. "ms (" .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms) - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/" .. lib.FPSConfigs("get",0) .. ") - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Bold")
+		Title.Text = lib:ColorFonts(text,"White") .. " | " .. (LocalPlayer:GetNetworkPing() or 0) .. "ms (" .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms) - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Bold")
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
