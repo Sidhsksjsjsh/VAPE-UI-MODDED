@@ -1774,7 +1774,7 @@ function lib:Window(text, preset, closebind)
 	lib:notify("Current event : " .. emoji,10)
     else
 	lib:runtime(function()
-		Title.Text = lib:ColorFonts(text,"White") .. " | " .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Royal Blue")
+		Title.Text = lib:ColorFonts(text,"White") .. " | " .. (LocalPlayer:GetNetworkPing() or 0) .. "ms (" .. lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms) - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/" .. lib.FPSConfigs("get",0) .. ") - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB","Bold")
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
@@ -3577,7 +3577,8 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 end
 
 lib:runtime(function()
-	lib.FPSConfigs("set",999)
+	lib.FPSConfigs("set",120)
+	lib.FPSConfigs("max",120)
 end)
 
 lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
