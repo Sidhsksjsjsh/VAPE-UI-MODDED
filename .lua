@@ -336,14 +336,9 @@ function lib:descendant(path,f,t)
 	end
 end
 
-function lib:GetPlayer(i,f)
-	local isSelf = i or true
+function lib:GetPlayer(f)
 	for i,v in pairs(game.Players:GetPlayers()) do
-		if isSelf == false then
-			if v.Name ~= LocalPlayer.Name then
-				f(v)
-			end
-		else
+		if v.Name ~= LocalPlayer.Name then
 			f(v)
 		end
 	end
