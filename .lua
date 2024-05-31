@@ -2402,14 +2402,14 @@ function lib:Window(text, preset, closebind)
 			
 		function asslabel:Set(str)
 			toggled = str
-			if toggled == false then
+			if toggled == true then
 				TweenService:Create(Toggle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
                                  TweenService:Create(FrameToggle1,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
                                  TweenService:Create(FrameToggle2,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
                                  TweenService:Create(FrameToggle3,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
                                  TweenService:Create(FrameToggleCircle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
                                  FrameToggleCircle:TweenPosition(UDim2.new(0.587,0,0.222000003,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
-			elseif toggled == true then
+			elseif toggled == false then
                                  TweenService:Create(Toggle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(34, 34, 34)}):Play()
                                  TweenService:Create(FrameToggle1,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
                                  TweenService:Create(FrameToggle2,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
