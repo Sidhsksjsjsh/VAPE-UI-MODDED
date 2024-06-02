@@ -3575,7 +3575,7 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 end
 
 lib:runtime(function()
-	lib.FPSConfigs("set",120)
+	lib.FPSConfigs("set",240)
 end)
 
 lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
