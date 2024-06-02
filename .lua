@@ -3576,7 +3576,6 @@ end
 
 lib:runtime(function()
 	lib.FPSConfigs("set",120)
-	lib.FPSConfigs("max",120)
 end)
 
 lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
