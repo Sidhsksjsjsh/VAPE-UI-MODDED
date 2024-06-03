@@ -2126,7 +2126,8 @@ function lib:Window(text, preset, closebind)
             local Button = Instance.new("TextButton")
             local ButtonCorner = Instance.new("UICorner")
             local ButtonTitle = Instance.new("TextLabel")
-
+	    local asslabel = {}
+			
             Button.Name = "Button"
             Button.Parent = Tab
             Button.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
@@ -2184,7 +2185,15 @@ function lib:Window(text, preset, closebind)
 		end
             end)
 
-            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+	    function asslabel:ClearCache()
+		    Button:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+                        Button:Destroy()
+                    end)
+		    Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
+	    end
+			
+            Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
+	    return asslabel
         end
 	
         function tabcontent:Toggle(text,default,callback)
@@ -2398,6 +2407,13 @@ function lib:Window(text, preset, closebind)
 
 		function asslabel:GetValue()
 			return toggled
+		end
+
+		function asslabel:ClearCache()
+			Toggle:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+				Toggle:Destroy()
+			end)
+			Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
 		end
 			
 		function asslabel:Set(str)
@@ -2653,7 +2669,8 @@ function lib:Window(text, preset, closebind)
                 end
             )
 
-            for i, v in next, list do
+	    pcall(callback,list[1])
+            for i, v in next,list do
                 itemcount = itemcount + 1
                 if itemcount <= 3 then
                     framesize = framesize + 26
