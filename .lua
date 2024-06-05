@@ -346,6 +346,13 @@ function lib:GetPlayer(f)
 	end
 end
 
+function lib.getHiddenConnection(b,get)
+	local bool = b or true
+	for i,v in pairs(getgc(bool)) do
+		get(i,v)
+	end
+end
+
 function lib:notify(str,time)
 	Notif:NotifyUser(str,time)
 end
