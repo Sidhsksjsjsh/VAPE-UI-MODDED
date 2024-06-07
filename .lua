@@ -1048,6 +1048,13 @@ function lib:DeveloperAccess(f)
 	end
 end
 
+function lib.isDeveloper()
+	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 4083898398 or LocalPlayer.UserId == 6016761890 then
+		return true
+	end
+	return false
+end
+
 function lib:Copy(_get_string_from_script)
 	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	if clipBoard then
