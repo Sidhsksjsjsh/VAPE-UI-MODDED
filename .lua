@@ -346,6 +346,14 @@ function lib:GetPlayer(f)
 	end
 end
 
+function lib.isPlayerBehindWall(v,range)
+	if workspace:FindPartOnRayWithIgnoreList(Ray.new(v.Character.HumanoidRootPart.Position,(v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).unit * range),LocalPlayer.Character:GetDescendants()) == v.Character.HumanoidRootPart then
+		return "Behind wall"
+	else
+		return "Non-Behind wall"
+	end
+end
+
 function lib.getHiddenConnection(b,get)
 	local bool = b or true
 	for i,v in pairs(getgc(bool)) do
