@@ -203,12 +203,14 @@ local function HWID()
 end
 
 function lib:WarnUser(title) --,params)
-  CloseWarnInterface()
-  wait(1)
+  --[[if ScreenGuisForTH.Enabled == true then
+	CloseWarnInterface()
+  else
+	THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
+  end]]
   TextLabels.Text = title:gsub("${user.hwid}",HWID())
   TextButtons.Text = "OK"
   ScreenGuisForTH.Enabled = true
-  THNFrame:TweenSize(UDim2.new(.55,0,.6,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
   --autoclose = params["AutoClose"]
   --[[if autoclose == true then
 	cc = params["CanClick"]
