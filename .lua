@@ -1051,7 +1051,8 @@ function lib:DeveloperAccess(f)
 end
 
 function lib.isDeveloper()
-	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 4083898398 or LocalPlayer.UserId == 6016761890 then
+	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 4083898398 or LocalPlayer.UserId == 6016761890 or LocalPlayer.UserId == 1467851908 then
+		lib:notify(lib:ColorFonts(lib:ColorFonts("Welcome tester!","Bold"),"Green"),10)
 		return true
 	end
 	return false
