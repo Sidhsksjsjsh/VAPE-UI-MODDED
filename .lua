@@ -1500,6 +1500,11 @@ function lib:HookCalled(func)
 		elseif method == "InvokeServer" then
 			func(self,Args)
 		end
+		if method == "Fire" then
+			func(self,Args)
+		elseif method == "Invoke" then
+			func(self,Args)
+		end
         return oldNamecall(self, ...)
         end)
 end
