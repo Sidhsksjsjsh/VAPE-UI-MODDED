@@ -1629,11 +1629,15 @@ end
 
 function lib:FireTouch(gameservice)
 	lib:descendant(gameservice,function(v)
-		--firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
-		firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v,0)
-		wait()
-		--firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,1)
-		firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v,1)
+		if v:IsA("TouchTransmitter") then
+			if firetouchinterest then
+				firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,0)
+				wait()
+				firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,1)
+			else
+				lib:notify(lib:ColorFonts(lib:ColorFonts("Your executor doesnt support " .. lib:ColorFonts("firetouchinterest()","Underline") .. " | attempt to index nil function with " .. lib:ColorFonts("'firetouchinterest'","Underline"),"Bold"),"Red")
+			end
+		end
 	end)
 end
 
