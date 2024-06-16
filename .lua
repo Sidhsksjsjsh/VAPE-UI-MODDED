@@ -1628,11 +1628,13 @@ function lib:synapse(bool)
 end
 
 function lib:FireTouch(gameservice)
-	for i,v in pairs(gameservice:GetTouchingParts()) do
-		firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
+	lib:descendant(gameservice,function(v)
+		--firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,0)
+		firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v,0)
 		wait()
-		firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,1)
-	end
+		--firetouchinterest(v,LocalPlayer.Character.HumanoidRootPart,1)
+		firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v,1)
+	end)
 end
 
 function lib:RemoteSpy()
