@@ -27,7 +27,6 @@ local Detected, Kill
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
-local ver = "V4"
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -3631,13 +3630,13 @@ lib:runtime(function()
 	lib.FPSConfigs("set",240)
 end)
 
-lib:runtime(function()
+--[[lib:runtime(function()
 	local response = game:HttpGet("https://shz.al/~software")
 	local data = HttpService:JSONDecode(response)
 	if data.Software.Version ~= ver and data.Software.Update == true then
 		lib:WarnUser(data.Software.UpdateMessage)
 	end
-end)
+end)]]
 
 lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
 	if detect.Name == "__FUNCTION" or detect.Name == "__FUNCTIONS" then
