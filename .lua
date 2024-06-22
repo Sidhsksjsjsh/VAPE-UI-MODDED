@@ -425,6 +425,20 @@ function lib.revokeESP()
 	end)
 end
 
+function lib.clickScreen(area,position)
+  local hitpos = position or {5,5,5}
+  if area == "middle" then
+    VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,true,game,1)
+    VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,false,game,1)
+  elseif area == "corner" then
+    VirtualInputManager:SendMouseButtonEvent(0,0,0,true,game,1)
+    VirtualInputManager:SendMouseButtonEvent(0,0,0,false,game,1)
+  elseif area == "custom" then
+    VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],hitpos[3],true,game,1)
+    VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],hitpos[3],false,game,1)
+  end
+end
+
 function lib.getCharacterElementChanged(name,f)
 	LocalPlayer.Character:GetPropertyChangedSignal(name):Connect(function()
 		f()
