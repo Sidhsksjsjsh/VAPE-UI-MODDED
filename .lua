@@ -21,6 +21,8 @@ local TeleportService = game:GetService("TeleportService")
 local TextChatService = game:GetService("TextChatService")
 local Stats = game:GetService("Stats")
 local getinfo = getinfo or debug.getinfo
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local Camera = workspace.CurrentCamera
 local DEBUG = true
 local Hooked = {}
 local Detected, Kill
