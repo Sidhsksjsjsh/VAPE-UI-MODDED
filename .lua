@@ -26,6 +26,8 @@ local Camera = workspace.CurrentCamera
 local DEBUG = true
 local Hooked = {}
 local Detected, Kill
+local TP_DISTANCE = {under = -20,top = 20,behind = 1.5,tpm = "behind"}
+local TP_DISTANCE2 = {under = -20,top = 20,behind = -1.5,tpm = "behind"}
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
@@ -472,26 +474,74 @@ function lib.getElementChanged(instance,name,f)
 		f()
 	end)
 end
-
-function lib:TeleportMethod(mthd,str)
+--[[
+TP_DISTANCE = {under = -20,top = 20,behind = 1.5,tpm = "behind"}
+]]
+function lib:TeleportMethod(mthd,str,param)
+	TP_DISTANCE = param or {under = -20,top = 20,behind = 1.5,tpm = "behind"}
 	if mthd == "tween" then
-		TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str}):Play()
+		if TP_DISTANCE.tpm == "top" then
+			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.Angles(math.rad(-90),0,0) + Vector3.new(0,TP_DISTANCE.top,0)}):Play()
+		elseif TP_DISTANCE.tpm == "under" then
+			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE.under,0)}):Play()
+		elseif TP_DISTANCE.tpm == "behind" then
+			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.new(0,0,TP_DISTANCE.behind)}):Play()
+		end
 	elseif mthd == "tp" then
-		LocalPlayer.Character.HumanoidRootPart.CFrame = str
+		if TP_DISTANCE.tpm == "top" then
+			LocalPlayer.Character.HumanoidRootPart.CFrame = str * CFrame.Angles(math.rad(-90),0,0) + Vector3.new(0,TP_DISTANCE.top,0)
+		elseif TP_DISTANCE.tpm == "under" then
+			LocalPlayer.Character.HumanoidRootPart.CFrame = str * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE.under,0)
+		elseif TP_DISTANCE.tpm == "behind" then
+			LocalPlayer.Character.HumanoidRootPart.CFrame = str * CFrame.new(0,0,TP_DISTANCE.behind)
+		end
 	else
 		lib:notify("Teleport method is invalid, try select another method",10)
 	end
 end
 
-function lib:CustomTeleport(mthd,str,tip)
+--[[
+TP_DISTANCE2 = {
+under = -20,
+top = 20,
+behind = -1.5,
+tpm = "behind"
+}
+]]
+function lib:CustomTeleport(mthd,str,tip,param)
+	TP_DISTANCE2 = param or {under = -20,top = 20,behind = -1.5,tpm = "behind"}
 	if mthd == "tween" and tip == "cframe" then
-		TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame}):Play()
+		if TP_DISTANCE2.tpm == "top" then
+			TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(math.rad(-90),0,0) + Vector3.new(0,TP_DISTANCE2.top,0)}):Play()
+		elseif TP_DISTANCE2.tpm == "under" then
+			TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE2.under,0)}):Play()
+		elseif TP_DISTANCE2.tpm == "behind" then
+			TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,TP_DISTANCE2.behind)}):Play()
+		end
 	elseif mthd == "tp" and tip == "cframe" then
-		str.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame
+		if TP_DISTANCE2.tpm == "top" then
+			str.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(math.rad(-90),0,0) + Vector3.new(0,TP_DISTANCE2.top,0)
+		elseif TP_DISTANCE2.tpm == "under" then
+			str.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE2.under,0)
+		elseif TP_DISTANCE2.tpm == "behind" then
+			str.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,TP_DISTANCE2.behind)
+		end
 	elseif mthd == "tween" and tip == "position" then
-		TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{Position = LocalPlayer.Character.HumanoidRootPart.Position}):Play()
+		if TP_DISTANCE2.tpm == "top" then
+			TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = LocalPlayer.Character.HumanoidRootPart.Position * CFrame.Angles(math.rad(-90),0,0) + Vector3.new(0,TP_DISTANCE2.top,0)}):Play()
+		elseif TP_DISTANCE2.tpm == "under" then
+			TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = LocalPlayer.Character.HumanoidRootPart.Position * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE2.under,0)}):Play()
+		elseif TP_DISTANCE2.tpm == "behind" then
+			TweenService:Create(str,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = LocalPlayer.Character.HumanoidRootPart.Position * CFrame.new(0,0,TP_DISTANCE2.behind)}):Play()
+		end
 	elseif mthd == "tp" and tip == "position" then
-		str.Position = LocalPlayer.Character.HumanoidRootPart.Position
+		if TP_DISTANCE2.tpm == "top" then
+			str.CFrame = LocalPlayer.Character.HumanoidRootPart.Position * CFrame.Angles(math.rad(-90),0,0) + Vector3.new(0,TP_DISTANCE2.top,0)
+		elseif TP_DISTANCE2.tpm == "under" then
+			str.CFrame = LocalPlayer.Character.HumanoidRootPart.Position * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE2.under,0)
+		elseif TP_DISTANCE2.tpm == "behind" then
+			str.CFrame = LocalPlayer.Character.HumanoidRootPart.Position * CFrame.new(0,0,TP_DISTANCE2.behind)
+		end
 	else
 		lib:notify(":18927: Teleport method is invalid, try select another method",10)
 	end
