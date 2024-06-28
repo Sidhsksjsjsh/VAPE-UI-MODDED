@@ -31,6 +31,7 @@ local TP_DISTANCE2 = {under = -20,top = 20,behind = -1.5,tpm = "behind"}
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
+local ContextActionService = game:GetService("ContextActionService")
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -1527,7 +1528,7 @@ local emoji = ({
 	["08 17"] = lib:ColorFonts("🇮🇩 INDONESIA'S INDEPENDENCE DAY 🇮🇩","Red")
 })[os.date("%m %d")] --Light Green
 
-local THHUI = Instance.new("ScreenGui")
+--[[local THHUI = Instance.new("ScreenGui")
 THHUI.Name = "VIP TURTLE HUB HIDE UI"
 THHUI.Parent = game:GetService("CoreGui")
 THHUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -1537,7 +1538,7 @@ HIDEUINIGGER.Size = UDim2.new(0.5,0,0.1,0) --UDim2.new(0,200,0,150)
 HIDEUINIGGER.Position = UDim2.new(0.5,0,0,0) --UDim2.new(0.5,-100,0.5,-75)
 HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255,255,255)
 HIDEUINIGGER.Parent = THHUI
-HIDEUINIGGER.BackgroundTransparency = 1
+HIDEUINIGGER.BackgroundTransparency = 1]]
 --Title.Rotation = 90
 local rotation = 0
 
@@ -1890,7 +1891,7 @@ function lib:Window(text, preset, closebind)
     DragFrame.BackgroundTransparency = 1.000
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
 	
-    local OpenHideUI = Instance.new("TextButton")
+   --[[ local OpenHideUI = Instance.new("TextButton")
     OpenHideUI.Size = UDim2.new(0.5,0,1,0)
     OpenHideUI.Position = UDim2.new(0.5,0,0,0)
     OpenHideUI.Text = "HIDE UI"
@@ -1903,7 +1904,7 @@ function lib:Window(text, preset, closebind)
     lib:runtime(function()
 		OpenHideUI.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
     end)
-	
+	]]
     Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 
     MakeDraggable(DragFrame, Main)
@@ -1929,7 +1930,26 @@ function lib:Window(text, preset, closebind)
             end
         end)
 
-	OpenHideUI.MouseButton1Click:Connect(function()
+	local function openUI(name,state,input)
+		if state == Enum.UserInputState.Begin then
+			MobileToggled = not MobileToggled
+			if MobileToggled == true then
+				ui.Enabled = true
+				Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
+			elseif MobileToggled == false then
+				Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+					ui.Enabled = false
+				end)
+			end
+		end
+	end
+
+	ContextActionService:BindAction("Turtle Menu",openUI,true,Enum.KeyCode.Comma)
+	ContextActionService:SetImage("Turtle Menu","rbxassetid://13030062874")
+	ContextActionService:SetTitle("Turtle Menu","😈")
+	ContextActionService:SetDescription("Turtle Menu","Best script in 2024! 😈")
+	
+	--[[OpenHideUI.MouseButton1Click:Connect(function()
 		if MobileToggled == false then
 			MobileToggled = true
 			uitoggled = true
@@ -1946,7 +1966,7 @@ function lib:Window(text, preset, closebind)
 			--lib:RevokeLag()
 			Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
 		end
-	end)
+	end)]]
 	
     TabFolder.Name = "TabFolder"
     TabFolder.Parent = Main
