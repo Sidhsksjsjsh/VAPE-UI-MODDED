@@ -1948,6 +1948,7 @@ function lib:Window(text, preset, closebind)
 	ContextActionService:SetImage("Turtle Menu","rbxassetid://13030062874")
 	ContextActionService:SetTitle("Turtle Menu","😈")
 	ContextActionService:SetDescription("Turtle Menu","Best script in 2024! 😈")
+	ContextActionService:SetPosition("Turtle Menu",UDim2.new(0.5,0,0,0))
 	
 	--[[OpenHideUI.MouseButton1Click:Connect(function()
 		if MobileToggled == false then
