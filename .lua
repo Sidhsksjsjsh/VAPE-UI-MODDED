@@ -103,7 +103,7 @@ local expfunctions = {
 
 if game:GetService("CoreGui"):FindFirstChild("VIP TURTLE HUB UI") then
 	game:GetService("CoreGui")["VIP TURTLE HUB UI"]:Destroy()
-	game:GetService("CoreGui")["VIP TURTLE HUB HIDE UI"]:Destroy()
+	ContextActionService:UnbindAction("Turtle Menu")
 end
 
 local ui = Instance.new("ScreenGui")
@@ -1126,11 +1126,11 @@ function lib.isDeveloper()
 	return false
 end
 
-function lib:Copy(_get_string_from_script)
+function lib:Copy(str)
 	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	if clipBoard then
            clipBoard(txt)
-	   lib:notify(`Copied! "{_get_string_from_script}"`,10)
+	   lib:notify(`Copied! "{str}"`,10)
 	else
 	lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
     end
