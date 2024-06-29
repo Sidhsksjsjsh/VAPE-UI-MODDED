@@ -2298,11 +2298,11 @@ function lib:Window(text, preset, closebind)
                 end
             )
 			
-	    task.spawn(function()
+	    --[[task.spawn(function()
 		lib:ErrorReader(function()
 			pcall(callback)
 		end)
-	    end)
+	    end)]]
 			
             Button.MouseButton1Click:Connect(function()
 		if server.dc == true then
@@ -2414,9 +2414,11 @@ function lib:Window(text, preset, closebind)
             )()
 
 	    task.spawn(function()
-		lib:ErrorReader(function()
-			callback(toggled)
-		end)
+		if default == true then
+			lib:ErrorReader(function()
+				callback(toggled)
+			end)
+		end
 	    end)
 			
             Toggle.MouseButton1Click:Connect(function()
