@@ -1946,7 +1946,7 @@ function lib:Window(text, preset, closebind)
 
 	ContextActionService:BindAction("Turtle Menu",openUI,true,Enum.KeyCode.Comma)
 	ContextActionService:SetImage("Turtle Menu","rbxassetid://13030062874")
-	ContextActionService:SetTitle("Turtle Menu","😈")
+	ContextActionService:SetTitle("Turtle Menu","MENU")
 	ContextActionService:SetDescription("Turtle Menu","Best script in 2024! 😈")
 	ContextActionService:SetPosition("Turtle Menu",UDim2.new(0.5,0,0,0))
 	
@@ -2297,7 +2297,13 @@ function lib:Window(text, preset, closebind)
                     ):Play()
                 end
             )
-
+			
+	    task.spawn(function()
+		lib:ErrorReader(function()
+			pcall(callback)
+		end)
+	    end)
+			
             Button.MouseButton1Click:Connect(function()
 		if server.dc == true then
 			dcfunc()
@@ -2407,6 +2413,12 @@ function lib:Window(text, preset, closebind)
                 end
             )()
 
+	    task.spawn(function()
+		lib:ErrorReader(function()
+			callback(toggled)
+		end)
+	    end)
+			
             Toggle.MouseButton1Click:Connect(function()
                     if toggled == false then
                         TweenService:Create(
