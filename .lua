@@ -2433,7 +2433,7 @@ function lib:Window(text, preset, closebind)
 	    task.spawn(function()
 		if default == true then
 			lib:ErrorReader(function()
-				callback(toggled)
+				callback(true)
 			end)
 		end
 	    end)
