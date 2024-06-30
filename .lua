@@ -1411,7 +1411,7 @@ end
 function lib.getInstanceFullName(path,name,f)
 	lib:children(path,function(v)
 		if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) or (string.sub(string.lower(v.Name),1,string.len(name))) == string.upper(name) then
-			f(v.Name)
+			f(v)
 		end
 	end)
 end
