@@ -408,7 +408,7 @@ local function getUserAvatarsByTokens(playerTokens)
         Body = data
     }).Body
     local imageUrls = {}
-    for _, item in ipairs(HttpService:JSONDecode(response).data) do
+    for _,item in ipairs(HttpService:JSONDecode(response).data) do
         table.insert(imageUrls,item.imageUrl)
     end
     return imageUrls
@@ -465,16 +465,16 @@ function lib.snipe(gameID,userID)
     
 	repeat 
 	local url = "https://games.roblox.com/v1/games/" .. gameID .. "/servers/Public?sortOrder=Asc&limit=100"
-		if cursor then
+	if cursor then
             url = url .. "&cursor=" .. cursor
         end
         local response = http({ Url = url }).Body
         local data = HttpService:JSONDecode(response)
         for i,server in ipairs(data.data) do 
-			wait()
+	    wait()
             lib:notify("Scanning servers (Page " .. sniperpage .. " - " .. i .. "/" .. #data.data .. " - " .. server.playing .. " online)",30)
             local serverAvatarUrls = getUserAvatarsByTokens(server.playerTokens)
-            for _, serverAvatarUrl in ipairs(serverAvatarUrls) do
+            for _,serverAvatarUrl in ipairs(serverAvatarUrls) do
                 wait()
                 if serverAvatarUrl == userAvatarUrl then
                     lib:notify("Player found, Teleporting...",30)
@@ -485,8 +485,8 @@ function lib.snipe(gameID,userID)
                 end
             end
             if sniperfound then
-				break
-			end
+		break
+	    end
         end
     
         cursor = data.nextPageCursor or ""
@@ -2871,8 +2871,7 @@ function lib:Window(text, preset, closebind)
             DropLayout.Parent = DropItemHolder
             DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-            DropdownBtn.MouseButton1Click:Connect(
-                function()
+            DropdownBtn.MouseButton1Click:Connect(function()
                     if droptog == false then
                         Dropdown:TweenSize(
                             UDim2.new(0, 363, 0, 55 + framesize),
@@ -2905,10 +2904,10 @@ function lib:Window(text, preset, closebind)
                         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
                     end
                     droptog = not droptog
-                end
-            )
+                end)
 
 	    pcall(callback,list[1])
+	    DropdownTitle.Text = text .. " - " .. list[1]
             for i, v in next,list do
                 itemcount = itemcount + 1
                 if itemcount <= 3 then
@@ -2934,51 +2933,94 @@ function lib:Window(text, preset, closebind)
                 ItemCorner.Name = "ItemCorner"
                 ItemCorner.Parent = Item
 
-                Item.MouseEnter:Connect(
-                    function()
-                        TweenService:Create(
-                            Item,
-                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
-                        ):Play()
-                    end
-                )
+                Item.MouseEnter:Connect(function()
+                        TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
+                end)
 
-                Item.MouseLeave:Connect(
-                    function()
-                        TweenService:Create(
-                            Item,
-                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            {BackgroundColor3 = Color3.fromRGB(34, 34, 34)}
-                        ):Play()
-                    end
-                )
+                Item.MouseLeave:Connect(function()
+                        TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(34,34,34)}):Play()
+                end)
 
-                Item.MouseButton1Click:Connect(
-                    function()
+                Item.MouseButton1Click:Connect(function()
                         droptog = not droptog
                         DropdownTitle.Text = text .. " - " .. v
-                        pcall(callback, v)
-                        Dropdown:TweenSize(
-                            UDim2.new(0, 363, 0, 42),
-                            Enum.EasingDirection.Out,
-                            Enum.EasingStyle.Quart,
-                            .2,
-                            true
-                        )
-                        TweenService:Create(
-                            ArrowImg,
-                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            {Rotation = 0}
-                        ):Play()
+                        pcall(callback,v)
+                        Dropdown:TweenSize(UDim2.new(0,363,0,42),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
+                        TweenService:Create(ArrowImg,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Rotation = 0}):Play()
                         wait(.2)
                         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-                    end
-                )
+                    end)
 
                 DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
             end
 
+
+		function ahhts.AsyncOptions(itemHeld,refresh,cannotify)
+			if type(refresh) == "boolean" then
+				if refresh == true then
+					itemcount = 0
+					framesize = 0
+					if cannotify == true then
+						lib:notify(lib:ColorFonts(lib:ColorFonts(`Refresh the dropdown, got {itemcount} items need to be replace`,"Bold"),"Green"),10)
+					end
+					lib:children(DropItemHolder,function(v)
+						v:Destroy()
+					end)
+				end
+			else
+				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE SECOND ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(refresh),"Underline")}`,"Bold"),"Red"),30)
+			end
+			if type(itemHeld) == "table" then
+				for i,v in next,itemHeld do
+					itemcount = itemcount + 1
+					if itemcount <= 3 then
+						framesize = framesize + 26
+						DropItemHolder.Size = UDim2.new(0,342,0,framesize)
+					end
+					local Item = Instance.new("TextButton")
+					local ItemCorner = Instance.new("UICorner")
+
+					Item.Name = "Item"
+               				Item.Parent = DropItemHolder
+                			Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                			Item.ClipsDescendants = true
+                			Item.Size = UDim2.new(0, 335, 0, 25)
+                			Item.AutoButtonColor = false
+                			Item.Font = Enum.Font.Gotham
+                			Item.Text = v
+                			Item.TextColor3 = Color3.fromRGB(255, 255, 255)
+               				Item.TextSize = 15.000
+                			Item.RichText = true
+				
+                			ItemCorner.CornerRadius = UDim.new(0, 4)
+               			 	ItemCorner.Name = "ItemCorner"
+                			ItemCorner.Parent = Item
+
+                			Item.MouseEnter:Connect(function()
+						TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
+                			end)
+
+                			Item.MouseLeave:Connect(function()
+						TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(34,34,34)}):Play()
+                			end)
+
+                			Item.MouseButton1Click:Connect(function()
+						droptog = not droptog
+                        			DropdownTitle.Text = text .. " - " .. v
+                       				pcall(callback,v)
+                        			Dropdown:TweenSize(UDim2.new(0,363,0,42),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
+                        			TweenService:Create(ArrowImg,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Rotation = 0}):Play()
+                        			wait(.2)
+                        			Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
+                    			end)
+
+                    			DropItemHolder.CanvasSize = UDim2.new(0,0,0,DropLayout.AbsoluteContentSize.Y)
+                		end
+			else
+				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE SECOND ARGUMEN MUST BE A TABLE! {lib:ColorFonts("TABLE","Underline")} EXPECTED, GOT {lib:ColorFonts(type(itemHeld),"Underline")}`,"Bold"),"Red"),30)
+			end
+		end
+			
 		function ahhts:EditText(str)
 			DropdownTitle.Text = str
 		end
