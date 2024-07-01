@@ -20,6 +20,7 @@ local rd3Exploit = loadstring(game:HttpGet("https://raw.githubusercontent.com/Si
 local TeleportService = game:GetService("TeleportService")
 local TextChatService = game:GetService("TextChatService")
 local Stats = game:GetService("Stats")
+local StarterGui = game:GetService("StarterGui")
 local getinfo = getinfo or debug.getinfo
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local Camera = workspace.CurrentCamera
@@ -370,6 +371,49 @@ function lib:GetPlayer(f)
 	end
 end
 
+function lib.WebhookSenderV2(url,msg,usn)
+	local response = http({
+                Url = url,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode({content = msg,username = usn})
+            })
+end
+
+local function getUserAvatarByUserId(ChangeTargetUserId)
+    local url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="..ChangeTargetUserId.."&size=48x48&format=Png&isCircular=false"
+    local response = http({Url = url}).Body
+    return HttpService:JSONDecode(response).data[1].imageUrl
+end
+
+local function getUserAvatarsByTokens(playerTokens)
+    local url = "https://thumbnails.roblox.com/v1/batch"
+    local data = {}
+    for _, token in ipairs(playerTokens) do
+        table.insert(data,{
+            token = token,
+            type = "AvatarHeadShot",
+            size = "48x48",
+            isCircular = false
+        })
+    end
+    data = HttpService:JSONEncode(data)
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local response = http({
+        Url = url,
+        Method = "POST",
+        Headers = headers,
+        Body = data
+    }).Body
+    local imageUrls = {}
+    for _, item in ipairs(HttpService:JSONDecode(response).data) do
+        table.insert(imageUrls,item.imageUrl)
+    end
+    return imageUrls
+end
+
 function lib.isPlayerBehindWall(v,range)
 	if workspace:FindPartOnRayWithIgnoreList(Ray.new(v.Character.HumanoidRootPart.Position,(v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).unit * range),LocalPlayer.Character:GetDescendants()) == v.Character.HumanoidRootPart then
 		return "Behind wall"
@@ -412,6 +456,49 @@ function lib:ColorFonts(str,color)
 		return "<font color='" .. HTMLcolors[color] .. "'>" .. str .. "</font>"
 	end
 end
+
+function lib.snipe(gameID,userID)
+	local userAvatarUrl = getUserAvatarByUserId(userID) 
+	local cursor = ""
+	local sniperfound = false
+	local sniperpage = 1
+    
+	repeat 
+		local url = "https://games.roblox.com/v1/games/" .. gameID .. "/servers/Public?sortOrder=Asc&limit=100"
+		if cursor then
+            url = url .. "&cursor=" .. cursor
+        end
+        local response = http({ Url = url }).Body
+        local data = HttpService:JSONDecode(response)
+        for i,server in ipairs(data.data) do 
+			wait()
+            lib:notify("Scanning servers (Page " .. sniperpage .. " - " .. i .. "/" .. #data.data .. " - " .. server.playing .. " online)",30)
+            local serverAvatarUrls = getUserAvatarsByTokens(server.playerTokens)
+            for _, serverAvatarUrl in ipairs(serverAvatarUrls) do
+                wait()
+                if serverAvatarUrl == userAvatarUrl then
+                    lib:notify("Player found, Teleporting...",30)
+                    TeleportService:TeleportToPlaceInstance(gameID,server.id,LocalPlayer)
+                    wait(0.1)
+                    sniperfound = true
+                    break
+                end
+            end
+            if sniperfound then
+				break
+			end
+        end
+    
+        cursor = data.nextPageCursor or ""
+        sniperpage = sniperpage + 1
+    until sniperfound or cursor == ""
+    
+    if not sniperfound then
+        lib:notify("The user could not be found in the game.",30)
+    end
+end
+
+k
 
 local function Exploit()
 	if identifyexecutor then
@@ -3729,6 +3816,49 @@ game:GetService("ReplicatedStorage")["Remotes"]["HeroUseSkill"]:FireServer(unpac
 local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 ]]
 
+function lib.DeveloperEncrypt(window)
+	lib:DeveloperAccess(function()
+		local T100 = window:Tab("Developer Access",true)
+
+		T100:Button("Remote spy",function()
+			lib:RemoteSpy()
+		end)
+			
+		T100:Button("DEX",function()
+			lib:DEX()
+		end)
+			
+		T100:Button("Turtle explorer",function()
+			lib:TurtleExplorer()
+		end)
+
+		T100:Button("Open console",function()
+			StarterGui:SetCore("DevConsoleVisible",true)
+		end)
+			
+		T100:Toggle("Enable reset buttons",false,function(value)
+			StarterGui:SetCore("ResetButtonCallback",value)
+		end)
+			
+		local T101 = window:Tab("Snipe")
+		local var = {
+			game_id = game.PlaceId,
+			userid = LocalPlayer.UserId
+		}
+		T101:Textbox("Insert player ID",false,function(value)
+			var.userid = value
+		end)
+			
+		T101:Textbox("Insert game ID",false,function(value)
+			var.game_id = value
+		end)
+
+		T101:Button("Start snipe",function()
+			lib.snipe(var.game_id,var.userid)
+		end)
+	end)
+end
+
 TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
 	properties.Text = lib:ColorFonts(message.Text,"Tomato")
@@ -3756,19 +3886,6 @@ end)
 		lib:WarnUser(data.Software.UpdateMessage)
 	end
 end)]]
-
-lib:descendant(game:GetService("ReplicatedStorage"),function(detect)
-	if detect.Name == "__FUNCTION" or detect.Name == "__FUNCTIONS" then
-		lib:ACPatch()
-		lib:notify("It took about 10s to patch the 'Turtle Client' into a server-side script",20) -- It took about 10s to patch the 'Client Tortoise' into a server side script
-		lib:notify("It takes 5 seconds to infect all adonis scripts to avoid " .. lib:ColorFonts(lib:ColorFonts("Anti-Exploit","Underline"),"Red") .. " / " .. lib:ColorFonts(lib:ColorFonts("Anti-Cheat","Underline"),"Red"),20)
-		wait(1)
-		lib:RemoteBypass()
-		detect.Name = detect.Parent.Name
-		lib:notify("Successfully patched. " .. lib:ColorFonts("ENJOY!","Green"),10)
-		lib:notify(lib:ColorFonts("Successfully","Green") .. " " .. lib:ColorFonts("infected","Red") .. " Adonis " .. lib:ColorFonts(lib:ColorFonts("Anti-Cheat ( Client-Tamper, Remote and Index )","Underline"),"Red"),30)
-	end
-end)
 
 --[[TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
