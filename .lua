@@ -389,7 +389,7 @@ end
 local function getUserAvatarsByTokens(playerTokens)
     local url = "https://thumbnails.roblox.com/v1/batch"
     local data = {}
-    for _, token in ipairs(playerTokens) do
+    for _,token in ipairs(playerTokens) do
         table.insert(data,{
             token = token,
             type = "AvatarHeadShot",
@@ -464,7 +464,7 @@ function lib.snipe(gameID,userID)
 	local sniperpage = 1
     
 	repeat 
-		local url = "https://games.roblox.com/v1/games/" .. gameID .. "/servers/Public?sortOrder=Asc&limit=100"
+	local url = "https://games.roblox.com/v1/games/" .. gameID .. "/servers/Public?sortOrder=Asc&limit=100"
 		if cursor then
             url = url .. "&cursor=" .. cursor
         end
@@ -497,8 +497,6 @@ function lib.snipe(gameID,userID)
         lib:notify("The user could not be found in the game.",30)
     end
 end
-
-k
 
 local function Exploit()
 	if identifyexecutor then
