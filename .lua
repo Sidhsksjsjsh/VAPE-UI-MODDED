@@ -849,7 +849,7 @@ local function SendMessageEMBED(url,embed)
     print("Sent")
 end
 
-local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
+local updatedDate = "SHIT" --MarketplaceService:GetProductInfo(game.PlaceId).Updated
 local dt = DateTime.fromIsoDate(updatedDate)
 
 local function vcenab()
