@@ -371,7 +371,7 @@ function lib:GetPlayer(f)
 	end
 end
 
-function lib.WebhookSenderV2(url,msg,usn)
+function lib.WebhookSenderV2(url,usn,msg)
 	local response = http({
                 Url = url,
                 Method = "POST",
@@ -3884,7 +3884,16 @@ function lib.DeveloperEncrypt(window)
 		local T101 = window:Tab("Snipe")
 		local var = {
 			game_id = game.PlaceId,
-			userid = LocalPlayer.UserId
+			userid = LocalPlayer.UserId,
+			channel = lib.getTable("sent","announcement"),
+			user = lib.getUserTag("sent","@none"),
+			msg = "",
+			bot = {
+				channel = lib.getTable("sent","announcement"),
+				user = lib.getUserTag("sent","@none"),
+				name = "Unreal BOT",
+				msg = ""
+			}
 		}
 		T101:Textbox("Insert player ID",false,function(value)
 			var.userid = value
@@ -3897,6 +3906,49 @@ function lib.DeveloperEncrypt(window)
 		T101:Button("Start snipe",function()
 			lib.snipe(var.game_id,var.userid)
 		end)
+		if LocalPlayer.Name == "Rivanda_Cheater" then
+			local T102 = window:Tab("Announcement",true)
+			T102:Dropdown("Select channel",lib.getTable("get",""),function(value)
+				var.channel = value
+			end)
+
+			T102:Dropdown("Select user to mention",lib.getUserTag("get",""),function(value)
+				var.user = value
+			end)
+
+			T102:Textbox("Insert message",false,function(value)
+				var.msg = value
+			end)
+				
+			T102:Button("Sent announce [ ANNOUNCEMENT BOT ]",function()
+				if var.user == "@None" or var.user == "@none" then
+					lib.sentMessage(var.channel,var.msg)
+				else
+					lib.sentMessage(var.channel,var.user .. "\n" .. var.msg)
+				end
+			end)
+
+			local T103 = window:Tab("BOT",true)
+			T103:Dropdown("Select channel",lib.getTable("get",""),function(value)
+				var.bot.channel = value
+			end)
+
+			T103:Dropdown("Select user to mention",lib.getUserTag("get",""),function(value)
+				var.bot.user = value
+			end)
+
+			T103:Textbox("Insert bot name",false,function(value)
+				var.bot.name = value
+			end)
+
+			T103:Textbox("Insert bot response",false,function(value)
+				var.bot.msg = value
+			end)
+
+			T103:Button("Sent response",function()
+				lib.WebhookSenderV2(var.bot.channel,var.bot.name,var.bot.msg:gsub("{user}",var.bot.user))
+			end)
+		end
 	end)
 end
 
