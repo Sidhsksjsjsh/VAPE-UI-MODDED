@@ -849,8 +849,8 @@ local function SendMessageEMBED(url,embed)
     print("Sent")
 end
 
-local updatedDate = "SHIT" --MarketplaceService:GetProductInfo(game.PlaceId).Updated
-local dt = DateTime.fromIsoDate(updatedDate)
+--local updatedDate = "SHIT" --MarketplaceService:GetProductInfo(game.PlaceId).Updated
+--local dt = DateTime.fromIsoDate(updatedDate)
 
 local function vcenab()
 if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.UserId) then
