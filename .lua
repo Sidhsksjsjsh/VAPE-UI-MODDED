@@ -849,8 +849,8 @@ local function SendMessageEMBED(url,embed)
     print("Sent")
 end
 
---local updatedDate = "SHIT" --MarketplaceService:GetProductInfo(game.PlaceId).Updated
---local dt = DateTime.fromIsoDate(updatedDate)
+local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
+local dt = DateTime.fromIsoDate(updatedDate)
 
 local function vcenab()
 if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.UserId) then
@@ -1438,7 +1438,7 @@ local embed = {
     ["fields"] = {
         {
             ["name"] = "Game Information",
-            ["value"] = "```\n• Game name: " .. "Error code : 500 (Internal Server Error)" .. "\n• Game ID: " .. game.PlaceId .. "\n• Server JobId: " .. game.JobId .. "\n• Creator ID: " .. CreatorID() .. "\n```"
+            ["value"] = "```\n• Game name: " .. MarketplaceService:GetProductInfo(game.PlaceId).Name .. "\n• Game ID: " .. game.PlaceId .. "\n• Server JobId: " .. game.JobId .. "\n• Creator ID: " .. CreatorID() .. "\n```"
         },
         {
             ["name"] = "Script information",
