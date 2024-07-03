@@ -2763,7 +2763,8 @@ function lib:Window(text, preset, closebind)
                 end
             )()
 
-            local function move(input)
+	    pcall(callback,start)
+	    local function move(input)
                 local pos =
                     UDim2.new(
                     math.clamp((input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
@@ -2782,7 +2783,7 @@ function lib:Window(text, preset, closebind)
                 SlideCircle:TweenPosition(pos, "Out", "Sine", 0.1, true)
                 local value = math.floor(((pos.X.Scale * max) / max) * (max - min) + min)
                 SliderValue.Text = tostring(value)
-                pcall(callback, value)
+                pcall(callback,value)
             end
             SlideCircle.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
@@ -3318,7 +3319,7 @@ function lib:Window(text, preset, closebind)
 
             BoxColor.BackgroundColor3 = preset
             Color.BackgroundColor3 = preset
-            pcall(callback, BoxColor.BackgroundColor3)
+            pcall(callback,BoxColor.BackgroundColor3)
 
             Color.InputBegan:Connect(
                 function(input)
@@ -3453,7 +3454,7 @@ function lib:Window(text, preset, closebind)
                             ColorSelection.Position = UDim2.new(1, 0, 0, 0)
                             HueSelection.Position = UDim2.new(0.48, 0, 0, lib.HueSelectionPosition)
 
-                            pcall(callback, BoxColor.BackgroundColor3)
+                            pcall(callback,BoxColor.BackgroundColor3)
                             wait()
                         end
                     elseif not RainbowColorPicker then
@@ -3491,7 +3492,7 @@ function lib:Window(text, preset, closebind)
                         ColorSelection.Position = OldColorSelectionPosition
                         HueSelection.Position = OldHueSelectionPosition
 
-                        pcall(callback, BoxColor.BackgroundColor3)
+                        pcall(callback,BoxColor.BackgroundColor3)
                     end
                 end
             )
@@ -3617,7 +3618,7 @@ function lib:Window(text, preset, closebind)
                 function(ep)
                     if ep then
                         if #TextBox.Text > 0 then
-                            pcall(callback, TextBox.Text)
+                            pcall(callback,TextBox.Text)
                             if disapper then
                                 TextBox.Text = ""
                             end
