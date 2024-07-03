@@ -1685,7 +1685,7 @@ function lib:AddTable(gameservice,tbl)
 	end
 end
 
-function lib:ErrorReader(ssd,func)
+function lib:ErrorReader(func,ssd)
 	local shut = ssd or false
 	local shit,dick = pcall(function()
 		if shut == true then
