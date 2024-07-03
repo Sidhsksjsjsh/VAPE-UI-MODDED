@@ -3976,7 +3976,7 @@ function lib.DeveloperEncrypt(window)
 			errorlog = false,
 			rconsoleinfo = false,
 			rconsolewarning = false,
-			rconsoleerrorlog = false
+			rconsoleerrorlog = false,
 			notify_table = {"UI Notify System","2nd Notify System"},
 			notify_style = "UI Notify System",
 			dur = 16
