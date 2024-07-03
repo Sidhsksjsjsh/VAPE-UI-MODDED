@@ -3865,7 +3865,7 @@ function lib.DeveloperEncrypt(window)
 					local old = hookfunction(func,newcclosure(function(...)
 						local args = {...}
 						for i,v in next,args do
-							output(i,v)
+							output(#args,i,v)
 						end
 						return old(...)
 					end))
@@ -3962,17 +3962,104 @@ function lib.DeveloperEncrypt(window)
 			T103:Button("Sent response",function()
 				lib.WebhookSenderV2(var.bot.channel,var.bot.name,var.bot.msg:gsub("{user}",var.bot.user))
 			end)
-		end
+		end --lib:Notification("System Logging (print)",v,"ok")
 		local T104 = window:Tab("SPY LOGGING",true)
 		local log = {
 			info = false,
 			warning = false,
 			errorlog = false,
+			rconsoleinfo = false,
+			rconsolewarning = false,
+			rconsoleerrorlog = false
 			notify_table = {"UI Notify System","2nd Notify System"},
-			notify_style = "UI Notify System"
+			notify_style = "UI Notify System",
+			dur = 16
 		}
-		CatchCaller(print,function(i,v)
-			k
+		CatchCaller(print,function(c,i,v)
+			if log.info == true then
+				if log.notify_style == "UI Notify System" then
+					lib:Notification(`System Logging (print) {c}`,`[{i}] {v}`,"ok")
+				elseif log.notify_style == "2nd Notify System" then
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+				end
+			end
+		end)
+		CatchCaller(rconsoleprint,function(c,i,v)
+			if log.rconsoleinfo == true then
+				if log.notify_style == "UI Notify System" then
+					lib:Notification(`System Logging (rconsoleprint) {c}`,`[{i}] {v}`,"ok")
+				elseif log.notify_style == "2nd Notify System" then
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+				end
+			end
+		end)
+		CatchCaller(warn,function(c,i,v)
+			if log.warning == true then
+				if log.notify_style == "UI Notify System" then
+					lib:Notification(`System Logging (warn) {c}`,`[{i}] {v}`,"ok")
+				elseif log.notify_style == "2nd Notify System" then
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+				end
+			end
+		end)
+		CatchCaller(rconsolewarn,function(c,i,v)
+			if log.rconsolewarning == true then
+				if log.notify_style == "UI Notify System" then
+					lib:Notification(`System Logging (rconsolewarn) {c}`,`[{i}] {v}`,"ok")
+				elseif log.notify_style == "2nd Notify System" then
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+				end
+			end
+		end)
+		CatchCaller(error,function(c,i,v)
+			if log.errorlog == true then
+				if log.notify_style == "UI Notify System" then
+					lib:Notification(`System Logging (error) {c}`,`[{i}] {v}`,"ok")
+				elseif log.notify_style == "2nd Notify System" then
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+				end
+			end
+		end)
+		CatchCaller(rconsoleerror,function(c,i,v)
+			if log.rconsoleerrorlog == true then
+				if log.notify_style == "UI Notify System" then
+					lib:Notification(`System Logging (rconsoleerror) {c}`,`[{i}] {v}`,"ok")
+				elseif log.notify_style == "2nd Notify System" then
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+				end
+			end
+		end)
+
+		T104:Dropdown("Select notify style",log.notify_table,function(value)
+			log.notify_style = value
+		end)
+
+		T104:Slider("Notification duration",0,100,16,function(value)
+			log.dur = value
+		end)
+
+		T104:Toggle("Log print() system",false,function(value)
+			log.info = value
+		end)
+
+		T104:Toggle("Log warn() system",false,function(value)
+			log.warning = value
+		end)
+
+		T104:Toggle("Log error() system",false,function(value)
+			log.errorlog = value
+		end)
+
+		T104:Toggle("Log rconsoleprint() system",false,function(value)
+			log.rconsoleinfo = value
+		end)
+
+		T104:Toggle("Log rconsolewarn() system",false,function(value)
+			log.rconsolewarning = value
+		end)
+
+		T104:Toggle("Log rconsoleerror() system",false,function(value)
+			log.rconsoleerrorlog = value
 		end)
 	end)
 end
