@@ -1685,11 +1685,16 @@ function lib:AddTable(gameservice,tbl)
 	end
 end
 
-function lib:ErrorReader(func)
+function lib:ErrorReader(ssd,func)
+	local shut = ssd or false
 	local shit,dick = pcall(function()
-		func()
+		if shut == true then
+			lib:notify(lib:ColorFonts(lib:ColorFonts("UNDER MAINTENANCE!","Bold"),"Red"),9e9)
+		else
+			func()
+		end
 	end)
-	if not shit then
+	if not shit and shut == false then
 		lib:DeveloperAccess(function()
 			lib:notify(lib:ColorFonts(dick,"Red"),9e9)
 		end)
