@@ -4026,7 +4026,7 @@ function lib.DeveloperEncrypt(window)
 				end
 			end
 		end)
-		CatchCaller(rconsoleerror,function(c,i,v)
+		CatchCaller(rconsoleerr,function(c,i,v)
 			if log.rconsoleerrorlog == true then
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (rconsoleerror) {c}`,`[{i}] {v}`,"ok")
