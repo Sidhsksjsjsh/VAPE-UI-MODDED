@@ -3859,6 +3859,20 @@ local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 
 function lib.DeveloperEncrypt(window)
 	lib:DeveloperAccess(function()
+		local function CatchCaller(func,output)
+			task.spawn(function()
+				lib:ErrorReader(function()
+					local old = hookfunction(func,newcclosure(function(...)
+						local args = {...}
+						for i,v in next,args do
+							output(i,v)
+						end
+						return old(...)
+					end))
+				end)
+			end)
+		end
+		
 		local T100 = window:Tab("Developer Access",true)
 
 		T100:Button("Remote spy",function()
@@ -3949,6 +3963,17 @@ function lib.DeveloperEncrypt(window)
 				lib.WebhookSenderV2(var.bot.channel,var.bot.name,var.bot.msg:gsub("{user}",var.bot.user))
 			end)
 		end
+		local T104 = window:Tab("SPY LOGGING",true)
+		local log = {
+			info = false,
+			warning = false,
+			errorlog = false,
+			notify_table = {"UI Notify System","2nd Notify System"},
+			notify_style = "UI Notify System"
+		}
+		CatchCaller(print,function(i,v)
+			k
+		end)
 	end)
 end
 
