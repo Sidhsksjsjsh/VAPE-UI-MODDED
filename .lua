@@ -1833,7 +1833,7 @@ end
 
 function lib:RemoteSpy()
 	local isrun,iserror = pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/.lua"))()
+		lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/.lua")
 	end)
 	if not isrun then
 		lib:WarnUser(lib:ColorFonts(iserror,"Red"))
