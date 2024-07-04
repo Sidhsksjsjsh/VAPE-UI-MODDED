@@ -1695,11 +1695,8 @@ function lib:ErrorReader(func,ssd)
 		end
 	end)
 	if not shit and shut == false then
-		lib:DeveloperAccess(function()
-			lib:notify(lib:ColorFonts(dick,"Red"),9e9)
-		end)
-		--lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,4) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,3) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,2) .. ":","⚠️ |"),"Red"),9e9)
-		lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
+		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,4) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,3) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,2) .. ":","⚠️ |"),"Red"),9e9)
+		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
 		SendMessage("https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT","An error has occured when running Turtle Hub.```diff\n- " .. dick .. "\n" .. debug.traceback() .. "\n```")
 	end
 end
