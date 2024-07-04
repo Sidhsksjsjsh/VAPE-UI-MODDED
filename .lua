@@ -457,7 +457,8 @@ function lib:ColorFonts(str,color)
 	end
 end
 
-function lib:LoadRepository(path)
+function lib:LoadRepository(path,bool)
+	local gui = bool or false
 	lib:ErrorReader(function()
 		local async = http({
 			Url = path,
@@ -469,7 +470,11 @@ function lib:LoadRepository(path)
 
 		local loadFunction = loadstring(async.Body)
 		if loadFunction then
-			loadFunction()
+			if gui == true then
+				return loadFunction()
+			elseif gui == false then
+				loadFunction()
+			end
 		else
 			lib:notify(lib:ColorFonts(lib:ColorFonts("Failed to load script","Bold"),"Red"),9e9)
 		end
