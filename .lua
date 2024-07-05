@@ -3949,7 +3949,13 @@ function lib.DeveloperEncrypt(window)
 		T100:Toggle("Enable reset buttons",false,function(value)
 			StarterGui:SetCore("ResetButtonCallback",value)
 		end)
-			
+
+		T100:Button("Sent all attributes",function()
+			lib:attributes(self,function(name,value)
+				lib.sentMessage(lib.getTable("sent","galau"),`[\nAttribute name : {name}\nAttribute value : {value}\n\nValue type : {type(value)}\nValue typeof : {typeof(value)}\n]`)
+			end)
+		end)
+		
 		local T101 = window:Tab("Snipe")
 		local var = {
 			game_id = game.PlaceId,
