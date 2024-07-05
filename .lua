@@ -3025,6 +3025,7 @@ function lib:Window(text, preset, closebind)
 			else
 				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE SECOND ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(refresh),"Underline")}`,"Bold"),"Red"),30)
 			end
+			repeat wait() until #DropItemHolder:GetChildren() < 1
 			if type(itemHeld) == "table" then
 				DropdownTitle.Text = text .. " - " .. itemHeld[1]
                        		pcall(callback,itemHeld[1])
