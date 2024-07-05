@@ -3026,6 +3026,8 @@ function lib:Window(text, preset, closebind)
 				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE SECOND ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(refresh),"Underline")}`,"Bold"),"Red"),30)
 			end
 			if type(itemHeld) == "table" then
+				DropdownTitle.Text = text .. " - " .. itemHeld[1]
+                       		pcall(callback,itemHeld[1])
 				for i,v in next,itemHeld do
 					itemcount = itemcount + 1
 					if itemcount <= 3 then
@@ -3051,7 +3053,7 @@ function lib:Window(text, preset, closebind)
                			 	ItemCorner.Name = "ItemCorner"
                 			ItemCorner.Parent = Item
 
-                			Item.MouseEnter:Connect(function()
+					Item.MouseEnter:Connect(function()
 						TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
                 			end)
 
