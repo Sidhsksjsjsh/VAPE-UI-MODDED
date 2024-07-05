@@ -3961,11 +3961,11 @@ function lib.DeveloperEncrypt(window)
 			game_id = game.PlaceId,
 			userid = LocalPlayer.UserId,
 			channel = lib.getTable("sent","announcement"),
-			user = lib.getUserTag("sent","@none"),
+			user = lib.getUserTag("sent","@None"),
 			msg = "",
 			bot = {
 				channel = lib.getTable("sent","announcement"),
-				user = lib.getUserTag("sent","@none"),
+				user = lib.getUserTag("sent","@None"),
 				name = "Unreal BOT",
 				msg = ""
 			}
