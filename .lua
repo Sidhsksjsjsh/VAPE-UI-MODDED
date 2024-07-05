@@ -479,6 +479,35 @@ function lib:LoadRepository(path,bool)
 	end
 end
 
+function lib.CodeEncrypter(b)
+  local c = "function IllIlllIllIlllIlllIlllIll(IllIlllIllIllIll) if (IllIlllIllIllIll==(((((919 + 636)-636)*3147)/3147)+919)) then return not true end if (IllIlllIllIllIll==(((((968 + 670)-670)*3315)/3315)+968)) then return not false end end; "
+  local d = c
+  local e = ""
+  local f = {"IllIllIllIllI","IIlllIIlllIIlllIIlllII","IIllllIIllll"}
+  local g = [[local IlIlIlIlIlIlIlIlII = {]]
+  local h = [[local IllIIllIIllIII = loadstring]]
+  local i = [[local IllIIIllIIIIllI = table.concat]]
+  local j = [[local IIIIIIIIllllllllIIIIIIII = "''"]]
+  local k = "local " .. f[math.random(1,#f)] .. " = (7*3-9/9+3*2/0+3*3);"
+  local l = "local " .. f[math.random(1,#f)] .. " = (3*4-7/7+6*4/3+9*9);"
+  local m = "--// Obfuscated with Turtle-Protector 7.5 by Fahri \n\n"
+  for n = 1,string.len(b) do 
+    e = e .. "'\\" .. string.byte(b,n) .. "',"
+  end
+  local o = "function IllIIIIllIIIIIl(" .. f[math.random(1,#f)] .. ")"
+  local p = "function " .. f[math.random(1,#f)] .. "(".. f[math.random(1,#f)] .. ")"
+  local q = "local " .. f[math.random(1,#f)] .. " = (5*3-2/8+9*2/9+8*3)"
+  local r = "end"
+  local s = "IllIIIIllIIIIIl(900283)"
+  local t = "function IllIlllIllIlllIlllIlllIllIlllIIIlll(" .. f[math.random(1,#f)] .. ")"
+  local q = "function " .. f[math.random(1,#f)] .. "(" .. f[math.random(1,#f)] .. ")"
+  local u = "local " .. f[math.random(1,#f)] .. " = (9*0-7/5+3*1/3+8*2)"
+  local v = "end"
+  local w = "IllIlllIllIlllIlllIlllIllIlllIIIlll(9083)"
+  local x = m .. d .. k .. l .. i .. ";" .. o .. " " .. p .. " " .. q .. " " .. r .. " " .. r .. " " .. r .. ";" .. s .. ";" .. t .. " " .. q .. " " .. u .. " " .. v .. " " .. v .. ";" .. w .. ";" .. h .. ";" .. g .. e .. "}" .. "IllIIllIIllIII(IllIIIllIIIIllI(IlIlIlIlIlIlIlIlII,IIIIIIIIllllllllIIIIIIII))()"
+  return x
+end
+
 function lib.snipe(gameID,userID)
 	local userAvatarUrl = getUserAvatarByUserId(userID) 
 	local cursor = ""
@@ -3880,6 +3909,7 @@ local args = {
 
 game:GetService("ReplicatedStorage")["Remotes"]["HeroUseSkill"]:FireServer(unpack(args))
 local player = Players:GetPlayerByUserId(message.TextSource.UserId)
+
 ]]
 
 function lib.DeveloperEncrypt(window)
@@ -4086,8 +4116,53 @@ function lib.DeveloperEncrypt(window)
 		T104:Toggle("Log rconsoleerror() system",false,function(value)
 			log.rconsoleerrorlog = value
 		end)
+
+		local T105 = window:Tab("Obfuscator",true)
+		local obf = {
+			text = "CODE_STRING",
+			hard = false,
+			loadstring_method = false
+		}
+
+		T105:Textbox("Insert code or link to obfuscate",false,function(value)
+			obf.text = value
+		end)
+			
+		T105:Toggle("Hard obfuscator",true,function(value)
+			obf.hard = value
+		end)
+
+		T105:Toggle("Loadstring obfuscator",false,function(value)
+			obf.loadstring_method = value
+		end)
+
+		T105:Button("Obfuscate",function()
+			if obf.loadstring_method == true then
+				if obf.hard == true then
+					if obf.text:sub(1,8) == "https://" then
+						lib:Copy('loadstring(game:HttpGet("' .. lib.CodeEncrypter(obf.text) .. '"))()')
+					else
+						lib:Copy('loadstring("' .. lib.CodeEncrypter(obf.text) .. '")()')
+					end
+				end
+			else
+				if obf.hard == true then
+					lib:Copy(lib.CodeEncrypter(obf.text))
+				end
+			end
+		end)
+
+		T105:Button("Test execute obfuscated code",function()
+			if obf.hard == true then
+				if obf.text:sub(1,8) == "https://" then
+					loadstring(game:HttpGet(lib.CodeEncrypter(obf.text)))()
+				else
+					loadstring(lib.CodeEncrypter(obf.text))()
+				end
+			end
+		end)
 	end)
-end
+end --lib.CodeEncrypter(b)
 
 TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
