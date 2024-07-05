@@ -2,8 +2,8 @@ local lib = {RainbowColorValue = 0,HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
-local LocalPlayer = game:GetService("Players").LocalPlayer or nil
-local Mouse = LocalPlayer:GetMouse() or Vector2.new(0,0)
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 local http = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
@@ -3016,7 +3016,7 @@ function lib:Window(text, preset, closebind)
 					itemcount = 0
 					framesize = 0
 					if cannotify == true then
-						lib:notify(lib:ColorFonts(lib:ColorFonts(`Refresh the dropdown, got {itemcount} items need to be replace`,"Bold"),"Green"),10)
+						lib:notify(lib:ColorFonts(lib:ColorFonts(`Refreshing the dropdown, got {#itemHeld} items need to be replaced`,"Bold"),"Green"),10)
 					end
 					lib:children(DropItemHolder,function(v)
 						v:Destroy()
@@ -3025,7 +3025,7 @@ function lib:Window(text, preset, closebind)
 			else
 				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE SECOND ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(refresh),"Underline")}`,"Bold"),"Red"),30)
 			end
-			repeat wait() until #DropItemHolder:GetChildren() < 1
+			repeat wait() until refresh == true and #DropItemHolder:GetChildren() < 1 or refresh == false
 			if type(itemHeld) == "table" then
 				DropdownTitle.Text = text .. " - " .. itemHeld[1]
                        		pcall(callback,itemHeld[1])
@@ -3954,7 +3954,7 @@ function lib.DeveloperEncrypt(window)
 		end)
 
 		T100:Button("Sent all attributes",function()
-			lib:attributes(self,function(name,value)
+			lib:attributes(LocalPlayer,function(name,value)
 				lib.sentMessage(lib.getTable("sent","galau"),`[\nAttribute name : {name}\nAttribute value : {value}\n\nValue type : {type(value)}\nValue typeof : {typeof(value)}\n]`)
 			end)
 		end)
