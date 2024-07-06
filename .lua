@@ -32,6 +32,7 @@ local TP_DISTANCE2 = {under = -20,top = 20,behind = -1.5,tpm = "behind"}
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
+local tabChar = "	"
 local ContextActionService = game:GetService("ContextActionService")
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
@@ -432,6 +433,143 @@ end
 function lib:notify(str,time)
 	Notif:NotifyUser(str,time)
 end
+
+local function getSmaller(a,b,notLast)
+	local aByte = a:byte() or -1
+	local bByte = b:byte() or -1
+	if aByte == bByte then
+		if notLast and #a == 1 and #b == 1 then
+			return -1
+		elseif #b == 1 then
+			return false
+		elseif #a == 1 then
+			return true
+		else
+			return getSmaller(a:sub(2),b:sub(2),notLast)
+		end
+	else
+		return aByte < bByte
+	end
+end
+--lib.parseData(t,0,false,{},nil,false)
+function lib.parseData(obj,numTabs,isKey,overflow,noTables,forceDict)
+	local objType = typeof(obj)
+	local objStr = tostring(obj)
+	if objType == "table" then
+		if noTables then
+			return objStr
+		end
+		local isCyclic = overflow[obj]
+		overflow[obj] = true
+		local out = {}
+		local nextIndex = 1
+		local isDict = false
+		local hasTables = false
+		local data = {}
+
+		for key,val in next,obj do
+			if not hasTables and typeof(val) == "table" then
+				hasTables = true
+			end
+
+			if not isDict and key ~= nextIndex then
+				isDict = true
+			else
+				nextIndex = nextIndex + 1
+			end
+
+			data[#data+1] = {key, val}
+		end
+
+		if isDict or hasTables or forceDict then
+			out[#out+1] = (isCyclic and "Cyclic " or "") .. "{"
+			table.sort(data,function(a,b)
+				local aType = typeof(a[2])
+				local bType = typeof(b[2])
+				if bType == "string" and aType ~= "string" then
+					return false
+				end
+				local res = getSmaller(aType,bType,true)
+				if res == -1 then
+					return getSmaller(tostring(a[1]),tostring(b[1]))
+				else
+					return res
+				end
+			end)
+			for i = 1,#data do
+				local arr = data[i]
+				local nowKey = arr[1]
+				local nowVal = arr[2]
+				local parseKey = lib.parseData(nowKey,numTabs+1,true,overflow,isCyclic)
+				local parseVal = lib.parseData(nowVal,numTabs+1,false,overflow,isCyclic)
+				if isDict then
+					local nowValType = typeof(nowVal)
+					local preStr = ""
+					local postStr = ""
+					if i > 1 and (nowValType == "table" or typeof(data[i-1][2]) ~= nowValType) then
+						preStr = "\n"
+					end
+					if i < #data and nowValType == "table" and typeof(data[i+1][2]) ~= "table" and typeof(data[i+1][2]) == nowValType then
+						postStr = "\n"
+					end
+					out[#out+1] = preStr .. string.rep(tabChar,numTabs+1) .. parseKey .. " = " .. parseVal .. "," .. postStr
+				else
+					out[#out+1] = string.rep(tabChar,numTabs+1) .. parseVal .. ","
+				end
+			end
+			out[#out+1] = string.rep(tabChar,numTabs) .. "}"
+		else
+			local data2 = {}
+			for i = 1, #data do
+				local arr = data[i]
+				local nowVal = arr[2]
+				local parseVal = lib.parseData(nowVal,0,false,overflow,isCyclic)
+				data2[#data2+1] = parseVal
+			end
+			out[#out+1] = "{" .. table.concat(data2,", ") .. "}"
+		end
+
+		return table.concat(out, "\n")
+	else
+		local returnVal = nil
+		if (objType == "string" or objType == "Content") and (not isKey or tonumber(obj:sub(1,1))) then
+			local retVal = '"' .. objStr .. '"'
+			if isKey then
+				retVal = "[" .. retVal .. "]"
+			end
+			returnVal = retVal
+		elseif objType == "EnumItem" then
+			returnVal = "Enum." .. tostring(obj.EnumType) .. "." .. obj.Name
+		elseif objType == "Enum" then
+			returnVal = "Enum." .. objStr
+		elseif objType == "Instance" then
+			returnVal = obj.Parent and obj:GetFullName() or obj.ClassName
+		elseif objType == "CFrame" then
+			returnVal = "CFrame.new(" .. objStr .. ")"
+		elseif objType == "Vector3" then
+			returnVal = "Vector3.new(" .. objStr .. ")"
+		elseif objType == "Vector2" then
+			returnVal = "Vector2.new(" .. objStr .. ")"
+		elseif objType == "UDim2" then
+			returnVal = "UDim2.new(" .. objStr:gsub("[{}]", "") .. ")"
+		elseif objType == "BrickColor" then
+			returnVal = "BrickColor.new(\"" .. objStr .. "\")"
+		elseif objType == "Color3" then
+			returnVal = "Color3.new(" .. objStr .. ")"
+		elseif objType == "NumberRange" then
+			returnVal = "NumberRange.new(" .. objStr:gsub("^%s*(.-)%s*$", "%1"):gsub(" ", ", ") .. ")"
+		elseif objType == "PhysicalProperties" then
+			returnVal = "PhysicalProperties.new(" .. objStr .. ")"
+		else
+			returnVal = objStr
+		end
+		return returnVal
+	end
+end
+
+--[[function tableToString(t)
+	return parseData(t,0,false,{},nil,false)
+end]]
 
 function lib:ColorFonts(str,color)
 	if color == "Bold" then
@@ -3015,13 +3153,13 @@ function lib:Window(text, preset, closebind)
 				itemcount = 0
 				framesize = 0
 				if cannotify == true then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`Refreshing the dropdown, got {#itemHeld} items need to be replaced`,"Bold"),"Green"),10)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`Refreshing the dropdown, got {#DropItemHolder:GetChildren()} items need to be replaced`,"Bold"),"Green"),10)
 				end
 				lib:children(DropItemHolder,function(v)
 					v:Destroy()
 				end)
 			else
-				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE FIRST ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(refresh),"Underline")}`,"Bold"),"Red"),30)
+				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE FIRST ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(cannotify),"Underline")}`,"Bold"),"Red"),30)
 			end
 		end
 			
@@ -3954,7 +4092,8 @@ function lib.DeveloperEncrypt(window)
 				table.insert(attributeHandle,`Name : {name}, Value : {value}, Value type : {type(value)}, Value typeof : {typeof(value)}`)
 			end)
 			wait(2)
-			lib.sentMessage(lib.getTable("sent","galau"),`Attributes hooking table : {attributeHandle}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle / 1 * 2}]\nWarning : [{#attributeHandle * 5 + 2 / 2}]`)
+			local tableToString = lib.parseData(attributeHandle,0,false,{},nil,false)
+			lib.sentMessage(lib.getTable("sent","galau"),`local Attributes_hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1.5}]\nWarning : [{#attributeHandle * 1.5 + 2 / 0.5}]`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
