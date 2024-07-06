@@ -526,7 +526,7 @@ function lib.parseData(obj,numTabs,isKey,overflow,noTables,forceDict)
 				local parseVal = lib.parseData(nowVal,0,false,overflow,isCyclic)
 				data2[#data2+1] = parseVal
 			end
-			out[#out+1] = "{" .. table.concat(data2,", ") .. "}"
+			out[#out+1] = "{\n" .. tabChar .. table.concat(data2,",\n") .. "\n}"
 		end
 
 		return table.concat(out, "\n")
