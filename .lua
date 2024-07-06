@@ -4089,11 +4089,11 @@ function lib.DeveloperEncrypt(window)
 		T100:Button("Sent all attributes",function()
 			local attributeHandle = {}
 			lib:attributes(LocalPlayer,function(name,value)
-				table.insert(attributeHandle,`Name : {name}, Value : {value}, Value type : {type(value)}, Value typeof : {typeof(value)}`)
+				table.insert(attributeHandle,`['{name}'] = '{value}'`)
 			end)
 			wait(2)
 			local tableToString = lib.parseData(attributeHandle,0,false,{},nil,false)
-			lib.sentMessage(lib.getTable("sent","galau"),`local Attributes_hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1.5}]\nWarning : [{#attributeHandle * 1.5 + 2 / 0.5}]`)
+			lib.sentMessage(lib.getTable("sent","galau"),`local hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1.5}]\nWarning : [{#attributeHandle * 1.5 + 2 / 0.5}]`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
