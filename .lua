@@ -3882,10 +3882,6 @@ local isafk = {
 }
 
 LocalPlayer.Idled:connect(function()
-	if isafk.bool == false then
-		lib:WarnUser("User is afk... manipulating server detection")
-		isafk.bool = true
-	end
 	VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 	wait(1)
 	VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
@@ -3894,7 +3890,6 @@ end)
 UserInputService.InputBegan:Connect(function(input)
 	if isafk.bool == true then
 		isafk.bool = false
-		lib:WarnUser("User is back... canceling the manipulation.")
 		wait(3)
 		CloseWarnInterface()
 	end
@@ -3956,10 +3951,10 @@ function lib.DeveloperEncrypt(window)
 		T100:Button("Sent all attributes",function()
 			local attributeHandle = {}
 			lib:attributes(LocalPlayer,function(name,value)
-				table.insert(attributeHandle,`Name : {name}\nValue : {value}\n\nValue type : {type(value)}\nValue typeof : {typeof(value)}`)
+				table.insert(attributeHandle,`Name : {name}, Value : {value}, Value type : {type(value)}, Value typeof : {typeof(value)}`)
 			end)
 			wait(2)
-			lib.sentMessage(lib.getTable("sent","galau"),`Attributes hooking table : {attributeHandle}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle / 1 * 2}]\nWarning : [{##attributeHandle * 5 + 2 / 2}]`)
+			lib.sentMessage(lib.getTable("sent","galau"),`Attributes hooking table : {attributeHandle}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle / 1 * 2}]\nWarning : [{#attributeHandle * 5 + 2 / 2}]`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
