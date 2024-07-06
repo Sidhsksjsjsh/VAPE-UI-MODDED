@@ -3010,22 +3010,22 @@ function lib:Window(text, preset, closebind)
             end
 
 
-		function ahhts.AsyncOptions(itemHeld,refresh,cannotify)
-			if type(refresh) == "boolean" then
-				if refresh == true then
-					itemcount = 0
-					framesize = 0
-					if cannotify == true then
-						lib:notify(lib:ColorFonts(lib:ColorFonts(`Refreshing the dropdown, got {#itemHeld} items need to be replaced`,"Bold"),"Green"),10)
-					end
-					lib:children(DropItemHolder,function(v)
-						v:Destroy()
-					end)
+		function ahhts.ClearItems(cannotify)
+			if type(cannotify) == "boolean" then
+				itemcount = 0
+				framesize = 0
+				if cannotify == true then
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`Refreshing the dropdown, got {#itemHeld} items need to be replaced`,"Bold"),"Green"),10)
 				end
+				lib:children(DropItemHolder,function(v)
+					v:Destroy()
+				end)
 			else
-				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE SECOND ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(refresh),"Underline")}`,"Bold"),"Red"),30)
+				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE FIRST ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(refresh),"Underline")}`,"Bold"),"Red"),30)
 			end
-			repeat wait() until refresh == true and #DropItemHolder:GetChildren() < 1 or refresh == false
+		end
+			
+		function ahhts.AsyncOptions(itemHeld)
 			if type(itemHeld) == "table" then
 				DropdownTitle.Text = text .. " - " .. itemHeld[1]
                        		pcall(callback,itemHeld[1])
@@ -3075,7 +3075,7 @@ function lib:Window(text, preset, closebind)
                     			DropItemHolder.CanvasSize = UDim2.new(0,0,0,DropLayout.AbsoluteContentSize.Y)
                 		end
 			else
-				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE SECOND ARGUMEN MUST BE A TABLE! {lib:ColorFonts("TABLE","Underline")} EXPECTED, GOT {lib:ColorFonts(type(itemHeld),"Underline")}`,"Bold"),"Red"),30)
+				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE FIRST ARGUMEN MUST BE A TABLE! {lib:ColorFonts("TABLE","Underline")} EXPECTED, GOT {lib:ColorFonts(type(itemHeld),"Underline")}`,"Bold"),"Red"),30)
 			end
 		end
 			
@@ -3954,9 +3954,12 @@ function lib.DeveloperEncrypt(window)
 		end)
 
 		T100:Button("Sent all attributes",function()
+			local attributeHandle = {}
 			lib:attributes(LocalPlayer,function(name,value)
-				lib.sentMessage(lib.getTable("sent","galau"),`[\nAttribute name : {name}\nAttribute value : {value}\n\nValue type : {type(value)}\nValue typeof : {typeof(value)}\n]`)
+				table.insert(attributeHandle,`Name : {name}\nValue : {value}\n\nValue type : {type(value)}\nValue typeof : {typeof(value)}`)
 			end)
+			wait(2)
+			lib.sentMessage(lib.getTable("sent","galau"),`Attributes hooking table : {attributeHandle}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle / 1 * 2}]\nWarning : [{##attributeHandle * 5 + 2 / 2}]`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
