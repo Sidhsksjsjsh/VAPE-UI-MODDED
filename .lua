@@ -526,7 +526,7 @@ function lib.parseData(obj,numTabs,isKey,overflow,noTables,forceDict)
 				local parseVal = lib.parseData(nowVal,0,false,overflow,isCyclic)
 				data2[#data2+1] = parseVal
 			end
-			out[#out+1] = "{\n" .. tabChar .. table.concat(data2,",\n") .. "\n}"
+			out[#out+1] = "{\n" .. tabChar .. table.concat(data2,",\n" .. tabChar) .. "\n}"
 		end
 
 		return table.concat(out, "\n")
@@ -4089,7 +4089,7 @@ function lib.DeveloperEncrypt(window)
 		T100:Button("Sent all attributes",function()
 			local attributeHandle = {}
 			lib:attributes(LocalPlayer,function(name,value)
-				table.insert(attributeHandle,`['{name}'] = '{value}'`)
+				table.insert(attributeHandle,`['{name}'] = {value}`)
 			end)
 			wait(2)
 			local tableToString = lib.parseData(attributeHandle,0,false,{},nil,false)
