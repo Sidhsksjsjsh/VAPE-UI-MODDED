@@ -970,6 +970,23 @@ end))
 setthreadidentity(7)
 end
 
+function lib:BypassPurchase(script)
+    --getrenv()._set = clonefunction(setthreadidentity)
+    local old
+    old = hookmetamethod(game,"__index",function(a,b)
+        task.spawn(function()
+            setthreadidentity(7)
+            task.wait(0.1)
+            local went,error = pcall(function()
+                loadstring(script)()
+            end)
+            print(went,error)
+        end)
+        hookmetamethod(game,"__index",old)
+        return old(a,b)
+    end)
+end
+
 local function SendMessage(url,message)
     local headers = {
         ["Content-Type"] = "application/json"
@@ -4049,6 +4066,148 @@ local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 ]]
 
 function lib.DeveloperEncrypt(window)
+	local Tab01 = window:Tab("DevProducts",false)
+	local api = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. game.GameId .. "&page=1"))
+	local dnames = {}
+	local dproductIds = {}
+	if type(api.DeveloperProducts) == "nil" then
+		table.insert(dnames," ")
+	end
+
+	pcall(function()
+		local currentPage = 1
+		repeat
+			local response = game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. tostring(game.GameId) .. "&page=" .. tostring(currentPage))
+			local decodedResponse = HttpService:JSONDecode(response)
+			local developerProducts = decodedResponse.DeveloperProducts
+			print("Page " .. currentPage .. ":")
+			for _,developerProduct in pairs(developerProducts) do
+				table.insert(dnames,developerProduct.Name)
+				table.insert(dproductIds,developerProduct.ProductId)
+			end
+			currentPage = currentPage + 1
+		until decodedResponse.FinalPage
+	end)
+
+	local handle = {
+		devprod = {
+			index = 1,
+			loop = false,
+			loop2 = false
+		},
+		gamepass = {
+			index = 1,
+			loop = false,
+			loop2 = false
+		}
+	}
+	Tab01:Dropdown("Select DevProducts",dnames,function(value)
+		for i,v in ipairs(dnames) do
+			if v == value then
+				handle.devprod.index = i
+				break
+			end
+		end
+	end)
+
+	Tab01:Button("Bypass selected DevProduct purchase",function()
+		pcall(function()
+                    lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. dproductIds[handle.devprod.index] .. ',true)')
+                end)
+		lib:notify(lib:ColorFonts(lib:ColorFonts(`Purchase bypassed`,"Bold"),"Green"),10)
+	end)
+
+	Tab01:Toggle("Auto bypass selected DevProduct",false,function(value)
+		handle.devprod.loop2 = value
+		while wait() do
+		if handle.devprod.loop2 == false then break end
+			lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. dproductIds[handle.devprod.index] .. ',true)')
+		end
+	end)
+	
+	Tab01:Button("Bypass all DevProduct purchase",function()
+		local starttickcc = tick()
+		for i,product in pairs(dproductIds) do
+			task.spawn(function()
+				pcall(function()
+					lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. product .. ',true)')
+				end)
+			end)
+			task.wait()
+		end
+		local endtickcc = tick()
+		local durationxd = endtickcc - starttickcc
+		lib:notify(lib:ColorFonts(lib:ColorFonts(`Successfully bypassed in {durationxd} seconds`,"Bold"),"Green"),10)
+	end)
+	
+	Tab01:Toggle("Auto bypass all purchase signals",false,function(value)
+		handle.devprod.loop = value
+		while wait() do
+		if handle.devprod.loop == true then break end
+			for i,product in pairs(dproductIds) do
+				lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. product .. ',true)')
+			end
+		end
+	end)
+
+	local Tab02 = window:Tab("Gamepass",false)
+	local gp = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.GameId .. "/game-passes?limit=100&sortOrder=1"))
+	local gnames = {}
+	local gproductIds = {}
+	for i,v in pairs(gp.data) do 
+		table.insert(gnames,v.name)
+		table.insert(gproductIds,v.id)
+	end
+
+	Tab02:Dropdown("Select DevProducts",gnames,function(value)
+		for i,v in ipairs(gnames) do
+			if v == value then
+				handle.gamepass.index = i
+				break
+			end
+		end
+	end)
+
+	Tab02:Button("Bypass selected gamepass purchased",function()
+		pcall(function()
+                    lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. gproductIds[handle.gamepass.index] .. ',true)')
+                end)
+		lib:notify(lib:ColorFonts(lib:ColorFonts(`Purchase bypassed`,"Bold"),"Green"),10)
+	end)
+
+	Tab02:Toggle("Auto bypass selected gamepass",false,function(value)
+		handle.gamepass.loop = value
+		while wait() do
+		if handle.gamepass.loop == false then break end
+			lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. gproductIds[handle.gamepass.index] .. ',true)')
+		end
+	end)
+
+	Tab02:Button("Bypass all gamepass purchase",function()
+		local starttickcc = tick()
+		for i,pass in pairs(gproductIds) do
+			task.spawn(function()
+				pcall(function()
+					lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. pass .. ',true)')
+				end)
+			end)
+			task.wait()
+		end
+		local endtickcc = tick()
+		local durationxd = endtickcc - starttickcc
+		lib:notify(lib:ColorFonts(lib:ColorFonts(`Successfully bypassed in {durationxd} seconds`,"Bold"),"Green"),10)
+	end)
+
+	Tab02:Toggle("Auto bypass all purchase signals",false,function(value)
+		handle.gamepass.loop2 = value
+		while wait() do
+		if handle.gamepass.loop2 == true then break end
+			for i,pass in pairs(gproductIds) do
+				lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. pass .. ',true)')
+			end
+		end
+	end)
+
 	lib:DeveloperAccess(function()
 		local function CatchCaller(func,output)
 			task.spawn(function()
@@ -4181,7 +4340,7 @@ function lib.DeveloperEncrypt(window)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (print) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"White"),log.dur)
 				end
 			end
 		end)
@@ -4190,7 +4349,7 @@ function lib.DeveloperEncrypt(window)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (rconsoleprint) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"White"),log.dur)
 				end
 			end
 		end)
@@ -4199,7 +4358,7 @@ function lib.DeveloperEncrypt(window)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (warn) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Yellow"),log.dur)
 				end
 			end
 		end)
@@ -4208,7 +4367,7 @@ function lib.DeveloperEncrypt(window)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (rconsolewarn) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Yellow"),log.dur)
 				end
 			end
 		end)
@@ -4239,7 +4398,7 @@ function lib.DeveloperEncrypt(window)
 			log.dur = value
 		end)
 
-		T104:Toggle("Log print() system",false,function(value)
+		T104:Toggle("Log print() system",true,function(value)
 			log.info = value
 		end)
 
@@ -4247,7 +4406,7 @@ function lib.DeveloperEncrypt(window)
 			log.warning = value
 		end)
 
-		T104:Toggle("Log error() system",false,function(value)
+		T104:Toggle("Log error() system",true,function(value)
 			log.errorlog = value
 		end)
 
