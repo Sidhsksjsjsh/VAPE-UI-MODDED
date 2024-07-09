@@ -4113,6 +4113,7 @@ function lib.DeveloperEncrypt(window)
 	Tab01:Button("Bypass selected DevProduct purchase",function()
 		pcall(function()
                     lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. dproductIds[handle.devprod.index] .. ',true)')
+		    lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. dproductIds[handle.devprod.index] .. ")")
                 end)
 		lib:notify(lib:ColorFonts(lib:ColorFonts(`Purchase bypassed`,"Bold"),"Green"),10)
 	end)
@@ -4122,6 +4123,7 @@ function lib.DeveloperEncrypt(window)
 		while wait() do
 		if handle.devprod.loop2 == false then break end
 			lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. dproductIds[handle.devprod.index] .. ',true)')
+			lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. dproductIds[handle.devprod.index] .. ")")
 		end
 	end)
 	
@@ -4131,6 +4133,7 @@ function lib.DeveloperEncrypt(window)
 			task.spawn(function()
 				pcall(function()
 					lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. product .. ',true)')
+					lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. product .. ")")
 				end)
 			end)
 			task.wait()
@@ -4146,6 +4149,7 @@ function lib.DeveloperEncrypt(window)
 		if handle.devprod.loop == true then break end
 			for i,product in pairs(dproductIds) do
 				lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. product .. ',true)')
+				lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. product .. ")")
 			end
 		end
 	end)
@@ -4159,7 +4163,7 @@ function lib.DeveloperEncrypt(window)
 		table.insert(gproductIds,v.id)
 	end
 
-	Tab02:Dropdown("Select DevProducts",gnames,function(value)
+	Tab02:Dropdown("Select gamepass",gnames,function(value)
 		for i,v in ipairs(gnames) do
 			if v == value then
 				handle.gamepass.index = i
@@ -4171,6 +4175,7 @@ function lib.DeveloperEncrypt(window)
 	Tab02:Button("Bypass selected gamepass purchased",function()
 		pcall(function()
                     lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. gproductIds[handle.gamepass.index] .. ',true)')
+		    lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. gproductIds[handle.gamepass.index] .. ")")
                 end)
 		lib:notify(lib:ColorFonts(lib:ColorFonts(`Purchase bypassed`,"Bold"),"Green"),10)
 	end)
@@ -4180,6 +4185,7 @@ function lib.DeveloperEncrypt(window)
 		while wait() do
 		if handle.gamepass.loop == false then break end
 			lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. gproductIds[handle.gamepass.index] .. ',true)')
+			lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. gproductIds[handle.gamepass.index] .. ")")
 		end
 	end)
 
@@ -4189,6 +4195,7 @@ function lib.DeveloperEncrypt(window)
 			task.spawn(function()
 				pcall(function()
 					lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. pass .. ',true)')
+					lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. pass .. ")")
 				end)
 			end)
 			task.wait()
@@ -4204,6 +4211,7 @@ function lib.DeveloperEncrypt(window)
 		if handle.gamepass.loop2 == true then break end
 			for i,pass in pairs(gproductIds) do
 				lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. pass .. ',true)')
+				lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. pass .. ")")
 			end
 		end
 	end)
