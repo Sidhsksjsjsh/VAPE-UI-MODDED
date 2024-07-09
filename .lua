@@ -4114,6 +4114,7 @@ function lib.DeveloperEncrypt(window)
 		pcall(function()
                     lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. dproductIds[handle.devprod.index] .. ',true)')
 		    lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. dproductIds[handle.devprod.index] .. ")")
+		    lib:BypassPurchase("MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId," .. dproductIds[handle.devprod.index] .. ")")
                 end)
 		lib:notify(lib:ColorFonts(lib:ColorFonts(`Purchase bypassed`,"Bold"),"Green"),10)
 	end)
@@ -4124,6 +4125,7 @@ function lib.DeveloperEncrypt(window)
 		if handle.devprod.loop2 == false then break end
 			lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. dproductIds[handle.devprod.index] .. ',true)')
 			lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. dproductIds[handle.devprod.index] .. ")")
+			lib:BypassPurchase("MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId," .. dproductIds[handle.devprod.index] .. ")")
 		end
 	end)
 	
@@ -4134,6 +4136,7 @@ function lib.DeveloperEncrypt(window)
 				pcall(function()
 					lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. product .. ',true)')
 					lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. product .. ")")
+					lib:BypassPurchase("MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId," .. product .. ")")
 				end)
 			end)
 			task.wait()
@@ -4150,6 +4153,7 @@ function lib.DeveloperEncrypt(window)
 			for i,product in pairs(dproductIds) do
 				lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. product .. ',true)')
 				lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. product .. ")")
+				lib:BypassPurchase("MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId," .. product .. ")")
 			end
 		end
 	end)
@@ -4176,6 +4180,7 @@ function lib.DeveloperEncrypt(window)
 		pcall(function()
                     lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. gproductIds[handle.gamepass.index] .. ',true)')
 		    lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. gproductIds[handle.gamepass.index] .. ")")
+		    lib:BypassPurchase("MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId," .. gproductIds[handle.gamepass.index] .. ")")
                 end)
 		lib:notify(lib:ColorFonts(lib:ColorFonts(`Purchase bypassed`,"Bold"),"Green"),10)
 	end)
@@ -4186,6 +4191,7 @@ function lib.DeveloperEncrypt(window)
 		if handle.gamepass.loop == false then break end
 			lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. gproductIds[handle.gamepass.index] .. ',true)')
 			lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. gproductIds[handle.gamepass.index] .. ")")
+			lib:BypassPurchase("MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId," .. gproductIds[handle.gamepass.index] .. ")")
 		end
 	end)
 
@@ -4196,6 +4202,7 @@ function lib.DeveloperEncrypt(window)
 				pcall(function()
 					lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. pass .. ',true)')
 					lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. pass .. ")")
+					lib:BypassPurchase("MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId," .. pass .. ")")
 				end)
 			end)
 			task.wait()
@@ -4212,6 +4219,7 @@ function lib.DeveloperEncrypt(window)
 			for i,pass in pairs(gproductIds) do
 				lib:BypassPurchase('MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. pass .. ',true)')
 				lib:BypassPurchase("MarketplaceService:PlayerOwnsAsset(game.Players.LocalPlayer.UserId," .. pass .. ")")
+				lib:BypassPurchase("MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId," .. pass .. ")")
 			end
 		end
 	end)
