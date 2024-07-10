@@ -608,9 +608,12 @@ function lib:LoadRepository(path,bool)
 	local loadFunction = loadstring(async.Body)
 	if loadFunction then
 		if gui == true then
+			lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Injecting a UI...","Bold"),"Green"),5)
 			return loadFunction()
 		elseif gui == false then
+			lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Injecting a script...","Bold"),"Green"),5)
 			loadFunction()
+			lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold"),"Green"),5)
 		end
 	else
 		lib:notify(lib:ColorFonts(lib:ColorFonts("Failed to load script","Bold"),"Red"),9e9)
@@ -4309,7 +4312,7 @@ function lib.DeveloperEncrypt(window)
 			end)
 			wait(2)
 			local tableToString = lib.parseData(attributeHandle,0,false,{},nil,false)
-			lib.sentMessage(lib.getTable("sent","galau"),`local hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1.5}]\nWarning : [{#attributeHandle * 1.5 + 2 / 0.5}]`)
+			lib.sentMessage(lib.getTable("sent","galau"),`local hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1}]\nWarning : [{#attributeHandle * 1 + 2 / 2}]`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
@@ -4388,8 +4391,8 @@ function lib.DeveloperEncrypt(window)
 			rconsoleinfo = false,
 			rconsolewarning = false,
 			rconsoleerrorlog = false,
-			notify_table = {"UI Notify System","2nd Notify System"},
-			notify_style = "UI Notify System",
+			notify_table = {"2nd Notify System","UI Notify System"},
+			notify_style = "2nd Notify System",
 			dur = 16
 		}
 		CatchCaller(print,function(c,i,v)
