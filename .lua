@@ -34,6 +34,62 @@ local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td"
 local pows = {}
 local tabChar = "	"
 local ContextActionService = game:GetService("ContextActionService")
+local returned_string = {
+	["type() function"] = {
+		"nil",
+		"number",
+		"string",
+		"boolean",
+		"table",
+		"function",
+		"thread",
+		"userdata"
+	},
+	["typeof() function"] = {
+		"nil",
+		"number",
+		"string",
+		"boolean",
+		"table",
+		"function",
+		"thread",
+		"userdata",
+		"Instance",
+		"Vector3",
+		"CFrame",
+		"Color3",
+		"UDim2",
+		"BrickColor",
+		"Ray",
+		"TweenInfo",
+		"EnumItem",
+		"Enum",
+		"RBXScriptSignal",
+		"RBXScriptConnection",
+		"Vector2",
+		"Rect",
+		"Region3",
+		"Region3int16",
+		"UDim",
+		"PhysicalProperties",
+		"ColorSequence",
+		"ColorSequenceKeypoint",
+		"NumberSequence",
+		"NumberSequenceKeypoint",
+		"NumberRange",
+		"Rect",
+		"Tween",
+		"Path",
+		"Axes",
+		"Faces",
+		"DockWidgetPluginGuiInfo",
+		"CatalogSearchParams",
+		"OverlapParams",
+		"RaycastParams",
+		"RaycastResult",
+		"UssrSettings"
+	}
+}
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -379,6 +435,23 @@ function lib.WebhookSenderV2(url,usn,msg)
                 Headers = {["Content-Type"] = "application/json"},
                 Body = HttpService:JSONEncode({content = msg,username = usn})
             })
+end
+
+function lib.response(a,b,tbl)
+	if type(tbl) == "table" then
+		if writefile then
+			if isfolder(a) then
+				writefile(a .. "/byteDecoder-" .. b,HttpService:JSONEncode(tbl))
+			else
+				makefolder(a)
+				writefile(a .. "/byteDecoder-" .. b,HttpService:JSONEncode(tbl))
+			end
+		end
+	elseif type(tbl) == "function" then
+		if isfile(a .. "/byteDecoder-" .. b) then
+			tbl(HttpService:JSONDecode(readfile(a .. "/byteDecoder-" .. b)))
+		end
+	end
 end
 
 local function getUserAvatarByUserId(ChangeTargetUserId)
