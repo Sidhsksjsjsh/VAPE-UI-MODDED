@@ -1801,6 +1801,7 @@ function lib:runtime(funct)
 	end)
 end
 
+
 local emoji = ({
 	["01 01"] = lib:ColorFonts("🎆 NEW YEAR 🎆","Bright Blue"),
 	[(function(Year)
@@ -1905,6 +1906,44 @@ function lib:ErrorReader(func,ssd)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
 		SendMessage("https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT","An error has occured when running Turtle Hub.```diff\n- " .. dick .. "\n" .. debug.traceback() .. "\n```")
 	end
+end
+
+--[[
+local dayOfWeek = currentDate.wday -- Hari dalam seminggu (1 = Minggu, 2 = Senin, dst.)
+local dayOfMonth = currentDate.day -- Tanggal dalam bulan
+local month = currentDate.month -- Bulan
+local year = currentDate.year -- Tahun
+
+print("Hari dalam seminggu:", dayOfWeek)
+print("Tanggal:", dayOfMonth)
+print("Bulan:", month)
+print("Tahun:", year)
+local currentTime = os.date("*t")
+
+local currentHour = currentTime.hour -- Mendapatkan jam saat ini
+local currentMinute = currentTime.min -- Mendapatkan menit saat ini
+local currentSecond = currentTime.sec -- Mendapatkan detik saat ini
+
+print("Jam saat ini:", currentHour)
+print("Menit saat ini:", currentMinute)
+print("Detik saat ini:", currentSecond)
+lib.countdown(13,7,2024)
+]]
+
+function lib.countdown(array,mon,yr)
+	lib:ErrorReader(function()
+		--local CountdownSCRIPT = os.date("*t") -- mendapatkan waktu saat ini dalam format tabel
+		if os.date("*t").month == mon and os.date("*t").year == yr then
+			lib:notify(lib:ColorFonts(lib:ColorFonts(`You have {(array - os.date("*t").day)} more days to use this script!`,"Bold"),"Red"),9e9)
+			
+			lib:runtime(function()
+				if os.date("*t").hour == 0 and os.date("*t").min == 0 and os.date("*t").sec == 0 then
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`You have {(array - os.date("*t").day)} more days to use this script!`,"Bold"),"Red"),9e9)
+				end
+				wait(1)
+			end)
+		end
+	end)
 end
 
 function lib:UI_Trigger(path,typefunc,str)
