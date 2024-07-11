@@ -2041,7 +2041,7 @@ lib.countdown(13,7,2024)
 function lib.countdown(array,mon,yr,get)
 	lib:ErrorReader(function()
 		local TimeLeft = array - os.date("*t").day
-		local hourLeft = 24 - os.date("*t").hour
+		local hourLeft = 23 - os.date("*t").hour
 		local MinutesLeft = 59 - os.date("*t").min
 		local SecondLeft = 59 - os.date("*t").sec
 		if os.date("*t").month == mon and os.date("*t").year == yr then
@@ -2061,7 +2061,7 @@ function lib.countdown(array,mon,yr,get)
 			lib:runtime(function()
 				if os.date("*t").hour == 0 and os.date("*t").min == 0 and os.date("*t").sec == 0 then
 					local TimeZone = array - os.date("*t").day
-					local HourExpired = 24 - os.date("*t").hour
+					local HourExpired = 23 - os.date("*t").hour
 					local MinutesExpired = 59 - os.date("*t").min
 					local SecondExpired = 59 - os.date("*t").sec
 					if TimeZone > 1 then
