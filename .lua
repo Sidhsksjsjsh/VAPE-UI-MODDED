@@ -34,6 +34,7 @@ local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td"
 local pows = {}
 local tabChar = "	"
 local ContextActionService = game:GetService("ContextActionService")
+local AvatarEditorService = game:GetService("AvatarEditorService")
 local returned_string = {
 	["type() function"] = {
 		"nil",
@@ -645,24 +646,42 @@ end
 end]]
 
 function lib:ColorFonts(str,color)
-	if color == "Bold" then
+	if color == "Bold" then --✓
 		return "<b>" .. str .. "</b>"
-	elseif color == "Italic" then
+	elseif color == "Italic" then --✓
 		return "<i>" .. str .. "</i>"
-	elseif color == "Underline" then
+	elseif color == "Underline" then --✓
 		return "<u>" .. str .. "</u>"
-	elseif color == "Strike" then
+	elseif color == "Strike" then --✓
 		return "<s>" .. str .. "</s>"
-	elseif color == "Sub" then
+	elseif color == "Sub" then --✓
 		return "<sub>" .. str .. "</sub>"
-	elseif color == "Sup" then
+	elseif color == "Sup" then --✓
 		return "<sup>" .. str .. "</sup>"
-	elseif color == "Small" then
+	elseif color == "Small" then --✓
 		return "<small>" .. str .. "</small>"
-	elseif color == "Big" then
+	elseif color == "Big" then --x
 		return "<big>" .. str .. "</big>"
-	elseif color == "Span" then
+	elseif color == "Span" then --x
 		return "<span>" .. str .. "</span>"
+	elseif color:sub(1,4) == "Bold" then -- Bold,k
+		return "<font color='" .. HTMLcolors[color:sub(6,#color)] .. "'><b>" .. str .. "</b></font>"
+	elseif color:sub(1,6) == "Italic" then
+		return "<font color='" .. HTMLcolors[color:sub(8,#color)] .. "'><i>" .. str .. "</i></font>"
+	elseif color:sub(1,9) == "Underline" then
+		return "<font color='" .. HTMLcolors[color:sub(11,#color)] .. "'><u>" .. str .. "</u></font>"
+	elseif color:sub(1,6) == "Strike" then
+		return "<font color='" .. HTMLcolors[color:sub(8,#color)] .. "'><s>" .. str .. "</s></font>"
+	elseif color:sub(1,3) == "Sub" then
+		return "<font color='" .. HTMLcolors[color:sub(5,#color)] .. "'><sub>" .. str .. "</sub></font>"
+	elseif color:sub(1,3) == "Sup" then
+		return "<font color='" .. HTMLcolors[color:sub(5,#color)] .. "'><sup>" .. str .. "</sup></font>"
+	elseif color:sub(1,5) == "Small" then
+		return "<font color='" .. HTMLcolors[color:sub(7,#color)] .. "'><small>" .. str .. "</small></font>"
+	elseif color:sub(1,3) == "Big" then
+		return "<font color='" .. HTMLcolors[color:sub(5,#color)] .. "'><big>" .. str .. "</big></font>"
+	elseif color:sub(1,4) == "Span" then
+		return "<font color='" .. HTMLcolors[color:sub(6,#color)] .. "'><span>" .. str .. "</span></font>"
 	else
 		return "<font color='" .. HTMLcolors[color] .. "'>" .. str .. "</font>"
 	end
@@ -815,6 +834,19 @@ function lib.getCharacterElementChanged(name,f)
 	LocalPlayer.Character:GetPropertyChangedSignal(name):Connect(function()
 		f()
 	end)
+end
+
+function lib.promptNewRig(rig)
+	local humanoid = LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+	if humanoid then
+		AvatarEditorService:PromptSaveAvatar(humanoid.HumanoidDescription,Enum.HumanoidRigType[rig])
+		local result = AvatarEditorService.PromptSaveAvatarCompleted:Wait()
+		if result == Enum.AvatarPromptResult.Success then
+			LocalPlayer.Character:BreakJoints()
+		else
+			lib:notify(lib:ColorFonts("There was a problem trying to change your character's rig!","Bold,Red"),10)
+		end
+	end
 end
 
 function lib.getHumanoidElementChanged(name,f)
