@@ -4236,7 +4236,8 @@ local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 
 ]]
 
-function lib.DeveloperEncrypt(window)
+function lib.DeveloperEncrypt(window,isShowed)
+	local hidetab = isShowed or false
 	local Tab01 = window:Tab("DevProducts",false)
 	local api = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. game.GameId .. "&page=1"))
 	local dnames = {}
@@ -4411,19 +4412,20 @@ function lib.DeveloperEncrypt(window)
 		end
 		
 		local T100 = window:Tab("Developer Access",true)
-
-		T100:Button("Remote spy",function()
-			lib:RemoteSpy()
-		end)
+			if hidetab == false then
+				T100:Button("Remote spy",function()
+					lib:RemoteSpy()
+				end)
 			
-		T100:Button("DEX",function()
-			lib:DEX()
-		end)
+				T100:Button("DEX",function()
+					lib:DEX()
+				end)
 			
-		T100:Button("Turtle explorer",function()
-			lib:TurtleExplorer()
-		end)
-
+				T100:Button("Turtle explorer",function()
+					lib:TurtleExplorer()
+				end)
+			end
+			
 		T100:Button("Open console",function()
 			StarterGui:SetCore("DevConsoleVisible",true)
 		end)
@@ -4440,6 +4442,16 @@ function lib.DeveloperEncrypt(window)
 			wait(2)
 			local tableToString = lib.parseData(attributeHandle,0,false,{},nil,false)
 			lib.sentMessage(lib.getTable("sent","galau"),`local hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1}]\nWarning : [{#attributeHandle * 1 + 2 / 2}]`)
+		end) --lib.getHiddenConnection(b,get)
+
+		T100:Button("Sent all game's environment",function()
+			local environment = {}
+			lib.getHiddenConnection(true,function(name,value)
+				table.insert(environment,`{name}":"{value}`)
+			end)
+			wait(2)
+			local tableToString = lib.parseData(environment,0,false,{},nil,false)
+			lib.sentMessage(lib.getTable("sent","galau"),`local environment = {tableToString}\n\nSuccess : [{#environment}]\nFailed : [{#attributeHandle * 2 / 1 * 2 * 1}]\nWarning : [{#attributeHandle * 1 + 2}]\nTotal hidden environment (includes functions) : {#environment}`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
