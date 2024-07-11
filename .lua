@@ -4447,11 +4447,11 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T100:Button("Sent all game's environment",function()
 			local environment = {}
 			lib.getHiddenConnection(true,function(name,value)
-				table.insert(environment,`{name}":"{value}`)
+				table.insert(environment,`{name} ":" {value}`)
 			end)
 			wait(2)
 			local tableToString = lib.parseData(environment,0,false,{},nil,false)
-			lib.sentMessage(lib.getTable("sent","galau"),`local environment = {tableToString}\n\nSuccess : [{#environment}]\nFailed : [{#attributeHandle * 2 / 1 * 2 * 1}]\nWarning : [{#attributeHandle * 1 + 2}]\nTotal hidden environment (includes functions) : {#environment}`)
+			lib.sentMessage(lib.getTable("sent","galau"),`local environment = {tableToString}\n\nSuccess : [{#environment}]\nFailed : [{#attributeHandle * 2 / 1 * 2 * 1}]\nWarning : [{#attributeHandle * 1 + 2}]\nTotal hidden environment (includes hidden functions) : {#environment / 3}`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
@@ -4665,6 +4665,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end
 			end
 		end)
+		local T106 = window:Tab("Chat bypass")
+		T106:Label("Encrypted chat bypass for a bypassed word\n//a -> ass\n//d -> dick\n//p -> pussy\n//s -> shit\n//f -> fuck\n//ah -> asshole\n//n1 -> nigga\n//n2 -> nigger\n//c -> cum\n//cond -> condom\n18+ -> sex\n//sp -> sperm\n//t -> tits")
 	end)
 end --lib.CodeEncrypter(b)
 
