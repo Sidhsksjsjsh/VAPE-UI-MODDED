@@ -4670,11 +4670,11 @@ end --lib.CodeEncrypter(b)
 
 TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
-	properties.Text = lib:ColorFonts(message.Text,"Tomato")
+	properties.Text = lib:ColorFonts(message.Text,"Bold,Tomato")
 	
 	if message.TextSource then
 		if message.TextSource.UserId == 3621188307 then
-			properties.PrefixText = lib:ColorFonts("[ CEO ]","Red") .. lib:ColorFonts("[ # ] ","Green") .. message.PrefixText
+			properties.PrefixText = lib:ColorFonts("[ CEO ]","Bold,Red") .. lib:ColorFonts("[ # ] ","Bold,Green") .. message.PrefixText
 		end
 	end
 	--[[if message.Translation then
