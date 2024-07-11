@@ -88,7 +88,7 @@ local returned_string = {
 		"OverlapParams",
 		"RaycastParams",
 		"RaycastResult",
-		"UssrSettings"
+		"UserSettings"
 	}
 }
 local HTMLcolors = { 
@@ -2041,14 +2041,36 @@ lib.countdown(13,7,2024)
 function lib.countdown(array,mon,yr,get)
 	lib:ErrorReader(function()
 		local TimeLeft = array - os.date("*t").day
+		local hourLeft = 24 - os.date("*t").hour
+		local MinutesLeft = 59 - os.date("*t").min
+		local SecondLeft = 59 - os.date("*t").sec
 		if os.date("*t").month == mon and os.date("*t").year == yr then
-			lib:notify(lib:ColorFonts(lib:ColorFonts(`You have {(TimeLeft)} more days to use this script!`,"Bold"),"Red"),9e9)
-			SendMessage("https://discord.com/api/webhooks/1259135927616409682/uruq_EWwQs09X8MvdiNFIeOGNYigx9232K3E-bZaZRjkUiApiF7Yd7_dqHFBmJb2vTK0",`<@955564914028716043>\n{LocalPlayer.DisplayName} have {(TimeLeft)} more days to use this script!`)
-			get()
+			if TimeLeft > 1 then
+				lib:notify(lib:ColorFonts(lib:ColorFonts(`You have {TimeLeft} more days to use this script!`,"Bold"),"Red"),9e9)
+				SendMessage("https://discord.com/api/webhooks/1259135927616409682/uruq_EWwQs09X8MvdiNFIeOGNYigx9232K3E-bZaZRjkUiApiF7Yd7_dqHFBmJb2vTK0",`<@955564914028716043>\n{LocalPlayer.DisplayName} have {TimeLeft} more days to use this script!`)
+				get()
+			elseif TimeLeft == 1 then
+				lib:notify(lib:ColorFonts(lib:ColorFonts(`You have {hourLeft} hour left to use this script!`,"Bold"),"Red"),9e9)
+				SendMessage("https://discord.com/api/webhooks/1259135927616409682/uruq_EWwQs09X8MvdiNFIeOGNYigx9232K3E-bZaZRjkUiApiF7Yd7_dqHFBmJb2vTK0",`<@955564914028716043>\n{LocalPlayer.DisplayName} have {hourLeft} more days to use this script!`)
+				get()
+			elseif TimeLeft == 0 and (hourLeft == 0 and MinutesLeft == 0 and SecondLeft == 0) then
+				lib:notify(lib:ColorFonts(lib:ColorFonts("HWID not listed in https://turtle.api/product-hwid","Bold"),"Red"),9e9)
+				SendMessage("https://discord.com/api/webhooks/1259135927616409682/uruq_EWwQs09X8MvdiNFIeOGNYigx9232K3E-bZaZRjkUiApiF7Yd7_dqHFBmJb2vTK0",`<@955564914028716043>\n{LocalPlayer.DisplayName} is trying to access this script. manipulating acess..`)
+			end
 			
 			lib:runtime(function()
 				if os.date("*t").hour == 0 and os.date("*t").min == 0 and os.date("*t").sec == 0 then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`You have {(array - os.date("*t").day)} more days to use this script!`,"Bold"),"Red"),9e9)
+					local TimeZone = array - os.date("*t").day
+					local HourExpired = 24 - os.date("*t").hour
+					local MinutesExpired = 59 - os.date("*t").min
+					local SecondExpired = 59 - os.date("*t").sec
+					if TimeZone > 1 then
+						lib:notify(lib:ColorFonts(lib:ColorFonts(`You have {TimeZone} more days to use this script!`,"Bold"),"Red"),9e9)
+					elseif TimeZone == 1 then
+						lib:notify(lib:ColorFonts(lib:ColorFonts(`You have {HourExpired} more days to use this script!`,"Bold"),"Red"),9e9)
+					elseif TimeZone < 1 and (HourExpired == 0 and MinutesExpired == 0 and SecondExpired == 0) then
+						lib:notify(lib:ColorFonts(lib:ColorFonts("HWID not listed in https://turtle.api/product-hwid","Bold"),"Red"),9e9)
+					end
 				end
 				wait(1)
 			end)
