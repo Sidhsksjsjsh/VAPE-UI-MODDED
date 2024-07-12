@@ -429,6 +429,44 @@ function lib:GetPlayer(f)
 	end
 end
 
+function lib.PlayAnim(id,time,speed)
+	pcall(function()
+		if LocalPlayer.Character.Humanoid:FindFirstChild("SUP SKID") then
+			LocalPlayer.Character.Humanoid["SUP SKID"]:Destroy()
+		end
+		LocalPlayer.Character.Animate.Disabled = false
+		local hum = LocalPlayer.Character.Humanoid
+		for i,track in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
+			track:Stop()
+		end
+		LocalPlayer.Character.Animate.Disabled = true
+		local Anim = Instance.new("Animation")
+		Anim.Parent = LocalPlayer.Character.Humanoid
+		Anim.Name = "SUP SKID"
+		Anim.AnimationId = "rbxassetid://" .. id
+		local loadanim = LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+		loadanim:Play()
+		loadanim.TimePosition = time
+		loadanim:AdjustSpeed(speed)
+		loadanim.Stopped:Connect(function()
+			LocalPlayer.Character.Animate.Disabled = false
+			for i,track in pairs(hum:GetPlayingAnimationTracks()) do
+				track:Stop()
+			end
+		end)
+	end)
+end
+
+function lib.StopAnim()
+	LocalPlayer.Character.Animate.Disabled = false
+	if LocalPlayer.Character.Humanoid:FindFirstChild("SUP SKID") then
+		LocalPlayer.Character.Humanoid["SUP SKID"]:Destroy()
+	end
+	for i,track in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do 
+		track:Stop()
+	end
+end
+
 function lib.WebhookSenderV2(url,usn,msg)
 	local response = http({
                 Url = url,
