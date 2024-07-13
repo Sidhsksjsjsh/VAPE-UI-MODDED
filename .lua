@@ -450,6 +450,7 @@ function lib.PlayAnim(id,time,speed)
 		loadanim:AdjustSpeed(speed)
 		loadanim.Stopped:Connect(function()
 			LocalPlayer.Character.Animate.Disabled = false
+			loadanim:Stop()
 			for i,track in pairs(hum:GetPlayingAnimationTracks()) do
 				track:Stop()
 			end
@@ -462,9 +463,9 @@ function lib.StopAnim()
 	if LocalPlayer.Character.Humanoid:FindFirstChild("SUP SKID") then
 		LocalPlayer.Character.Humanoid["SUP SKID"]:Destroy()
 	end
-	for i,track in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do 
+	--[[for i,track in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do 
 		track:Stop()
-	end
+	end]]
 end
 
 function lib.WebhookSenderV2(url,usn,msg)
@@ -3207,16 +3208,54 @@ function lib:Window(text, preset, closebind)
                     dragging = true
                 end
             end)
+			
             SlideCircle.InputEnded:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		    dragging = false
                 end
             end)
+			
             SlideCircle.InputChanged:Connect(function(input)
                 if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 		    move(input)
                 end
+            end) -- end
+
+	    SlideFrame.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    dragging = true
+                end
             end)
+			
+            SlideFrame.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		    dragging = false
+                end
+            end)
+			
+            SlideFrame.InputChanged:Connect(function(input)
+                if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		    move(input)
+                end
+            end) -- end
+
+	    Slider.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    dragging = true
+                end
+            end)
+			
+            Slider.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		    dragging = false
+                end
+            end)
+			
+            Slider.InputChanged:Connect(function(input)
+                if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		    move(input)
+                end
+            end) -- end
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
         function tabcontent:Dropdown(text, list, callback)
