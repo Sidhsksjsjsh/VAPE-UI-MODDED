@@ -435,7 +435,6 @@ function lib.PlayAnim(id,time,speed)
 			LocalPlayer.Character.Humanoid["SUP SKID"]:Destroy()
 		end
 		LocalPlayer.Character.Animate.Disabled = false
-		local hum = LocalPlayer.Character.Humanoid
 		for i,track in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
 			track:Stop()
 		end
@@ -451,7 +450,7 @@ function lib.PlayAnim(id,time,speed)
 		loadanim.Stopped:Connect(function()
 			LocalPlayer.Character.Animate.Disabled = false
 			loadanim:Stop()
-			for i,track in pairs(hum:GetPlayingAnimationTracks()) do
+			for i,track in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
 				track:Stop()
 			end
 		end)
@@ -463,9 +462,9 @@ function lib.StopAnim()
 	if LocalPlayer.Character.Humanoid:FindFirstChild("SUP SKID") then
 		LocalPlayer.Character.Humanoid["SUP SKID"]:Destroy()
 	end
-	--[[for i,track in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do 
+	for i,track in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do 
 		track:Stop()
-	end]]
+	end
 end
 
 function lib.WebhookSenderV2(url,usn,msg)
