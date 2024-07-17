@@ -3419,9 +3419,12 @@ function lib:Window(text, preset, closebind)
 				if cannotify == true then
 					lib:notify(lib:ColorFonts(lib:ColorFonts(`Refreshing the dropdown, got {#DropItemHolder:GetChildren()} items need to be replaced`,"Bold"),"Green"),10)
 				end
+				DropItemHolder.CanvasSize = UDim2.new(0,0,0,0)
+				wait(0.1)
 				lib:children(DropItemHolder,function(v)
 					v:Destroy()
 				end)
+				DropItemHolder.Size = UDim2.new(0,342,0,0)
 			else
 				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE FIRST ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(cannotify),"Underline")}`,"Bold"),"Red"),30)
 			end
@@ -3431,6 +3434,7 @@ function lib:Window(text, preset, closebind)
 			if type(itemHeld) == "table" then
 				DropdownTitle.Text = text .. " - " .. itemHeld[1]
                        		pcall(callback,itemHeld[1])
+				wait(0.2)
 				for i,v in next,itemHeld do
 					itemcount = itemcount + 1
 					if itemcount <= 3 then
