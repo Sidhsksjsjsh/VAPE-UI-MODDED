@@ -1678,6 +1678,29 @@ function lib.isDeveloper()
 	return false
 end
 
+function lib.HideInterface()
+	if get_hidden_gui or gethui then
+		local hiddenUI = get_hidden_gui or gethui
+		local Main = Instance.new("ScreenGui")
+		Main.Name = lib.randomString()
+		Main.Parent = hiddenUI()
+		return Main
+	elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+		local Main = Instance.new("ScreenGui")
+		Main.Name = lib.randomString()
+		syn.protect_gui(Main)
+		Main.Parent = COREGUI
+		return Main
+	elseif COREGUI:FindFirstChild('RobloxGui') then
+		return game:GetService("CoreGui")["RobloxGui"]
+	else
+		local Main = Instance.new("ScreenGui")
+		Main.Name = lib.randomString()
+		Main.Parent = game:GetService("CoreGui")
+		return Main
+	end
+end
+
 function lib:Copy(str)
 	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	if clipBoard then
@@ -2461,7 +2484,7 @@ function lib:Window(text, preset, closebind)
     local UICorner_hide = Instance.new("UICorner")
 	
     Main.Name = "Main"
-    Main.Parent = ui
+    Main.Parent = lib.HideInterface()
     Main.AnchorPoint = Vector2.new(0.5, 0.5)
     Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     Main.BorderSizePixel = 0
