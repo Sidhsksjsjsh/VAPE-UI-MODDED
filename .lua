@@ -35,6 +35,9 @@ local pows = {}
 local tabChar = "	"
 local ContextActionService = game:GetService("ContextActionService")
 local AvatarEditorService = game:GetService("AvatarEditorService")
+local iyflyspeed = 1
+local vehicleflyspeed = 1
+
 local returned_string = {
 	["type() function"] = {
 		"nil",
@@ -261,6 +264,15 @@ end)
 
 --local falseclick = 10
 --local autoclose = false
+
+function lib.randomString()
+	local length = math.random(10,20)
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32,126))
+	end
+	return table.concat(array)
+end
 
 local function HWID()
 	return string.gsub(game:GetService("RbxAnalyticsService"):GetClientId(), "-", "")
@@ -491,6 +503,92 @@ function lib.response(a,b,tbl)
 			tbl(HttpService:JSONDecode(readfile(a .. "/byteDecoder-" .. b)))
 		end
 	end
+end
+
+local velocityHandlerName = lib.randomString()
+local gyroHandlerName = lib.randomString()
+local mfly1
+local mfly2
+local FLYING = false
+
+function lib:unmobilefly()
+	pcall(function()
+		FLYING = false
+		LocalPlayer.Character.HumanoidRootPart:FindFirstChild(gyroHandlerName):Destroy()
+		LocalPlayer.Character.HumanoidRootPart:FindFirstChild(velocityHandlerName):Destroy()
+		LocalPlayer.Character.Humanoid.PlatformStand = false
+		mfly1:Disconnect()
+		mfly2:Disconnect()
+	end)
+end
+
+function lib:mobilefly(vfly) -- skidded from infinite yield, thx Akbar for skid :) lib:mobilefly(false) lib:unmobilefly()
+	lib:unmobilefly()
+	FLYING = true
+
+	--local camera = workspace.CurrentCamera
+	local v3none = Vector3.new()
+	local v3zero = Vector3.new(0,0,0)
+	local v3inf = Vector3.new(9e9,9e9,9e9)
+
+	local controlModule = require(LocalPlayer.PlayerScripts["PlayerModule"]["ControlModule"])
+	local bv = Instance.new("BodyVelocity")
+	bv.Name = velocityHandlerName
+	bv.Parent = LocalPlayer.Character.HumanoidRootPart
+	bv.MaxForce = v3zero
+	bv.Velocity = v3zero
+
+	local bg = Instance.new("BodyGyro")
+	bg.Name = gyroHandlerName
+	bg.Parent = LocalPlayer.Character.HumanoidRootPart
+	bg.MaxTorque = v3inf
+	bg.P = 1000
+	bg.D = 50
+
+	mfly1 = LocalPlayer.CharacterAdded:Connect(function()
+		local bv = Instance.new("BodyVelocity")
+		bv.Name = velocityHandlerName
+		bv.Parent = LocalPlayer.Character.HumanoidRootPart
+		bv.MaxForce = v3zero
+		bv.Velocity = v3zero
+
+		local bg = Instance.new("BodyGyro")
+		bg.Name = gyroHandlerName
+		bg.Parent = LocalPlayer.Character.HumanoidRootPart
+		bg.MaxTorque = v3inf
+		bg.P = 1000
+		bg.D = 50
+	end)
+
+	mfly2 = RunService.RenderStepped:Connect(function()
+		--camera = workspace.CurrentCamera
+		if LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") and LocalPlayer.Character.HumanoidRootPart and LocalPlayer.Character.HumanoidRootPart:FindFirstChild(velocityHandlerName) and LocalPlayer.Character.HumanoidRootPart:FindFirstChild(gyroHandlerName) then
+			--local VelocityHandler = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName]
+			--local GyroHandler = LocalPlayer.Character.HumanoidRootPart[gyroHandlerName]
+
+			LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].MaxForce = v3inf
+			LocalPlayer.Character.HumanoidRootPart[gyroHandlerName].MaxTorque = v3inf
+			if vfly == false then
+				LocalPlayer.Character.Humanoid.PlatformStand = true
+			end
+			LocalPlayer.Character.HumanoidRootPart[gyroHandlerName].CFrame = workspace.CurrentCamera.CoordinateFrame
+			LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = v3none
+
+			--local direction = controlModule:GetMoveVector()
+			if controlModule:GetMoveVector().X > 0 then
+				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+			end
+			if controlModule:GetMoveVector().X < 0 then
+				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+			end
+			if controlModule:GetMoveVector().Z > 0 then
+				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+			end
+			if controlModule:GetMoveVector().Z < 0 then
+				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+			end
+		end
+	end)
 end
 
 local function getUserAvatarByUserId(ChangeTargetUserId)
@@ -4754,10 +4852,36 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end
 			end
 		end)
-		local T106 = window:Tab("Chat bypass")
-		T106:Label("Encrypted chat bypass for a bypassed word\n//a -> ass\n//d -> dick\n//p -> pussy\n//s -> shit\n//f -> fuck\n//ah -> asshole\n//n1 -> nigga\n//n2 -> nigger\n//c -> cum\n//cond -> condom\n18+ -> sex\n//sp -> sperm\n//t -> tits")
+		local T106 = window:Tab("Character")
+		--T106:Label("Encrypted chat bypass for a bypassed word\n//a -> ass\n//d -> dick\n//p -> pussy\n//s -> shit\n//f -> fuck\n//ah -> asshole\n//n1 -> nigga\n//n2 -> nigger\n//c -> cum\n//cond -> condom\n18+ -> sex\n//sp -> sperm\n//t -> tits")
+		T106:Slider("Fly speed",0,100,1,function(value)
+			iyflyspeed = value
+		end)
+		T106:Slider("Vehicle fly speed",0,100,1,function(value)
+			vehicleflyspeed = value
+		end)
+		T106:Toggle("Start fly [ Mobile Only ]",false,function(value)
+			if value == true then
+				lib:mobilefly(false)
+			else
+				lib:unmobilefly()
+			end
+		end)
+		T106:Toggle("Start vehicle fly [ Mobile Only ]",false,function(value)
+			if value == true then
+				lib:mobilefly(true)
+			else
+				lib:unmobilefly()
+			end
+		end)
+		T106:Button("Change rig to R15",function()
+			lib.promptNewRig("R15")
+		end)
+		T106:Button("Change rig to R6",function()
+			lib.promptNewRig("R6")
+		end)
 	end)
-end --lib.CodeEncrypter(b)
+end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
 
 TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
