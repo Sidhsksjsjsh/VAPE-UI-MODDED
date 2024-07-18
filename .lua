@@ -2332,6 +2332,8 @@ function lib:RemoteSpy(arg)
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V1.lua")
 		elseif verrspy == "V2" then
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V2.lua")
+		elseif verrspy == "V3" then
+			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V3.lua")
 		end
 	end)
 	if not isrun then
@@ -4596,12 +4598,16 @@ function lib.DeveloperEncrypt(window,isShowed)
 		
 		local T100 = window:Tab("Developer Access",true)
 			if hidetab == false then
-				T100:Button("Remote spy [ V1 ]",function()
+				T100:Button("Remote spy [ V1 ] [ Recommended ]",function()
 					lib:RemoteSpy("V1")
 				end)
 
-				T100:Button("Remote spy [ V2 ]",function()
+				T100:Button("Remote spy [ V2 ] [ Recommended ]",function()
 					lib:RemoteSpy("V2")
+				end)
+
+				T100:Button("Remote spy [ V3 ]",function()
+					lib:RemoteSpy("V3")
 				end)
 			
 				T100:Button("DEX",function()
