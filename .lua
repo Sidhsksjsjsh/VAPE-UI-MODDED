@@ -2048,7 +2048,7 @@ function lib:ErrorReader(func,ssd)
 		end
 	end)
 	if not shit and shut == false then
-		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,4) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,3) .. ":","⚠️ |"):gsub(":" .. dick:sub(2,2) .. ":","⚠️ |"),"Red"),9e9)
+		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","🔧 |"):gsub(":" .. dick:sub(2,4) .. ":","🔧 |"):gsub(":" .. dick:sub(2,3) .. ":","🔧 |"):gsub(":" .. dick:sub(2,2) .. ":","🔧 |"),"Bold,Red"),9e9)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
 		SendMessage("https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT","An error has occured when running Turtle Hub.```diff\n- " .. dick .. "\n" .. debug.traceback() .. "\n```")
 	end
@@ -2227,12 +2227,17 @@ function lib:FireTouch(gameservice)
 	end)
 end
 
-function lib:RemoteSpy()
+function lib:RemoteSpy(arg)
+	local verrspy = arg or "V1"
 	local isrun,iserror = pcall(function()
-		lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/.lua")
+		if verrspy == "V1" then
+			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V1.lua")
+		elseif verrspy == "V2" then
+			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V2.lua")
+		end
 	end)
 	if not isrun then
-		lib:WarnUser(lib:ColorFonts(iserror,"Red"))
+		lib:WarnUser(lib:ColorFonts(iserror,"Bold,Red"))
 		lib:hooksend("RemoteSpy error: \n```\n" .. iserror .. "\n```")
 	end
 end
@@ -4493,8 +4498,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 		
 		local T100 = window:Tab("Developer Access",true)
 			if hidetab == false then
-				T100:Button("Remote spy",function()
-					lib:RemoteSpy()
+				T100:Button("Remote spy [ V1 ]",function()
+					lib:RemoteSpy("V1")
+				end)
+
+				T100:Button("Remote spy [ V2 ]",function()
+					lib:RemoteSpy("V2")
 				end)
 			
 				T100:Button("DEX",function()
