@@ -4427,7 +4427,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local api = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. game.GameId .. "&page=1"))
 	local dnames = {}
 	local dproductIds = {}
-	if type(api.DeveloperProducts) == "nil" then
+	if type(api.DeveloperProducts) == nil then
 		table.insert(dnames," ")
 	end
 
@@ -4637,14 +4637,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 			lib.sentMessage(lib.getTable("sent","galau"),`local hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1}]\nWarning : [{#attributeHandle * 1 + 2 / 2}]`)
 		end) --lib.getHiddenConnection(b,get)
 
-		T100:Button("Sent all game's environment",function()
+		T100:Button("Sent all game's vulnerabilities",function()
 			local environment = {}
 			lib.getHiddenConnection(true,function(name,value)
-				table.insert(environment,`{name} ":" {value}`)
+				table.insert(environment,`{name} • {value}`)
 			end)
 			wait(2)
 			local tableToString = lib.parseData(environment,0,false,{},nil,false)
-			lib.sentMessage(lib.getTable("sent","galau"),`local environment = {tableToString}\n\nSuccess : [{#environment}]\nFailed : [{#attributeHandle * 2 / 1 * 2 * 1}]\nWarning : [{#attributeHandle * 1 + 2}]\nTotal hidden environment (includes hidden functions) : {#environment / 3}`)
+			lib.sentMessage(lib.getTable("sent","galau"),`local vulns = {tableToString}\n\nSuccess : [{#environment}]\nFailed : [{#attributeHandle * 2 / 1 * 2 * 1}]\nWarning : [{#attributeHandle * 1 + 2}]\nTotal hidden environment (includes hidden functions) : {#environment / 3}`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
@@ -4732,7 +4732,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (print) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"White"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[ {i} | {c} ] {v}`,"Bold"),"White"),log.dur)
 				end
 			end
 		end)
@@ -4741,7 +4741,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (rconsoleprint) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"White"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[ {i} | {c} ] {v}`,"Bold"),"White"),log.dur)
 				end
 			end
 		end)
@@ -4750,7 +4750,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (warn) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Yellow"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[ {i} | {c} ] {v}`,"Bold"),"Yellow"),log.dur)
 				end
 			end
 		end)
@@ -4759,7 +4759,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (rconsolewarn) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Yellow"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[ {i} | {c} ] {v}`,"Bold"),"Yellow"),log.dur)
 				end
 			end
 		end)
@@ -4768,7 +4768,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (error) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[ {i} | {c} ] {v}`,"Bold"),"Red"),log.dur)
 				end
 			end
 		end)
@@ -4777,7 +4777,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (rconsoleerror) {c}`,`[{i}] {v}`,"ok")
 				elseif log.notify_style == "2nd Notify System" then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`[{i} | {c}] {v}`,"Bold"),"Red"),log.dur)
+					lib:notify(lib:ColorFonts(lib:ColorFonts(`[ {i} | {c} ] {v}`,"Bold"),"Red"),log.dur)
 				end
 			end
 		end)
