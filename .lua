@@ -4916,8 +4916,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T106:Toggle("Start fly [ Mobile Only ]",false,function(value)
 			if value == true then
 				lib:mobilefly(false)
+				lib.PlayAnim(10147821284,10,0,false)
 			else
 				lib:unmobilefly()
+				lib.StopAnim()
 			end
 		end)
 		T106:Toggle("Start vehicle fly [ Mobile Only ]",false,function(value)
