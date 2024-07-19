@@ -1885,13 +1885,13 @@ end
 end
 
 function lib.getUserRegion()
-	if Exploit() == "Arceus X" or Exploit() == "Codex" then
-		return "null"
-	else
+	--if Exploit() == "Arceus X" or Exploit() == "Codex" then
+	--	return "null"
+	--else
 		local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
 		local ParsedCountry = Thing[gethiddenproperty(LocalPlayer,"CountryRegionCodeReplicate")]
 		return ParsedCountry
-	end
+	--end
 end
 
 function lib:RevokeLag()
