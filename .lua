@@ -484,7 +484,7 @@ function lib:GetPlayer(f)
 	end
 end
 
-function lib.PlayAnim(id,time,speed)
+function lib.PlayAnim(id,time,speed,ismp)
 	pcall(function()
 		if LocalPlayer.Character.Humanoid:FindFirstChild("SUP SKID") then
 			LocalPlayer.Character.Humanoid["SUP SKID"]:Destroy()
@@ -497,7 +497,11 @@ function lib.PlayAnim(id,time,speed)
 		local Anim = Instance.new("Animation")
 		Anim.Parent = LocalPlayer.Character.Humanoid
 		Anim.Name = "SUP SKID"
-		Anim.AnimationId = "rbxassetid://" .. id
+		if ismp == false then
+			Anim.AnimationId = "rbxassetid://" .. id
+		else
+			Anim.AnimationId = id
+		end
 		local loadanim = LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
 		loadanim:Play()
 		loadanim.TimePosition = time
