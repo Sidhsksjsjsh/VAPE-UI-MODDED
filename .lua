@@ -168,9 +168,32 @@ if game:GetService("CoreGui"):FindFirstChild("VIP TURTLE HUB UI") then
 	ContextActionService:UnbindAction("Turtle Menu")
 end
 
+function lib.HideInterface()
+	if get_hidden_gui or gethui then
+		local hiddenUI = get_hidden_gui or gethui
+		local Main = Instance.new("ScreenGui")
+		Main.Name = lib.randomString()
+		Main.Parent = hiddenUI()
+		return Main
+	elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+		local Main = Instance.new("ScreenGui")
+		Main.Name = lib.randomString()
+		syn.protect_gui(Main)
+		Main.Parent = game:GetService("CoreGui")
+		return Main
+	elseif game:GetService("CoreGui"):FindFirstChild('RobloxGui') then
+		return game:GetService("CoreGui")["RobloxGui"]
+	else
+		local Main = Instance.new("ScreenGui")
+		Main.Name = lib.randomString()
+		Main.Parent = game:GetService("CoreGui")
+		return Main
+	end
+end
+
 local ui = Instance.new("ScreenGui")
 ui.Name = "VIP TURTLE HUB UI"
-ui.Parent = game:GetService("CoreGui")
+ui.Parent = lib.HideInterface()
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local ScreenGuisForTH = Instance.new("ScreenGui")
@@ -184,7 +207,7 @@ local TextButton_2s = Instance.new("TextButton")
 local UICorner_2s = Instance.new("UICorner")
 local UICorner_3s = Instance.new("UICorner")
 
-ScreenGuisForTH.Parent = ui
+ScreenGuisForTH.Parent = lib.HideInterface()
 ScreenGuisForTH.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGuisForTH.Enabled = false
 ScreenGuisForTH.Name = "Turtle UI Notify"
@@ -1678,29 +1701,6 @@ function lib.isDeveloper()
 	return false
 end
 
-function lib.HideInterface()
-	if get_hidden_gui or gethui then
-		local hiddenUI = get_hidden_gui or gethui
-		local Main = Instance.new("ScreenGui")
-		Main.Name = lib.randomString()
-		Main.Parent = hiddenUI()
-		return Main
-	elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
-		local Main = Instance.new("ScreenGui")
-		Main.Name = lib.randomString()
-		syn.protect_gui(Main)
-		Main.Parent = COREGUI
-		return Main
-	elseif COREGUI:FindFirstChild('RobloxGui') then
-		return game:GetService("CoreGui")["RobloxGui"]
-	else
-		local Main = Instance.new("ScreenGui")
-		Main.Name = lib.randomString()
-		Main.Parent = game:GetService("CoreGui")
-		return Main
-	end
-end
-
 function lib:Copy(str)
 	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	if clipBoard then
@@ -2484,7 +2484,7 @@ function lib:Window(text, preset, closebind)
     local UICorner_hide = Instance.new("UICorner")
 	
     Main.Name = "Main"
-    Main.Parent = lib.HideInterface()
+    Main.Parent = ui
     Main.AnchorPoint = Vector2.new(0.5, 0.5)
     Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     Main.BorderSizePixel = 0
