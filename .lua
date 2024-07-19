@@ -168,6 +168,15 @@ local expfunctions = {
 	ContextActionService:UnbindAction("Turtle Menu")
 end]]
 
+function lib.randomString()
+	local length = math.random(10,20)
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32,126))
+	end
+	return table.concat(array)
+end
+
 function lib.Interface(str)
 	if str == "hide" then
 		if get_hidden_gui or gethui then
@@ -307,15 +316,6 @@ end)
 
 --local falseclick = 10
 --local autoclose = false
-
-function lib.randomString()
-	local length = math.random(10,20)
-	local array = {}
-	for i = 1, length do
-		array[i] = string.char(math.random(32,126))
-	end
-	return table.concat(array)
-end
 
 local function HWID()
 	return string.gsub(game:GetService("RbxAnalyticsService"):GetClientId(), "-", "")
