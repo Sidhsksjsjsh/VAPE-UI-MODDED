@@ -206,14 +206,14 @@ function lib.Interface(str)
 	end
 end
 
-if lib.HideInterface("log").Name == "VIP TURTLE HUB UI" then
-	lib.HideInterface("log"):Destroy()
+if lib.Interface("log").Name == "VIP TURTLE HUB UI" then
+	lib.Interface("log"):Destroy()
 	ContextActionService:UnbindAction("Turtle Menu")
 end
 
 local ui = Instance.new("ScreenGui")
 ui.Name = "VIP TURTLE HUB UI"
-ui.Parent = lib.HideInterface("hide")
+ui.Parent = lib.Interface("hide")
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local ScreenGuisForTH = Instance.new("ScreenGui")
