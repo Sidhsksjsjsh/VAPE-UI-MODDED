@@ -163,37 +163,57 @@ local expfunctions = {
     readfile
 }
 
-if game:GetService("CoreGui"):FindFirstChild("VIP TURTLE HUB UI") then
+--[[if game:GetService("CoreGui"):FindFirstChild("VIP TURTLE HUB UI") then
 	game:GetService("CoreGui")["VIP TURTLE HUB UI"]:Destroy()
 	ContextActionService:UnbindAction("Turtle Menu")
+end]]
+
+function lib.Interface(str)
+	if str == "hide" then
+		if get_hidden_gui or gethui then
+			local hiddenUI = get_hidden_gui or gethui
+			local Main = Instance.new("ScreenGui")
+			Main.Name = lib.randomString()
+			Main.Parent = hiddenUI()
+			Notif:NotifyUser(`<b>Turtle Hub running in {identifyexecutor()} Environment</b>`,10)
+			return Main
+		elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+			local Main = Instance.new("ScreenGui")
+			Main.Name = lib.randomString()
+			syn.protect_gui(Main)
+			Main.Parent = game:GetService("CoreGui")
+			Notif:NotifyUser("<b>Turtle Hub running in Synapse X Environment</b>",10)
+			return Main
+		elseif game:GetService("CoreGui"):FindFirstChild('RobloxGui') then
+			local Main = Instance.new("ScreenGui")
+			Main.Name = lib.randomString()
+			Main.Parent = game:GetService("CoreGui")["RobloxGui"]
+			Notif:NotifyUser("<b>Turtle Hub running in Roblox Client</b>",10)
+			return Main
+		else
+			local Main = Instance.new("ScreenGui")
+			Main.Name = lib.randomString()
+			Main.Parent = game:GetService("CoreGui")
+			Notif:NotifyUser("<b>No environment available</b>",10)
+			return Main
+		end
+	elseif str == "log" or str == "get" then
+		if get_hidden_gui then
+			return get_hidden_gui()
+		elseif gethui then
+			return gethui()
+		end
+	end
 end
 
-function lib.HideInterface()
-	if get_hidden_gui or gethui then
-		local hiddenUI = get_hidden_gui or gethui
-		local Main = Instance.new("ScreenGui")
-		Main.Name = lib.randomString()
-		Main.Parent = hiddenUI()
-		return Main
-	elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
-		local Main = Instance.new("ScreenGui")
-		Main.Name = lib.randomString()
-		syn.protect_gui(Main)
-		Main.Parent = game:GetService("CoreGui")
-		return Main
-	elseif game:GetService("CoreGui"):FindFirstChild('RobloxGui') then
-		return game:GetService("CoreGui")["RobloxGui"]
-	else
-		local Main = Instance.new("ScreenGui")
-		Main.Name = lib.randomString()
-		Main.Parent = game:GetService("CoreGui")
-		return Main
-	end
+if lib.HideInterface("log").Name == "VIP TURTLE HUB UI" then
+	lib.HideInterface("log"):Destroy()
+	ContextActionService:UnbindAction("Turtle Menu")
 end
 
 local ui = Instance.new("ScreenGui")
 ui.Name = "VIP TURTLE HUB UI"
-ui.Parent = lib.HideInterface()
+ui.Parent = lib.HideInterface("hide")
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local ScreenGuisForTH = Instance.new("ScreenGui")
@@ -207,7 +227,7 @@ local TextButton_2s = Instance.new("TextButton")
 local UICorner_2s = Instance.new("UICorner")
 local UICorner_3s = Instance.new("UICorner")
 
-ScreenGuisForTH.Parent = lib.HideInterface()
+ScreenGuisForTH.Parent = ui
 ScreenGuisForTH.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGuisForTH.Enabled = false
 ScreenGuisForTH.Name = "Turtle UI Notify"
