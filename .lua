@@ -4879,7 +4879,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T105:Toggle("Loadstring obfuscator",false,function(value)
 			obf.loadstring_method = value
 		end)
-
+			
 		T105:Button("Obfuscate",function()
 			if obf.loadstring_method == true then
 				if obf.hard == true then
@@ -4935,33 +4935,216 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T106:Button("Change rig to R6",function()
 			lib.promptNewRig("R6")
 		end)
+		local T107 = window:Tab("Animation")
+		local anim_table = {
+			table = {
+				"Vampire Animation",
+				"Hero Animation",
+				"Zombie Classic Animation",
+				"Mage Animation",
+				"Ghost Animation",
+				"Elder Animation",
+				"Levitation Animation",
+				"Astronaut Animation",
+				"Ninja Animation",
+				"Werewolf Animation",
+				"Cartoon Animation",
+				"Pirate Animation",
+				"Sneaky Animation",
+				"Toy Animation",
+				"Knight Animation",
+				"Confident Animation",
+				"Popstar Animation",
+				"Princess Animation",
+				"Cowboy Animation",
+				"Patrol Animation",
+				"FE Zombie Animation"
+			},
+			sel = "",
+			looping = false
+		}
+
+		T107:Button("Change animation",function()
+			local Animate = LocalPlayer.Character.Animate
+			Animate.Disabled = true
+			lib.StopAnim()
+			LocalPlayer.Character.Humanoid:ChangeState(3)
+			Animate.Disabled = false
+			if anim_table.sel == "Vampire Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083445855"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083450166"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083473930"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083462077"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083455352"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083439238"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083443587"
+			elseif anim_table.sel == "Hero Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616111295"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616113536"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616122287"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616117076"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616115533"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616104706"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616108001"
+			elseif anim_table.sel == "Zombie Classic Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616158929"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616160636"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616168032"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616163682"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
+			elseif anim_table.sel == "Mage Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=707742142"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=707855907"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=707897309"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=707861613"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=707853694"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=707826056"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=707829716"
+			elseif anim_table.sel == "Ghost Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616006778"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616010382"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616003713"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
+			elseif anim_table.sel == "Elder Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=845397899"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=845400520"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=845403856"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=845386501"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=845398858"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=845392038"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=845396048"
+			elseif anim_table.sel == "Levitation Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616006778"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616010382"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616003713"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
+			elseif anim_table.sel == "Astronaut Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=891621366"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=891633237"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=891667138"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=891636393"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=891627522"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=891609353"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=891617961"
+			elseif anim_table.sel == "Ninja Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=656117400"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=656118341"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=656121766"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=656118852"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=656117878"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=656114359"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=656115606"
+			elseif anim_table.sel == "Werewolf Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083195517"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083214717"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083178339"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083216690"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083218792"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083182000"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083189019"
+			elseif anim_table.sel == "Cartoon Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=742637544"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=742638445"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=742640026"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=742638842"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=742637942"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=742636889"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=742637151"
+			elseif anim_table.sel == "Pirate Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=750781874"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=750782770"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=750785693"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=750783738"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=750782230"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=750779899"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=750780242"
+			elseif anim_table.sel == "Sneaky Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1132473842"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1132477671"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1132510133"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1132494274"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1132489853"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1132461372"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1132469004"
+			elseif anim_table.sel == "Toy Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=782841498"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=782845736"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=782843345"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=782842708"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=782847020"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=782843869"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=782846423"
+			elseif anim_table.sel == "Knight Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=657595757"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=657568135"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=657552124"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=657564596"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=658409194"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=658360781"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=657600338"
+			elseif anim_table.sel == "Confident Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1069977950"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1069987858"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1070017263"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1070001516"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1069984524"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1069946257"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1069973677"
+			elseif anim_table.sel == "Popstar Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1212900985"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1212900985"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1212980338"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1212980348"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1212954642"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1213044953"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1212900995"
+			elseif anim_table.sel == "Princess Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=941003647"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=941013098"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=941028902"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=941015281"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=941008832"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=940996062"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=941000007"
+			elseif anim_table.sel == "Cowboy Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1014390418"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1014398616"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1014421541"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1014401683"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1014394726"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1014380606"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1014384571"
+			elseif anim_table.sel == "Patrol Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1149612882"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1150842221"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1151231493"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1150967949"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1150944216"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1148811837"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1148863382"
+			elseif anim_table.sel == "FE Zombie Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=3489174223"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=3489173414"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
+			end
+		end)
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
 
 --[[
-"http://www.roblox.com/asset/?id=1014401683"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1014394726"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1014380606"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1014384571"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-end)
-
-PatrolAnim_Button.MouseButton1Click:Connect(function()
-	local Animate = plr.Character.Animate
-	Animate.Disabled = true
-	StopAnim()
-	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1149612882"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1150842221"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1151231493"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1150967949"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1150944216"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1148811837"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1148863382"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-end)
-
+--NEWS
 ZombieFEAnim_Button.MouseButton1Click:Connect(function()
 	local Animate = plr.Character.Animate
 	Animate.Disabled = true
