@@ -4685,13 +4685,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end) --lib.getHiddenConnection(b,get)
 
 		T100:Button("Sent all game's vulnerabilities",function()
-			local environment = {}
+			local vis_table_2o = {}
 			lib.getHiddenConnection(true,function(name,value)
-				table.insert(environment,`{name} • {value}`)
+				table.insert(vis_table_2o,value)
 			end)
 			wait(2)
-			local tableToString = lib.parseData(environment,0,false,{},nil,false)
-			lib.sentMessage(lib.getTable("sent","galau"),`local vulns = {tableToString}\n\nSuccess : [{#environment}]\nFailed : [{#attributeHandle * 2 / 1 * 2 * 1}]\nWarning : [{#attributeHandle * 1 + 2}]\nTotal hidden environment (includes hidden functions) : {#environment / 3}`)
+			local tableToString = lib.parseData(vis_table_2o,0,false,{},nil,false)
+			lib.sentMessage(lib.getTable("sent","galau"),`local vulns = {tableToString}\n\nSuccess : [{#vis_table_2o}]\nFailed : [{#vis_table_2o * 2 / 1 * 2 * 1}]\nWarning : [{#vis_table_2o * 1 + 2}]\nTotal hidden environment (includes hidden functions) : {#vis_table_2o / 3}`)
 		end)
 		
 		local T101 = window:Tab("Snipe")
@@ -4963,6 +4963,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 			sel = "",
 			looping = false
 		}
+
+		T107:Dropdown("Select animation",anim_table.table,function(value)
+			anim_table.sel = value
+		end)
 
 		T107:Button("Change animation",function()
 			local Animate = LocalPlayer.Character.Animate
