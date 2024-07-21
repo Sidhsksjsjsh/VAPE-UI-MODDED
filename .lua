@@ -4649,13 +4649,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:RemoteSpy("V1")
 				end)
 
-				T100:Button("Remote spy [ V2 ] [ Recommended ]",function()
+				--[[T100:Button("Remote spy [ V2 ] [ Recommended ]",function()
 					lib:RemoteSpy("V2")
 				end)
 
 				T100:Button("Remote spy [ V3 ]",function()
 					lib:RemoteSpy("V3")
-				end)
+				end)]]
 			
 				T100:Button("DEX",function()
 					lib:DEX()
@@ -4719,7 +4719,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T101:Button("Start snipe",function()
 			lib.snipe(var.game_id,var.userid)
 		end)
-		if LocalPlayer.Name == "Rivanda_Cheater" then
+		--[[if LocalPlayer.Name == "Rivanda_Cheater" then
 			local T102 = window:Tab("Announcement",true)
 			T102:Dropdown("Select channel",lib.getTable("get",""),function(value)
 				var.channel = value
@@ -4761,18 +4761,18 @@ function lib.DeveloperEncrypt(window,isShowed)
 			T103:Button("Sent response",function()
 				lib.WebhookSenderV2(var.bot.channel,var.bot.name,var.bot.msg:gsub("{user}",var.bot.user))
 			end)
-		end --lib:Notification("System Logging (print)",v,"ok")
-		local T104 = window:Tab("SPY LOGGING",true)
+		end]] --lib:Notification("System Logging (print)",v,"ok")
+		--local T104 = window:Tab("SPY LOGGING",true)
 		local log = {
-			info = false,
-			warning = false,
-			errorlog = false,
-			rconsoleinfo = false,
-			rconsolewarning = false,
-			rconsoleerrorlog = false,
+			info = true,
+			warning = true,
+			errorlog = true,
+			rconsoleinfo = true,
+			rconsolewarning = true,
+			rconsoleerrorlog = true,
 			notify_table = {"2nd Notify System","UI Notify System"},
 			notify_style = "2nd Notify System",
-			dur = 16
+			dur = 9e9
 		}
 		CatchCaller(print,function(c,i,v)
 			if log.info == true then
@@ -4829,7 +4829,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
-		T104:Dropdown("Select notify style",log.notify_table,function(value)
+		--[[T104:Dropdown("Select notify style",log.notify_table,function(value)
 			log.notify_style = value
 		end)
 
@@ -4904,7 +4904,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 					loadstring(lib.CodeEncrypter(obf.text))()
 				end
 			end
-		end)
+		end)]]
+			
 		local T106 = window:Tab("Character")
 		--T106:Label("Encrypted chat bypass for a bypassed word\n//a -> ass\n//d -> dick\n//p -> pussy\n//s -> shit\n//f -> fuck\n//ah -> asshole\n//n1 -> nigga\n//n2 -> nigger\n//c -> cum\n//cond -> condom\n18+ -> sex\n//sp -> sperm\n//t -> tits")
 		T106:Slider("Fly speed",0,100,1,function(value)
