@@ -880,18 +880,23 @@ function lib:LoadRepository(path,bool)
 		}
 	})
 
-	local loadFunction = loadstring(async.Body)
-	if loadFunction then
-		if gui == true then
-			lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Injecting a UI...","Bold"),"Green"),5)
-			return loadFunction()
-		elseif gui == false then
-			lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Injecting a script...","Bold"),"Green"),5)
-			loadFunction()
-			lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold"),"Green"),5)
+	local suck,dick = pcall(function()
+		local loadFunction = loadstring(async.Body)
+		if loadFunction then
+			if gui == true then
+				lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Injecting a UI...","Bold"),"Green"),5)
+				return loadFunction()
+			elseif gui == false then
+				lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Injecting a script...","Bold"),"Green"),5)
+				loadFunction()
+				lib:notify(lib:ColorFonts(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold"),"Green"),5)
+			end
+		else
+			lib:notify(lib:ColorFonts(lib:ColorFonts("Failed to load script","Bold"),"Red"),9e9)
 		end
-	else
-		lib:notify(lib:ColorFonts(lib:ColorFonts("Failed to load script","Bold"),"Red"),9e9)
+	end)
+	if not suck then
+		lib:notify(lib:ColorFonts(dick,"Bold,Red"),9e9)
 	end
 end
 
