@@ -1295,8 +1295,38 @@ local function SendMessage(url,message)
     print("Sent")
 end
 
-function lib.sentMessage(url,msg)
-	SendMessage(url,msg)
+function SendMessageEMBED(url, embed)
+    local data = {
+        ["embeds"] = {
+            {
+                ["title"] = embed.title,
+                ["description"] = embed.description,
+                ["color"] = embed.color,
+                ["fields"] = embed.fields,
+                ["footer"] = {
+                    ["text"] = embed.footer.text
+                }
+            }
+        }
+    }
+    local body = HttpService:JSONEncode(data)
+    local response = http({
+        Url = url,
+        Method = "POST",
+        Headers = {
+		["Content-Type"] = "application/json"
+	},
+        Body = body
+    })
+    print("Sent")
+end
+
+function lib.sentMessage(url,msg,embed)
+	if embed["title"] ~= nil or embed["color"] ~= nil then
+		SendMessageEMBED(url,embed)
+	else
+		SendMessage(url,msg)
+	end
 end
 
 function lib.getTable(str,name)
@@ -1317,33 +1347,6 @@ function lib.getUserTag(label,name)
 			return name:gsub("@Fahri","<@955564914028716043>"):gsub("@Asya","<@907148919207759912>"):gsub("@Akbar","<@953630026266452008>"):gsub("@Fania","<@896744133450952796>"):gsub("@Gapryong","<@1110937899207237744>"):gsub("@Sauce","<@339544843992825856>"):gsub("@Timmy","<@1067718700112826418>"):gsub("@TW O","<@777152933926010880>"):gsub("@Kaiseanat","<@848600442292535316>")
 		end
 	end
-end
-
-local function SendMessageEMBED(url,embed)
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-    local data = {
-        ["embeds"] = {
-            {
-                ["title"] = embed.title,
-                ["description"] = embed.description,
-                ["color"] = embed.color,
-                ["fields"] = embed.fields,
-                ["footer"] = {
-                    ["text"] = embed.footer.text
-                }
-            }
-        }
-    }
-    local body = HttpService:JSONEncode(data)
-    local response = http({
-        Url = url,
-        Method = "POST",
-        Headers = headers,
-        Body = body
-    })
-    print("Sent")
 end
 
 local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
