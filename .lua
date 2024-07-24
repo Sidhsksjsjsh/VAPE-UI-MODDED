@@ -1295,7 +1295,7 @@ local function SendMessage(url,message)
     print("Sent")
 end
 
-function SendMessageEMBED(url, embed)
+function SendMessageEMBED(url,embed)
     local data = {
         ["embeds"] = {
             {
@@ -1322,7 +1322,7 @@ function SendMessageEMBED(url, embed)
 end
 
 function lib.sentMessage(url,msg,embed)
-	if embed["title"] ~= nil or embed["color"] ~= nil then
+	if msg == "embed system" then
 		SendMessageEMBED(url,embed)
 	else
 		SendMessage(url,msg)
