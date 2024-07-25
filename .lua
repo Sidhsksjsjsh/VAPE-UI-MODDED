@@ -4681,13 +4681,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:RemoteSpy("V1")
 				end)
 
-				--[[T100:Button("Remote spy [ V2 ] [ Recommended ]",function()
+				T100:Button("Remote spy [ V2 ] [ Recommended ]",function()
 					lib:RemoteSpy("V2")
 				end)
 
 				T100:Button("Remote spy [ V3 ]",function()
 					lib:RemoteSpy("V3")
-				end)]]
+				end)
 			
 				T100:Button("DEX",function()
 					lib:DEX()
