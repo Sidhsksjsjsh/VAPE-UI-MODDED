@@ -1342,7 +1342,7 @@ function lib.getTable(str,name)
 		end
 	end
 end
-
+--lib.sentMessage(lib.getTable("sent","galau"),"",{})
 function lib.getUserTag(label,name)
 	if type(label) == "string" then
 		if label == "get" then
@@ -1779,17 +1779,42 @@ local function CrawlInstances(Inst)
                 SelectedInstance = Instance
                 Properties = GetPropertiesForInstance(Instance)
                 --setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. "")
-                lib:notify("Copied " .. lib:ColorFonts(Instance.ClassName,"Green"),10)
+                lib:notify("Copied " .. lib:ColorFonts(Instance.ClassName,"Bold,Green"),10)
 		if Instance:IsA("RemoteEvent") then
 			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()")
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()",
+				{}
+			)
 		elseif Instance:IsA("RemoteFunction") then
 			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":InvokeServer()")
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":InvokeServer()",
+				{}
+			)
 		elseif Instance:IsA("BindableFunction") then
 			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Invoke()")
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Invoke()",
+				{}
+			)
 		elseif Instance:IsA("BindableEvent") then
 			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()")
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()",
+				{}
+			)
 		else
 			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE"))
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. "\n\n" .. Instance.ClassName,
+				{}
+			)
 		end -- end
             end
             Iris.End()
