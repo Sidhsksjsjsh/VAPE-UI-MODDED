@@ -872,26 +872,30 @@ end
 
 function lib:LoadRepository(path,bool)
 	local gui = bool or false
-	local async = http({
-		Url = path,
-		Method = "GET",
-		Headers = {
-			["Authorization"] = "Bearer \103\105\116\104\117\98\95\112\97\116\95\49\49\65\52\65\86\90\88\89\48\114\72\111\87\109\114\119\70\49\107\118\99\95\56\116\109\54\72\69\88\111\107\89\118\100\88\85\82\51\119\50\70\52\83\114\97\74\56\76\122\78\76\82\118\107\77\121\97\72\110\84\98\87\81\117\82\66\79\90\77\86\79\90\73\51\74\56\108\52\71\52\52"
-		}
-	})
+	if path:find("raw.githubusercontent.com") or path:find("api.github.com") or path:find("gist.github.com") then
+		local async = http({
+				Url = path,
+				Method = "GET",
+				Headers = {
+					["Authorization"] = "Bearer \103\105\116\104\117\98\95\112\97\116\95\49\49\65\52\65\86\90\88\89\48\114\72\111\87\109\114\119\70\49\107\118\99\95\56\116\109\54\72\69\88\111\107\89\118\100\88\85\82\51\119\50\70\52\83\114\97\74\56\76\122\78\76\82\118\107\77\121\97\72\110\84\98\87\81\117\82\66\79\90\77\86\79\90\73\51\74\56\108\52\71\52\52"
+				}
+			})
 
-	local loadFunction = loadstring(async.Body)
-	if loadFunction then
-		if gui == true then
-			lib:notify(lib:ColorFonts("[ Turtle-Client ] Injecting a UI...","Bold,Green"),5)
-			return loadFunction()
-		elseif gui == false then
-			lib:notify(lib:ColorFonts("[ Turtle-Client ] Injecting a script...","Bold,Green"),5)
-			loadFunction()
-			lib:notify(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold,Green"),5)
+		local loadFunction = loadstring(async.Body)
+		if loadFunction then
+			if gui == true then
+				lib:notify(lib:ColorFonts("[ Turtle-Client ] Injecting a UI...","Bold,Green"),5)
+				return loadFunction()
+			elseif gui == false then
+				lib:notify(lib:ColorFonts("[ Turtle-Client ] Injecting a script...","Bold,Green"),5)
+				loadFunction()
+				lib:notify(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold,Green"),5)
+			end
+		else
+			lib:notify(lib:ColorFonts("Failed to load script, HTTP Error Code : " .. lib:ColorFonts(async.StatusCode,"Underline"),"Bold,Red"),9e9)
 		end
 	else
-		lib:notify(lib:ColorFonts("Failed to load script","Bold,Red"),9e9)
+		lib:notify(lib:ColorFonts("ONLY GITHUB API ENDPOINT ARE ALLOWED TO USE THIS FUNCTION","Bold,Red"),10)
 	end
 end
 
