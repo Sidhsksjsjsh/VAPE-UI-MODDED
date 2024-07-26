@@ -4677,17 +4677,17 @@ function lib.DeveloperEncrypt(window,isShowed)
 		
 		local T100 = window:Tab("Developer Access",true)
 			if hidetab == false then
-				T100:Button("Remote spy [ V1 ] [ Recommended ]",function()
+				T100:Button("Remote spy [ NEXT-GEN ]",function()
 					lib:RemoteSpy("V1")
 				end)
 
-				T100:Button("Remote spy [ V2 ] [ Recommended ]",function()
-					lib:RemoteSpy("V2")
+				T100:Button("Remote spy [ OLD ]",function()
+					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Jshdjdhdkdb/main/Omgshit.lua")
 				end)
 
-				T100:Button("Remote spy [ V3 ]",function()
-					lib:RemoteSpy("V3")
-				end)
+				--T100:Button("Remote spy [ V3 ]",function()
+				--	lib:RemoteSpy("V3")
+				--end)
 			
 				T100:Button("DEX",function()
 					lib:DEX()
