@@ -2016,7 +2016,8 @@ function lib:TrackPlayer(name,f)
 		if name == "all" or name == "All" then
 			f(v)
 		else
-			if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) then
+			if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) or (string.sub(string.lower(v.DisplayName),1,string.len(name))) == string.lower(name) then
+				lib:notify(lib:ColorFonts(`Player found! {v.DisplayName} - (@{v.Name})`,"Bold,Green"),10)
 				f(v)
 			end
 		end
