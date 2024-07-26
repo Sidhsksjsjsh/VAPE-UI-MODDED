@@ -4686,9 +4686,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Jshdjdhdkdb/main/Omgshit.lua")
 				end)
 
-				--T100:Button("Remote spy [ V3 ]",function()
-				--	lib:RemoteSpy("V3")
-				--end)
+				T100:Button("Bypass lag",function()
+					lib:RevokeLag()
+				end)
 			
 				T100:Button("DEX",function()
 					lib:DEX()
