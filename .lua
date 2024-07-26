@@ -5213,7 +5213,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local web = {
 			_endpoint = "",
 			_spam = false,
-			_message = "This HTTP has been spammed using Turtle-HTTP-Spammer"
+			_message = ""
 		}
 
 		ddos:Textbox("Insert endpoint",false,function(value)
@@ -5225,9 +5225,57 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 			
 		ddos:Button("Sent HTTP ( POST )",function()
-			if web._endpoint:find("") then
-				lib.sentMessage(web._endpoint,"embed systen",{})
+			if web._endpoint ~= "" then
+				if web._endpoint:find("discord.com/api/webhooks/") then
+					lib.sentMessage(web._endpoint,"embed systen",{
+								["title"] = "API & Webhook Sender",
+								["description"] = "This HTTP has been spammed using the 'API & Webhook Sender' tool.",
+								["color"] = 65280,
+								["fields"] = {
+									{
+									   ["name"] = "HTTP Message",
+									   ["value"] = web._message
+									}
+								},
+								["footer"] = {
+									["text"] = "User-Agent : Turtle X • PC | API & Webhook Sender • API & Webhook Spoofer • API & Webhook Protection • Webhook Blocker"
+								}
+							})
+				else
+					lib.sentMessage(web._endpoint,web._message,{})
+				end
+			else
+				lib:notify(lib:ColorFonts("Invalid endpoint.","Bold,Red"),10)
 			end
+		end)
+
+		ddos:Toggle("API & Webhook Spammer",false,function(value)
+			web._spam = value
+			while wait() do
+				if web._spam == false then break end
+				if web._endpoint ~= "" then
+					if web._endpoint:find("discord.com/api/webhooks/") then
+						lib.sentMessage(web._endpoint,"embed systen",{
+								["title"] = "API & Webhook Spammer",
+								["description"] = "This HTTP has been spammed using the 'API & Webhook Spammer' tool.",
+								["color"] = 65280,
+								["fields"] = {
+									{
+									   ["name"] = "HTTP Message",
+									   ["value"] = web._message
+									}
+								},
+								["footer"] = {
+									["text"] = "User-Agent : Turtle X • PC | API & Webhook Spammer • API & Webhook Spoofer • API & Webhook Protection • Webhook Blocker"
+								}
+							})
+					else
+						lib.sentMessage(web._endpoint,web._message,{})
+					end
+				else
+					lib:notify(lib:ColorFonts("Invalid endpoint.","Bold,Red"),10)
+					web._spam = false
+				end
 		end)
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
