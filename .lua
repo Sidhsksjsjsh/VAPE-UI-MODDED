@@ -1283,18 +1283,13 @@ function lib:BypassPurchase(script)
 end
 
 local function SendMessage(url,message)
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-    local data = {
-        ["content"] = message
-    }
-    local body = HttpService:JSONEncode(data)
     local response = http({
         Url = url,
         Method = "POST",
-        Headers = headers,
-        Body = body
+        Headers = {
+		["Content-Type"] = "application/json"
+	},
+        Body = HttpService:JSONEncode({["content"] = message})
     })
     print("Sent")
 end
@@ -1320,7 +1315,7 @@ function SendMessageEMBED(url,embed)
         Headers = {
 		["Content-Type"] = "application/json"
 	},
-        Body = body
+        Body = HttpService:JSONEncode(data)
     })
     print("Sent")
 end
@@ -2017,7 +2012,6 @@ function lib:TrackPlayer(name,f)
 			f(v)
 		else
 			if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) or (string.sub(string.lower(v.DisplayName),1,string.len(name))) == string.lower(name) then
-				lib:notify(lib:ColorFonts(`Player found! {v.DisplayName} - (@{v.Name})`,"Bold,Green"),10)
 				f(v)
 			end
 		end
