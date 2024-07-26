@@ -5225,7 +5225,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 			
 		ddos:Button("Sent HTTP ( POST )",function()
-			lib.sentMessage(web._endpoint,web._message,{})
+			if web._endpoint:find("") then
+				lib.sentMessage(web._endpoint,"embed systen",{})
+			end
 		end)
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
