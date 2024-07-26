@@ -5208,6 +5208,25 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
 			end
 		end)
+			
+		local ddos = window:Tab("HTTP Spam / DDOS",true)
+		local web = {
+			_endpoint = "",
+			_spam = false,
+			_message = "This HTTP has been spammed using Turtle-HTTP-Spammer"
+		}
+
+		ddos:Textbox("Insert endpoint",false,function(value)
+			web._endpoint = value
+		end)
+			
+		ddos:Textbox("Insert message",false,function(value)
+			web._message = value
+		end)
+			
+		ddos:Button("Sent HTTP ( POST )",function()
+			lib.sentMessage(web._endpoint,web._message,{})
+		end)
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
 
@@ -5245,19 +5264,19 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	return properties
 end
 
-lib:runtime(function()
+--[[lib:runtime(function()
 	lib.FPSConfigs("set",240)
 end)
 
---[[lib:runtime(function()
+lib:runtime(function()
 	local response = game:HttpGet("https://shz.al/~software")
 	local data = HttpService:JSONDecode(response)
 	if data.Software.Version ~= ver and data.Software.Update == true then
 		lib:WarnUser(data.Software.UpdateMessage)
 	end
-end)]]
+end)
 
---[[TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
+TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 	local properties = Instance.new("TextChatMessageProperties")
 
 	--local textSource = textChatMessage.TextSource
@@ -5287,5 +5306,5 @@ TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 end
 ]]
 
-print("Turtle UI is running")
+print("Turtle Interface successfully injected.")
 return lib
