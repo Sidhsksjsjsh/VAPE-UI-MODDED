@@ -5276,6 +5276,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:notify(lib:ColorFonts("Invalid endpoint.","Bold,Red"),10)
 					web._spam = false
 				end
+			end
 		end)
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
