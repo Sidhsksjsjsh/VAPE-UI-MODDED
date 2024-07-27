@@ -5315,11 +5315,11 @@ TextChatService.OnIncomingMessage = function(message: TextChatMessage)
 	return properties
 end
 
---[[lib:runtime(function()
-	lib.FPSConfigs("set",240)
+lib:runtime(function()
+	lib.FPSConfigs("set",9e9)
 end)
 
-lib:runtime(function()
+--[[lib:runtime(function()
 	local response = game:HttpGet("https://shz.al/~software")
 	local data = HttpService:JSONDecode(response)
 	if data.Software.Version ~= ver and data.Software.Update == true then
