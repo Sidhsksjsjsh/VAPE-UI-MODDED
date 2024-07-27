@@ -1322,6 +1322,7 @@ end
 
 function lib.sentMessage(url,msg,embed)
 	if msg == "embed system" then
+		SendMessage(url,"@everyone")
 		SendMessageEMBED(url,embed)
 	else
 		SendMessage(url,msg)
