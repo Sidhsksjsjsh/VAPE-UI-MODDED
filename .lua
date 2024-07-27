@@ -5182,14 +5182,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
 				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
 				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
-			elseif anim_table.sel == "Adidad Sport Animation" then
-				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
-				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
-				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=3489174223"
-				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=3489173414"
-				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
-				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
-				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
+			elseif anim_table.sel == "Adidas Sport Animation" then --✓
+				Animate.idle.Animation1.AnimationId = "https://www.roblox.com/asset/?id=18537376492"
+				Animate.idle.Animation2.AnimationId = "https://www.roblox.com/asset/?id=18537371272"
+				Animate.walk.WalkAnim.AnimationId = "https://www.roblox.com/asset/?id=18537392113"
+				Animate.run.RunAnim.AnimationId = "https://www.roblox.com/asset/?id=18537384940"
+				Animate.jump.JumpAnim.AnimationId = "https://www.roblox.com/asset/?id=18537380791"
+				Animate.climb.ClimbAnim.AnimationId = "https://www.roblox.com/asset/?id=18537363391"
+				Animate.fall.FallAnim.AnimationId = "https://www.roblox.com/asset/?id=18537367238"
 			elseif anim_table.sel == "Udzal Animation" then
 				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
 				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
