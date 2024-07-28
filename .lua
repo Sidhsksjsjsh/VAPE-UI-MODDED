@@ -4497,7 +4497,7 @@ local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 
 function lib.DeveloperEncrypt(window,isShowed)
 	local hidetab = isShowed or false
-	local Tab01 = window:Tab("DevProducts",false)
+	--[[local Tab01 = window:Tab("DevProducts",false)
 	local api = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. game.GameId .. "&page=1"))
 	local dnames = {}
 	local dproductIds = {}
@@ -4654,7 +4654,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end
 	end)
-
+	]]
+	
 	lib:DeveloperAccess(function()
 		local function CatchCaller(func,output)
 			task.spawn(function()
