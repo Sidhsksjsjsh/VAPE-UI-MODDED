@@ -1291,11 +1291,12 @@ local function SendMessage(url,message)
 	},
         Body = HttpService:JSONEncode({["content"] = message})
     })
-    print("Sent")
+    lib:notify(lib:ColorFonts("Sent","Bold,Green"),10)
 end
 
-function SendMessageEMBED(url,embed)
+local function SendMessageEMBED(url,embed)
     local data = {
+	["content"] = "@everyone",
         ["embeds"] = {
             {
                 ["title"] = embed.title,
@@ -1308,7 +1309,6 @@ function SendMessageEMBED(url,embed)
             }
         }
     }
-    local body = HttpService:JSONEncode(data)
     local response = http({
         Url = url,
         Method = "POST",
@@ -1317,12 +1317,11 @@ function SendMessageEMBED(url,embed)
 	},
         Body = HttpService:JSONEncode(data)
     })
-    print("Sent")
+    lib:notify(lib:ColorFonts("Sent","Bold,Green"),10)
 end
 
 function lib.sentMessage(url,msg,embed)
 	if msg == "embed system" then
-		SendMessage(url,"@everyone")
 		SendMessageEMBED(url,embed)
 	else
 		SendMessage(url,msg)
