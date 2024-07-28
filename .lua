@@ -1294,9 +1294,9 @@ local function SendMessage(url,message)
     lib:notify(lib:ColorFonts("Sent","Bold,Green"),10)
 end
 
-local function SendMessageEMBED(url,embed)
+local function SendMessageEMBED(url,embed,user_to_tag)
     local data = {
-	["content"] = "@everyone",
+	["content"] = user_to_tag,
         ["embeds"] = {
             {
                 ["title"] = embed.title,
@@ -1320,9 +1320,10 @@ local function SendMessageEMBED(url,embed)
     lib:notify(lib:ColorFonts("Sent","Bold,Green"),10)
 end
 
-function lib.sentMessage(url,msg,embed)
+function lib.sentMessage(url,msg,embed,mention)
+	local get_mention = mention or "@everyone"
 	if msg == "embed system" then
-		SendMessageEMBED(url,embed)
+		SendMessageEMBED(url,embed,get_mention)
 	else
 		SendMessage(url,msg)
 	end
