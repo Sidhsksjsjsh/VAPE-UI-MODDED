@@ -4936,7 +4936,25 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)]]
 			
 		LogService["MessageOut"]:Connect(function(msg,msgtype)
-			lib:notify(lib:ColorFonts(`[ {msgtype} ] {msg}`,"Bold"),9e9)
+			--lib:notify(lib:ColorFonts(`[ {msgtype} ] {msg}`,"Bold"),9e9)
+			lib.sentMessage(lib.getTable("sent","galau"),"embed system",{
+							["title"] = "Hacking tool • Server-Side injection",
+							["description"] = "Output logger • Output function manipulate",
+							["color"] = 65280,
+							["fields"] = {
+								{
+								  ["name"] = "Output : ",
+								  ["value"] = "```\n• Message : " .. msg .. "\n• Output type : " .. msgtype .. "\n```"
+								},
+								--{
+								--  ["name"] = "Game : ",
+								--  ["value"] = "This is the second field"
+								--}
+							},
+							["footer"] = {
+								["text"] = "Turtle Manipulator"
+							}
+						},"")
 		end)
 			
 		local T106 = window:Tab("Character")
