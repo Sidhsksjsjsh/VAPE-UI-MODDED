@@ -4803,7 +4803,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			notify_style = "2nd Notify System",
 			dur = 9e9
 		}
-		CatchCaller(print,function(c,i,v)
+		--[[CatchCaller(print,function(c,i,v)
 			if log.info == true then
 				if log.notify_style == "UI Notify System" then
 					lib:Notification(`System Logging (print) {c}`,`[{i}] {v}`,"ok")
@@ -4858,7 +4858,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
-		--[[T104:Dropdown("Select notify style",log.notify_table,function(value)
+		T104:Dropdown("Select notify style",log.notify_table,function(value)
 			log.notify_style = value
 		end)
 
@@ -4934,6 +4934,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end
 			end
 		end)]]
+			
+		LogService["MessageOut"]:Connect(function(msg,msgtype)
+			lib:notify(lib:ColorFonts(`[ {msgtype} ] {msg}`,"Bold"),9e9)
+		end)
 			
 		local T106 = window:Tab("Character")
 		--T106:Label("Encrypted chat bypass for a bypassed word\n//a -> ass\n//d -> dick\n//p -> pussy\n//s -> shit\n//f -> fuck\n//ah -> asshole\n//n1 -> nigga\n//n2 -> nigger\n//c -> cum\n//cond -> condom\n18+ -> sex\n//sp -> sperm\n//t -> tits")
