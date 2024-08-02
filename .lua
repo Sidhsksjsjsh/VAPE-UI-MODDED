@@ -37,6 +37,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local AvatarEditorService = game:GetService("AvatarEditorService")
 local iyflyspeed = 1
 local vehicleflyspeed = 1
+local isGuiOpened = true
 
 local returned_string = {
 	["type() function"] = {
@@ -1006,14 +1007,20 @@ end
 function lib.clickScreen(area,position)
   local hitpos = position or {5,5,5}
   if area == "middle" then
-    VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,true,game,1)
-    VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,false,game,1)
+	if isGuiOpened == false then
+		VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,true,game,1)
+		VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,false,game,1)
+	end
   elseif area == "corner" then
-    VirtualInputManager:SendMouseButtonEvent(0,0,0,true,game,1)
-    VirtualInputManager:SendMouseButtonEvent(0,0,0,false,game,1)
+	if isGuiOpened == false then
+		VirtualInputManager:SendMouseButtonEvent(0,0,0,true,game,1)
+		VirtualInputManager:SendMouseButtonEvent(0,0,0,false,game,1)
+	end
   elseif area == "custom" then
-    VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],hitpos[3],true,game,1)
-    VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],hitpos[3],false,game,1)
+	if isGuiOpened == false then
+		VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],hitpos[3],true,game,1)
+		VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],hitpos[3],false,game,1)
+	end
   end
 end
 
@@ -2619,11 +2626,13 @@ function lib:Window(text, preset, closebind)
 		    --lib:RevokeLag()
                     Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
+			    isGuiOpened = false
                    end)
                 else
                     uitoggled = false
                     ui.Enabled = true
                     OpenHideUI.Text = "HIDE UI"
+		    isGuiOpened = true
 		    --lib:RevokeLag()
                     Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
                 end
@@ -2635,10 +2644,12 @@ function lib:Window(text, preset, closebind)
 			MobileToggled = not MobileToggled
 			if MobileToggled == true then
 				ui.Enabled = true
+				isGuiOpened = true
 				Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
 			elseif MobileToggled == false then
 				Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
 					ui.Enabled = false
+					isGuiOpened = false
 				end)
 			end
 		end
