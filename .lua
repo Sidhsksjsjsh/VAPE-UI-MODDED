@@ -4565,28 +4565,7 @@ local function getHierarchy(obj)
 	end
 end
 
-local selectionBox = Instance.new("SelectionBox")
-selectionBox.Name = lib.randomString()
-selectionBox.Color3 = Color3.new(255,255,255)
-selectionBox.Adornee = nil
-selectionBox.Parent = PARENT
 
-local selected = Instance.new("SelectionBox")
-selected.Name = lib.randomString()
-selected.Color3 = Color3.new(0,166,0)
-selected.Adornee = nil
-selected.Parent = PARENT
-
-local ActivateHighlight = nil
-local ClickSelect = nil
-
-local function HighlightPart()
-	if selected.Adornee ~= Mouse.Target then
-		selectionBox.Adornee = Mouse.Target
-	else
-		selectionBox.Adornee = nil
-	end
-end
 	--[[ActivateHighlight = Mouse.Move:Connect(HighlightPart)
 local function SelectPart()
 	if Mouse.Target ~= nil then
@@ -4822,6 +4801,29 @@ function lib.DeveloperEncrypt(window,isShowed)
 	]]
 	
 	lib:DeveloperAccess(function()
+		local selectionBox = Instance.new("SelectionBox")
+		selectionBox.Name = lib.randomString()
+		selectionBox.Color3 = Color3.new(255,255,255)
+		selectionBox.Adornee = nil
+		selectionBox.Parent = lib.Interface("hide")
+
+		local selected = Instance.new("SelectionBox")
+		selected.Name = lib.randomString()
+		selected.Color3 = Color3.new(0,166,0)
+		selected.Adornee = nil
+		selected.Parent = lib.Interface("hide")
+
+		local ActivateHighlight = nil
+		local ClickSelect = nil
+
+		local function HighlightPart()
+			if selected.Adornee ~= Mouse.Target then
+				selectionBox.Adornee = Mouse.Target
+			else
+				selectionBox.Adornee = nil
+			end
+		end
+			
 		local function CatchCaller(func,output)
 			task.spawn(function()
 				lib:ErrorReader(function()
@@ -5475,6 +5477,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				
 		PartSelector:Toggle("Enable part selector [ Powered by AI Gemini ]",false,function(value)
 			if value == true then
+				lib:notify(lib:ColorFonts("Part selector enabled.","Bold,Green"),10)
 				ActivateHighlight = Mouse.Move:Connect(HighlightPart)
 				ClickSelect = Mouse.Button1Down:Connect(function()
 					if Mouse.Target ~= nil then
@@ -5492,11 +5495,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 				selectionBox.Adornee = nil
 				selected.Adornee = nil
 				partname:EditLabel("Part selector disabled.")
+				lib:notify(lib:ColorFonts("Part selector disabled.","Bold,Red"),10)
 			end
 		end)
 		PartSelector:Button("Copy instance",function()
 			if getHierarchy(Mouse.Target) ~= nil or getHierarchy(Mouse.Target) ~= "" or partname:GetText() ~= "" then
 				lib:Copy(getHierarchy(Mouse.Target)) --partname:GetText())
+				lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(Mouse.Target))
 			else
 				lib:notify(lib:ColorFonts("Select a part to copy its path","Bold,Red"),10)
 			end
