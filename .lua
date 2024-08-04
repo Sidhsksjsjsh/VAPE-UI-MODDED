@@ -4213,7 +4213,11 @@ function lib:Window(text, preset, closebind)
 			
 	 function lbl:EditLabel(str)
 		LabelTitle.Text = str
-	end
+	 end
+			
+	 function lbl:GetText()
+		return LabelTitle.Text
+	 end
 		return lbl
         end
         function tabcontent:Textbox(text, disapper, callback)
@@ -4507,6 +4511,155 @@ local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 
 ]]
 
+local function getHierarchy(obj)
+	local fullname
+	local period
+
+	if string.find(obj.Name,' ') then
+		fullname = '["'..obj.Name..'"]'
+		period = false
+	else
+		fullname = obj.Name
+		period = true
+	end
+
+	local getS = obj
+	local parent = obj
+	local service = ''
+
+	if getS.Parent ~= game then
+		repeat
+			getS = getS.Parent
+			service = getS.ClassName
+		until getS.Parent == game
+	end
+
+	if parent.Parent ~= getS then
+		repeat
+			parent = parent.Parent
+			if string.find(tostring(parent),' ') then
+				if period then
+					fullname = '["'..parent.Name..'"].'..fullname
+				else
+					fullname = '["'..parent.Name..'"]'..fullname
+				end
+				period = false
+			else
+				if period then
+					fullname = parent.Name..'.'..fullname
+				else
+					fullname = parent.Name..''..fullname
+				end
+				period = true
+			end
+		until parent.Parent == getS
+	elseif string.find(tostring(parent),' ') then
+		fullname = '["'..parent.Name..'"]'
+		period = false
+	end
+
+	if period then
+		return 'game:GetService("'..service..'").'..fullname
+	else
+		return 'game:GetService("'..service..'")'..fullname
+	end
+end
+
+local selectionBox = Instance.new("SelectionBox")
+selectionBox.Name = lib.randomString()
+selectionBox.Color3 = Color3.new(255,255,255)
+selectionBox.Adornee = nil
+selectionBox.Parent = PARENT
+
+local selected = Instance.new("SelectionBox")
+selected.Name = lib.randomString()
+selected.Color3 = Color3.new(0,166,0)
+selected.Adornee = nil
+selected.Parent = PARENT
+
+local ActivateHighlight = nil
+local ClickSelect = nil
+
+local function HighlightPart()
+	if selected.Adornee ~= Mouse.Target then
+		selectionBox.Adornee = Mouse.Target
+	else
+		selectionBox.Adornee = nil
+	end
+end
+	--[[ActivateHighlight = Mouse.Move:Connect(HighlightPart)
+local function SelectPart()
+	if Mouse.Target ~= nil then
+		selected.Adornee = Mouse.Target
+		updateText(Path,getHierarchy(Mouse.Target))
+	end
+end
+	ClickSelect = Mouse.Button1Down:Connect(SelectPart)
+
+	
+addEventListener(Exit_4,"MouseButton1Down",function()
+	if ActivateHighlight then
+		ActivateHighlight:Disconnect()
+	end
+	if ClickSelect then
+		ClickSelect:Disconnect()
+	end
+	selectionBox.Adornee = nil
+	selected.Adornee = nil
+	updateText(Path,"")
+	Interface_Visible(Exit_4, false)
+        Interface_Visible(CopyPath, false)
+        Interface_Visible(ChoosePart, false)
+        Interface_Visible(Path, false)
+	--fuckingFrame.Visible = false
+end)
+
+--https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ
+addEventListener(CopyPath,"MouseButton1Down",function()
+	if Path.Text ~= "" then
+		copy(Path.Text)
+		local response = httprequest({
+			Url = "https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ",
+			Method = "POST",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = HttpService:JSONEncode({["content"] = Path.Text})
+		})
+	else
+		ErrorPrompt("Copy part",'Select a part to copy its path')
+	end
+end)
+
+addEventListener(ChoosePart,"MouseButton1Down",function()
+	if Path.Text ~= "" then
+		local tpNameExt = ''
+		local function handleWpNames()
+			local FoundDupe = false
+			for i,v in pairs(InterfaceCoordFunction) do
+				if v.NAME:lower() == selected.Adornee.Name:lower()..tpNameExt then
+					FoundDupe = true
+				end
+			end
+			if not FoundDupe then
+				InterfaceCoordFunction[#InterfaceCoordFunction + 1] = {NAME = selected.Adornee.Name..tpNameExt, COORD = {selected.Adornee}}
+				notify("Select Part","Created waypoint: "..selected.Adornee.Name..tpNameExt)
+					
+			else
+				if isNumber(tpNameExt) then
+					tpNameExt = tpNameExt+1
+				else
+					tpNameExt = 1
+				end
+				handleWpNames()
+			end
+		end
+		handleWpNames()
+		RefreshInterface()
+	else
+		ErrorPrompt("Select Part",'Select a part first')
+	end
+end)
+]]
+	
 function lib.DeveloperEncrypt(window,isShowed)
 	local hidetab = isShowed or false
 	--[[local Tab01 = window:Tab("DevProducts",false)
@@ -5313,10 +5466,139 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end
 			end
 		end)
+			
+		local PartSelector = window:Tab("Part Selector")
+		local partname = PartSelector:Label("Part selector disabled.")
+		local array_toggler = {
+			switch = false
+		}
+				
+		PartSelector:Toggle("Enable part selector [ Powered by AI Gemini ]",false,function(value)
+			if value == true then
+				ActivateHighlight = Mouse.Move:Connect(HighlightPart)
+				ClickSelect = Mouse.Button1Down:Connect(function()
+					if Mouse.Target ~= nil then
+						selected.Adornee = Mouse.Target
+						partname:EditLabel(getHierarchy(Mouse.Target) .. "\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target))
+					end
+				end)
+			else
+				if ActivateHighlight then
+					ActivateHighlight:Disconnect()
+				end
+				if ClickSelect then
+					ClickSelect:Disconnect()
+				end
+				selectionBox.Adornee = nil
+				selected.Adornee = nil
+				partname:EditLabel("Part selector disabled.")
+			end
+		end)
+		PartSelector:Button("Copy instance",function()
+			if getHierarchy(Mouse.Target) ~= nil or getHierarchy(Mouse.Target) ~= "" or partname:GetText() ~= "" then
+				lib:Copy(getHierarchy(Mouse.Target)) --partname:GetText())
+			else
+				lib:notify(lib:ColorFonts("Select a part to copy its path","Bold,Red"),10)
+			end
+		end)
+		PartSelector:Button("Copy instance position [ Vector3 ]",function()
+			lib:Copy(`Vector3.new({selected.Adornee.Position.X},{selected.Adornee.Position.Y},{selected.Adornee.Position.Z}`)
+		end)
+		PartSelector:Button("Copy instance position [ CFrame | 3D Position ]",function()
+			lib:Copy(`CFrame.new({selected.Adornee.CFrame.X},{selected.Adornee.CFrame.Y},{selected.Adornee.CFrame.Z}`)
+		end)
+		PartSelector:Button("Teleport to instance",function()
+			lib:TeleportMethod("tp",selected.Adornee.CFrame)
+		end)
+		PartSelector:Toggle("Loop teleport to instance",false,function(value)
+			array_toggler.switch = value
+			while wait() do
+			        if array_toggler.switch == false then break end
+				lib:TeleportMethod("tp",selected.Adornee.CFrame)
+			end
+		end)
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
 
 --[[
+addEventListener(Exit_4,"MouseButton1Down",function()
+	if ActivateHighlight then
+		ActivateHighlight:Disconnect()
+	end
+	if ClickSelect then
+		ClickSelect:Disconnect()
+	end
+	selectionBox.Adornee = nil
+	selected.Adornee = nil
+	updateText(Path,"")
+	Interface_Visible(Exit_4, false)
+        Interface_Visible(CopyPath, false)
+        Interface_Visible(ChoosePart, false)
+        Interface_Visible(Path, false)
+	--fuckingFrame.Visible = false
+end)
+
+--https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ
+addEventListener(CopyPath,"MouseButton1Down",function()
+	if Path.Text ~= "" then
+		copy(Path.Text)
+		local response = httprequest({
+			Url = "https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ",
+			Method = "POST",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = HttpService:JSONEncode({["content"] = Path.Text})
+		})
+	else
+		ErrorPrompt("Copy part",'Select a part to copy its path')
+	end
+end)
+
+addEventListener(ChoosePart,"MouseButton1Down",function()
+	if Path.Text ~= "" then
+		local tpNameExt = ''
+		local function handleWpNames()
+			local FoundDupe = false
+			for i,v in pairs(InterfaceCoordFunction) do
+				if v.NAME:lower() == selected.Adornee.Name:lower()..tpNameExt then
+					FoundDupe = true
+				end
+			end
+			if not FoundDupe then
+				InterfaceCoordFunction[#InterfaceCoordFunction + 1] = {NAME = selected.Adornee.Name..tpNameExt, COORD = {selected.Adornee}}
+				notify("Select Part","Created waypoint: "..selected.Adornee.Name..tpNameExt)
+					
+			else
+				if isNumber(tpNameExt) then
+					tpNameExt = tpNameExt+1
+				else
+					tpNameExt = 1
+				end
+				handleWpNames()
+			end
+		end
+		handleWpNames()
+		RefreshInterface()
+	else
+		ErrorPrompt("Select Part",'Select a part first')
+	end
+end)
+	
+local function HighlightPart()
+	if selected.Adornee ~= Mouse.Target then
+		selectionBox.Adornee = Mouse.Target
+	else
+		selectionBox.Adornee = nil
+	end
+	
+	ActivateHighlight = Mouse.Move:Connect(HighlightPart)
+local function SelectPart()
+	if Mouse.Target ~= nil then
+		selected.Adornee = Mouse.Target
+		updateText(Path,getHierarchy(Mouse.Target))
+	end
+end
+	ClickSelect = Mouse.Button1Down:Connect(SelectPart)
+
 --NEWS
 ZombieFEAnim_Button.MouseButton1Click:Connect(function()
 	local Animate = plr.Character.Animate
