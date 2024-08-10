@@ -2526,21 +2526,47 @@ function lib:FormatRGB(str)
 	if str == "rgb" then
 		return Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
 	elseif str == "gradient" then
-		return ColorSequence.new{
-			ColorSequenceKeypoint.new(0,Color3.fromRGB(
-					math.floor(((math.sin(workspace.DistributedGameTime / 2) / 2) + 0.5) * 255),
-					math.floor(((math.sin(workspace.DistributedGameTime) / 2) + 0.5) * 255),
-					math.floor(((math.sin(workspace.DistributedGameTime * 1.5) / 2) + 0.5) * 255)
-			)),
-			ColorSequenceKeypoint.new(1,Color3.fromRGB(
-					math.floor(((math.sin(workspace.DistributedGameTime / 2) / 2) + 0.5) * 255),
-					math.floor(((math.sin(workspace.DistributedGameTime) / 2) + 0.5) * 255),
-					math.floor(((math.sin(workspace.DistributedGameTime * 1.5) / 2) + 0.5) * 255)
-			))
+		return {
+			ColorSequence.new{
+				ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,128)),
+				ColorSequenceKeypoint.new(1,Color3.fromRGB(75,0,130))
+			},
+			ColorSequence.new{
+				ColorSequenceKeypoint.new(0,Color3.fromRGB(25,25,112)),
+				ColorSequenceKeypoint.new(1,Color3.fromRGB(138,43,226))
+			},
+			ColorSequence.new{
+				ColorSequenceKeypoint.new(0,Color3.fromRGB(72,61,139)),
+				ColorSequenceKeypoint.new(1,Color3.fromRGB(147,112,219))
+			},
+			ColorSequence.new{
+				ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),
+				ColorSequenceKeypoint.new(1,Color3.fromRGB(153,50,204))
+			}
 		}
 	end
 end
+--[[
+local colors = {
+    ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 128)), ColorSequenceKeypoint.new(1, Color3.fromRGB(75, 0, 130))},
+    ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 112)), ColorSequenceKeypoint.new(1, Color3.fromRGB(138, 43, 226))},
+    ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(72, 61, 139)), ColorSequenceKeypoint.new(1, Color3.fromRGB(147, 112, 219))},
+    ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)), ColorSequenceKeypoint.new(1, Color3.fromRGB(153, 50, 204))}
+}
 
+-- Function to tween the gradient colors
+local function tweenGradient()
+    local index = 1
+    while true do
+        local nextIndex = (index % #colors) + 1
+        local tween = TweenService:Create(uiGradient,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{Color = colors[index]})
+        TweenService:Create(uiGradient,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{Color = lib:FormatRGB("gradient")[index]}):Play()
+        tween.Completed:Wait()
+        index = (index % #colors) + 1
+        wait(1)
+    end
+end
+]]
 function lib.getClipboard()
 	local executeclipboard = readclipboard_hideenv or getclipboard
 	if executeclipboard then
@@ -2897,7 +2923,7 @@ function lib:Window(text, preset, closebind)
         TabTitle.RichText = true
 	if isrgb == true then
 		local UIGradient = Instance.new("UIGradient")
-		UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,255))}
+		UIGradient.Color = lib:FormatRGB("gradient")[1]
 		UIGradient.Rotation = 90
 		UIGradient.Parent = TabTitle
 	end
@@ -2909,14 +2935,37 @@ function lib:Window(text, preset, closebind)
         TabBtnIndicator.Position = UDim2.new(0, 0, 1, 0)
         TabBtnIndicator.Size = UDim2.new(0, 0, 0, 2)
 
+	local Gradientindex = 1
+	local gradientColor = lib:FormatRGB("gradient")
         TabBtnIndicatorCorner.Name = "TabBtnIndicatorCorner"
         TabBtnIndicatorCorner.Parent = TabBtnIndicator
-        
+        --[[
+		local function tweenGradient()
+    local index = 1
+    while true do
+        local nextIndex = (index % #colors) + 1
+        local tween = TweenService:Create(uiGradient,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{Color = colors[index]})
+        TweenService:Create(TabTitle.UIGradient,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{Color = gradientColor[Gradientindex]}):Play()
+        tween.Completed:Wait()
+        Gradientindex = (Gradientindex % #gradientColor) + 1
+        wait(1)
+    end
+end
+	]]
         lib:runtime(function()
 		if isrgb == true then
 			TabBtnIndicator.BackgroundColor3 = lib:FormatRGB("rgb")
 		else
 			TabBtnIndicator.BackgroundColor3 = PresetColor
+		end
+	end)
+
+	lib:runtime(function()
+		if isrgb == true then
+			TweenService:Create(TabTitle.UIGradient,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{Color = gradientColor[Gradientindex]}):Play()
+			TweenService:Create(TabTitle.UIGradient,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{Color = gradientColor[Gradientindex]}).Completed:Wait()
+			Gradientindex = (Gradientindex % #gradientColor) + 1
+			wait(1)
 		end
 	end)
 		
