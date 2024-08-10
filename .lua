@@ -1349,9 +1349,42 @@ end
 function lib.getUserTag(label,name)
 	if type(label) == "string" then
 		if label == "get" then
-			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat"}
+			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin"}
 		elseif label == "sent" then
-			return name:gsub("@Fahri","<@955564914028716043>"):gsub("@Asya","<@907148919207759912>"):gsub("@Akbar","<@953630026266452008>"):gsub("@Fania","<@896744133450952796>"):gsub("@Gapryong","<@1110937899207237744>"):gsub("@Sauce","<@339544843992825856>"):gsub("@Timmy","<@1067718700112826418>"):gsub("@TW O","<@777152933926010880>"):gsub("@Kaiseanat","<@848600442292535316>")
+			return name:gsub(
+				"@Fahri",
+				"<@955564914028716043>"
+			):gsub(
+				"@Asya",
+				"<@907148919207759912>"
+			):gsub(
+				"@Akbar",
+				"<@953630026266452008>"
+			):gsub(
+				"@Fania",
+				"<@896744133450952796>"
+			):gsub(
+				"@Gapryong",
+				"<@1110937899207237744>"
+			):gsub(
+				"@Sauce",
+				"<@339544843992825856>"
+			):gsub(
+				"@Timmy",
+				"<@1067718700112826418>"
+			):gsub(
+				"@TW O",
+				"<@777152933926010880>"
+			):gsub(
+				"@Kaiseanat",
+				"<@848600442292535316>"
+			):gsub(
+				"@nino",
+				"<@1138839184203849848>"
+			):gsub(
+				"@BM Kooozin",
+				"<@1072408998751514685>"
+			)
 		end
 	end
 end
