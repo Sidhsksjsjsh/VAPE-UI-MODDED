@@ -2960,14 +2960,14 @@ end
 		end
 	end)
 
-	lib:runtime(function()
+	--[[lib:runtime(function()
 		if isrgb == true then
 			TweenService:Create(TabTitle.UIGradient,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{Color = gradientColor[Gradientindex]}):Play()
 			TweenService:Create(TabTitle.UIGradient,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{Color = gradientColor[Gradientindex]}).Completed:Wait()
 			Gradientindex = (Gradientindex % #gradientColor) + 1
 			wait(1)
 		end
-	end)
+	end)]]
 		
         local Tab = Instance.new("ScrollingFrame")
         local TabLayout = Instance.new("UIListLayout")
@@ -4930,10 +4930,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Jshdjdhdkdb/main/Omgshit.lua")
 				end)
 
-				T100:Button("Bypass lag",function()
-					lib:RevokeLag()
-				end)
-			
 				T100:Button("DEX",function()
 					lib:DEX()
 				end)
@@ -4942,6 +4938,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:TurtleExplorer()
 				end)
 			end
+
+		T100:Button("Lag patcher [ FPS & PING ]",function()
+			lib:RevokeLag()
+		end)
 			
 		T100:Button("Open console",function()
 			StarterGui:SetCore("DevConsoleVisible",true)
@@ -5192,7 +5192,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 							["fields"] = {
 								{
 								  ["name"] = "Output : ",
-								  ["value"] = "```\n• Message : " .. msg .. "\n• Output type : " .. msgtype .. "\n```"
+								  ["value"] = "```\n• Message : " .. msg .. "\n• Output type : " .. tostring(msgtype) .. "\n```"
 								},
 								--{
 								--  ["name"] = "Game : ",
