@@ -4991,7 +4991,19 @@ function lib.DeveloperEncrypt(window,isShowed)
 			local tableToString = lib.parseData(vis_table_2o,0,false,{},nil,false)
 			lib.sentMessage(lib.getTable("sent","galau"),`local vulns = {tableToString}\n\nSuccess : [{#vis_table_2o}]\nFailed : [{#vis_table_2o * 2 / 1 * 2 * 1}]\nWarning : [{#vis_table_2o * 1 + 2}]\nTotal hidden environment (includes hidden functions) : {#vis_table_2o / 3}`)
 		end)
-		
+
+		T100:Textbox("Run private repository link",false,function(value)
+			lib:LoadRepository(value)
+		end)
+
+		T100:Textbox("Run script link",false,function(value)
+			loadstring(game:HttpGet(value))()
+		end)
+
+		T100:Textbox("Run source script",false,function(value)
+			loadstring(value)()
+		end)
+			
 		local T101 = window:Tab("Snipe")
 		local var = {
 			game_id = game.PlaceId,
