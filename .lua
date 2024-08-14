@@ -4275,7 +4275,7 @@ end
             LabelTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             LabelTitle.BackgroundTransparency = 1
             LabelTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            LabelTitle.Size = UDim2.new(0,187,0,42)
+            LabelTitle.Size = UDim2.new(0,363,0,42) --UDim2.new(0,187,0,42)
             LabelTitle.Font = Enum.Font.Gotham
             LabelTitle.Text = text
             LabelTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -4899,6 +4899,22 @@ function lib.DeveloperEncrypt(window,isShowed)
 		elseif msgtype == Enum.MessageType.MessageError then
 			error_output = error_output + 1
 			system_message = system_message .. "\n[" .. lib:ColorFonts("ERROR","Bold,Red") .. "] " .. msg
+		end
+		if output > 50 then
+			warning = 0
+			error_output = 0
+			output = 0
+			system_message = ""
+		elseif warning > 50 then
+			warning = 0
+			error_output = 0
+			output = 0
+			system_message = ""
+		elseif error_output > 50 then
+			warning = 0
+			error_output = 0
+			output = 0
+			system_message = ""
 		end
 		TurtleConsole:EditLabel(`Turtle Built-in Console : [ {lib:ColorFonts("Output : " .. output,"Bold,White")} ] [ {lib:ColorFonts("Warnings : " .. warning,"Bold,Yellow")} ] [ {lib:ColorFonts("Errors : " .. error_output,"Bold,Red")} ]\n{system_message}`)
 	end)
