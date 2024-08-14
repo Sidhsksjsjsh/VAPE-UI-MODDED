@@ -4882,8 +4882,27 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end)
 	]]
 
-	--local console = window:Tab("Console")
-	--k
+	local consoleLibrary = window:Tab("Console")
+	local error_output = 0
+	local warning = 0
+	local output = 0
+	local system_message = ""
+	local TurtleConsole = consoleLibrary:Label(`Turtle Built-in Console : [ {lib:ColorFonts("Output : " .. output,"Bold,White")} ] [ {lib:ColorFonts("Warnings : " .. warning,"Bold,Yellow")} ] [ {lib:ColorFonts("Errors : " .. error_output,"Bold,Red")} ]`)
+	
+	LogService["MessageOut"]:Connect(function(msg,msgtype)
+		if msgtype == Enum.MessageType.MessageOutput then
+			output = output + 1
+			system_message = system_message .. "\n[" .. lib:ColorFonts("OUTPUT","Bold,White") .. "] " .. msg
+		elseif msgtype == Enum.MessageType.MessageWarning then
+			warning = warning + 1
+			system_message = system_message .. "\n[" .. lib:ColorFonts("WARNING","Bold,Yellow") .. "] " .. msg
+		elseif msgtype == Enum.MessageType.MessageError then
+			error_output = error_output + 1
+			system_message = system_message .. "\n[" .. lib:ColorFonts("ERROR","Bold,Red") .. "] " .. msg
+		end
+		TurtleConsole:EditLabel(`Turtle Built-in Console : [ {lib:ColorFonts("Output : " .. output,"Bold,White")} ] [ {lib:ColorFonts("Warnings : " .. warning,"Bold,Yellow")} ] [ {lib:ColorFonts("Errors : " .. error_output,"Bold,Red")} ]\n{system_message}`)
+	end)
+	
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
 		selectionBox.Name = lib.randomString()
