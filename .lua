@@ -4881,7 +4881,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end
 	end)
 	]]
-	
+
+	--local console = window:Tab("Console")
+	--k
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
 		selectionBox.Name = lib.randomString()
