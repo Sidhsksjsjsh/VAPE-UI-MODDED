@@ -1769,9 +1769,9 @@ function lib.isDeveloper()
 end
 
 function lib:Copy(str)
-	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
-	if clipBoard then
-           clipBoard(txt)
+	--local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+	if setclipboard then
+           setclipboard(str)
 	   lib:notify(`Copied! "{str}"`,10)
 	else
 	lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
