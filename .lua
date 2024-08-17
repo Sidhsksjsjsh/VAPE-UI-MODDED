@@ -2449,6 +2449,8 @@ function lib:RemoteSpy(arg)
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V2.lua")
 		elseif verrspy == "V3" then
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V3.lua")
+		elseif verrspy == "Old" then
+			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Jshdjdhdkdb/main/Omgshit.lua")
 		end
 	end)
 	if not isrun then
