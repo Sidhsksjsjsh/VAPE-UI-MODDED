@@ -32,6 +32,9 @@ local TP_DISTANCE2 = {under = -20,top = 20,behind = -1.5,tpm = "behind"}
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
+local MemorySizes = {"B","KB","MB","GB","TB","PB","EB","ZB","YB"}
+local MemoryIndex = 1
+local MemoryConvertedValue = 0
 local tabChar = "	"
 local ContextActionService = game:GetService("ContextActionService")
 local AvatarEditorService = game:GetService("AvatarEditorService")
@@ -370,6 +373,15 @@ coroutine.wrap(
 for i = 1,#names do 
   table.insert(pows,1000^i)
 end
+
+function lib:MemoryFormat(bytes)
+    --MemoryIndex = math.floor(math.log(bytes) / math.log(1024))
+    --MemoryConvertedValue = bytes / math.pow(1024,MemoryIndex)
+
+    return string.format("%.2f %s",bytes / math.pow(1024,math.floor(math.log(bytes) / math.log(1024))),MemorySizes[math.floor(math.log(bytes) / math.log(1024)) + 1]) --MemoryConvertedValue,MemorySizes[MemoryIndex + 1])
+end
+
+-- Contoh penggunaan: lib:MemoryFormat(
 
 function lib:CurrencyFormat(x: number): string 
 	if math.abs(x) < 1000 then
@@ -2645,11 +2657,11 @@ function lib:Window(text, preset, closebind)
     Title.TextXAlignment = Enum.TextXAlignment.Left
     Title.RichText = true --"Alya is the most beautiful woman 🎉"
     if emoji then
-	Title.Text = ("%s | %s"):format(Title.Text,emoji) -- VIP Turtle Hub V4 (17)
+	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
     else
 	lib:runtime(function()
-		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. math.round(Stats.GetTotalMemoryUsageMb(Stats)) .. " MB - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤","Bold"),"White")
+		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤","Bold"),"White")
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
