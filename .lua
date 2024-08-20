@@ -32,7 +32,7 @@ local TP_DISTANCE2 = {under = -20,top = 20,behind = -1.5,tpm = "behind"}
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
-local MemorySizes = {"B","KB","MB","GB","TB","PB","EB","ZB","YB"}
+local MemorySizes = {"MB","GB","TB","PB","EB","ZB","YB"}
 local MemoryIndex = 1
 local MemoryConvertedValue = 0
 local tabChar = "	"
