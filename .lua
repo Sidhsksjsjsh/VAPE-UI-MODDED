@@ -4889,7 +4889,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local warning = 0
 	local output = 0
 	local system_message = ""
-	local TurtleConsole = consoleLibrary:Label(`Turtle Built-in Console : [ {lib:ColorFonts("Output : " .. output,"Bold,White")} ] [ {lib:ColorFonts("Warnings : " .. warning,"Bold,Yellow")} ] [ {lib:ColorFonts("Errors : " .. error_output,"Bold,Red")} ]`)
+	local inform_msg = 0
+	local TurtleConsole = consoleLibrary:Label(`Turtle Built-in Console : {lib:ColorFonts(output,"Bold,White")} • {lib:ColorFonts(warning,"Bold,Yellow")} • {lib:ColorFonts(error_output,"Bold,Red")} • {lib:ColorFonts(inform_msg,"Bold,Sky Blue")}`)
 	
 	LogService["MessageOut"]:Connect(function(msg,msgtype)
 		if msgtype == Enum.MessageType.MessageOutput then
@@ -4901,24 +4902,36 @@ function lib.DeveloperEncrypt(window,isShowed)
 		elseif msgtype == Enum.MessageType.MessageError then
 			error_output = error_output + 1
 			system_message = system_message .. "\n[" .. lib:ColorFonts("ERROR","Bold,Red") .. "] " .. msg
+		elseif msgtype == Enum.MessageType.MessageInfo then
+			inform_msg = inform_msg + 1
+			system_message = system_message .. "\n[" .. lib:ColorFonts("INFO","Bold,Sky Blue") .. "] " .. msg
 		end
 		if output > 50 then
+			inform_msg = 0
 			warning = 0
 			error_output = 0
 			output = 0
 			system_message = ""
 		elseif warning > 50 then
+			inform_msg = 0
 			warning = 0
 			error_output = 0
 			output = 0
 			system_message = ""
 		elseif error_output > 50 then
+			inform_msg = 0
+			warning = 0
+			error_output = 0
+			output = 0
+			system_message = ""
+		elseif inform_msg > 50 then
+			inform_msg = 0
 			warning = 0
 			error_output = 0
 			output = 0
 			system_message = ""
 		end
-		TurtleConsole:EditLabel(`Turtle Built-in Console : [ {lib:ColorFonts("Output : " .. output,"Bold,White")} ] [ {lib:ColorFonts("Warnings : " .. warning,"Bold,Yellow")} ] [ {lib:ColorFonts("Errors : " .. error_output,"Bold,Red")} ]\n{system_message}`)
+		TurtleConsole:EditLabel(`Turtle Built-in Console : {lib:ColorFonts(output,"Bold,White")} • {lib:ColorFonts(warning,"Bold,Yellow")} • {lib:ColorFonts(error_output,"Bold,Red")} • {lib:ColorFonts(inform_msg,"Bold,Sky Blue")}\n{system_message}`)
 	end)
 	
 	lib:DeveloperAccess(function()
@@ -5615,7 +5628,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				ClickSelect = Mouse.Button1Down:Connect(function()
 					if Mouse.Target ~= nil then
 						selected.Adornee = Mouse.Target
-						partname:EditLabel(getHierarchy(Mouse.Target) .. "\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target))
+						partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target))
 					end
 				end)
 			else
@@ -5632,9 +5645,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 		PartSelector:Button("Copy instance",function()
-			if getHierarchy(Mouse.Target) ~= nil or getHierarchy(Mouse.Target) ~= "" or partname:GetText() ~= "" then
-				lib:Copy(getHierarchy(Mouse.Target)) --partname:GetText())
-				lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(Mouse.Target))
+			if getHierarchy(selected.Adornee) ~= nil or getHierarchy(selected.Adornee) ~= "" or partname:GetText() ~= "" then
+				lib:Copy(getHierarchy(selected.Adornee)) --partname:GetText())
+				lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee))
 			else
 				lib:notify(lib:ColorFonts("Select a part to copy its path","Bold,Red"),10)
 			end
