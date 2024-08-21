@@ -5645,7 +5645,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				ClickSelect = Mouse.Button1Down:Connect(function()
 					if Mouse.Target ~= nil then
 						selected.Adornee = Mouse.Target
-						partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nRaycast table : " .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Positon,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Positon,WallCheckParams),0,false,{},nil,false))
+						partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nRaycast table : " .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
 					end
 				end)
 			else
