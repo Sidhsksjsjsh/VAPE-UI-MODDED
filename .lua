@@ -4440,7 +4440,7 @@ end
 
 	    function tablehandler:GetInputChanged(get)
 		TextBox:GetPropertyChangedSignal("Text"):Connect(function()
-			pcall(callback,TextBox.Text)
+			pcall(get,TextBox.Text)
 		end)
 	    end
 
@@ -4448,7 +4448,7 @@ end
 		TextBox.FocusLost:Connect(function(enter)
 			if enter then
 				if #TextBox.Text > 0 then
-					pcall(callback,TextBox.Text)
+					pcall(get,TextBox.Text)
 				end
 			end
 		end)
@@ -5062,7 +5062,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		if Chat:FilterStringForBroadcast(value,LocalPlayer) ~= value then
 			WordPreview:EditLabel(lib:ColorFonts("Tags, everyone cannot see ur bypassed chat","Bold,Red"))
 		else
-			WordPreview:EditLabel(lib:ColorFonts(filter(texthandler),"Bold,Green"))
+			WordPreview:EditLabel(lib:ColorFonts(filter(value),"Bold,Green"))
 		end
 	end)
 	
