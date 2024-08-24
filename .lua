@@ -5049,6 +5049,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local chatbypass = window:Tab("Chat Bypass")
 	local texthandler = ""
 	local WordPreview = chatbypass:Label(lib:ColorFonts("Text bypass preview","Bold,Green"))
+	local AutomaticBypass = false
 	
 	local textboxhandler = chatbypass:Textbox("Insert ur text here.",false,function(value)
 		texthandler = value
@@ -5058,6 +5059,19 @@ function lib.DeveloperEncrypt(window,isShowed)
 		lib:sendChat(filter(texthandler))
 	end)
 
+	chatbypass:Toggle("Automatic bypass",false,function(value)
+		AutomaticBypass = value
+	end)
+	--game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
+	if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
+		lib:HookCalled(function(remotePath,args)
+			if remotePath.Name == "SayMessageRequest" and args[2] == "All" and AutomaticBypass == true then
+				args[1] = filter(args[1])
+				return remotePath.FireServer(remotePath,unpack(args))
+			end
+		end)
+	end
+	
 	textboxhandler:GetInputChanged(function(value)
 		if Chat:FilterStringForBroadcast(value,LocalPlayer) ~= value then
 			WordPreview:EditLabel(lib:ColorFonts("Tags, everyone cannot see ur bypassed chat","Bold,Red"))
