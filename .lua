@@ -5119,6 +5119,18 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end
 		
 		local T100 = window:Tab("Developer Access",true)
+			local function getInstanceFromPath(path)
+				local currentInstance = game
+				for instanceName in string.gmatch(path,"[^.]+") do 
+					currentInstance = currentInstance:FindFirstChild(instanceName)
+					if not currentInstance then
+						lib:notify(lib:ColorFonts("Instance tidak ditemukan: " .. instanceName,"Bold,Red"))
+						return nil
+					end
+				end
+				return currentInstance
+			end
+			
 			if hidetab == false then
 				T100:Button("Remote spy [ NEXT-GEN ]",function()
 					lib:RemoteSpy("V1")
@@ -5179,6 +5191,16 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		T100:Textbox("Run source script",false,function(value)
 			loadstring(value)()
+		end)
+
+		T100:Textbox("Decompile using exploit decompiler",false,function(value)
+			writefile(getInstanceFromPath(value).Name,decompile(getInstanceFromPath(value)))
+			print(decompile(getInstanceFromPath(value)))
+		end)
+
+		T100:Textbox("Decompile using turtle decompiler",false,function(value)
+			writefile(getInstanceFromPath(value).Name,TurtleDecompile(getInstanceFromPath(value)))
+			print(TurtleDecompile(getInstanceFromPath(value)))
 		end)
 			
 		local T101 = window:Tab("Snipe")
