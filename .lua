@@ -1163,6 +1163,24 @@ function lib:TeleportMethod(mthd,str,param)
 	end
 end
 
+function lib:GetPlayerMessage(who,handle)
+	who.Chatted:Connect(function(message)
+		handle(message)
+	end)
+end
+
+function lib.onPlayerJoin(func)
+	game:GetService("Players").PlayerAdded:Connect(function(plr)
+		func(plr)
+	end)
+end
+
+function lib.onPlayerLeft(func)
+	game:GetService("Players").PlayerRemoving:Connect(function(plr)
+		func(plr)
+	end)
+end
+
 --[[
 TP_DISTANCE2 = {
 under = -20,
@@ -5081,8 +5099,29 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end
 	end)
 
-	--local chatbypass = window:Tab("Chatlog")
-	--local chathandling = ""
+	local logsystem = window:Tab("Chatlog")
+	local chathandling = ""
+	local ChatHndlingSystem = logsystem:Label(lib:ColorFonts("","Bold,Green"))
+	
+	lib:GetPlayerMessage(LocalPlayer,function(msg)
+		chathandling = chathandling .. "\n[" .. (LocalPlayer.Team and lib:ColorFonts(LocalPlayer.Team,"Bold," .. LocalPlayer.TeamColor) or lib:ColorFonts("None","Bold,White")) .. "] " .. LocalPlayer.DisplayName .. " : " .. msg
+		ChatHndlingSystem:EditLabel(chathandling)
+	end)
+	
+	lib:GetPlayer(function(v)
+		lib:GetPlayerMessage(v,function(msg)
+			chathandling = chathandling .. "\n[" .. (v.Team and lib:ColorFonts(v.Team,"Bold," .. v.TeamColor) or lib:ColorFonts("None","Bold,White")) .. "] " .. v.DisplayName .. " : " .. msg
+			ChatHndlingSystem:EditLabel(chathandling)
+		end)
+	end)
+
+	lib.onPlayerJoin(function(value)
+		lib:GetPlayerMessage(value,function(msg)
+			chathandling = chathandling .. "\n[" .. (value.Team and lib:ColorFonts(value.Team,"Bold," .. value.TeamColor) or lib:ColorFonts("None","Bold,White")) .. "] " .. value.DisplayName .. " : " .. msg
+			ChatHndlingSystem:EditLabel(chathandling)
+		end)
+	end)
+	
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
 		selectionBox.Name = lib.randomString()
