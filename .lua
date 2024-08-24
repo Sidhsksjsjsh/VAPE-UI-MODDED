@@ -5074,12 +5074,15 @@ function lib.DeveloperEncrypt(window,isShowed)
 	
 	textboxhandler:GetInputChanged(function(value)
 		if Chat:FilterStringForBroadcast(value,LocalPlayer) ~= value then
-			WordPreview:EditLabel(lib:ColorFonts("Tags, everyone cannot see ur bypassed chat","Bold,Red"))
+			WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
 		else
 			WordPreview:EditLabel(lib:ColorFonts(filter(value),"Bold,Green"))
+			texthandler = value
 		end
 	end)
-	
+
+	--local chatbypass = window:Tab("Chatlog")
+	--local chathandling = ""
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
 		selectionBox.Name = lib.randomString()
