@@ -5106,6 +5106,21 @@ function lib.DeveloperEncrypt(window,isShowed)
 	lib:GetPlayerMessage(LocalPlayer,function(msg)
 		chathandling = chathandling .. "\n[" .. (LocalPlayer.Team and lib:ColorFonts(LocalPlayer.Team,"Bold," .. LocalPlayer.TeamColor) or lib:ColorFonts("None","Bold,White")) .. "] " .. LocalPlayer.DisplayName .. " : " .. msg
 		ChatHndlingSystem:EditLabel(chathandling)
+		if msg:sub(1,1) == ";" then
+			if msg:sub(2,5) == "del" then
+				chathandling = ""
+				ChatHndlingSystem:EditLabel(chathandling)
+			else
+				lib:notify(lib:ColorFonts("Invalid command.","Bold,Red"),10)
+			end
+		elseif msg:sub(1,4) == "/e ;" then
+			if msg:sub(5,8) == "del" then
+				chathandling = ""
+				ChatHndlingSystem:EditLabel(chathandling)
+			else
+				lib:notify(lib:ColorFonts("Invalid command.","Bold,Red"),10)
+			end
+		end
 	end)
 	
 	lib:GetPlayer(function(v)
