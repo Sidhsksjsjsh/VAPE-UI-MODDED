@@ -24,6 +24,7 @@ local StarterGui = game:GetService("StarterGui")
 local getinfo = getinfo or debug.getinfo
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local Camera = workspace.CurrentCamera
+local Chat = game:GetService("Chat")
 local DEBUG = true
 local Hooked = {}
 local Detected, Kill
@@ -4323,7 +4324,8 @@ end
             local TextboxFrame = Instance.new("Frame")
             local TextboxFrameCorner = Instance.new("UICorner")
             local TextBox = Instance.new("TextBox")
-
+	    local tablehandler = {}
+	
             Textbox.Name = "Textbox"
             Textbox.Parent = Tab
             Textbox.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
@@ -4379,7 +4381,25 @@ end
                     end
                 end
             )
+
+	    function tablehandler:GetInputChanged(get)
+		TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+			pcall(callback,TextBox.Text)
+		end)
+	    end
+
+	    function tablehandler:GetInputOnEnter(get)
+		TextBox.FocusLost:Connect(function(enter)
+			if enter then
+				if #TextBox.Text > 0 then
+					pcall(callback,TextBox.Text)
+				end
+			end
+		end)
+	    end
+			
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+	    return tablehandler
         end
 	function tabcontent:Console(disapper, callback)
             local Textbox = Instance.new("Frame")
@@ -4734,7 +4754,19 @@ addEventListener(ChoosePart,"MouseButton1Down",function()
 	end
 end)
 ]]
-	
+
+function lib:sendChat(msg)
+        if Chat:FilterStringForBroadcast(msg,LocalPlayer) ~= msg then
+            lib:notify(lib:ColorFonts("tags.. use another words.","Bold,Red"),10)
+        else
+            if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
+                game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
+            else
+                TextChatService["ChatInputBarConfiguration"]["TargetTextChannel"]:SendAsync(msg)
+	    end
+        end
+end
+
 function lib.DeveloperEncrypt(window,isShowed)
 	local hidetab = isShowed or false
 	--[[local Tab01 = window:Tab("DevProducts",false)
@@ -4944,6 +4976,38 @@ function lib.DeveloperEncrypt(window,isShowed)
 			system_message = ""
 		end
 		TurtleConsole:EditLabel(`Turtle Built-in Console : {lib:ColorFonts(output,"Bold,White")} • {lib:ColorFonts(warning,"Bold,Yellow")} • {lib:ColorFonts(error_output,"Bold,Red")} • {lib:ColorFonts(inform_msg,"Bold,Sky Blue")}\n{system_message}`)
+	end)
+
+	local function replace(str,find_str,replace_str)
+		local escaped_find_str = find_str:gsub("[%-%^%$%(%)%%%.%[%]%*%+%-%?]","%%%0")
+		return str:gsub(escaped_find_str,replace_str)
+	end
+	
+	local function filter(message)
+		for search,replacement in pairs(letters) do 
+			message = replace(message,search,replacement)
+        	end
+        	return message
+	end
+	
+	local chatbypass = window:Tab("Chat Bypass")
+	local texthandler = ""
+	local WordPreview = chatbypass:Label(lib:ColorFonts("Text bypass preview","Bold,Green"))
+	
+	local textboxhandler = chatbypass:Textbox("Insert ur text here.",false,function(value)
+		texthandler = value
+	end)
+
+	chatbypass:Button("Send",function()
+		lib:sendChat(filter(texthandler))
+	end)
+
+	textboxhandler:GetInputChanged(function(value)
+		if Chat:FilterStringForBroadcast(value,LocalPlayer) ~= value then
+			WordPreview:EditLabel(lib:ColorFonts("Tags, everyone cannot see ur bypassed chat","Bold,Red"))
+		else
+			WordPreview:EditLabel(lib:ColorFonts(filter(texthandler),"Bold,Green"))
+		end
 	end)
 	
 	lib:DeveloperAccess(function()
