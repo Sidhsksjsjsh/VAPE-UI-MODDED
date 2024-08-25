@@ -42,6 +42,9 @@ local AvatarEditorService = game:GetService("AvatarEditorService")
 local iyflyspeed = 1
 local vehicleflyspeed = 1
 local isGuiOpened = true
+local FLYING = false
+local flyKeyDown = nil
+local flyKeyUp = nil
 
 local returned_string = {
 	["type() function"] = {
@@ -626,7 +629,7 @@ local velocityHandlerName = lib.randomString()
 local gyroHandlerName = lib.randomString()
 local mfly1
 local mfly2
-local FLYING = false
+--local FLYING = false
 
 function lib:unmobilefly()
 	pcall(function()
@@ -706,6 +709,155 @@ function lib:mobilefly(vfly) -- skidded from infinite yield, thx Akbar for skid 
 			end
 		end
 	end)
+end
+
+local function FLY(vfly,tweenbool,tweenspeed)
+	repeat wait() until LocalPlayer and LocalPlayer.Character and Players.LocalPlayer.Character.HumanoidRootPart and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+	repeat wait() until Mouse
+	if flyKeyDown or flyKeyUp then
+		flyKeyDown:Disconnect()
+		flyKeyUp:Disconnect()
+	end
+
+	local T = LocalPlayer.Character.HumanoidRoodPart
+	local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+	local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+	local SPEED = 0
+
+	local function FLY()
+		FLYING = true
+		local BG = Instance.new('BodyGyro')
+		local BV = Instance.new('BodyVelocity')
+		BG.P = 9e4
+		BG.Parent = T
+		BV.Parent = T
+		BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		BG.cframe = T.CFrame
+		BV.velocity = Vector3.new(0, 0, 0)
+		BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+		task.spawn(function()
+			repeat wait()
+				if vfly == false and LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then -- not
+					if game.PlaceId == 277751860 then -- Epic Minigames
+						if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and LocalPlayer.Character.HumanoidRootPart then
+							local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+							local root = LocalPlayer.Character.HumanoidRootPart
+							hum:ChangeState(0)
+							root.Velocity = root.CFrame.LookVector * 30
+						end
+					else
+						LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+					end
+				end
+				if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
+					SPEED = 50
+				elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
+					SPEED = 0
+				end
+				if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
+					if tweenbool == false then
+						BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+					else
+						TweenService:Create(BV,TweenInfo.new(tweenspeed,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R,(CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2,0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED}):Play()
+					end
+					lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+				elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
+					if tweenbool == false then
+						BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+					else 
+						TweenService:Create(BV,TweenInfo.new(tweenspeed,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R,(lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2,0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED}):Play()
+					end
+				else
+					BV.velocity = Vector3.new(0,0,0)
+					--TweenService:Create(BV,TweenInfo.new(0.5,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{velocity = Vector3.new(0,0,0)}):Play()
+				end
+				--BG.cframe = workspace.CurrentCamera.CoordinateFrame
+				if tweenbool == false then
+					TweenService:Create(BG,TweenInfo.new(0.01,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{cframe = workspace.CurrentCamera.CoordinateFrame}):Play()
+				else
+					BG.cframe = workspace.CurrentCamera.CoordinateFrame
+				end
+			until FLYING == false -- not
+			CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+			lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+			SPEED = 0
+			BG:Destroy()
+			BV:Destroy()
+			if LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+				LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+			end
+		end)
+	end
+	flyKeyDown = Mouse.KeyDown:Connect(function(KEY)
+		if KEY:lower() == 'w' then
+			CONTROL.F = (vfly and vehicleflyspeed or iyflyspeed)
+		elseif KEY:lower() == 's' then
+			CONTROL.B = - (vfly and vehicleflyspeed or iyflyspeed)
+		elseif KEY:lower() == 'a' then
+			CONTROL.L = - (vfly and vehicleflyspeed or iyflyspeed)
+		elseif KEY:lower() == 'd' then 
+			CONTROL.R = (vfly and vehicleflyspeed or iyflyspeed)
+		elseif QEfly and KEY:lower() == 'e' then
+			CONTROL.Q = (vfly and vehicleflyspeed or iyflyspeed)*2
+		elseif QEfly and KEY:lower() == 'q' then
+			CONTROL.E = -(vfly and vehicleflyspeed or iyflyspeed)*2
+		end
+		pcall(function()
+			workspace.CurrentCamera.CameraType = Enum.CameraType.Track
+		end)
+	end)
+	flyKeyUp = Mouse.KeyUp:Connect(function(KEY)
+		if KEY:lower() == 'w' then
+			CONTROL.F = 0
+		elseif KEY:lower() == 's' then
+			CONTROL.B = 0
+		elseif KEY:lower() == 'a' then
+			CONTROL.L = 0
+		elseif KEY:lower() == 'd' then
+			CONTROL.R = 0
+		elseif KEY:lower() == 'e' then
+			CONTROL.Q = 0
+		elseif KEY:lower() == 'q' then
+			CONTROL.E = 0
+		end
+	end)
+	FLY()
+end
+
+local function NOFLY() -- for PC
+	FLYING = false
+	if flyKeyDown or flyKeyUp then
+		flyKeyDown:Disconnect()
+		flyKeyUp:Disconnect()
+	end
+	if LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+		LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+	end
+	pcall(function()
+		workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+	end)
+end
+
+function lib:startFly(vfly,fspeed,vspeed)
+	iyflyspeed = fspeed or 1
+	vehicleflyspeed = vspeed or 1
+	if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+		--return "Mobile"
+		lib:mobilefly(vfly)
+	else
+		--return "PC"
+		FLY(vfly,false,0)
+	end
+end
+--lib:unmobilefly()
+function lib:stopFly()
+	if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+		--return "Mobile"
+		lib:unmobilefly()
+	else
+		--return "PC"
+		NOFLY()
+	end
 end
 
 local function getUserAvatarByUserId(ChangeTargetUserId)
@@ -2029,14 +2181,6 @@ if game.CreatorType == Enum.CreatorType.User then
 	elseif game.CreatorType == Enum.CreatorType.Group then
 		return GroupService:GetGroupInfoAsync(game.CreatorId).Owner.Id
 	end
-end
-
-local function DeviceInfo()
-if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
-   return "Mobile"
-else
-   return "PC"
-end
 end
 
 function lib.getUserRegion()
@@ -5496,26 +5640,30 @@ function lib.DeveloperEncrypt(window,isShowed)
 			
 		local T106 = window:Tab("Character")
 		--T106:Label("Encrypted chat bypass for a bypassed word\n//a -> ass\n//d -> dick\n//p -> pussy\n//s -> shit\n//f -> fuck\n//ah -> asshole\n//n1 -> nigga\n//n2 -> nigger\n//c -> cum\n//cond -> condom\n18+ -> sex\n//sp -> sperm\n//t -> tits")
+		local intvarspeed = {
+			speed1 = 1,
+			speed2 = 1
+		}
 		T106:Slider("Fly speed",0,100,1,function(value)
-			iyflyspeed = value
+			intvarspeed.speed1 = value
 		end)
 		T106:Slider("Vehicle fly speed",0,100,1,function(value)
-			vehicleflyspeed = value
+			intvarspeed.speed2 = value
 		end)
-		T106:Toggle("Start fly [ Mobile Only ]",false,function(value)
+		T106:Toggle("Start fly",false,function(value)
 			if value == true then
-				lib:mobilefly(false)
+				lib:startFly(false,intvarspeed.speed1,intvarspeed.speed2)
 				lib.PlayAnim(10147821284,10,0,false)
 			else
-				lib:unmobilefly()
+				lib:stopFly()
 				lib.StopAnim()
 			end
 		end)
-		T106:Toggle("Start vehicle fly [ Mobile Only ]",false,function(value)
+		T106:Toggle("Start vehicle fly",false,function(value)
 			if value == true then
-				lib:mobilefly(true)
+				lib:startFly(true,intvarspeed.speed1,intvarspeed.speed2)
 			else
-				lib:unmobilefly()
+				lib:stopFly()
 			end
 		end)
 		T106:Button("Change rig to R15",function()
