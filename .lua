@@ -5246,6 +5246,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local logsystem = window:Tab("Chatlog")
 	local chathandling = ""
 	local ChatHndlingSystem = logsystem:Label(lib:ColorFonts("","Bold,Green"))
+	local httploggingint = wndw:Tab("HTTP Protocol")
+	local loglistsys = ""
+	local loghttpsys = httploggingint:Label("HttpRequest & HttpGet is null")
 	
 	lib:GetPlayerMessage(LocalPlayer,function(msg)
 		chathandling = chathandling .. "\n[" .. (LocalPlayer.Team and lib:ColorFonts(LocalPlayer.Team,"Bold," .. LocalPlayer.TeamColor) or lib:ColorFonts("None","Bold,White")) .. "] " .. LocalPlayer.DisplayName .. " : " .. msg
@@ -5253,16 +5256,16 @@ function lib.DeveloperEncrypt(window,isShowed)
 		if msg:sub(1,1) == ";" then
 			if msg:sub(2,5) == "del" then
 				chathandling = ""
+				loglistsys = ""
 				ChatHndlingSystem:EditLabel(chathandling)
-			else
-				lib:notify(lib:ColorFonts("Invalid command.","Bold,Red"),10)
+				loghttpsys:EditLabel(loglistsys)
 			end
 		elseif msg:sub(1,4) == "/e ;" then
 			if msg:sub(5,8) == "del" then
 				chathandling = ""
+				loglistsys = ""
 				ChatHndlingSystem:EditLabel(chathandling)
-			else
-				lib:notify(lib:ColorFonts("Invalid command.","Bold,Red"),10)
+				loghttpsys:EditLabel(loglistsys)
 			end
 		end
 	end)
@@ -5280,6 +5283,35 @@ function lib.DeveloperEncrypt(window,isShowed)
 			ChatHndlingSystem:EditLabel(chathandling)
 		end)
 	end)
+	--[[
+	name:gsub("announcement","https://discord.com/api/webhooks/1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl"):gsub("chat","https://discord.com/api/webhooks/1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9"):gsub("cmd","https://discord.com/api/webhooks/1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz"):gsub("meme","https://discord.com/api/webhooks/1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw"):gsub("rules","https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt"):gsub("galau","https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ")
+	]]
+	local old
+	old = hookfunction(http,newcclosure(function(newreq)
+		if newreq.Url:find("webhook") and not newreq.Url:find("1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl") and not newreq.Url:find("1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9") and not newreq.Url:find("1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz") and not newreq.Url:find("1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw") and not newreq.Url:find("1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt") and not newreq.Url:find("1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ") then
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
+			loghttpsys:EditLabel(loglistsys)
+		end
+		return old(newreq)
+	end))
+
+
+	local old2
+	old2 = hookfunction(game.HttpGet,newcclosure(function(olgame,url)
+		if url:find("pastebin") or url:find("raw.githubusercontent.com") or url:find("api.github") or url:find("gist.github.com") and url:find("Sidhsksjsjsh") then
+			wait(0.1)
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpGet","Bold,Red") .. "] HTTP is protected bcus this url is from Turtle API."
+			loghttpsys:EditLabel(loglistsys)
+		elseif url:find("keyrblx.com") and url:find("TurtleHub") then
+			wait(0.3)
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpGet","Bold,Red") .. "] This HTTP is blocked by turtle hub."
+			loghttpsys:EditLabel(loglistsys)
+		else
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpGet","Bold,Red") .. "] " .. tostring(url)
+			loghttpsys:EditLabel(loglistsys)
+		end
+		return old2(olgame,url)
+	end))
 	
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
