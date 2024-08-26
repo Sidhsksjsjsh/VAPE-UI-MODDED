@@ -5246,7 +5246,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local logsystem = window:Tab("Chatlog")
 	local chathandling = ""
 	local ChatHndlingSystem = logsystem:Label(lib:ColorFonts("","Bold,Green"))
-	local httploggingint = wndw:Tab("HTTP Protocol")
+	local httploggingint = window:Tab("HTTP Protocol")
 	local loglistsys = ""
 	local loghttpsys = httploggingint:Label("HttpRequest & HttpGet is null")
 	
