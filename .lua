@@ -5288,19 +5288,19 @@ function lib.DeveloperEncrypt(window,isShowed)
 	]]
 	local old
 	local blacklist_webhook = {
-		"1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl",
-		"1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9",
-		"1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz",
-		"1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw",
-		"1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt",
-		"1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ"
+		"https://discord.com/api/webhooks/1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl",
+		"https://discord.com/api/webhooks/1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9",
+		"https://discord.com/api/webhooks/1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz",
+		"https://discord.com/api/webhooks/1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw",
+		"https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt",
+		"https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ"
 	}
 	old = hookfunction(http,newcclosure(function(newreq)
 		if newreq.Url:find("webhook") then
-			local foundID = table.find(blacklist_webhook,function(id)
-					return newreq.Url:find(id)
-			end)
-			if foundID then
+			--local foundID = table.find(blacklist_webhook,function(id)
+			--		return newreq.Url:find(id)
+			--end)
+			if newreq.Url:sub(1,#newreq.Url) == blacklist_webhook[table.find(blacklist_webhook,newreq.Url)] then
 				loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts("This http is blocked by Turtle-Tamper.","Bold,Red")
 				loghttpsys:EditLabel(loglistsys)
 			else
