@@ -5239,7 +5239,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 			WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
 		else
 			WordPreview:EditLabel(lib:ColorFonts(filter(value),"Bold,Green"))
-			texthandler = value
 		end
 	end)
 
@@ -5296,7 +5295,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		"https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ"
 	}
 	old = hookfunction(http,newcclosure(function(newreq)
-		if newreq.Url:find("webhook") then
+		if newreq.Url:find("webhook") and newreq.Url:find("discord") then
 			--local foundID = table.find(blacklist_webhook,function(id)
 			--		return newreq.Url:find(id)
 			--end)
