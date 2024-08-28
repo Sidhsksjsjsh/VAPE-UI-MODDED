@@ -5450,6 +5450,11 @@ function lib.DeveloperEncrypt(window,isShowed)
 			writefile(getInstanceFromPath(value).Name,TurtleDecompile(getInstanceFromPath(value)))
 			print(TurtleDecompile(getInstanceFromPath(value)))
 		end)
+
+		T100:Textbox("Leak code from asset id",false,function(value)
+			writefile(value .. ".lua",game:GetObjects("rbxassetid://" .. value)[1].Source)
+			lib:notify(lib:ColorFonts("File saved to " .. lib:ColorFonts(Exploit() .. "/Workspace/" .. value .. ".lua","Underline"),"Bold,Green"),10)
+		end)
 			
 		local T101 = window:Tab("Snipe")
 		local var = {
