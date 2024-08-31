@@ -2285,6 +2285,8 @@ function lib:TrackPlayer(name,f)
 	lib:GetPlayer(function(v)
 		if name == "all" or name == "All" then
 			f(v)
+		elseif name == "me" or name == "Me" then
+			f(LocalPlayer)
 		else
 			if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) or (string.sub(string.lower(v.DisplayName),1,string.len(name))) == string.lower(name) then
 				f(v)
