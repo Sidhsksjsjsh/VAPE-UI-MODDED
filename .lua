@@ -5245,7 +5245,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local logsystem = window:Tab("Chatlog")
 	local chathandling = ""
 	local ChatHndlingSystem = logsystem:Label(lib:ColorFonts("","Bold,Green"))
-	local httploggingint = window:Tab("HTTP Protocol")
+	local httploggingint = window:Tab("Logs")
 	local loglistsys = ""
 	local loghttpsys = httploggingint:Label("HttpRequest & HttpGet is null")
 	
@@ -5283,7 +5283,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 	end)
 	--[[
-	name:gsub("announcement","https://discord.com/api/webhooks/1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl"):gsub("chat","https://discord.com/api/webhooks/1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9"):gsub("cmd","https://discord.com/api/webhooks/1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz"):gsub("meme","https://discord.com/api/webhooks/1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw"):gsub("rules","https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt"):gsub("galau","https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ")
+	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	]]
 	local old
 	local blacklist_webhook = {
@@ -5311,14 +5311,44 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end))
 
 
+	if setclipboard then
+		local clipb1
+		clipb1 = hookfunction(setclipboard,newcclosure(function(array)
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+			loghttpsys:EditLabel(loglistsys)
+			return clipb1(array)
+		end))
+	elseif toclipboard then
+		local clipb2
+		clipb2 = hookfunction(toclipboard,newcclosure(function(array)
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+			loghttpsys:EditLabel(loglistsys)
+			return clipb2(array)
+		end))
+	elseif set_clipboard then
+		local clipb3
+		clipb3 = hookfunction(set_clipboard,newcclosure(function(array)
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+			loghttpsys:EditLabel(loglistsys)
+			return clipb3(array)
+		end))
+	elseif (Clipboard and Clipboard.set) then
+		local clipb4
+		clipb4 = hookfunction((Clipboard and Clipboard.set),newcclosure(function(array)
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+			loghttpsys:EditLabel(loglistsys)
+			return clipb4(array)
+		end))
+	else
+		lib:notify(lib:ColorFonts("Exploit doesnt have a clipboard vuln","Bold,Red"),9e9)
+	end
+
 	local old2
 	old2 = hookfunction(game.HttpGet,newcclosure(function(olgame,url)
-		if url:find("pastebin") or ((url:find("raw.githubusercontent.com") or url:find("api.github") or url:find("gist.github.com")) and url:find("Sidhsksjsjsh")) then
-			wait(0.1)
+		if url:find("raw.githubusercontent.com") and url:find("Sidhsksjsjsh") then
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpGet","Bold,Red") .. "] HTTP is protected bcus this url is from Turtle API."
 			loghttpsys:EditLabel(loglistsys)
 		elseif url:find("keyrblx.com") and url:find("TurtleHub") then
-			wait(0.3)
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpGet","Bold,Red") .. "] This HTTP is blocked by turtle hub."
 			loghttpsys:EditLabel(loglistsys)
 		else
@@ -5326,6 +5356,30 @@ function lib.DeveloperEncrypt(window,isShowed)
 			loghttpsys:EditLabel(loglistsys)
 		end
 		return old2(olgame,url)
+	end))
+	local expfunctions = {
+    writefile,
+    print,
+    setclipboard,
+    rconsoleerr,
+    rconsolewarn,
+    warn,
+    error,
+    isfile,
+    readfile
+}
+	local old3
+	old3 = hookfunction(game.GetObjects,newcclosure(function(array)
+		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("GetObjects","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+		loghttpsys:EditLabel(loglistsys)
+		return old3(olgame,url)
+	end))
+
+	local old3
+	old3 = hookfunction(writefile,newcclosure(function(array)
+		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("writefile","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+		loghttpsys:EditLabel(loglistsys)
+		return old3(olgame,url)
 	end))
 	
 	lib:DeveloperAccess(function()
