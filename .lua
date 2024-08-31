@@ -2480,8 +2480,12 @@ function lib:HookCalled(func)
 end
 		
 function lib:AddTable(gameservice,tbl)
-	for i,v in pairs(gameservice:GetChildren()) do
-		table.insert(tbl,v.Name)
+	if typeof(gameservice) == "Instance" then
+		for i,v in pairs(gameservice:GetChildren()) do 
+			table.insert(tbl,v.Name)
+		end
+	else
+		table.insert(tbl,gameservice)
 	end
 end
 
