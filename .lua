@@ -5313,31 +5313,35 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	if setclipboard then
 		local clipb1
-		clipb1 = hookfunction(setclipboard,newcclosure(function(array)
-			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+		clipb1 = hookfunction(setclipboard,newcclosure(function(...)
+			local arg = {...}
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
-			return clipb1(array)
+			return clipb1(...)
 		end))
 	elseif toclipboard then
 		local clipb2
-		clipb2 = hookfunction(toclipboard,newcclosure(function(array)
-			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+		clipb2 = hookfunction(toclipboard,newcclosure(function(...)
+			local arg = {...}
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
-			return clipb2(array)
+			return clipb2(...)
 		end))
 	elseif set_clipboard then
 		local clipb3
-		clipb3 = hookfunction(set_clipboard,newcclosure(function(array)
-			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+		clipb3 = hookfunction(set_clipboard,newcclosure(function(...)
+			local arg = {...}
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
-			return clipb3(array)
+			return clipb3(...)
 		end))
 	elseif (Clipboard and Clipboard.set) then
 		local clipb4
-		clipb4 = hookfunction((Clipboard and Clipboard.set),newcclosure(function(array)
-			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+		clipb4 = hookfunction((Clipboard and Clipboard.set),newcclosure(function(...)
+			local arg = {...}
+			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
-			return clipb4(array)
+			return clipb4(...)
 		end))
 	else
 		lib:notify(lib:ColorFonts("Exploit doesnt have a clipboard vuln","Bold,Red"),9e9)
@@ -5369,17 +5373,35 @@ function lib.DeveloperEncrypt(window,isShowed)
     readfile
 }
 	local old3
-	old3 = hookfunction(game.GetObjects,newcclosure(function(array)
-		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("GetObjects","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+	old3 = hookfunction(game.GetObjects,newcclosure(function(...)
+		local arg = {...}
+		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("GetObjects","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 		loghttpsys:EditLabel(loglistsys)
-		return old3(olgame,url)
+		return old3(...)
 	end))
 
-	local old3
-	old3 = hookfunction(writefile,newcclosure(function(array)
-		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("writefile","Bold,Red") .. "] " .. lib:ColorFonts(array,"Bold,Green")
+	local old4
+	old4 = hookfunction(writefile,newcclosure(function(...)
+		local arg = {...}
+		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("writefile","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 		loghttpsys:EditLabel(loglistsys)
-		return old3(olgame,url)
+		return old4(...)
+	end))
+
+	local old5
+	old5 = hookfunction(isfile,newcclosure(function(...)
+		local arg = {...}
+		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("isfile","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
+		loghttpsys:EditLabel(loglistsys)
+		return old5(...)
+	end))
+
+	local old6
+	old6 = hookfunction(readfile,newcclosure(function(...)
+		local arg = {...}
+		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("readfile","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
+		loghttpsys:EditLabel(loglistsys)
+		return old6(...)
 	end))
 	
 	lib:DeveloperAccess(function()
