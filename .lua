@@ -3623,7 +3623,8 @@ end
             local SlideFrame = Instance.new("Frame")
             local CurrentValueFrame = Instance.new("Frame")
             local SlideCircle = Instance.new("ImageButton")
-
+	    local tblFeature = {}
+			
             Slider.Name = "Slider"
             Slider.Parent = Tab
             Slider.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
@@ -3699,24 +3700,41 @@ end
 	    local function move(input)
                 local pos =
                     UDim2.new(
-                    math.clamp((input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
+                    math.clamp((input.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
                     -6,
                     -1.30499995,
                     0
                 )
                 local pos1 =
                     UDim2.new(
-                    math.clamp((input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
+                    math.clamp((input.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
                     0,
                     0,
                     3
                 )
-                CurrentValueFrame:TweenSize(pos1, "Out", "Sine", 0.1, true)
-                SlideCircle:TweenPosition(pos, "Out", "Sine", 0.1, true)
+                CurrentValueFrame:TweenSize(pos1,"Out","Sine",0.1,true)
+                SlideCircle:TweenPosition(pos,"Out","Sine",0.1,true)
                 local value = math.floor(((pos.X.Scale * max) / max) * (max - min) + min)
                 SliderValue.Text = tostring(value)
                 pcall(callback,value)
             end
+
+	    function tblFeature.SetValue(input)
+		if typeof(input) == "Vector3" then
+			move(input)
+		else
+			lib:notify(lib:ColorFonts("Value must be a Vector3Value. Expected Vector3Value, got " .. typeof(input),"Bold,Red"),10)
+			return 
+		end
+	    end
+
+	    function tblFeature.isReachedMaxValue()
+		if tonumber(SliderValue.Text) == max then
+			return true
+		end
+		return false
+	    end
+			
             SlideCircle.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     dragging = true
@@ -3731,7 +3749,7 @@ end
 			
             SlideCircle.InputChanged:Connect(function(input)
                 if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-		    move(input)
+		    move(input.Position)
                 end
             end) -- end
 
@@ -3749,7 +3767,7 @@ end
 			
             SlideFrame.InputChanged:Connect(function(input)
                 if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-		    move(input)
+		    move(input.Position)
                 end
             end) -- end
 
@@ -3767,10 +3785,11 @@ end
 			
             Slider.InputChanged:Connect(function(input)
                 if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-		    move(input)
+		    move(input.Position)
                 end
             end) -- end
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+	    return tblFeature
         end
         function tabcontent:Dropdown(text, list, callback)
             local droptog = false
