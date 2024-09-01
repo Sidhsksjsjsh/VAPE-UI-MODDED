@@ -1588,7 +1588,7 @@ end
 function lib.getUserTag(label,name)
 	if type(label) == "string" then
 		if label == "get" then
-			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin"}
+			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin","@Skibidi"}
 		elseif label == "sent" then
 			return name:gsub(
 				"@Fahri",
@@ -1996,7 +1996,7 @@ end
 
 --https://www.roblox.com/users/6133870238/profile
 function lib:DeveloperAccess(f)
-	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 4083898398 or LocalPlayer.UserId == 6016761890 or LocalPlayer.UserId == 1954994916 or LocalPlayer.UserId == 6204334772 or LocalPlayer.UserId == 6133870238 or LocalPlayer.UserId == 6205399299 then
+	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 then
 		f()
 		lib:notify(lib:ColorFonts(lib:ColorFonts("Loading developer tab/panel...","Bold"),"Red"),10)
 	end
