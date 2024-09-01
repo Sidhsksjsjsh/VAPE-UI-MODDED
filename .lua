@@ -2003,7 +2003,7 @@ function lib:DeveloperAccess(f)
 end
 
 function lib.isDeveloper()
-	if LocalPlayer.UserId == 3621188307 then
+	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 then
 		lib:notify(lib:ColorFonts(lib:ColorFonts("WELCOME ELITE MEMBER!","Bold"),"Green"),10)
 		return true
 	end
