@@ -5003,7 +5003,7 @@ end)
 
 function lib:sendChat(msg)
         if Chat:FilterStringForBroadcast(msg,LocalPlayer) ~= msg then
-            lib:notify(lib:ColorFonts("tags.. use another words.","Bold,Red"),10)
+            lib:notify(lib:ColorFonts("Message is filtered.","Bold,Red"),10)
         else
             if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
                 game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
