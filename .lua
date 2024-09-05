@@ -218,30 +218,30 @@ local letters = {
 local letters2 = {
         ["a"] = "\225\180\128\204\178",
         ["b"] = "\202\153\204\178",
-        ["c"] = "\225\180\132\204\178", -- c
-        ["d"] = "\225\180\133\204\178", -- d
-        ["e"] = "\225\180\135\204\178", -- e
-        ["f"] = "\210\147\204\178", -- f
-        ["g"] = "\201\162\204\178", -- g
-        ["h"] = "\202\156\204\178", -- h
-        ["i"] = "\201\170\204\178", -- i
-        ["j"] = "\225\180\138\204\178", -- j
-        ["k"] = "\225\180\139\204\178", -- k
-        ["l"] = "\202\159\204\178", -- l
-        ["m"] = "\225\180\141\204\178", -- m
-        ["n"] = "\201\180\204\178", -- n
-        ["o"] = "\225\180\143\204\178", -- o
-        ["p"] = "\225\180\152\204\178", -- p
-        ["q"] = "\225\180\143\204\178\204\168", -- q
-        ["r"] = "\202\128\204\178", -- r
-        ["s"] =  "s\204\178", -- s
-        ["t"] = "\225\180\155\204\178", -- t
-        ["u"] = "\225\180\156\204\178\204\178", -- u
-        ["v"] = "\225\180\160\204\178", -- v
-        ["w"] = "\225\180\161\204\178", -- w
-        ["x"] = "\209\133\204\178", -- x
-        ["y"] = "\202\143\204\178", -- y
-        ["z"] = "\225\180\162\204\178", -- z
+        ["c"] = "\225\180\132\204\178",
+        ["d"] = "\225\180\133\204\178",
+        ["e"] = "\225\180\135\204\178",
+        ["f"] = "\210\147\204\178",
+        ["g"] = "\201\162\204\178",
+        ["h"] = "\202\156\204\178",
+        ["i"] = "\201\170\204\178",
+        ["j"] = "\225\180\138\204\178",
+        ["k"] = "\225\180\139\204\178",
+        ["l"] = "\202\159\204\178",
+        ["m"] = "\225\180\141\204\178",
+        ["n"] = "\201\180\204\178",
+        ["o"] = "\225\180\143\204\178",
+        ["p"] = "\225\180\152\204\178",
+        ["q"] = "\225\180\143\204\178\204\168",
+        ["r"] = "\202\128\204\178",
+        ["s"] =  "s\204\178",
+        ["t"] = "\225\180\155\204\178",
+        ["u"] = "\225\180\156\204\178\204\178",
+        ["v"] = "\225\180\160\204\178",
+        ["w"] = "\225\180\161\204\178",
+        ["x"] = "\209\133\204\178",
+        ["y"] = "\202\143\204\178",
+        ["z"] = "\225\180\162\204\178",
         [" "] = " "
 }
 
@@ -5271,18 +5271,33 @@ function lib.DeveloperEncrypt(window,isShowed)
         	end
         	return message
 	end
+
+	local function filter2(message)
+		for search,replacement in pairs(letters2) do 
+			message = replace(message,search,replacement)
+        	end
+        	return message
+	end
 	
 	local chatbypass = window:Tab("Chat Bypass")
 	local texthandler = ""
 	local WordPreview = chatbypass:Label(lib:ColorFonts("Text bypass preview","Bold,Green"))
 	local AutomaticBypass = false
-	
+	local V2Bypass = false
 	local textboxhandler = chatbypass:Textbox("Insert ur text here.",false,function(value)
 		texthandler = value
 	end)
 
+	chatbypass:Toggle("V2 Bypass",false,function(value)
+		V2Bypass = value
+	end)
+
 	chatbypass:Button("Send",function()
-		lib:sendChat(filter(texthandler))
+		if V2Bypass == true then
+			lib:sendChat(filter2(texthandler))
+		else
+			lib:sendChat(filter(texthandler))
+		end
 	end)
 
 	chatbypass:Toggle("Automatic bypass",false,function(value)
@@ -5302,7 +5317,11 @@ function lib.DeveloperEncrypt(window,isShowed)
 		if Chat:FilterStringForBroadcast(value,LocalPlayer) ~= value then
 			WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
 		else
-			WordPreview:EditLabel(lib:ColorFonts(filter(value),"Bold,Green"))
+			if V2Bypass == true then
+				WordPreview:EditLabel(lib:ColorFonts(filter2(value),"Bold,Green"))
+			else
+				WordPreview:EditLabel(lib:ColorFonts(filter(value),"Bold,Green"))
+			end
 		end
 	end)
 
