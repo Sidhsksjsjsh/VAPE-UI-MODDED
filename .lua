@@ -1426,6 +1426,24 @@ for k,v in pairs(getgc(true)) do
    end
 end
 
+function lib.AnimatedText(arg,time,f)
+	local dur = time or 0.001
+	if typeof(time) == "number" and typeof(f) == "function" then
+		task.spawn(function()
+			for array = 1,string.len(arg) do 
+				f(string.sub(arg,1,array))
+				wait(time)
+			end
+		end)
+	elseif typeof(time) ~= "number" then
+		lib:notify(lib:ColorFonts("time.sleep() argument must be a number (number expected, got " .. typeof(time) .. ")","Bold,Red"),10)
+	elseif typeof(f) ~= "function" then
+		lib:notify(lib:ColorFonts("Argument #3 must be a function (function expected, got " .. typeof(f) .. ")","Bold,Red"),10)
+	elseif typeof(time) ~= "number" and typeof(f) ~= "function" then
+		lib:notify(lib:ColorFonts("time.sleep() argument and Argument #3 must be a number, function (number, function expected, got " .. typeof(time) .. ", " .. typeof(f) .. ")","Bold,Red"),10)
+	end
+end
+
 function lib:VulnsBypass()
 for _, v in next,getgc(true) do
 	if typeof(v) == "table" and rawget(v, "Detected") and typeof(rawget(v, "Detected")) == "function" and rawget(v, "RLocked") then
@@ -5444,17 +5462,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end
 		return old2(olgame,url)
 	end))
-	local expfunctions = {
-    writefile,
-    print,
-    setclipboard,
-    rconsoleerr,
-    rconsolewarn,
-    warn,
-    error,
-    isfile,
-    readfile
-}
+	
 	local old3
 	old3 = hookfunction(game.GetObjects,newcclosure(function(...)
 		local arg = {...}
@@ -5486,6 +5494,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 		loghttpsys:EditLabel(loglistsys)
 		return old6(...)
 	end))
+	--lib.AnimatedText(arg,time,function(v)
+
+	local Intelligence = window:Tab("Intelligence")
+	local version = "V1"
+	local intelligencemsghandler = ""
+	local IntelligenceResponseHandler = Intelligence:Label("The response from the Turtle-Intelligence will be displayed here")
 	
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
