@@ -5508,22 +5508,22 @@ function lib.DeveloperEncrypt(window,isShowed)
 			if aichatbot == true then
 				if #WhitelistedPlayer ~= 0 then
 					if SelectedBypassLevel == "Bypass 1" then
-						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success))
+						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg:gsub(" ","+") .. "&lc=en&cf=False")).success))
 					elseif SelectedBypassLevel == "Bypass 2" then
-						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success))
+						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg:gsub(" ","+") .. "&lc=en&cf=False")).success))
 					elseif SelectedBypassLevel == "None" then
-						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success)
+						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg:gsub(" ","+") .. "&lc=en&cf=False")).success)
 					end
 				else
 					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 				end
 			else
-				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success,0.001,function(v)
+				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg:gsub(" ","+") .. "&lc=en&cf=False")).success,0.001,function(v)
 					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
 				end)
 			end
 		elseif TurtleIntelligenceVersion == "V2" then
-			local response = http({
+			local responses = http({
 					Url = "https://chatengine.xyz/api/ask",
 					Method = "POST",
 					Headers = {
@@ -5535,17 +5535,17 @@ function lib.DeveloperEncrypt(window,isShowed)
 			if aichatbot == true then
 				if #WhitelistedPlayer ~= 0 then
 					if SelectedBypassLevel == "Bypass 1" then
-						lib:sendChat(filter(response))
+						lib:sendChat(filter(HttpService:JSONDecode(responses.Body).response))
 					elseif SelectedBypassLevel == "Bypass 2" then
-						lib:sendChat(filter2(response))
+						lib:sendChat(filter2(HttpService:JSONDecode(responses.Body).response))
 					elseif SelectedBypassLevel == "None" then
-						lib:sendChat(response)
+						lib:sendChat(HttpService:JSONDecode(responses.Body).response)
 					end
 				else
 					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 				end
 			else
-				lib.AnimatedText(response,0.001,function(v)
+				lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
 					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
 				end)
 			end
