@@ -5501,6 +5501,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local aichatbot = false
 	local WhitelistedPlayer = {}
 	local SelectedBypassLevel = ""
+        local plrname = nil
 	local IntelligenceResponseHandler = Intelligence:Label("The response from the Turtle-Intelligence will be displayed here")
 	local LastResponse = IntelligenceResponseHandler:GetText()
 	local function TurtleIntelligenceResponseHandler(msg)
@@ -5550,20 +5551,21 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end)
 			end
 		elseif TurtleIntelligenceVersion == "V3" then
+                        local Data = HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1"))
 			if aichatbot == true then
 				if #WhitelistedPlayer ~= 0 then
 					if SelectedBypassLevel == "Bypass 1" then
-						lib:sendChat(filter("Version unavailable"))
+						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message))
 					elseif SelectedBypassLevel == "Bypass 2" then
-						lib:sendChat(filter2("Version unavailable"))
+						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message))
     				        elseif SelectedBypassLevel == "None" then
-						lib:sendChat("Version unavailable")
+						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message)
 					end
 				else
 					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 				end
 			else
-				lib.AnimatedText("Version Unavailable",0.001,function(v)
+				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message,0.001,function(v)
 					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
 				end)
 			end
@@ -5600,6 +5602,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	lib:GetPlayer(function(v)
 		lib:GetPlayerMessage(v,function(msg)
+	                plrname = v.Name
 			if table.find(WhitelistedPlayer,v.DisplayName) then
 				TurtleIntelligenceResponseHandler(msg)
 			end
@@ -5608,6 +5611,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	lib.onPlayerJoin(function(value)
 		lib:GetPlayerMessage(value,function(msg)
+			plrname = value.Name
 			if table.find(WhitelistedPlayer,value.DisplayName) then
 				TurtleIntelligenceResponseHandler(msg)
 			end
