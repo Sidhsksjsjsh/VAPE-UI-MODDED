@@ -5600,6 +5600,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 	end)
 
+	Intelligence:Label(lib:ColorFonts("We will use your " .. lib:ColorFonts("message data","Red") .. "to train our chatbot model","Bold,Green"))
+	Intelligence:Label("Turtle-Intelligence is our 5th AI, and we will need the message data you send to train our chatbot")
 	lib:GetPlayer(function(v)
 		lib:GetPlayerMessage(v,function(msg)
 	                plrname = v.Name
