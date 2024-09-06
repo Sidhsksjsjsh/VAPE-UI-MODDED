@@ -5497,9 +5497,41 @@ function lib.DeveloperEncrypt(window,isShowed)
 	--lib.AnimatedText(arg,time,function(v)
 
 	local Intelligence = window:Tab("Intelligence")
-	local version = "V1"
+	local TurtleIntelligenceVersion = "V1"
 	local intelligencemsghandler = ""
 	local IntelligenceResponseHandler = Intelligence:Label("The response from the Turtle-Intelligence will be displayed here")
+	local function TurtleIntelligenceResponseHandler(msg)
+		if TurtleIntelligenceVersion == "V1" then
+			lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success,0.001,function(v)
+				IntelligenceResponseHandler:EditLabel(v)
+			end)
+		elseif TurtleIntelligenceVersion == "V2" then
+			local response = http({
+					Url = "https://chatengine.xyz/api/ask",
+					Method = "POST",
+					Headers = {
+						["content-type"] = "application/json";
+						["Authorization"] = "b1060a52b07c933b192298aede18a4e079e2cb3be98c2bd6fcd30e77c4c80cb9822937927db1797ccc9fdc6804e85777"
+					},
+					Body = HttpService:JSONEncode({query = msg})
+			})
+			lib.AnimatedText(response,0.001,function(v)
+				IntelligenceResponseHandler:EditLabel(v)
+			end)
+		elseif TurtleIntelligenceVersion == "V3" then
+			lib.AnimatedText("Version Unavailable",0.001,function(v)
+				IntelligenceResponseHandler:EditLabel(v)
+			end)
+		end
+	end
+
+	Intelligence:Textbox("Insert ur question",false,function(value)
+		TurtleIntelligenceResponseHandler(value)
+	end)
+	
+	Intelligence:Dropdown("Select Turtle-Intelligence version",{"V1","V2","V3"},function(value)
+		TurtleIntelligenceVersion = value
+	end)
 	
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
