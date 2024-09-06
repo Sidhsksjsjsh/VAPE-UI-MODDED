@@ -5600,7 +5600,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	lib:GetPlayer(function(v)
 		lib:GetPlayerMessage(v,function(msg)
-			if WhitelistedPlayer[table.find(WhitelistedPlayer,v.DisplayName)] == v.DisplayName then
+			if table.find(WhitelistedPlayer,v.DisplayName) then
 				TurtleIntelligenceResponseHandler(msg)
 			end
 		end)
@@ -5608,10 +5608,22 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	lib.onPlayerJoin(function(value)
 		lib:GetPlayerMessage(value,function(msg)
-			if WhitelistedPlayer[table.find(WhitelistedPlayer,v.DisplayName)] == v.DisplayName then
+			if table.find(WhitelistedPlayer,value.DisplayName) then
 				TurtleIntelligenceResponseHandler(msg)
 			end
 		end)
+	end)
+
+	lib.onPlayerLeft(function(plr)
+		if table.find(WhitelistedPlayer,plr.DisplayName) then
+			task.spawn(function()
+				table.remove(WhitelistedPlayer,table.find(WhitelistedPlayer,plr.DisplayName))
+				wait(0.5)
+				IntelligenceResponseHandler:EditLabel(lib:ColorFonts("Currently whitelisted player : " .. table.concat(WhitelistedPlayer,", "),"Bold,Green"))
+				wait(2.5)
+				IntelligenceResponseHandler:EditLabel(lib:ColorFonts(LastResponse,"Bold,Green"))
+			end)
+		end
 	end)
 	
 	lib:DeveloperAccess(function()
