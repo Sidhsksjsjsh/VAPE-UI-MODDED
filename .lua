@@ -5498,13 +5498,30 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	local Intelligence = window:Tab("Intelligence")
 	local TurtleIntelligenceVersion = "V1"
-	local intelligencemsghandler = ""
+	local aichatbot = false
+	local WhitelistedPlayer = {}
+	local SelectedBypassLevel = ""
 	local IntelligenceResponseHandler = Intelligence:Label("The response from the Turtle-Intelligence will be displayed here")
+	local LastResponse = IntelligenceResponseHandler:GetText()
 	local function TurtleIntelligenceResponseHandler(msg)
 		if TurtleIntelligenceVersion == "V1" then
-			lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success,0.001,function(v)
-				IntelligenceResponseHandler:EditLabel(v)
-			end)
+			if aichatbot == true then
+				if #WhitelistedPlayer ~= 0 then
+					if SelectedBypassLevel == "Bypass 1" then
+						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success))
+					elseif SelectedBypassLevel == "Bypass 2" then
+						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success))
+					elseif SelectedBypassLevel == "None" then
+						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success)
+					end
+				else
+					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
+				end
+			else
+				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success,0.001,function(v)
+					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
+				end)
+			end
 		elseif TurtleIntelligenceVersion == "V2" then
 			local response = http({
 					Url = "https://chatengine.xyz/api/ask",
@@ -5515,22 +5532,86 @@ function lib.DeveloperEncrypt(window,isShowed)
 					},
 					Body = HttpService:JSONEncode({query = msg})
 			})
-			lib.AnimatedText(response,0.001,function(v)
-				IntelligenceResponseHandler:EditLabel(v)
-			end)
+			if aichatbot == true then
+				if #WhitelistedPlayer ~= 0 then
+					if SelectedBypassLevel == "Bypass 1" then
+						lib:sendChat(filter(response))
+					elseif SelectedBypassLevel == "Bypass 2" then
+						lib:sendChat(filter2(response))
+					elseif SelectedBypassLevel == "None" then
+						lib:sendChat(response)
+					end
+				else
+					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
+				end
+			else
+				lib.AnimatedText(response,0.001,function(v)
+					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
+				end)
+			end
 		elseif TurtleIntelligenceVersion == "V3" then
-			lib.AnimatedText("Version Unavailable",0.001,function(v)
-				IntelligenceResponseHandler:EditLabel(v)
-			end)
+			if aichatbot == true then
+				if #WhitelistedPlayer ~= 0 then
+					if SelectedBypassLevel == "Bypass 1" then
+						lib:sendChat(filter("Version unavailable"))
+					elseif SelectedBypassLevel == "Bypass 2" then
+						lib:sendChat(filter2("Version unavailable"))
+    				        elseif SelectedBypassLevel == "None" then
+						lib:sendChat("Version unavailable")
+					end
+				else
+					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
+				end
+			else
+				lib.AnimatedText("Version Unavailable",0.001,function(v)
+					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
+				end)
+			end
 		end
 	end
 
 	Intelligence:Textbox("Insert ur question",false,function(value)
 		TurtleIntelligenceResponseHandler(value)
+		LastResponse = IntelligenceResponseHandler:GetText()
 	end)
-	
+	--IntelligenceResponseHandler:GetText()
 	Intelligence:Dropdown("Select Turtle-Intelligence version",{"V1","V2","V3"},function(value)
 		TurtleIntelligenceVersion = value
+	end)
+
+	Intelligence:Toggle("Chatbot",false,function(value)
+		aichatbot = value
+	end)
+	
+	Intelligence:Dropdown("Chatbot bypass chat filter level",{"None","Bypass 1","Bypass 2"},function(value)
+		SelectedBypassLevel = value
+	end)
+	
+	Intelligence:Textbox("Whitelisted player",false,function(value)
+		lib:TrackPlayer(value,function(v)
+			lib:AddTable(v.DisplayName,WhitelistedPlayer)
+			lib:notify(lib:ColorFonts("Player successfully whitelisted.",""),10)
+			wait(0.5)
+			IntelligenceResponseHandler:EditLabel(lib:ColorFonts("Currently whitelisted player : " .. table.concat(WhitelistedPlayer,", "),"Bold,Green"))
+			wait(2.5)
+			IntelligenceResponseHandler:EditLabel(lib:ColorFonts(LastResponse,"Bold,Green"))
+		end)
+	end)
+
+	lib:GetPlayer(function(v)
+		lib:GetPlayerMessage(v,function(msg)
+			if WhitelistedPlayer[table.find(WhitelistedPlayer,v.DisplayName)] == v.DisplayName then
+				TurtleIntelligenceResponseHandler(msg)
+			end
+		end)
+	end)
+
+	lib.onPlayerJoin(function(value)
+		lib:GetPlayerMessage(value,function(msg)
+			if WhitelistedPlayer[table.find(WhitelistedPlayer,v.DisplayName)] == v.DisplayName then
+				TurtleIntelligenceResponseHandler(msg)
+			end
+		end)
 	end)
 	
 	lib:DeveloperAccess(function()
