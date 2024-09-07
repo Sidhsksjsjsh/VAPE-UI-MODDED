@@ -5509,17 +5509,17 @@ function lib.DeveloperEncrypt(window,isShowed)
 			if aichatbot == true then
 				if #WhitelistedPlayer ~= 0 then
 					if SelectedBypassLevel == "Bypass 1" then
-						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg:gsub(" ","+") .. "&lc=en&cf=False")).success))
+						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success))
 					elseif SelectedBypassLevel == "Bypass 2" then
-						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg:gsub(" ","+") .. "&lc=en&cf=False")).success))
+						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success))
 					elseif SelectedBypassLevel == "None" then
-						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg:gsub(" ","+") .. "&lc=en&cf=False")).success)
+						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success)
 					end
 				else
 					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 				end
 			else
-				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg:gsub(" ","+") .. "&lc=en&cf=False")).success,0.001,function(v)
+				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success,0.001,function(v)
 					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
 				end)
 			end
@@ -5551,21 +5551,20 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end)
 			end
 		elseif TurtleIntelligenceVersion == "V3" then
-                        local Data = HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1"))
-			if aichatbot == true then
+                        if aichatbot == true then
 				if #WhitelistedPlayer ~= 0 then
 					if SelectedBypassLevel == "Bypass 1" then
-						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message))
+						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message))
 					elseif SelectedBypassLevel == "Bypass 2" then
-						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message))
+						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message))
     				        elseif SelectedBypassLevel == "None" then
-						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message)
+						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message)
 					end
 				else
 					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 				end
 			else
-				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg:gsub(" ","+") .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message,0.001,function(v)
+				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message,0.001,function(v)
 					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
 				end)
 			end
@@ -5573,7 +5572,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end
 
 	Intelligence:Textbox("Insert ur question",false,function(value)
-		TurtleIntelligenceResponseHandler(value)
+		TurtleIntelligenceResponseHandler(value:gsub(" ","+"))
 		LastResponse = IntelligenceResponseHandler:GetText()
 	end)
 	--IntelligenceResponseHandler:GetText()
@@ -5721,6 +5720,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			wait(2)
 			local tableToString = lib.parseData(attributeHandle,0,false,{},nil,false)
 			lib.sentMessage(lib.getTable("sent","galau"),`local hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1}]\nWarning : [{#attributeHandle * 1 + 2 / 2}]`)
+			lib:Copy(table.concat(attributeHandle,", "))
 		end) --lib.getHiddenConnection(b,get)
 
 		T100:Button("Sent all game's vulnerabilities",function()
@@ -5731,6 +5731,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			wait(2)
 			local tableToString = lib.parseData(vis_table_2o,0,false,{},nil,false)
 			lib.sentMessage(lib.getTable("sent","galau"),`local vulns = {tableToString}\n\nSuccess : [{#vis_table_2o}]\nFailed : [{#vis_table_2o * 2 / 1 * 2 * 1}]\nWarning : [{#vis_table_2o * 1 + 2}]\nTotal hidden environment (includes hidden functions) : {#vis_table_2o / 3}`)
+			lib:Copy(table.concat(vis_table_2o,", "))
 		end)
 
 		T100:Textbox("Run private repository link",false,function(value)
