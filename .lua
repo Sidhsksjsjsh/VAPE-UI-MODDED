@@ -143,7 +143,7 @@ local envs = {
 	end,
 	__STOP_MUSIC = function(instance)
 		if typeof(instance) == "Instance" then
-			if instance then
+			if instance:IsA("Sound") then
 				instance:Stop()
 			end
 		end
