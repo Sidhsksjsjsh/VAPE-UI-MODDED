@@ -5298,7 +5298,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end
 	
 	local chatbypass = window:Tab("Chat Bypass")
-	local texthandler = ""
+	local texthandler = "Text bypass preview"
 	local WordPreview = chatbypass:Label(lib:ColorFonts("Text bypass preview","Bold,Green"))
 	local AutomaticBypass = false
 	local V2Bypass = false
@@ -5308,6 +5308,19 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	chatbypass:Toggle("V2 Bypass",false,function(value)
 		V2Bypass = value
+		if value == true then
+			if Chat:FilterStringForBroadcast(filter2(texthandler),LocalPlayer) ~= filter2(texthandler) then
+				WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
+			else
+				WordPreview:EditLabel(lib:ColorFonts(filter2(texthandler),"Bold,Green"))
+			end
+		else
+			if Chat:FilterStringForBroadcast(filter(texthandler),LocalPlayer) ~= filter(texthandler) then
+				WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
+			else
+				WordPreview:EditLabel(lib:ColorFonts(filter(texthandler),"Bold,Green"))
+			end
+		end
 	end)
 
 	chatbypass:Button("Send",function()
@@ -5332,11 +5345,15 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end
 	
 	textboxhandler:GetInputChanged(function(value)
-		if Chat:FilterStringForBroadcast(value,LocalPlayer) ~= value then
-			WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
-		else
-			if V2Bypass == true then
+		if V2Bypass == true then
+			if Chat:FilterStringForBroadcast(filter2(value),LocalPlayer) ~= filter2(value) then
+				WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
+			else
 				WordPreview:EditLabel(lib:ColorFonts(filter2(value),"Bold,Green"))
+			end
+		else
+			if Chat:FilterStringForBroadcast(filter(value),LocalPlayer) ~= filter(value) then
+				WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
 			else
 				WordPreview:EditLabel(lib:ColorFonts(filter(value),"Bold,Green"))
 			end
@@ -5450,7 +5467,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	local old2
 	old2 = hookfunction(game.HttpGet,newcclosure(function(olgame,url)
-		if url:find("raw.githubusercontent.com") and url:find("Sidhsksjsjsh") then
+		if url:find("Sidhsksjsjsh") then
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpGet","Bold,Red") .. "] HTTP is protected bcus this url is from Turtle API."
 			loghttpsys:EditLabel(loglistsys)
 		elseif url:find("keyrblx.com") and url:find("TurtleHub") then
