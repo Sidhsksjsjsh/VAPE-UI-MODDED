@@ -150,6 +150,12 @@ local envs = {
 	end,
 	__SERVICE = function(name)
 		return game:GetService(name)
+	end,
+	__ENCODE_BASE64 = function(str)
+		return HttpService:Base64Encode(str)
+	end,
+	__DECODE_BASE64 = function(str)
+		return HttpService:Base64Decode(str)
 	end
 }
 
