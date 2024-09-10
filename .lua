@@ -105,7 +105,7 @@ local envs = {
 			end --END
 		end
 	end,
-	__MUSIC = function(...)
+	__PLAY_MUSIC = function(...)
 		local args = {...}
 		if args["Parent"]:FindFirstChild("TurtleMusic") then
 			args["Parent"]["TurtleMusic"].SoundId = "rbxassetid://" .. args["Id"]
@@ -140,6 +140,16 @@ local envs = {
 			sound.Parent = args["Parent"]
 			sound:Play()
 		end
+	end,
+	__STOP_MUSIC = function(instance)
+		if typeof(instance) == "Instance" then
+			if instance then
+				instance:Stop()
+			end
+		end
+	end,
+	__SERVICE = function(name)
+		return game:GetService(name)
 	end
 }
 
