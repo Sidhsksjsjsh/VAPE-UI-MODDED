@@ -5917,49 +5917,26 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T101:Button("Start snipe",function()
 			lib.snipe(var.game_id,var.userid)
 		end)
-		--[[if LocalPlayer.Name == "Rivanda_Cheater" then
-			local T102 = window:Tab("Announcement",true)
-			T102:Dropdown("Select channel",lib.getTable("get",""),function(value)
-				var.channel = value
-			end)
-
-			T102:Dropdown("Select user to mention",lib.getUserTag("get",""),function(value)
-				var.user = value
-			end)
-
-			T102:Textbox("Insert message",false,function(value)
-				var.msg = value
+		if LocalPlayer.Name == "Rivanda_Cheater" then
+			local WhatsApp = window:Tab("WhatsApp")
+			local WhatsAppVariable = {
+					target = "",
+					from = "whatsapp:",
+					message = ""
+			}
+				
+			WhatsApp:Textbox("Insert a victim number.",false,function(value)
+				WhatsAppVariable.message = value
 			end)
 				
-			T102:Button("Sent announce [ ANNOUNCEMENT BOT ]",function()
-				if var.user == "@None" or var.user == "@none" then
-					lib.sentMessage(var.channel,var.msg)
-				else
-					lib.sentMessage(var.channel,var.user .. "\n" .. var.msg)
-				end
+			WhatsApp:Textbox("Insert a message",false,function(value)
+				WhatsAppVariable.message = value
 			end)
-
-			local T103 = window:Tab("BOT",true)
-			T103:Dropdown("Select channel",lib.getTable("get",""),function(value)
-				var.bot.channel = value
+				
+			WhatsApp:Button("Sent announce [ ANNOUNCEMENT BOT ]",function()
+				print("Private")
 			end)
-
-			T103:Dropdown("Select user to mention",lib.getUserTag("get",""),function(value)
-				var.bot.user = value
-			end)
-
-			T103:Textbox("Insert bot name",false,function(value)
-				var.bot.name = value
-			end)
-
-			T103:Textbox("Insert bot response",false,function(value)
-				var.bot.msg = value
-			end)
-
-			T103:Button("Sent response",function()
-				lib.WebhookSenderV2(var.bot.channel,var.bot.name,var.bot.msg:gsub("{user}",var.bot.user))
-			end)
-		end]] --lib:Notification("System Logging (print)",v,"ok")
+		end --lib:Notification("System Logging (print)",v,"ok")
 		--local T104 = window:Tab("SPY LOGGING",true)
 		local log = {
 			info = true,
