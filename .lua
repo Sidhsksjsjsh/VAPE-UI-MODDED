@@ -78,14 +78,14 @@ local envs = {
 							["Content-Type"] = "application/json",
 							--["Authorization"] = args["Authorization"]
 						},
-						Body = HttpService:JSONEncode(args)
+						Body = HttpService:JSONEncode(...)
 				})
 			end
 		elseif methods:lower() == "get" then
 			if authorization ~= "" then
 				local response = http({
-						Url = path,
-						Method = "GET",
+						Url = url,
+						Method = methods:upper(),
 						Headers = {
 							["Content-Type"] = "application/json",
 							["Authorization"] = authorization
@@ -94,8 +94,8 @@ local envs = {
 				return HttpService:JSONDecode(response.Body)
 			else
 				local response = http({
-						Url = path,
-						Method = "GET",
+						Url = url,
+						Method = methods:upper(),
 						Headers = {
 							["Content-Type"] = "application/json",
 							--["Authorization"] = authorization
@@ -104,9 +104,46 @@ local envs = {
 				return HttpService:JSONDecode(response.Body)
 			end --END
 		end
+	end,
+	__MUSIC = function(...)
+		local args = {...}
+		if args["Parent"]:FindFirstChild("TurtleMusic") then
+			args["Parent"]["TurtleMusic"].SoundId = "rbxassetid://" .. args["Id"]
+			args["Parent"]["TurtleMusic"].Volume = args["Volume"]
+			args["Parent"]["TurtleMusic"].PlaybackSpeed = args["PlaybackSeed"]
+			args["Parent"]["TurtleMusic"].Looped = args["Looped"]
+			args["Parent"]["TurtleMusic"].TimePosition = args["TimePosition"]
+			args["Parent"]["TurtleMusic"].Pitch = args["Pitch"]
+			args["Parent"]["TurtleMusic"].RollOffMode = (args["RollOfMode"] or Enum.RollOffMode.Linear)
+			args["Parent"]["TurtleMusic"].RollOffMaxDistance = args["RollOffMaxDistance"]
+			args["Parent"]["TurtleMusic"].RollOffMinDistance = args["RollOffMinDistance"]
+			args["Parent"]["TurtleMusic"].EmitterSize = args["EmittedSize"]
+			args["Parent"]["TurtleMusic"].DopplerScale = args["DopplerScale"]
+			args["Parent"]["TurtleMusic"].SoundGroup = args["SoundGroup"]
+			args["Parent"]["TurtleMusic"].Parent = args["Parent"]
+			args["Parent"]["TurtleMusic"]:Play()
+		else
+			local sound = Instance.new("Sound")
+			sound.Name = "TurtleMusic"
+			sound.SoundId = "rbxassetid://" .. args["Id"]
+			sound.Volume = args["Volume"]
+			sound.PlaybackSpeed = args["PlaybackSeed"]
+			sound.Looped = args["Looped"]
+			sound.TimePosition = args["TimePosition"]
+			sound.Pitch = args["Pitch"]
+			sound.RollOffMode = (args["RollOfMode"] or Enum.RollOffMode.Linear)
+			sound.RollOffMaxDistance = args["RollOffMaxDistance"]
+			sound.RollOffMinDistance = args["RollOffMinDistance"]
+			sound.EmitterSize = args["EmittedSize"]
+			sound.DopplerScale = args["DopplerScale"]
+			sound.SoundGroup = args["SoundGroup"]
+			sound.Parent = args["Parent"]
+			sound:Play()
+		end
 	end
 }
 
+setmetatable(lib,envs)
 local returned_string = {
 	["type() function"] = {
 		"nil",
