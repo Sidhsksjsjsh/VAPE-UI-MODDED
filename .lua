@@ -45,6 +45,67 @@ local isGuiOpened = true
 local FLYING = false
 local flyKeyDown = nil
 local flyKeyUp = nil
+local envs = {
+	__SELF = function()
+		return LocalPlayer
+	end,
+	__WORKSPACE = function()
+		return workspace
+	end,
+	__MOUSE = function()
+		return Mouse
+	end,
+	_RUN_SERVICE = function()
+		return RunService
+	end,
+	__HTTP_REQUEST = function(url,methods,authorization,...)
+		if methods:lower() == "post" then
+			if authorization ~= "" then
+				local response = http({
+						Url = url,
+						Method = methods:upper(),
+						Headers = {
+							["Content-Type"] = "application/json",
+							["Authorization"] = authorization
+						},
+						Body = HttpService:JSONEncode(...)
+				})
+			else
+				local response = http({
+						Url = url,
+						Method = methods:upper(),
+						Headers = {
+							["Content-Type"] = "application/json",
+							--["Authorization"] = args["Authorization"]
+						},
+						Body = HttpService:JSONEncode(args)
+				})
+			end
+		elseif methods:lower() == "get" then
+			if authorization ~= "" then
+				local response = http({
+						Url = path,
+						Method = "GET",
+						Headers = {
+							["Content-Type"] = "application/json",
+							["Authorization"] = authorization
+						}
+				})
+				return HttpService:JSONDecode(response.Body)
+			else
+				local response = http({
+						Url = path,
+						Method = "GET",
+						Headers = {
+							["Content-Type"] = "application/json",
+							--["Authorization"] = authorization
+						}
+				})
+				return HttpService:JSONDecode(response.Body)
+			end --END
+		end
+	end
+}
 
 local returned_string = {
 	["type() function"] = {
