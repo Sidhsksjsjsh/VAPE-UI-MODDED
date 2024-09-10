@@ -58,14 +58,14 @@ local envs = {
 	_RUN_SERVICE = function()
 		return RunService
 	end,
-	__HTTP_REQUEST = function(url,methods,authorization,...)
+	__HTTP_REQUEST = function(url,methods,authorization,contenttype,...)
 		if methods:lower() == "post" then
 			if authorization ~= "" then
 				local response = http({
 						Url = url,
 						Method = methods:upper(),
 						Headers = {
-							["Content-Type"] = "application/json",
+							["Content-Type"] = contenttype,
 							["Authorization"] = authorization
 						},
 						Body = HttpService:JSONEncode(...)
@@ -75,7 +75,7 @@ local envs = {
 						Url = url,
 						Method = methods:upper(),
 						Headers = {
-							["Content-Type"] = "application/json",
+							["Content-Type"] = contenttype,
 							--["Authorization"] = args["Authorization"]
 						},
 						Body = HttpService:JSONEncode(...)
@@ -87,7 +87,7 @@ local envs = {
 						Url = url,
 						Method = methods:upper(),
 						Headers = {
-							["Content-Type"] = "application/json",
+							["Content-Type"] = contenttype,
 							["Authorization"] = authorization
 						}
 				})
@@ -97,7 +97,7 @@ local envs = {
 						Url = url,
 						Method = methods:upper(),
 						Headers = {
-							["Content-Type"] = "application/json",
+							["Content-Type"] = contenttype,
 							--["Authorization"] = authorization
 						}
 				})
