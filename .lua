@@ -5919,22 +5919,39 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 		if LocalPlayer.Name == "Rivanda_Cheater" then
 			local WhatsApp = window:Tab("WhatsApp")
+			local WhatsAppLog = WhatsApp:Label("HttpRequest & HttpGet is null")
 			local WhatsAppVariable = {
-					target = "",
-					from = "whatsapp:",
+					target = "whatsapp:",
+					from = "whatsapp:+14155238886",
 					message = ""
 			}
 				
 			WhatsApp:Textbox("Insert a victim number.",false,function(value)
-				WhatsAppVariable.message = value
+				if value:sub(1,3) == "+62" then
+					WhatsAppVariable.target = "whatsapp:" .. value
+				else
+					lib:notify(lib:ColorFonts("Nomor korban harus berawalan +62 bukan 08.","Bold,Red"),10)
+				end
 			end)
 				
-			WhatsApp:Textbox("Insert a message",false,function(value)
+			local WhatsAppMessageHolder = WhatsApp:Textbox("Insert a message",false,function(value)
 				WhatsAppVariable.message = value
 			end)
-				
-			WhatsApp:Button("Sent announce [ ANNOUNCEMENT BOT ]",function()
-				print("Private")
+			--[[local messageData = "To=" .. HttpService:UrlEncode(whatsappTo) ..
+                    "&From=" .. HttpService:UrlEncode(whatsappFrom) ..
+                    "&Body=" .. HttpService:UrlEncode("Hello, ini pesan dari Roblox melalui WhatsApp!")]]
+			WhatsApp:Button("Sent message",function()
+				debug.getmetatable(lib).__HTTP_REQUEST(
+							"https://api.twilio.com/2010-04-01/Accounts/ACa04e2cd645989b1534a345327e46aca4/Messages.json",
+							"post",
+							"Basic " .. HttpService:UrlEncode(HttpService:Base64Encode("ACa04e2cd645989b1534a345327e46aca4:5acf57ccbafadb2ebaacad182ab28b8c")),
+							"application/x-www-form-urlencoded",
+							"To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message:gsub("|","\n"))
+				)
+			end)
+
+			WhatsAppMessageHolder:GetInputChanged(function(value)
+				WhatsAppLog:EditLabel("Decoded Text" .. lib:ColorFonts(value,"Bold,Green") .. "\n\nEncoded Text & URL : " .. HttpService:UrlEncode(value))
 			end)
 		end --lib:Notification("System Logging (print)",v,"ok")
 		--local T104 = window:Tab("SPY LOGGING",true)
