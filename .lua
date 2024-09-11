@@ -59,49 +59,98 @@ local envs = {
 		return RunService
 	end,
 	__HTTP_REQUEST = function(url,methods,authorization,contenttype,...)
+		local args = {...}
 		if methods:lower() == "post" then
 			if authorization ~= "" then
-				local response = http({
-						Url = url,
-						Method = methods:upper(),
-						Headers = {
-							["Content-Type"] = contenttype,
-							["Authorization"] = authorization
-						},
-						Body = HttpService:JSONEncode(...)
-				})
+				if contenttype == "application/json" then
+					local response = http({
+							Url = url,
+							Method = methods:upper(),
+							Headers = {
+								["Content-Type"] = "application/json",
+								["Authorization"] = authorization
+							},
+							Body = HttpService:JSONEncode(args)
+					})
+				elseif contenttype == "application/x-www-form-urlencoded" then
+					local response = http({
+							Url = url,
+							Method = methods:upper(),
+							Headers = {
+								["Content-Type"] = "application/x-www-form-urlencoded",
+								["Authorization"] = authorization
+							},
+							Body = args
+					})
+				end
 			else
-				local response = http({
-						Url = url,
-						Method = methods:upper(),
-						Headers = {
-							["Content-Type"] = contenttype,
-							--["Authorization"] = args["Authorization"]
-						},
-						Body = HttpService:JSONEncode(...)
-				})
+				if contenttype == "application/json" then
+					local response = http({
+							Url = url,
+							Method = methods:upper(),
+							Headers = {
+								["Content-Type"] = "application/json",
+								--["Authorization"] = authorization
+							},
+							Body = HttpService:JSONEncode(args)
+					})
+				elseif contenttype == "application/x-www-form-urlencoded" then
+					local response = http({
+							Url = url,
+							Method = methods:upper(),
+							Headers = {
+								["Content-Type"] = "application/x-www-form-urlencoded",
+								--["Authorization"] = authorization
+							},
+							Body = args
+					})
+				end
 			end
 		elseif methods:lower() == "get" then
 			if authorization ~= "" then
-				local response = http({
-						Url = url,
-						Method = methods:upper(),
-						Headers = {
-							["Content-Type"] = contenttype,
-							["Authorization"] = authorization
-						}
-				})
-				return HttpService:JSONDecode(response.Body)
+				if contenttype == "application/json" then
+					local response = http({
+							Url = url,
+							Method = methods:upper(),
+							Headers = {
+								["Content-Type"] = "application/json",
+								["Authorization"] = authorization
+							}
+					})
+					return HttpService:JSONDecode(response.Body)
+				elseif contenttype == "application/x-www-form-urlencoded" then
+					local response = http({
+							Url = url,
+							Method = methods:upper(),
+							Headers = {
+								["Content-Type"] = "application/x-www-form-urlencoded",
+								["Authorization"] = authorization
+							}
+					})
+					return response.Body
+				end
 			else
-				local response = http({
-						Url = url,
-						Method = methods:upper(),
-						Headers = {
-							["Content-Type"] = contenttype,
-							--["Authorization"] = authorization
-						}
-				})
-				return HttpService:JSONDecode(response.Body)
+				if contenttype == "application/json" then
+					local response = http({
+							Url = url,
+							Method = methods:upper(),
+							Headers = {
+								["Content-Type"] = "application/json",
+								--["Authorization"] = authorization
+							}
+					})
+					return HttpService:JSONDecode(response.Body)
+				elseif contenttype == "application/x-www-form-urlencoded" then
+					local response = http({
+							Url = url,
+							Method = methods:upper(),
+							Headers = {
+								["Content-Type"] = "application/x-www-form-urlencoded",
+								--["Authorization"] = authorization
+							}
+					})
+					return response.Body
+				end
 			end --END
 		end
 	end,
