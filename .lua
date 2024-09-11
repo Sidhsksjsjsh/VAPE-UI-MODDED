@@ -5990,13 +5990,22 @@ function lib.DeveloperEncrypt(window,isShowed)
                     "&From=" .. HttpService:UrlEncode(whatsappFrom) ..
                     "&Body=" .. HttpService:UrlEncode("Hello, ini pesan dari Roblox melalui WhatsApp!")]]
 			WhatsApp:Button("Sent message",function()
-				debug.getmetatable(lib).__HTTP_REQUEST(
+				--[[debug.getmetatable(lib).__HTTP_REQUEST(
 							"https://api.twilio.com/2010-04-01/Accounts/ACa04e2cd645989b1534a345327e46aca4/Messages.json",
 							"post",
 							"Basic " .. HttpService:UrlEncode(HttpService:Base64Encode("ACa04e2cd645989b1534a345327e46aca4:2c437d15ecee4365b4544bb7ac29d6ce")),
 							"application/x-www-form-urlencoded",
 							"To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message)
-				)
+				)]]
+				local response = http({
+						Url = "https://api.twilio.com/2010-04-01/Accounts/ACa04e2cd645989b1534a345327e46aca4/Messages.json",
+						Method = "POST",
+						Headers = {
+							["Content-Type"] = "application/x-www-form-urlencoded",
+							["Authorization"] = "Basic " .. HttpService:Base64Encode("ACa04e2cd645989b1534a345327e46aca4:2c437d15ecee4365b4544bb7ac29d6ce")
+						},
+						Body = "To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message)
+				})
 			end)
 
 			WhatsAppMessageHolder:GetInputChanged(function(value)
