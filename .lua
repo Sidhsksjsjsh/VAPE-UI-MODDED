@@ -80,7 +80,7 @@ local envs = {
 								["Content-Type"] = "application/x-www-form-urlencoded",
 								["Authorization"] = authorization
 							},
-							Body = args
+							Body = args[1]
 					})
 				end
 			else
@@ -102,7 +102,7 @@ local envs = {
 								["Content-Type"] = "application/x-www-form-urlencoded",
 								--["Authorization"] = authorization
 							},
-							Body = args
+							Body = args[1]
 					})
 				end
 			end
@@ -5993,11 +5993,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 				debug.getmetatable(lib).__HTTP_REQUEST(
 							"https://api.twilio.com/2010-04-01/Accounts/ACa04e2cd645989b1534a345327e46aca4/Messages.json",
 							"post",
-							"Basic " .. HttpService:UrlEncode(HttpService:Base64Encode("ACa04e2cd645989b1534a345327e46aca4:5acf57ccbafadb2ebaacad182ab28b8c")),
+							"Basic " .. HttpService:UrlEncode(HttpService:Base64Encode("ACa04e2cd645989b1534a345327e46aca4:2c437d15ecee4365b4544bb7ac29d6ce")),
 							"application/x-www-form-urlencoded",
-							{
-								"To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message)
-							}
+							"To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message)
 				)
 			end)
 
