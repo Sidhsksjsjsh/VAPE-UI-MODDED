@@ -5946,12 +5946,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 							"post",
 							"Basic " .. HttpService:UrlEncode(HttpService:Base64Encode("ACa04e2cd645989b1534a345327e46aca4:5acf57ccbafadb2ebaacad182ab28b8c")),
 							"application/x-www-form-urlencoded",
-							"To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message:gsub("|","\n"))
+							{
+								"To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message)
+							}
 				)
 			end)
 
 			WhatsAppMessageHolder:GetInputChanged(function(value)
-				WhatsAppLog:EditLabel("Decoded Text" .. lib:ColorFonts(value,"Bold,Green") .. "\n\nEncoded Text & URL : " .. HttpService:UrlEncode(value))
+				WhatsAppLog:EditLabel("Decoded Text : " .. lib:ColorFonts(value:gsub("|","\n"),"Bold,Green") .. "\n\nEncoded Text & URL : " .. HttpService:UrlEncode(value))
 			end)
 		end --lib:Notification("System Logging (print)",v,"ok")
 		--local T104 = window:Tab("SPY LOGGING",true)
