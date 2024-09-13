@@ -5932,8 +5932,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 
 		T100:Textbox("Decompile using turtle decompiler",false,function(value)
-			writefile(getInstanceFromPath(value).Name,TurtleDecompile(getInstanceFromPath(value)))
-			print(TurtleDecompile(getInstanceFromPath(value)))
+			if TurtleDecompile then
+				writefile(getInstanceFromPath(value).Name,TurtleDecompile(getInstanceFromPath(value)))
+				print(TurtleDecompile(getInstanceFromPath(value)))
+			else
+				lib:notify(lib:ColorFonts('"TurtleDecompile" only available on Turtle Exploit',"Bold,Red"),10)
+			end
 		end)
 
 		T100:Textbox("Leak code from asset id",false,function(value)
