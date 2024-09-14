@@ -5232,18 +5232,34 @@ end
 
 function lib.DeveloperEncrypt(window,isShowed)
 	local hidetab = isShowed or false
-	--[[local hacking = window:Tab("Penetrate",false)
-	hacking:Button("Penetrate all DevProducts Purchase",function()
-		local currentPage = 1
-		local decodedResponse = nil
-		repeat wait()
-			decodedResponse = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. tostring(game.GameId) .. "&page=" .. tostring(currentPage)))
-			for i,v in pairs(decodedResponse.DeveloperProducts) do
-				lib:BypassPurchase('game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. v.ProductId .. ',true)')
+	local hacking = window:Tab("Penetrate",false)
+	hacking:Button("Penetrate all DevProducts purchase",function()
+		if TurtleScreenNotify then -- require turtle exploit to use this
+			local currentPage = 1
+			local decodedResponse = nil
+			TurtleScreenNotify("Purchase Penetrate","Penetrating the purchase methods...\nPls wait 3s, this may take a while...",{},3,{})
+			repeat wait()
+				decodedResponse = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. tostring(game.GameId) .. "&page=" .. tostring(currentPage)))
+				for i,v in pairs(decodedResponse.DeveloperProducts) do
+					lib:BypassPurchase('game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. v.ProductId .. ',true)')
+				end
+				currentPage = currentPage + 1
+			until decodedResponse.FinalPage
+			TurtleScreenNotify("Purchase Penetrate","Penetrated successfully.",{},2,{})
+		else
+			lib:notify(lib:ColorFonts("Your exploit doesnt support 'turt' library.\npls switch to 'Turtle Software' to use this.","Bold,Red"),10)
+		end
+	end)
+
+	hacking:Button("Penetrate all gamepass purchase",function()
+		if TurtleScreenNotify then -- require turtle exploit to use this
+			TurtleScreenNotify("Purchase Penetrate","Penetrating the purchase methods...\nPls wait 2s, this may take a while...",{},2,{})
+			for i,v in pairs(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.GameId .. "/game-passes?limit=100&sortOrder=1")).data) do
+				lib:BypassPurchase('game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. v.id .. ',true)')
 			end
-			currentPage = currentPage + 1
-		until decodedResponse.FinalPage
-	end)]]
+			TurtleScreenNotify("Purchase Penetrate","Penetrated successfully.",{},2,{})
+		end
+	end)
 	--[[local Tab01 = window:Tab("DevProducts",false)
 	local api = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. game.GameId .. "&page=1"))
 	local dnames = {}
