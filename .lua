@@ -5232,6 +5232,18 @@ end
 
 function lib.DeveloperEncrypt(window,isShowed)
 	local hidetab = isShowed or false
+	--[[local hacking = window:Tab("Penetrate",false)
+	hacking:Button("Penetrate all DevProducts Purchase",function()
+		local currentPage = 1
+		local decodedResponse = nil
+		repeat wait()
+			decodedResponse = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. tostring(game.GameId) .. "&page=" .. tostring(currentPage)))
+			for i,v in pairs(decodedResponse.DeveloperProducts) do
+				lib:BypassPurchase('game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. v.ProductId .. ',true)')
+			end
+			currentPage = currentPage + 1
+		until decodedResponse.FinalPage
+	end)]]
 	--[[local Tab01 = window:Tab("DevProducts",false)
 	local api = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. game.GameId .. "&page=1"))
 	local dnames = {}
