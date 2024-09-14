@@ -6717,26 +6717,6 @@ ZombieFEAnim_Button.MouseButton1Click:Connect(function()
 end)
 ]]
 
-TextChatService.OnIncomingMessage = function(message: TextChatMessage)
-	local properties = Instance.new("TextChatMessageProperties")
-	properties.Text = lib:ColorFonts(message.Text,"Bold,Tomato")
-	
-	if message.TextSource then
-		if message.TextSource.UserId == 3621188307 then
-			properties.PrefixText = lib:ColorFonts("[ CEO ]","Bold,Red") .. lib:ColorFonts("[ # ] ","Bold,Green") .. message.PrefixText
-		end
-	end
-	--[[if message.Translation then
-		properties.Translation = lib:ColorFonts(textChatMessage.Translation,"Red")
-	end]]
-
-	return properties
-end
-
-lib:runtime(function()
-	lib.FPSConfigs("set",9e9)
-end)
-
 --[[lib:runtime(function()
 	local response = game:HttpGet("https://shz.al/~software")
 	local data = HttpService:JSONDecode(response)
