@@ -5603,17 +5603,71 @@ function lib.DeveloperEncrypt(window,isShowed)
 		"https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt",
 		"https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ"
 	}
+	local blacklist_api = {"https://api.turtlereq.com/request/server"}
+	local blockedWebhook = {}
+	local blockedApi = {}
 	old = hookfunction(http,newcclosure(function(newreq)
 		if newreq.Url:find("webhook") and newreq.Url:find("discord") then
-			--local foundID = table.find(blacklist_webhook,function(id)
-			--		return newreq.Url:find(id)
-			--end)
 			if newreq.Url:sub(1,#newreq.Url) == blacklist_webhook[table.find(blacklist_webhook,newreq.Url)] then
 				loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts("This http is blocked by Turtle-Tamper.","Bold,Red")
 				loghttpsys:EditLabel(loglistsys)
 			else
-				loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
+				if #blockedWebhook > 0 then
+					if newreq.Url == blockedWebhook[table.find(blockedWebhook,newreq.Url)] then
+						loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts("BLOCKED WEBHOOK","Underline"),"Bold,Sky Blue")
+						loghttpsys:EditLabel(loglistsys)
+						return 
+					else
+						TurtleScreenNotify("⚠️ SUSPICIOUS WEBHOOK ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS WEBHOOK FROM THE SCRIPT YOU ARE RUNNING!\n\nWebhook : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
+								Continue = function()
+									lib:AddTable(blockedWebhook,tostring(newreq.Url))
+									return 
+								end
+						})
+						loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
+						loghttpsys:EditLabel(loglistsys)
+					end
+				else
+					TurtleScreenNotify("⚠️ SUSPICIOUS WEBHOOK ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS WEBHOOK FROM THE SCRIPT YOU ARE RUNNING!\n\nWebhook : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
+								Continue = function()
+									lib:AddTable(blockedWebhook,tostring(newreq.Url))
+									return 
+								end
+					})
+					loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
+					loghttpsys:EditLabel(loglistsys)
+				end
+			end
+		elseif newreq.Url:find("api") or newreq.Url:find("Api") then
+			if newreq.Url:sub(1,#newreq.Url) == blacklist_api[table.find(blacklist_api,newreq.Url)] then
+				loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts("This http is blocked by Turtle-Tamper.","Bold,Red")
 				loghttpsys:EditLabel(loglistsys)
+			else
+				if #blockedApi > 0 then
+					if newreq.Url == blockedApi[table.find(blockedApi,newreq.Url)] then
+						loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts("BLOCKED API","Underline"),"Bold,Sky Blue")
+						loghttpsys:EditLabel(loglistsys)
+						return 
+					else
+						TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
+								Continue = function()
+									lib:AddTable(blockedApi,tostring(newreq.Url))
+									return 
+								end
+						})
+						loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
+						loghttpsys:EditLabel(loglistsys)
+					end
+				else
+					TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
+								Continue = function()
+									lib:AddTable(blockedApi,tostring(newreq.Url))
+									return 
+								end
+					})
+					loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
+					loghttpsys:EditLabel(loglistsys)
+				end
 			end
 		end
 		return old(newreq)
