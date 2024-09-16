@@ -5953,8 +5953,20 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Jshdjdhdkdb/main/Omgshit.lua")
 				end)
 
-				T100:Button("DEX",function()
-					lib:DEX()
+				T100:Button("Dex V1",function()
+					TurtleScreenNotify("Turtle Confirmation | Are you sure?","Running Dex V1?",{"Yes"},nil,{
+								Yes = function()
+									lib:DEX()
+								end
+					})
+				end)
+
+				T100:Button("Dex V2",function()
+					TurtleScreenNotify("Turtle Confirmation | Are you sure?","Running Dex V2?",{"Yes"},nil,{
+								Yes = function()
+									lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/main/dex.lua")
+								end
+					})
 				end)
 			
 				T100:Button("Turtle explorer",function()
