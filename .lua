@@ -159,31 +159,31 @@ local envs = {
 		if args["Parent"]:FindFirstChild("TurtleMusic") then
 			args["Parent"]["TurtleMusic"].SoundId = "rbxassetid://" .. args["Id"]
 			args["Parent"]["TurtleMusic"].Volume = args["Volume"]
-			args["Parent"]["TurtleMusic"].PlaybackSpeed = args["PlaybackSeed"]
+			args["Parent"]["TurtleMusic"].PlaybackSpeed = args["PlaybackSpeed"]
 			args["Parent"]["TurtleMusic"].Looped = args["Looped"]
 			args["Parent"]["TurtleMusic"].TimePosition = args["TimePosition"]
 			args["Parent"]["TurtleMusic"].Pitch = args["Pitch"]
-			args["Parent"]["TurtleMusic"].RollOffMode = (args["RollOfMode"] or Enum.RollOffMode.Linear)
+			args["Parent"]["TurtleMusic"].RollOffMode = (args["RollOffMode"] or Enum.RollOffMode.Linear)
 			args["Parent"]["TurtleMusic"].RollOffMaxDistance = args["RollOffMaxDistance"]
 			args["Parent"]["TurtleMusic"].RollOffMinDistance = args["RollOffMinDistance"]
-			args["Parent"]["TurtleMusic"].EmitterSize = args["EmittedSize"]
+			args["Parent"]["TurtleMusic"].EmitterSize = args["EmitterSize"]
 			args["Parent"]["TurtleMusic"].DopplerScale = args["DopplerScale"]
 			args["Parent"]["TurtleMusic"].SoundGroup = args["SoundGroup"]
-			--args["Parent"]["TurtleMusic"].Parent = args["Parent"]
+			args["Parent"]["TurtleMusic"].EndTime = args["EndTime"]
 			args["Parent"]["TurtleMusic"]:Play()
 		else
 			local sound = Instance.new("Sound")
 			sound.Name = "TurtleMusic"
 			sound.SoundId = "rbxassetid://" .. args["Id"]
 			sound.Volume = args["Volume"]
-			sound.PlaybackSpeed = args["PlaybackSeed"]
+			sound.PlaybackSpeed = args["PlaybackSpeed"]
 			sound.Looped = args["Looped"]
 			sound.TimePosition = args["TimePosition"]
 			sound.Pitch = args["Pitch"]
-			sound.RollOffMode = (args["RollOfMode"] or Enum.RollOffMode.Linear)
+			sound.RollOffMode = (args["RollOffMode"] or Enum.RollOffMode.Linear)
 			sound.RollOffMaxDistance = args["RollOffMaxDistance"]
 			sound.RollOffMinDistance = args["RollOffMinDistance"]
-			sound.EmitterSize = args["EmittedSize"]
+			sound.EmitterSize = args["EmitterSize"]
 			sound.DopplerScale = args["DopplerScale"]
 			sound.SoundGroup = args["SoundGroup"]
 			sound.Parent = args["Parent"]
@@ -6076,52 +6076,119 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T101:Button("Start snipe",function()
 			lib.snipe(var.game_id,var.userid)
 		end)
-		if LocalPlayer.Name == "Rivanda_Cheater" then
-			local WhatsApp = window:Tab("WhatsApp")
-			local WhatsAppLog = WhatsApp:Label("HttpRequest & HttpGet is null")
-			local WhatsAppVariable = {
-					target = "whatsapp:",
-					from = "whatsapp:+14155238886",
-					message = ""
-			}
+		local musiclib = window:Tab("Music")
+		local musichand = {
+				music = {},
+				curr = 0,
+				min = 0,
+				max = 0,
+				id = "0",
+				Vol = 1,
+				ps = 1,
+				loop = true,
+				timepos = 0,
+				p = 1,
+				roll = Enum.RollOffMode["Linear"],
 				
-			WhatsApp:Textbox("Insert a victim number.",false,function(value)
-				if value:sub(1,3) == "+62" then
-					WhatsAppVariable.target = "whatsapp:" .. value
-				else
-					lib:notify(lib:ColorFonts("Nomor korban harus berawalan +62 bukan 08.","Bold,Red"),10)
-				end
-			end)
+		}
+		musiclib:Textbox("Insert music id",false,function(value)
+			lib:AddTable(value,musichand.music)
+			musichand.curr = musichand.curr + 1
+			musichand.max = musichand.max + 1
+			if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+				LocalPlayer.PlayerGui["TurtleMusic"]["SoundId"] = "rbxassetid://" .. value
+				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(value)).Name}\nSound Id : {value}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+			else
+				musichand.id = value
+			end
+		end)
 				
-			local WhatsAppMessageHolder = WhatsApp:Textbox("Insert a message",false,function(value)
-				WhatsAppVariable.message = value
-			end)
-			--[[local messageData = "To=" .. HttpService:UrlEncode(whatsappTo) ..
-                    "&From=" .. HttpService:UrlEncode(whatsappFrom) ..
-                    "&Body=" .. HttpService:UrlEncode("Hello, ini pesan dari Roblox melalui WhatsApp!")]]
-			WhatsApp:Button("Sent message",function()
-				--[[debug.getmetatable(lib).__HTTP_REQUEST(
-							"https://api.twilio.com/2010-04-01/Accounts/ACa04e2cd645989b1534a345327e46aca4/Messages.json",
-							"post",
-							"Basic " .. HttpService:UrlEncode(HttpService:Base64Encode("ACa04e2cd645989b1534a345327e46aca4:2c437d15ecee4365b4544bb7ac29d6ce")),
-							"application/x-www-form-urlencoded",
-							"To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message)
-				)]]
-				local response = http({
-						Url = "https://api.twilio.com/2010-04-01/Accounts/ACa04e2cd645989b1534a345327e46aca4/Messages.json",
-						Method = "POST",
-						Headers = {
-							["Content-Type"] = "application/x-www-form-urlencoded",
-							["Authorization"] = "Basic " .. HttpService:Base64Encode("ACa04e2cd645989b1534a345327e46aca4:2c437d15ecee4365b4544bb7ac29d6ce")
-						},
-						Body = "To=" .. HttpService:UrlEncode(WhatsAppVariable.target) .. "&From=" .. HttpService:UrlEncode(WhatsAppVariable.from) .. "&Body=" .. HttpService:UrlEncode(WhatsAppVariable.message)
-				})
-			end)
-
-			WhatsAppMessageHolder:GetInputChanged(function(value)
-				WhatsAppLog:EditLabel("Decoded Text : " .. lib:ColorFonts(value:gsub("|","\n"),"Bold,Green") .. "\n\nEncoded Text & URL : " .. HttpService:UrlEncode(value))
-			end)
-		end --lib:Notification("System Logging (print)",v,"ok")
+		musiclib:Toggle("Play music",false,function(value)
+					if value == true then
+						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+						debug.getmetatable(lib).__PLAY_MUSIC(
+							Id = musichand.id,
+							Volume = 1,
+							PlaybackSpeed = 1,
+							Looped = true,
+							TimePosition = 0,
+							Pitch = 1,
+							RollOffMode = Enum.RollOffMode["Linear"],
+							RollOffMaxDistance = 10000,
+							RollOffMinDistance = 10,
+							EmitterSize = 5,
+							DopplerScale = 1,
+							SoundGroup = nil,
+							EndTime = 0,
+							Parent = LocalPlayer.PlayerGui
+						)
+					else
+						debug.getmetatable(lib).__STOP_MUSIC(LocalPlayer.PlayerGui)
+						TurtleScreenNotify("Turtle Hub | Music",`Music Stopped`,{},nil,{})
+					end
+		end)
+		musiclib:Button("Next music",function()
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						musichand.curr = musichand.curr + 1
+						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+						if musichand.curr < musichand.max then
+							LocalPlayer.PlayerGui["TurtleMusic"]["SoundId"] = musichand.music[musichand.curr]
+						else
+							TurtleScreenNotify("Turtle Hub | Music","You've reached the last music!",{},nil,{})
+						end
+					end
+		end)
+		musiclib:Button("Previous music",function()
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						musichand.curr = musichand.curr + -1
+						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+						if musichand.curr > musichand.min then
+							LocalPlayer.PlayerGui["TurtleMusic"]["SoundId"] = musichand.music[musichand.curr]
+						else
+							TurtleScreenNotify("Turtle Hub | Music","You've reached the first music!",{},nil,{})
+						end
+					end
+		end)
+		musiclib:Slider("Music Volume",0,10,1,function(value)
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						LocalPlayer.PlayerGui["TurtleMusic"]["Volume"] = value
+					end
+		end)
+		musiclib:Slider("Music PlaybackSpeed",0,10,1,function(value)
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						LocalPlayer.PlayerGui["TurtleMusic"]["PlaybackSpeed"] = value
+					end
+		end)
+		musiclib:Toggle("Loop music",false,function(value)
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						LocalPlayer.PlayerGui["TurtleMusic"]["Looped"] = value
+					end
+		end)
+		musiclib:Slider("Music Pitch",0,2,1,function(value)
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						LocalPlayer.PlayerGui["TurtleMusic"]["Pitch"] = value
+					end
+		end)
+		musiclib:Dropdown("Music RollOffMode",{"Linear","Inverse","LinearSquare"},function(value)
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						LocalPlayer.PlayerGui["TurtleMusic"]["RollOffMode"] = Enum.RollOffMode[value]
+					end
+		end)
+		musiclib:Slider("Music RollOffMinDistance",0,10000,10,function(value)
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						LocalPlayer.PlayerGui["TurtleMusic"]["RollOffMinDistance"] = value
+					end
+		end)
+		musiclib:Slider("Music EmitterSize",0,100,10,function(value)
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						LocalPlayer.PlayerGui["TurtleMusic"]["EmitterSize"] = value
+					end
+		end)
+		musiclib:Slider("Music DopplerScale",0,10,1,function(value)
+					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+						LocalPlayer.PlayerGui["TurtleMusic"]["DopplerScale"] = value
+					end
+		end)
 		--local T104 = window:Tab("SPY LOGGING",true)
 		local log = {
 			info = true,
