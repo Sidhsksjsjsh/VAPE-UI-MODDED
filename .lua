@@ -169,7 +169,7 @@ local envs = {
 			args["Parent"]["TurtleMusic"].EmitterSize = args["EmittedSize"]
 			args["Parent"]["TurtleMusic"].DopplerScale = args["DopplerScale"]
 			args["Parent"]["TurtleMusic"].SoundGroup = args["SoundGroup"]
-			args["Parent"]["TurtleMusic"].Parent = args["Parent"]
+			--args["Parent"]["TurtleMusic"].Parent = args["Parent"]
 			args["Parent"]["TurtleMusic"]:Play()
 		else
 			local sound = Instance.new("Sound")
