@@ -2510,7 +2510,7 @@ function lib:TrackPlayer(name,f)
 			f(v)
 		elseif name == "me" or name == "Me" then
 			f(LocalPlayer)
-			break
+			--break
 		else
 			if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) or (string.sub(string.lower(v.DisplayName),1,string.len(name))) == string.lower(name) then
 				f(v)
@@ -2727,7 +2727,7 @@ function lib:ErrorReader(func,ssd)
 	if not shit and shut == false then
 		--lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","🔧 |"):gsub(":" .. dick:sub(2,4) .. ":","🔧 |"):gsub(":" .. dick:sub(2,3) .. ":","🔧 |"):gsub(":" .. dick:sub(2,2) .. ":","🔧 |"),"Bold,Red"),9e9)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
-		TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick:gsub(":" .. dick:sub(2,5) .. ":",""):gsub(":" .. dick:sub(2,4) .. ":",""):gsub(":" .. dick:sub(2,3) .. ":",""):gsub(":" .. dick:sub(2,2) .. ":","")}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
+		TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick:gsub(':' .. dick:sub(2,5) .. ':',''):gsub(':' .. dick:sub(2,4) .. ':',''):gsub(':' .. dick:sub(2,3) .. ':',''):gsub(':' .. dick:sub(2,2) .. ':','')}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
 				Yea = function()
 					func()
 				end
@@ -6082,14 +6082,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				curr = 0,
 				min = 0,
 				max = 0,
-				id = "0",
-				Vol = 1,
-				ps = 1,
-				loop = true,
-				timepos = 0,
-				p = 1,
-				roll = Enum.RollOffMode["Linear"],
-				
+				id = "0"
 		}
 		musiclib:Textbox("Insert music id",false,function(value)
 			lib:AddTable(value,musichand.music)
