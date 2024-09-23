@@ -154,8 +154,8 @@ local envs = {
 			end --END
 		end
 	end,
-	__PLAY_MUSIC = function(...)
-		local args = {...}
+	__PLAY_MUSIC = function(args)
+		--local args = {...}
 		if args["Parent"]:FindFirstChild("TurtleMusic") then
 			args["Parent"]["TurtleMusic"].SoundId = "rbxassetid://" .. args["Id"]
 			args["Parent"]["TurtleMusic"].Volume = args["Volume"]
@@ -6099,7 +6099,22 @@ function lib.DeveloperEncrypt(window,isShowed)
 		musiclib:Toggle("Play music",false,function(value)
 					if value == true then
 						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
-						debug.getmetatable(lib).__PLAY_MUSIC(Id = musichand.id,Volume = 1,PlaybackSpeed = 1,Looped = true,TimePosition = 0,Pitch = 1,RollOffMode = Enum.RollOffMode["Linear"],RollOffMaxDistance = 10000,RollOffMinDistance = 10,EmitterSize = 5,DopplerScale = 1,SoundGroup = nil,EndTime = 0,Parent = LocalPlayer.PlayerGui)
+						debug.getmetatable(lib).__PLAY_MUSIC({
+								Id = musichand.id,
+								Volume = 1,
+								PlaybackSpeed = 1,
+								Looped = true,
+								TimePosition = 0,
+								Pitch = 1,
+								RollOffMode = Enum.RollOffMode["Linear"],
+								RollOffMaxDistance = 10000,
+								RollOffMinDistance = 10,
+								EmitterSize = 5,
+								DopplerScale = 1,
+								SoundGroup = nil,
+								EndTime = 0,
+								Parent = LocalPlayer.PlayerGui
+						})
 					else
 						debug.getmetatable(lib).__STOP_MUSIC(LocalPlayer.PlayerGui)
 						TurtleScreenNotify("Turtle Hub | Music",`Music Stopped`,{},nil,{})
