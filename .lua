@@ -6101,6 +6101,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
 						debug.getmetatable(lib).__PLAY_MUSIC({
 								Id = musichand.id,
+								Parent = LocalPlayer.PlayerGui,
 								Volume = 1,
 								PlaybackSpeed = 1,
 								Looped = true,
@@ -6112,8 +6113,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 								EmitterSize = 5,
 								DopplerScale = 1,
 								SoundGroup = nil,
-								EndTime = 0,
-								Parent = LocalPlayer.PlayerGui
+								EndTime = 0
 						})
 					else
 						debug.getmetatable(lib).__STOP_MUSIC(LocalPlayer.PlayerGui)
