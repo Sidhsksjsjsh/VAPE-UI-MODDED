@@ -5613,7 +5613,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		"https://discord.com/api/webhooks/1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz",
 		"https://discord.com/api/webhooks/1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw",
 		"https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt",
-		"https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ"
+		"https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ",
+		"https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT"
 	}
 	local blacklist_api = {"https://api.turtlereq.com/request/server"}
 	local blockedWebhook = {}
