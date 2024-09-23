@@ -2214,14 +2214,16 @@ end
 --https://www.roblox.com/users/6133870238/profile
 function lib:DeveloperAccess(f)
 	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 then
+		TurtleScreenNotify("Turtle Hub | Developer only","Loading hidden feature",{},3,{})
 		f()
-		lib:notify(lib:ColorFonts(lib:ColorFonts("Loading developer tab/panel...","Bold"),"Red"),10)
+		--lib:notify(lib:ColorFonts(lib:ColorFonts("Loading developer tab/panel...","Bold"),"Red"),10)
 	end
 end
 
 function lib.isDeveloper()
 	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 or LocalPlayer.UserId == 5596804337 then
-		lib:notify(lib:ColorFonts(lib:ColorFonts("WELCOME TESTER!","Bold"),"Green"),10)
+		--lib:notify(lib:ColorFonts(lib:ColorFonts("WELCOME TESTER!","Bold"),"Green"),10)
+		TurtleScreenNotify("Turtle Hub | Beta Tester","Welcome beta test!",{},nil,{})
 		return true
 	end
 	return false
@@ -2231,9 +2233,11 @@ function lib:Copy(str)
 	--local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	if setclipboard then
            setclipboard(str)
-	   lib:notify(`Copied! "{str}"`,10)
+	   --lib:notify(`Copied! "{str}"`,10)
+	   TurtleScreenNotify("Turtle Hub | Clipboard",`Successfully copied "{str}"`,{},nil,{})
 	else
-	lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
+	--lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
+	TurtleScreenNotify("Turtle Hub | Unsupported function",`{Exploit()} doesnt have "setclipboard" or "toclipboard" envs.\nget a better exploit, nigga!`,{},nil,{})
     end
 end
 
@@ -2415,9 +2419,11 @@ end
 
 function lib:RevokeLag()
 	task.spawn(function()
+		TurtleScreenNotify("Turtle Hub | Lag Patcher","Patching lag...",{},3,{})
 		for i,v in pairs(getconnections(LogService["MessageOut"])) do
 			v:Disconnect()
 		end
+		TurtleScreenNotify("Turtle Hub | Lag Patcher","Patching success, enjoy!",{},nil,{})
 	end)
 end
 
@@ -2504,6 +2510,7 @@ function lib:TrackPlayer(name,f)
 			f(v)
 		elseif name == "me" or name == "Me" then
 			f(LocalPlayer)
+			break
 		else
 			if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) or (string.sub(string.lower(v.DisplayName),1,string.len(name))) == string.lower(name) then
 				f(v)
@@ -2718,8 +2725,13 @@ function lib:ErrorReader(func,ssd)
 		end
 	end)
 	if not shit and shut == false then
-		lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","🔧 |"):gsub(":" .. dick:sub(2,4) .. ":","🔧 |"):gsub(":" .. dick:sub(2,3) .. ":","🔧 |"):gsub(":" .. dick:sub(2,2) .. ":","🔧 |"),"Bold,Red"),9e9)
+		--lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","🔧 |"):gsub(":" .. dick:sub(2,4) .. ":","🔧 |"):gsub(":" .. dick:sub(2,3) .. ":","🔧 |"):gsub(":" .. dick:sub(2,2) .. ":","🔧 |"),"Bold,Red"),9e9)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
+		TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick:gsub(":" .. dick:sub(2,5) .. ":",""):gsub(":" .. dick:sub(2,4) .. ":",""):gsub(":" .. dick:sub(2,3) .. ":",""):gsub(":" .. dick:sub(2,2) .. ":","")}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
+				Yea = function()
+					func()
+				end
+		})
 		SendMessage("https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT","An error has occured when running Turtle Hub.```diff\n- " .. dick .. "\n" .. debug.traceback() .. "\n```")
 	end
 end
@@ -5756,7 +5768,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		loghttpsys:EditLabel(loglistsys)
 		return old6(...)
 	end))
-	--lib.AnimatedText(arg,time,function(v)
+	--TurtleScreenNotify("","",{},nil,{})
 
 	local Intelligence = window:Tab("Intelligence")
 	local TurtleIntelligenceVersion = "V1"
@@ -6280,7 +6292,11 @@ function lib.DeveloperEncrypt(window,isShowed)
 		--T106:Label("Encrypted chat bypass for a bypassed word\n//a -> ass\n//d -> dick\n//p -> pussy\n//s -> shit\n//f -> fuck\n//ah -> asshole\n//n1 -> nigga\n//n2 -> nigger\n//c -> cum\n//cond -> condom\n18+ -> sex\n//sp -> sperm\n//t -> tits")
 		local intvarspeed = {
 			speed1 = 1,
-			speed2 = 1
+			speed2 = 1,
+			origspeed = LocalPlayer.Character.Humanoid.WalkSpeed,
+			origjump = LocalPlayer.Character.Humanoid.JumpPower,
+			custspeed = 16,
+			custjump = 50
 		}
 		T106:Slider("Fly speed",0,100,1,function(value)
 			intvarspeed.speed1 = value
@@ -6309,6 +6325,26 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 		T106:Button("Change rig to R6",function()
 			lib.promptNewRig("R6")
+		end)
+		T106:Slider("Walk speed",0,200,intvarspeed.origspeed,function(value)
+			intvarspeed.custspeed = value
+		end)
+		T106:Slider("Jump power",0,350,intvarspeed.origjump,function(value)
+			intvarspeed.custjump = value
+		end)
+		T106:Toggle("Set walk speed",false,function(value)
+			if value == true then
+				LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
+			else
+				LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.origspeed
+			end
+		end)
+		T106:Toggle("Set jump power",false,function(value)
+			if value == true then
+				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custjump
+			else
+				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.origjump
+			end
 		end)
 		local T107 = window:Tab("Animation")
 		local anim_table = {
@@ -6637,7 +6673,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		WallCheckParams.IgnoreWater = true
 		WallCheckParams.FilterDescendantsInstances = {}
 		
-		PartSelector:Toggle("Enable part selector [ Powered by AI Gemini ]",false,function(value)
+		PartSelector:Toggle("Enable part selector [ Powered by Gemini AI ]",false,function(value)
 			if value == true then
 				lib:notify(lib:ColorFonts("Part selector enabled.","Bold,Green"),10)
 				ActivateHighlight = Mouse.Move:Connect(HighlightPart)
