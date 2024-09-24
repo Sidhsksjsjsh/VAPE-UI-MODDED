@@ -1458,7 +1458,8 @@ function lib.promptNewRig(rig)
 		if result == Enum.AvatarPromptResult.Success then
 			LocalPlayer.Character:BreakJoints()
 		else
-			lib:notify(lib:ColorFonts("There was a problem trying to change your character's rig!","Bold,Red"),10)
+			--lib:notify(lib:ColorFonts("There was a problem trying to change your character's rig!","Bold,Red"),10)
+			TurtleScreenNotify("Turtle Hub | Avatar Rig Changed","Theres was a problem trying to change ur character's rig!",{},3,{})
 		end
 	end
 end
