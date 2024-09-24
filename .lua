@@ -6078,6 +6078,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			lib.snipe(var.game_id,var.userid)
 		end)
 		local musiclib = window:Tab("Music")
+		local musicplayer = nil
 		local musichand = {
 				music = {},
 				curr = 0,
@@ -6098,89 +6099,104 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 				
 		musiclib:Toggle("Play music",false,function(value)
+					if musicplayer == nil then
+						musicplayer = Instance.new("Sound")
+						musicplayer.Name = "TurtleMusic"
+						musicplayer.SoundId = "rbxassetid://" .. musichand.id
+						musicplayer.Volume = 1
+						musicplayer.PlaybackSpeed = 1
+						musicplayer.Looped = true
+						musicplayer.TimePosition = 0
+						musicplayer.Pitch = 1
+						musicplayer.RollOffMode = Enum.RollOffMode["Linear"]
+						musicplayer.RollOffMaxDistance = 10000
+						musicplayer.RollOffMinDistance = 10
+						musicplayer.EmitterSize = 5
+						musicplayer.DopplerScale = 1
+						musicplayer.SoundGroup = nil
+						musicplayer.Parent = game:GetService("ReplicatedStorage")
+					end
 					if value == true then
-						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {game:GetService("ReplicatedStorage")["TurtleMusic"]["TimeLength"]}`,{},nil,{})
-						debug.getmetatable(lib).__PLAY_MUSIC({
-								Id = musichand.id,
-								Parent = game:GetService("ReplicatedStorage"),
-								Volume = 1,
-								PlaybackSpeed = 1,
-								Looped = true,
-								TimePosition = 0,
-								Pitch = 1,
-								RollOffMode = Enum.RollOffMode["Linear"],
-								RollOffMaxDistance = 10000,
-								RollOffMinDistance = 10,
-								EmitterSize = 5,
-								DopplerScale = 1,
-								SoundGroup = nil,
-								EndTime = 0
-						})
+						if musicplayer ~= nil then
+							musicplayer:Play()
+							TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
+						else
+							TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Theres was a problem when playing the sound`,{},nil,{})
+						end
 					else
-						debug.getmetatable(lib).__STOP_MUSIC(game:GetService("ReplicatedStorage")["TurtleMusic"])
-						TurtleScreenNotify("Turtle Hub | Music",`Music Stopped`,{},nil,{})
+						if musicplayer ~= nil then
+							musicplayer:Stop()
+							TurtleScreenNotify("Turtle Hub | Music",`Music Stopped`,{},nil,{})
+						else
+							TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Theres was a problem when stopping the sound`,{},nil,{})
+						end
 					end
 		end)
 		musiclib:Button("Next music",function()
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+					if musicplayer ~= nil then
 						musichand.curr = musichand.curr + 1
-						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {game:GetService("ReplicatedStorage")["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
 						if musichand.curr < musichand.max then
-							game:GetService("ReplicatedStorage")["TurtleMusic"]["SoundId"] = musichand.music[musichand.curr]
+							musicplayer["SoundId"] = musichand.music[musichand.curr]
 						else
 							TurtleScreenNotify("Turtle Hub | Music","You've reached the last music!",{},nil,{})
 						end
 					end
 		end)
 		musiclib:Button("Previous music",function()
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+					if musicplayer ~= nil then
 						musichand.curr = musichand.curr + -1
-						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {game:GetService("ReplicatedStorage")["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
 						if musichand.curr > musichand.min then
-							game:GetService("ReplicatedStorage")["TurtleMusic"]["SoundId"] = musichand.music[musichand.curr]
+							musicplayer["SoundId"] = musichand.music[musichand.curr]
 						else
 							TurtleScreenNotify("Turtle Hub | Music","You've reached the first music!",{},nil,{})
 						end
 					end
 		end)
 		musiclib:Slider("Music Volume",0,10,1,function(value)
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-						game:GetService("ReplicatedStorage")["TurtleMusic"]["Volume"] = value
+					if musicplayer ~= nil then
+						musicplayer["Volume"] = value
 					end
 		end)
 		musiclib:Slider("Music PlaybackSpeed",0,10,1,function(value)
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-						game:GetService("ReplicatedStorage")["TurtleMusic"]["PlaybackSpeed"] = value
+					if musicplayer ~= nil then
+						musicplayer["PlaybackSpeed"] = value
 					end
 		end)
 		musiclib:Toggle("Loop music",false,function(value)
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-						game:GetService("ReplicatedStorage")["TurtleMusic"]["Looped"] = value
+					if musicplayer ~= nil then
+						musicplayer["Looped"] = value
 					end
 		end)
 		musiclib:Slider("Music Pitch",0,2,1,function(value)
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-						game:GetService("ReplicatedStorage")["TurtleMusic"]["Pitch"] = value
+					if musicplayer ~= nil then
+						musicplayer["Pitch"] = value
 					end
 		end)
 		musiclib:Dropdown("Music RollOffMode",{"Linear","Inverse","LinearSquare"},function(value)
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-						game:GetService("ReplicatedStorage")["TurtleMusic"]["RollOffMode"] = Enum.RollOffMode[value]
+					if musicplayer ~= nil then
+						musicplayer["RollOffMode"] = Enum.RollOffMode[value]
+					end
+		end)
+		musiclib:Slider("Music RollOffMaxDistance",0,10000,10000,function(value)
+					if musicplayer ~= nil then
+						musicplayer["RollOffMaxDistance"] = value
 					end
 		end)
 		musiclib:Slider("Music RollOffMinDistance",0,10000,10,function(value)
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-						game:GetService("ReplicatedStorage")["TurtleMusic"]["RollOffMinDistance"] = value
+					if musicplayer ~= nil then
+						musicplayer["RollOffMinDistance"] = value
 					end
 		end)
 		musiclib:Slider("Music EmitterSize",0,100,10,function(value)
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-						game:GetService("ReplicatedStorage")["TurtleMusic"]["EmitterSize"] = value
+					if musicplayer ~= nil then
+						musicplayer["EmitterSize"] = value
 					end
 		end)
 		musiclib:Slider("Music DopplerScale",0,10,1,function(value)
-					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-						game:GetService("ReplicatedStorage")["TurtleMusic"]["DopplerScale"] = value
+					if musicplayer ~= nil then
+						musicplayer["DopplerScale"] = value
 					end
 		end)
 		--local T104 = window:Tab("SPY LOGGING",true)
