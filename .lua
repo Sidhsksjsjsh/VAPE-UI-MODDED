@@ -6117,7 +6117,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 								EndTime = 0
 						})
 					else
-						debug.getmetatable(lib).__STOP_MUSIC(game:GetService("ReplicatedStorage"))
+						debug.getmetatable(lib).__STOP_MUSIC(game:GetService("ReplicatedStorage")["TurtleMusic"])
 						TurtleScreenNotify("Turtle Hub | Music",`Music Stopped`,{},nil,{})
 					end
 		end)
