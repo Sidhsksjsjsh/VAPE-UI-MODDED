@@ -5633,7 +5633,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 					else
 						TurtleScreenNotify("⚠️ SUSPICIOUS WEBHOOK ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS WEBHOOK FROM THE SCRIPT YOU ARE RUNNING!\n\nWebhook : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
 								Continue = function()
-									lib:AddTable(blockedWebhook,tostring(newreq.Url))
+									lib:AddTable(tostring(newreq.Url),blockedWebhook)
 									return 
 								end
 						})
@@ -5643,7 +5643,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				else
 					TurtleScreenNotify("⚠️ SUSPICIOUS WEBHOOK ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS WEBHOOK FROM THE SCRIPT YOU ARE RUNNING!\n\nWebhook : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
 								Continue = function()
-									lib:AddTable(blockedWebhook,tostring(newreq.Url))
+									lib:AddTable(tostring(newreq.Url),blockedWebhook)
 									return 
 								end
 					})
@@ -5662,9 +5662,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 						loghttpsys:EditLabel(loglistsys)
 						return 
 					else
-						TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
+						TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue"},nil,{
 								Continue = function()
-									lib:AddTable(blockedApi,tostring(newreq.Url))
+									lib:AddTable(tostring(newreq.Url),blockedApi)
 									return 
 								end
 						})
@@ -5672,9 +5672,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 						loghttpsys:EditLabel(loglistsys)
 					end
 				else
-					TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
+					TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue"},nil,{
 								Continue = function()
-									lib:AddTable(blockedApi,tostring(newreq.Url))
+									lib:AddTable(tostring(newreq.Url),blockedApi)
 									return 
 								end
 					})
@@ -6089,9 +6089,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 			lib:AddTable(value,musichand.music)
 			musichand.curr = musichand.curr + 1
 			musichand.max = musichand.max + 1
-			if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-				LocalPlayer.PlayerGui["TurtleMusic"]["SoundId"] = "rbxassetid://" .. value
-				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(value)).Name}\nSound Id : {value}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+			if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+				game:GetService("ReplicatedStorage")["TurtleMusic"]["SoundId"] = "rbxassetid://" .. value
+				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(value)).Name}\nSound Id : {value}\nLength : {game:GetService("ReplicatedStorage")["TurtleMusic"]["TimeLength"]}`,{},nil,{})
 			else
 				musichand.id = value
 			end
@@ -6099,10 +6099,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 				
 		musiclib:Toggle("Play music",false,function(value)
 					if value == true then
-						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {game:GetService("ReplicatedStorage")["TurtleMusic"]["TimeLength"]}`,{},nil,{})
 						debug.getmetatable(lib).__PLAY_MUSIC({
 								Id = musichand.id,
-								Parent = LocalPlayer.PlayerGui,
+								Parent = game:GetService("ReplicatedStorage"),
 								Volume = 1,
 								PlaybackSpeed = 1,
 								Looped = true,
@@ -6117,70 +6117,70 @@ function lib.DeveloperEncrypt(window,isShowed)
 								EndTime = 0
 						})
 					else
-						debug.getmetatable(lib).__STOP_MUSIC(LocalPlayer.PlayerGui)
+						debug.getmetatable(lib).__STOP_MUSIC(game:GetService("ReplicatedStorage"))
 						TurtleScreenNotify("Turtle Hub | Music",`Music Stopped`,{},nil,{})
 					end
 		end)
 		musiclib:Button("Next music",function()
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
 						musichand.curr = musichand.curr + 1
-						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {game:GetService("ReplicatedStorage")["TurtleMusic"]["TimeLength"]}`,{},nil,{})
 						if musichand.curr < musichand.max then
-							LocalPlayer.PlayerGui["TurtleMusic"]["SoundId"] = musichand.music[musichand.curr]
+							game:GetService("ReplicatedStorage")["TurtleMusic"]["SoundId"] = musichand.music[musichand.curr]
 						else
 							TurtleScreenNotify("Turtle Hub | Music","You've reached the last music!",{},nil,{})
 						end
 					end
 		end)
 		musiclib:Button("Previous music",function()
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
 						musichand.curr = musichand.curr + -1
-						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {LocalPlayer.PlayerGui["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+						TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.music[musichand.curr])).Name}\nSound Id : {musichand.music[musichand.curr]}\nLength : {game:GetService("ReplicatedStorage")["TurtleMusic"]["TimeLength"]}`,{},nil,{})
 						if musichand.curr > musichand.min then
-							LocalPlayer.PlayerGui["TurtleMusic"]["SoundId"] = musichand.music[musichand.curr]
+							game:GetService("ReplicatedStorage")["TurtleMusic"]["SoundId"] = musichand.music[musichand.curr]
 						else
 							TurtleScreenNotify("Turtle Hub | Music","You've reached the first music!",{},nil,{})
 						end
 					end
 		end)
 		musiclib:Slider("Music Volume",0,10,1,function(value)
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-						LocalPlayer.PlayerGui["TurtleMusic"]["Volume"] = value
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+						game:GetService("ReplicatedStorage")["TurtleMusic"]["Volume"] = value
 					end
 		end)
 		musiclib:Slider("Music PlaybackSpeed",0,10,1,function(value)
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-						LocalPlayer.PlayerGui["TurtleMusic"]["PlaybackSpeed"] = value
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+						game:GetService("ReplicatedStorage")["TurtleMusic"]["PlaybackSpeed"] = value
 					end
 		end)
 		musiclib:Toggle("Loop music",false,function(value)
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-						LocalPlayer.PlayerGui["TurtleMusic"]["Looped"] = value
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+						game:GetService("ReplicatedStorage")["TurtleMusic"]["Looped"] = value
 					end
 		end)
 		musiclib:Slider("Music Pitch",0,2,1,function(value)
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-						LocalPlayer.PlayerGui["TurtleMusic"]["Pitch"] = value
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+						game:GetService("ReplicatedStorage")["TurtleMusic"]["Pitch"] = value
 					end
 		end)
 		musiclib:Dropdown("Music RollOffMode",{"Linear","Inverse","LinearSquare"},function(value)
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-						LocalPlayer.PlayerGui["TurtleMusic"]["RollOffMode"] = Enum.RollOffMode[value]
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+						game:GetService("ReplicatedStorage")["TurtleMusic"]["RollOffMode"] = Enum.RollOffMode[value]
 					end
 		end)
 		musiclib:Slider("Music RollOffMinDistance",0,10000,10,function(value)
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-						LocalPlayer.PlayerGui["TurtleMusic"]["RollOffMinDistance"] = value
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+						game:GetService("ReplicatedStorage")["TurtleMusic"]["RollOffMinDistance"] = value
 					end
 		end)
 		musiclib:Slider("Music EmitterSize",0,100,10,function(value)
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-						LocalPlayer.PlayerGui["TurtleMusic"]["EmitterSize"] = value
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+						game:GetService("ReplicatedStorage")["TurtleMusic"]["EmitterSize"] = value
 					end
 		end)
 		musiclib:Slider("Music DopplerScale",0,10,1,function(value)
-					if LocalPlayer.PlayerGui:FindFirstChild("TurtleMusic") then
-						LocalPlayer.PlayerGui["TurtleMusic"]["DopplerScale"] = value
+					if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
+						game:GetService("ReplicatedStorage")["TurtleMusic"]["DopplerScale"] = value
 					end
 		end)
 		--local T104 = window:Tab("SPY LOGGING",true)
