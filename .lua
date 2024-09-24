@@ -6375,6 +6375,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 			custspeed = 16,
 			custjump = 50
 		}
+		local ArrayForSpeed = false
+		local ArrayForJump = false
 		T106:Slider("Fly speed",0,100,1,function(value)
 			intvarspeed.speed1 = value
 		end)
@@ -6405,11 +6407,18 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 		T106:Slider("Walk speed",0,200,intvarspeed.origspeed,function(value)
 			intvarspeed.custspeed = value
+			if ArrayForSpeed == true then
+				LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
+			end
 		end)
 		T106:Slider("Jump power",0,350,intvarspeed.origjump,function(value)
 			intvarspeed.custjump = value
+			if ArrayForJump == true then
+				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custspeed
+			end
 		end)
 		T106:Toggle("Set walk speed",false,function(value)
+			ArrayForSpeed = value
 			if value == true then
 				LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
 			else
@@ -6417,12 +6426,27 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 		T106:Toggle("Set jump power",false,function(value)
+			ArrayForJump = value
 			if value == true then
 				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custjump
 			else
 				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.origjump
 			end
 		end)
+		local function loopForSpeedAndJump(chr)
+				lib.getHumanoidElementChanged("WalkSpeed",function()
+						if ArrayForSpeed == true then
+							LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
+						end
+				end)
+				lib.getHumanoidElementChanged("JumpPower",function()
+						if ArrayForJump == true then
+							LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custjump
+						end
+				end)
+		end
+		loopForSpeedAndJump(LocalPlayer.Character)
+		LocalPlayer.CharacterAdded:Connect(loopForSpeedAndJump)
 		local T107 = window:Tab("Animation")
 		local anim_table = {
 			table = {
