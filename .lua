@@ -6090,9 +6090,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 			lib:AddTable(value,musichand.music)
 			musichand.curr = musichand.curr + 1
 			musichand.max = musichand.max + 1
-			if game:GetService("ReplicatedStorage"):FindFirstChild("TurtleMusic") then
-				game:GetService("ReplicatedStorage")["TurtleMusic"]["SoundId"] = "rbxassetid://" .. value
-				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(value)).Name}\nSound Id : {value}\nLength : {game:GetService("ReplicatedStorage")["TurtleMusic"]["TimeLength"]}`,{},nil,{})
+			if musicplayer ~= nil then
+				musicplayer["SoundId"] = "rbxassetid://" .. value
+				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(value)).Name}\nSound Id : {value}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
 			else
 				musichand.id = value
 			end
@@ -6121,14 +6121,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 							musicplayer:Play()
 							TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
 						else
-							TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Theres was a problem when playing the sound`,{},nil,{})
+							TurtleScreenNotify("Turtle Hub | Error While Playing • Music",`Theres was a problem when playing the sound`,{},nil,{})
 						end
 					else
 						if musicplayer ~= nil then
 							musicplayer:Stop()
 							TurtleScreenNotify("Turtle Hub | Music",`Music Stopped`,{},nil,{})
 						else
-							TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Theres was a problem when stopping the sound`,{},nil,{})
+							TurtleScreenNotify("Turtle Hub | Error While Playing • Music",`Theres was a problem when stopping the sound`,{},nil,{})
 						end
 					end
 		end)
