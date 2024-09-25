@@ -6113,7 +6113,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 						musicplayer.RollOffMaxDistance = 10000
 						musicplayer.RollOffMinDistance = 10
 						musicplayer.EmitterSize = 5
-						musicplayer.DopplerScale = 1
 						musicplayer.SoundGroup = nil
 						musicplayer.Parent = game:GetService("ReplicatedStorage")
 					end
@@ -6193,11 +6192,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 		musiclib:Slider("Music EmitterSize",0,100,10,function(value)
 					if musicplayer ~= nil then
 						musicplayer["EmitterSize"] = value
-					end
-		end)
-		musiclib:Slider("Music DopplerScale",0,10,1,function(value)
-					if musicplayer ~= nil then
-						musicplayer["DopplerScale"] = value
 					end
 		end)
 		--local T104 = window:Tab("SPY LOGGING",true)
