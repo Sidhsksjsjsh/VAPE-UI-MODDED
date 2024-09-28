@@ -5243,6 +5243,7 @@ function lib:sendChat(msg)
         end
 end
 
+--turtle.sys.isTurtleExploit() == true
 function lib.DeveloperEncrypt(window,isShowed)
 	local hidetab = isShowed or false
 	local hacking = window:Tab("Penetrate",false)
@@ -5271,6 +5272,43 @@ function lib.DeveloperEncrypt(window,isShowed)
 				lib:BypassPurchase('game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. v.id .. ',true)')
 			end
 			TurtleScreenNotify("Purchase Penetrate","Penetrated successfully.",{},2,{})
+		end
+	end)
+	hacking:Button("Bypass DevProducts Purchase [ WORKING ] [ Require Turtle Exploit ]",function()
+		if TurtleScreenNotify then -- require turtle exploit to use this
+			if (turtle and turtle.sys and turtle.sys.isTurtleExploit() == true) then
+				local currentPage = 1
+				local decodedResponse = nil
+				TurtleScreenNotify("Purchase Bypasser","Bypassing the purchase methods...\nPls wait 3s, this may take a while...",{},3,{})
+				repeat wait()
+					decodedResponse = HttpService:JSONDecode(game:HttpGet("https://apis.roblox.com/developer-products/v1/developer-products/list?universeId=" .. tostring(game.GameId) .. "&page=" .. tostring(currentPage)))
+					for i,v in pairs(decodedResponse.DeveloperProducts) do
+						lib:BypassPurchase('game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. v.ProductId .. ',true)')
+					end
+					currentPage = currentPage + 1
+				until decodedResponse.FinalPage
+				TurtleScreenNotify("Purchase Bypasser","Bypass successfully.",{},2,{})
+			else
+				TurtleScreenNotify("Bypass Failed",'Failed to bypass server, turtle exploit required.\n\nattempt to call a nil function "turtle.sys.serverInject", turtle exploit expected.',{},nil,{})
+			end
+		else
+			lib:notify(lib:ColorFonts("Your exploit doesnt support 'turt' library.\npls switch to 'Turtle Software' to use this.","Bold,Red"),10)
+		end
+	end)
+
+	hacking:Button("Bypass Gamepass Purchase [ WORKING ] [ Require Turtle Exploit ]",function()
+		if TurtleScreenNotify then -- require turtle exploit to use this
+			if (turtle and turtle.sys and turtle.sys.isTurtleExploit() == true) then
+				TurtleScreenNotify("Purchase Bypasser","Penetrating the purchase methods...\nPls wait 2s, this may take a while...",{},2,{})
+				for i,v in pairs(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.GameId .. "/game-passes?limit=100&sortOrder=1")).data) do
+					lib:BypassPurchase('game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,' .. v.id .. ',true)')
+				end
+				TurtleScreenNotify("Purchase Bypasser","Successfully bypassed.",{},2,{})
+			else
+				TurtleScreenNotify("Bypass Failed",'Failed to bypass server, turtle exploit required.\n\nattempt to call a nil function "turtle.sys.serverInject", turtle exploit expected.',{},nil,{})
+			end
+		else
+			lib:notify(lib:ColorFonts("Your exploit doesnt support 'turt' library.\npls switch to 'Turtle Software' to use this.","Bold,Red"),10)
 		end
 	end)
 	--[[local Tab01 = window:Tab("DevProducts",false)
