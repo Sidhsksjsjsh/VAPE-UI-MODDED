@@ -2215,7 +2215,7 @@ end
 --https://www.roblox.com/users/6133870238/profile
 function lib:DeveloperAccess(f)
 	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 then
-		TurtleScreenNotify("Turtle Hub | Developer only","Loading hidden feature",{},3,{})
+		--TurtleScreenNotify("Turtle Hub | Developer only","Loading hidden feature",{},3,{})
 		f()
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("Loading developer tab/panel...","Bold"),"Red"),10)
 	end
@@ -2224,7 +2224,7 @@ end
 function lib.isDeveloper()
 	if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 or LocalPlayer.UserId == 5596804337 then
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("WELCOME TESTER!","Bold"),"Green"),10)
-		TurtleScreenNotify("Turtle Hub | Beta Tester","Welcome beta test!",{},nil,{})
+		--TurtleScreenNotify("Turtle Hub | Beta Tester","Welcome beta test!",{},nil,{})
 		return true
 	end
 	return false
@@ -6407,7 +6407,50 @@ function lib.DeveloperEncrypt(window,isShowed)
 							}
 						},"")
 		end)
-			
+		local animati = window:Tab("Spoofer")
+		local idx = {}
+		local spoofed = animati:Label("Spoofed animation will be showed here.")
+		
+		animati:Button("Start spoofing animations",function()
+			idx = {}
+			for i,v in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
+				lib:AddTable(v.Animation.AnimationId,idx)
+			end
+			spoofed:EditLabel(`Idle 1 : {LocalPlayer.Character.Character.Animate.idle.Animation1.AnimationId}\nIdle 2 : {LocalPlayer.Character.Character.Animate.idle.Animation2.AnimationId}\nWalk : {LocalPlayer.Character.Character.Animate.walk.WalkAnim.AnimationId}\nRun : {LocalPlayer.Character.Character.Animate.run.RunAnim.AnimationId}\nJump : {LocalPlayer.Character.Character.Animate.jump.JumpAnim.AnimationId}\nClimb : {LocalPlayer.Character.Character.Animate.climb.ClimbAnim.AnimationId}\nFall : {LocalPlayer.Character.Character.Animate.fall.FallAnim.AnimationId}\n\nSaved AnimationTrack : {table.concat(idx,",\n")}`)
+		end)
+
+		animati:Button("Copy spoofed animations",function()
+			idx = {}
+			for i,v in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
+				lib:AddTable(v.Animation.AnimationId,idx)
+			end
+			lib:Copy(`Idle 1 : {LocalPlayer.Character.Character.Animate.idle.Animation1.AnimationId}\nIdle 2 : {LocalPlayer.Character.Character.Animate.idle.Animation2.AnimationId}\nWalk : {LocalPlayer.Character.Character.Animate.walk.WalkAnim.AnimationId}\nRun : {LocalPlayer.Character.Character.Animate.run.RunAnim.AnimationId}\nJump : {LocalPlayer.Character.Character.Animate.jump.JumpAnim.AnimationId}\nClimb : {LocalPlayer.Character.Character.Animate.climb.ClimbAnim.AnimationId}\nFall : {LocalPlayer.Character.Character.Animate.fall.FallAnim.AnimationId}\n\nSaved AnimationTrack : {table.concat(idx,",\n")}`)
+		end)
+
+		animati:Button("Change animation to spoofed animations",function()
+			idx = {}
+			local idle1 = LocalPlayer.Character.Character.Animate.idle.Animation1.AnimationId
+			local idle2 = LocalPlayer.Character.Character.Animate.idle.Animation2.AnimationId
+			local walk = LocalPlayer.Character.Character.Animate.walk.WalkAnim.AnimationId
+			local run = LocalPlayer.Character.Character.Animate.run.RunAnim.AnimationId
+			local jump = LocalPlayer.Character.Character.Animate.jump.JumpAnim.AnimationId
+			local climb = LocalPlayer.Character.Character.Animate.climb.ClimbAnim.AnimationId
+			local fall = LocalPlayer.Character.Character.Animate.fall.FallAnim.AnimationId
+			for i,v in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
+				lib:AddTable(v.Animation.AnimationId,idx)
+			end
+			LocalPlayer.Character.Character.Animate.idle.Animation1.AnimationId = idle1
+			LocalPlayer.Character.Character.Animate.idle.Animation2.AnimationId = idle2
+			LocalPlayer.Character.Character.Animate.walk.WalkAnim.AnimationId = walk
+			LocalPlayer.Character.Character.Animate.run.RunAnim.AnimationId = run
+			LocalPlayer.Character.Character.Animate.jump.JumpAnim.AnimationId = jump
+			LocalPlayer.Character.Character.Animate.climb.ClimbAnim.AnimationId = climb
+			LocalPlayer.Character.Character.Animate.fall.FallAnim.AnimationId = fall
+			spoofed:EditLabel(`Saved AnimationTrack : {table.concat(idx,",\n")}`)
+			lib:Copy(`Saved AnimationTrack : {table.concat(idx,",\n")}`)
+			TurtleScreenNotify("Turtle Hub | Animation Spoofer • Change Animation","Animation successfully changed.",{},nil,{})
+		end)
+
 		local T106 = window:Tab("Character")
 		--T106:Label("Encrypted chat bypass for a bypassed word\n//a -> ass\n//d -> dick\n//p -> pussy\n//s -> shit\n//f -> fuck\n//ah -> asshole\n//n1 -> nigga\n//n2 -> nigger\n//c -> cum\n//cond -> condom\n18+ -> sex\n//sp -> sperm\n//t -> tits")
 		local intvarspeed = {
