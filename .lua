@@ -2720,7 +2720,8 @@ function lib:ErrorReader(func,ssd)
 	local shut = ssd or false
 	local shit,dick = pcall(function()
 		if shut == true then
-			lib:notify(lib:ColorFonts(lib:ColorFonts("UNDER MAINTENANCE!","Bold"),"Red"),9e9)
+			--lib:notify(lib:ColorFonts(lib:ColorFonts("UNDER MAINTENANCE!","Bold"),"Red"),9e9)
+			TurtleScreenNotify("Turtle Hub | Maintenance • Access Closed","Turtle Hub is under maintenance due to an update.",{},nil,{})
 		else
 			func()
 		end
@@ -2728,7 +2729,7 @@ function lib:ErrorReader(func,ssd)
 	if not shit and shut == false then
 		--lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","🔧 |"):gsub(":" .. dick:sub(2,4) .. ":","🔧 |"):gsub(":" .. dick:sub(2,3) .. ":","🔧 |"):gsub(":" .. dick:sub(2,2) .. ":","🔧 |"),"Bold,Red"),9e9)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
-		TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick:gsub(':' .. dick:sub(2,5) .. ':',''):gsub(':' .. dick:sub(2,4) .. ':',''):gsub(':' .. dick:sub(2,3) .. ':',''):gsub(':' .. dick:sub(2,2) .. ':','')}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
+		TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick:gsub(':' .. dick:sub(2,5) .. ': ',''):gsub(':' .. dick:sub(2,4) .. ': ',''):gsub(':' .. dick:sub(2,3) .. ': ',''):gsub(':' .. dick:sub(2,2) .. ': ','')}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
 				Yea = function()
 					func()
 				end
@@ -2946,6 +2947,8 @@ function lib:Serverhop(val)
 	end
     end
     if #x > 0 then
+	TurtleScreenNotify("Turtle Hub | Game Teleport","Teleporting u to a new server\nthis takes 2s or more due to the roblox GameTeleport limitations",{},nil,{})
+	wait(2)
         TeleportService:TeleportToPlaceInstance(game.PlaceId,x[math.random(1,#x)])
     else
         lib:notify(lib:ColorFonts("Cannot find a server","Red"),10)
@@ -2974,7 +2977,16 @@ function lib:CheckServers(n,funct)
     else
         tgh = false
     end
-	funct(tgh)
+	if tgh == true then
+		TurtleScreenNotify("Turtle Hub | Server Hop • Server found","Server found!\n\nAre u sure want to server hop?",{"Yea Sure"},nil,{
+				["Yea Sure"] = function()
+					funct(true)
+				end
+		})
+	else
+		TurtleScreenNotify("Turtle Hub | Server Hop • Server not found","Oops, we couldnt find a server for u\n\nClick again to server hop",{},nil,{})
+		funct(false)
+	end
 end
 
 --[[
@@ -6412,18 +6424,18 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local spoofed = animati:Label("Spoofed animation will be showed here.")
 		
 		animati:Button("Start spoofing animations",function()
-			idx = {}
+			--[[idx = {}
 			for i,v in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
 				lib:AddTable(v.Animation.AnimationId,idx)
-			end
+			end]]
 			spoofed:EditLabel(`Idle 1 : {LocalPlayer.Character.Character.Animate.idle.Animation1.AnimationId}\nIdle 2 : {LocalPlayer.Character.Character.Animate.idle.Animation2.AnimationId}\nWalk : {LocalPlayer.Character.Character.Animate.walk.WalkAnim.AnimationId}\nRun : {LocalPlayer.Character.Character.Animate.run.RunAnim.AnimationId}\nJump : {LocalPlayer.Character.Character.Animate.jump.JumpAnim.AnimationId}\nClimb : {LocalPlayer.Character.Character.Animate.climb.ClimbAnim.AnimationId}\nFall : {LocalPlayer.Character.Character.Animate.fall.FallAnim.AnimationId}\n\nSaved AnimationTrack : {table.concat(idx,",\n")}`)
 		end)
 
 		animati:Button("Copy spoofed animations",function()
-			idx = {}
+			--[[idx = {}
 			for i,v in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
 				lib:AddTable(v.Animation.AnimationId,idx)
-			end
+			end]]
 			lib:Copy(`Idle 1 : {LocalPlayer.Character.Character.Animate.idle.Animation1.AnimationId}\nIdle 2 : {LocalPlayer.Character.Character.Animate.idle.Animation2.AnimationId}\nWalk : {LocalPlayer.Character.Character.Animate.walk.WalkAnim.AnimationId}\nRun : {LocalPlayer.Character.Character.Animate.run.RunAnim.AnimationId}\nJump : {LocalPlayer.Character.Character.Animate.jump.JumpAnim.AnimationId}\nClimb : {LocalPlayer.Character.Character.Animate.climb.ClimbAnim.AnimationId}\nFall : {LocalPlayer.Character.Character.Animate.fall.FallAnim.AnimationId}\n\nSaved AnimationTrack : {table.concat(idx,",\n")}`)
 		end)
 
@@ -6436,9 +6448,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 			local jump = LocalPlayer.Character.Character.Animate.jump.JumpAnim.AnimationId
 			local climb = LocalPlayer.Character.Character.Animate.climb.ClimbAnim.AnimationId
 			local fall = LocalPlayer.Character.Character.Animate.fall.FallAnim.AnimationId
-			for i,v in pairs(LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
-				lib:AddTable(v.Animation.AnimationId,idx)
-			end
 			LocalPlayer.Character.Character.Animate.idle.Animation1.AnimationId = idle1
 			LocalPlayer.Character.Character.Animate.idle.Animation2.AnimationId = idle2
 			LocalPlayer.Character.Character.Animate.walk.WalkAnim.AnimationId = walk
