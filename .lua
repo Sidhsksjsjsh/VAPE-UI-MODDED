@@ -2281,35 +2281,105 @@ local function CrawlInstances(Inst)
                 --setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. "")
                 lib:notify("Copied " .. lib:ColorFonts(Instance.ClassName,"Bold,Green"),10)
 		if Instance:IsA("RemoteEvent") then
-			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()")
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()")
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
 				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()",
 				{}
 			)
 		elseif Instance:IsA("RemoteFunction") then
-			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":InvokeServer()")
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":InvokeServer()")
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
 				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":InvokeServer()",
 				{}
 			)
 		elseif Instance:IsA("BindableFunction") then
-			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Invoke()")
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Invoke()")
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
 				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Invoke()",
 				{}
 			)
 		elseif Instance:IsA("BindableEvent") then
-			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()")
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()")
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
 				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()",
 				{}
 			)
+		elseif Instance:IsA("BoolValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("IntValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("NumberValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("ObjectValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("Vector3Value") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("CFrameValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("BrickColorValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("Color3Value") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("RayValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
+		elseif Instance:IsA("FloatValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
 		else
-			setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE"))
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE"))
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
 				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. "\n\n" .. Instance.ClassName,
@@ -2373,7 +2443,7 @@ Iris:Connect(function()
     if ScriptViewer.value then
         Iris.Window({"Turtle Explorer Script Viewer", [Iris.Args.Window.NoClose] = true}, {size = Iris.State(Vector2.new(600, 575)), position = Iris.State(Vector2.new(400, 0))}) do
             if Iris.Button({"Copy Script"}).clicked then
-                setclipboard(ScriptContent)
+                lib:Copy(ScriptContent)
                 lib:notify("Copied to the clipboard",10)
             end
             local Lines = ScriptContent:split("\n")
@@ -6912,10 +6982,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 						selected.Adornee = Mouse.Target
 						AttrHandlers = {}
 						lib:attributes(LocalPlayer,function(name,value)
-							table.insert(AttrHandlers,`['{name}'] = {value} • typeof(value)`)
+							table.insert(AttrHandlers,`['{name}'] = {value} • {typeof(value)}`)
 						end)
 						if #AttrHandlers > 0 then
-							partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n") .. "\n}") -- .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
+							partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}") -- .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
 						else
 							partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Raycast : " .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
 						end
@@ -6937,8 +7007,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		PartSelector:Button("Copy instance",function()
 			if getHierarchy(selected.Adornee) ~= nil or getHierarchy(selected.Adornee) ~= "" or partname:GetText() ~= "Part selector disabled." then
 				if #AttrHandlers > 0 then
-					lib:Copy(getHierarchy(selected.Adornee) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n") .. "\n}")
-					lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee) .. "\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n") .. "\n}")
+					lib:Copy(getHierarchy(selected.Adornee) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
+					lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee) .. "\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
 				else
 					lib:Copy(getHierarchy(selected.Adornee))
 					lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee))
