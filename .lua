@@ -2308,6 +2308,13 @@ local function CrawlInstances(Inst)
 				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()",
 				{}
 			)
+		elseif Instance:IsA("StringValue") then
+			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				{}
+			)
 		elseif Instance:IsA("BoolValue") then
 			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
@@ -6981,7 +6988,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 					if Mouse.Target ~= nil then
 						selected.Adornee = Mouse.Target
 						AttrHandlers = {}
-						lib:attributes(LocalPlayer,function(name,value)
+						lib:attributes(selected.Adornee.Parent,function(name,value)
 							table.insert(AttrHandlers,`['{name}'] = {value} • {typeof(value)}`)
 						end)
 						if #AttrHandlers > 0 then
