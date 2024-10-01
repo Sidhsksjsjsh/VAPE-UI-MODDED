@@ -3215,7 +3215,7 @@ function lib:Window(text, preset, closebind)
 			local OpenHideUI = Instance.new("TextButton")
 			OpenHideUI.Size = UDim2.new(0.5,0,1,0)
 			OpenHideUI.Position = UDim2.new(0.5,0,0,0)
-  			OpenHideUI.Text = "HIDE UI"
+  			OpenHideUI.Text = "UI KEYBINDS"
   			OpenHideUI.Parent = HIDEUINIGGER
     			OpenHideUI.BackgroundTransparency = 0.7
     			OpenHideUI.TextTransparency = 0
