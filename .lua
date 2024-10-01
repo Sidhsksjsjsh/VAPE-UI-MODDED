@@ -5935,7 +5935,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 	end)
 
-	Intelligence:Label(lib:ColorFonts("We will use your " .. lib:ColorFonts("message data","Red") .. "to train our chatbot model","Bold,Green"))
+	Intelligence:Label(lib:ColorFonts("We will use your " .. lib:ColorFonts("message data","Red") .. " to train our chatbot model","Bold,Green"))
 	Intelligence:Label("Turtle-Intelligence is our 5th AI, and we will need the message data you send to train our chatbot")
 	lib:GetPlayer(function(v)
 		lib:GetPlayerMessage(v,function(msg)
@@ -6868,6 +6868,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		WallCheckParams.FilterType = Enum.RaycastFilterType.Whitelist
 		WallCheckParams.IgnoreWater = true
 		WallCheckParams.FilterDescendantsInstances = {}
+		local AttrHandlers = {}
 		
 		PartSelector:Toggle("Enable part selector [ Powered by Gemini AI ]",false,function(value)
 			if value == true then
@@ -6876,7 +6877,15 @@ function lib.DeveloperEncrypt(window,isShowed)
 				ClickSelect = Mouse.Button1Down:Connect(function()
 					if Mouse.Target ~= nil then
 						selected.Adornee = Mouse.Target
-						partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nRaycast table : " .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
+						AttrHandlers = {}
+						lib:attributes(LocalPlayer,function(name,value)
+							table.insert(AttrHandlers,`['{name}'] = {value} • typeof(value)`)
+						end)
+						if #AttrHandlers > 0 then
+							partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n") .. "\n}") -- .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
+						else
+							partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Raycast : " .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
+						end
 					end
 				end)
 			else
@@ -6893,9 +6902,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 		PartSelector:Button("Copy instance",function()
-			if getHierarchy(selected.Adornee) ~= nil or getHierarchy(selected.Adornee) ~= "" or partname:GetText() ~= "" then
-				lib:Copy(getHierarchy(selected.Adornee)) --partname:GetText())
-				lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee))
+			if getHierarchy(selected.Adornee) ~= nil or getHierarchy(selected.Adornee) ~= "" or partname:GetText() ~= "Part selector disabled." then
+				if #AttrHandlers > 0 then
+					lib:Copy(getHierarchy(selected.Adornee) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n") .. "\n}")
+					lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee) .. "\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n") .. "\n}")
+				else
+					lib:Copy(getHierarchy(selected.Adornee))
+					lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee))
+				end
 			else
 				lib:notify(lib:ColorFonts("Select a part to copy its path","Bold,Red"),10)
 			end
@@ -6918,8 +6932,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
-
 --[[
+{
+  k
+}
 addEventListener(Exit_4,"MouseButton1Down",function()
 	if ActivateHighlight then
 		ActivateHighlight:Disconnect()
