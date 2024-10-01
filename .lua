@@ -3198,12 +3198,45 @@ function lib:Window(text, preset, closebind)
 		end
 	end
 
-	ContextActionService:BindAction("Turtle Menu",openUI,true,Enum.KeyCode.Comma)
-	ContextActionService:SetImage("Turtle Menu","rbxassetid://13030062874")
-	ContextActionService:SetTitle("Turtle Menu","MENU")
-	ContextActionService:SetDescription("Turtle Menu","Best script in 2024! 😈")
-	ContextActionService:SetPosition("Turtle Menu",UDim2.new(0.5,0,0,0))
-	
+	if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+		if game.PlaceId == 12135640403 or game.PlaceId == 15502802094 or game.PlaceId == 15742087191 then -- Anime Dungeon Fighters world 1 & 2 & 3
+			local THHUI = Instance.new("ScreenGui")
+			THHUI.Name = "VIP TURTLE HUB HIDE UI"
+			THHUI.Parent = game:GetService("CoreGui")
+			THHUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+			local HIDEUINIGGER = Instance.new("Frame")
+			HIDEUINIGGER.Size = UDim2.new(0.5,0,0.1,0) --UDim2.new(0,200,0,150)
+			HIDEUINIGGER.Position = UDim2.new(0.5,0,0,0) --UDim2.new(0.5,-100,0.5,-75)
+			HIDEUINIGGER.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			HIDEUINIGGER.Parent = THHUI
+			HIDEUINIGGER.BackgroundTransparency = 1
+
+			local OpenHideUI = Instance.new("TextButton")
+			OpenHideUI.Size = UDim2.new(0.5,0,1,0)
+			OpenHideUI.Position = UDim2.new(0.5,0,0,0)
+  			OpenHideUI.Text = "HIDE UI"
+  			OpenHideUI.Parent = HIDEUINIGGER
+    			OpenHideUI.BackgroundTransparency = 0.7
+    			OpenHideUI.TextTransparency = 0
+    			OpenHideUI.Draggable = true
+   			UICorner_hide.CornerRadius = UDim.new(.1,0)
+    			UICorner_hide.Parent = OpenHideUI
+    			lib:runtime(function()
+				OpenHideUI.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
+   			end)
+
+			OpenHideUI.MouseButton1Click:Connect(function()
+				openUI("",Enum.UserInputState.Begin,Vector3.new(0,0,0))
+			end)
+		else
+			ContextActionService:BindAction("Turtle Menu",openUI,true,Enum.KeyCode.Comma)
+			ContextActionService:SetImage("Turtle Menu","rbxassetid://13030062874")
+			ContextActionService:SetTitle("Turtle Menu","MENU")
+			ContextActionService:SetDescription("Turtle Menu","Best script in 2024! 😈")
+			ContextActionService:SetPosition("Turtle Menu",UDim2.new(0.5,0,0,0))
+		end
+	end
 	--[[OpenHideUI.MouseButton1Click:Connect(function()
 		if MobileToggled == false then
 			MobileToggled = true
