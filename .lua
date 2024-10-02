@@ -3210,7 +3210,7 @@ function lib:Window(text, preset, closebind)
 	lib:notify("Current event : " .. emoji,10)
     else
 	lib:runtime(function(v)
-		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. math.round(1/v) .. "FPS (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤","Bold"),"White")
+		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. math.round(1/v) .. "FPS (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
