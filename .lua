@@ -3209,8 +3209,8 @@ function lib:Window(text, preset, closebind)
 	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
     else
-	lib:runtime(function()
-		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. math.floor(workspace:GetRealPhysicsFPS()) .. "/s - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤","Bold"),"White")
+	lib:runtime(function(v)
+		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. math.round(1/v) .. "FPS (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤","Bold"),"White")
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
