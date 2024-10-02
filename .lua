@@ -2693,9 +2693,11 @@ local function rotate(arraynumber,funct)
 end
 
 function lib:runtime(funct)
-	RunService.RenderStepped:Connect(function()
-		funct()
-	end)
+	if typeof(funct) == "function" then
+		RunService.RenderStepped:Connect(funct)
+	else
+		TurtleScreenNotify("Turtle Hub | Runtime • Argument","Argument must be a function.",{},nil,{})
+	end
 end
 
 
