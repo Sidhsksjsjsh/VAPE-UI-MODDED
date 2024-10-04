@@ -1802,11 +1802,15 @@ function lib.getTable(str,name)
 		end
 	end
 end
---lib.sentMessage(lib.getTable("sent","galau"),"",{})
+--[[
+lib.sentMessage(lib.getTable("sent","galau"),"",{})
+Chouko : 1135213188082831502
+Axtr0 : 984175806106464356
+]]
 function lib.getUserTag(label,name)
 	if type(label) == "string" then
 		if label == "get" then
-			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin","@Skibidi"}
+			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin","@Skibidi","@Chouko","@Axtr0"}
 		elseif label == "sent" then
 			return name:gsub(
 				"@Fahri",
@@ -1844,6 +1848,12 @@ function lib.getUserTag(label,name)
 			):gsub(
 				"@Skibidi",
 				"<@878889508119150594>"
+			):gsub(
+				"@Chouko",
+				"<@1135213188082831502>"
+			):gsub(
+				"@Axtr0",
+				"<@984175806106464356>"
 			)
 		end
 	end
