@@ -703,11 +703,21 @@ end
 
 function lib:children(path,f,t)
 	local index = t or false
-	for i,v in pairs(path:GetChildren()) do
-		if index == true then
-			f(i,v)
-		else
-			f(v)
+	if typeof(path) == "Instance" then
+		for i,v in pairs(path:GetChildren()) do 
+			if index == true then
+				f(i,v)
+			else
+				f(v)
+			end
+		end
+	elseif typeof(path) == "table" then
+		for i,v in ipairs(path) do 
+			if index == true then
+				f(i,v)
+			else
+				f(v)
+			end
 		end
 	end
 end
@@ -2799,6 +2809,10 @@ function lib:AddTable(gameservice,tbl)
 	if typeof(gameservice) == "Instance" then
 		for i,v in pairs(gameservice:GetChildren()) do 
 			table.insert(tbl,v.Name)
+		end
+	elseif typeof(gameservice) == "table" then
+		for i,v in ipairs(gameservice) do 
+			table.insert(tbl,v)
 		end
 	else
 		table.insert(tbl,gameservice)
