@@ -1320,7 +1320,7 @@ function lib:LoadRepository(path,bool)
 					lib:notify(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold,Green"),5)
 				end
 			else
-				lib:notify(lib:ColorFonts("Failed to run script. Error located at " .. lib:ColorFonts(ModuleScript,"Underline"),"Bold,Red"),10)
+				lib:notify(lib:ColorFonts("Failed to run script. Error located at " .. lib:ColorFonts(logic.Body,"Underline"),"Bold,Red"),10)
 			end
 		else
 			lib:notify(lib:ColorFonts("Failed to make HTTP Request. Error Code : " .. lib:ColorFonts(logic.StatusCode,"Underline"),"Bold,Red"),9e9)
