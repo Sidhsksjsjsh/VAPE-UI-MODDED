@@ -3017,6 +3017,7 @@ end
 function lib:RemoteSpy(arg)
 	local verrspy = arg or "V1"
 	local isrun,iserror = pcall(function()
+		lib:RemoteBypass()
 		if verrspy == "V1" then
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V1.lua")
 		elseif verrspy == "V2" then
