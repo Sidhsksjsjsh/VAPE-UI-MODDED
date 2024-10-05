@@ -712,7 +712,7 @@ function lib:children(path,f,t)
 			end
 		end
 	elseif typeof(path) == "table" then
-		for i,v in ipairs(path) do 
+		for i,v in pairs(path) do 
 			if index == true then
 				f(i,v)
 			else
