@@ -6619,10 +6619,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T106:Toggle("Start fly",false,function(value)
 			if value == true then
 				lib:startFly(false,intvarspeed.speed1,intvarspeed.speed2)
-				lib.PlayAnim(10147821284,10,0,false)
+				if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					lib.PlayAnim(134283166482394,5,0,false) -- 5/13
+				end
 			else
 				lib:stopFly()
-				lib.StopAnim()
+				if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					lib.StopAnim()
+				end
 			end
 		end)
 		T106:Toggle("Start vehicle fly",false,function(value)
