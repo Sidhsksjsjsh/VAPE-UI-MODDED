@@ -7045,7 +7045,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local PartSelector = window:Tab("Part Selector")
 		local partname = PartSelector:Label("Part selector disabled.")
 		local array_toggler = {
-			switch = false
+			switch = false,
+			colide = false
 		}
 		
 		local WallCheckParams = RaycastParams.new()
@@ -7085,6 +7086,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 				lib:notify(lib:ColorFonts("Part selector disabled.","Bold,Red"),10)
 			end
 		end)
+
+		
 		PartSelector:Button("Copy instance",function()
 			if getHierarchy(selected.Adornee) ~= nil or getHierarchy(selected.Adornee) ~= "" or partname:GetText() ~= "Part selector disabled." then
 				if #AttrHandlers > 0 then
@@ -7112,6 +7115,75 @@ function lib.DeveloperEncrypt(window,isShowed)
 			while wait() do
 			        if array_toggler.switch == false then break end
 				lib:TeleportMethod("tp",selected.Adornee.CFrame)
+			end
+		end)
+		local redstone = nil
+		PartSelector:Toggle("Bring selected unanchored part",false,function(value)
+			array_toggler.colide = value
+			if value == true then
+				if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					local A0 = Instance.new("Attachment")
+					local AP = Instance.new("AlignPosition")
+					local AO = Instance.new("AlignOrientation")
+					local A1 = Instance.new("Attachment")
+
+					LocalPlayer.Character.HumanoidRootPart.Position = LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,0,0)
+					A0.Parent = selected.Adornee
+					AP.Parent = selected.Adornee
+					AO.Parent = selected.Adornee
+					AP.Responsiveness = 200
+					AP.MaxForce = math.huge
+					AO.MaxTorque = math.huge
+					AO.Responsiveness = 200
+					AP.Attachment0 = A0
+					AP.Attachment1 = A1
+					AO.Attachment1 =  A1
+					AO.Attachment0 = A0
+					A1.Parent = LocalPlayer.Character.RightHand
+				else
+					local A0 = Instance.new("Attachment")
+					local AP = Instance.new("AlignPosition")
+					local AO = Instance.new("AlignOrientation")
+					local A1 = Instance.new("Attachment")
+
+					LocalPlayer.Character.HumanoidRootPart.Position = LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,0,0)
+					A0.Parent = selected.Adornee
+					AP.Parent = selected.Adornee
+					AO.Parent = selected.Adornee
+					AP.Responsiveness = 200
+					AP.MaxForce = math.huge
+					AO.MaxTorque = math.huge
+					AO.Responsiveness = 200
+					AP.Attachment0 = A0
+					AP.Attachment1 = A1
+					AO.Attachment1 =  A1
+					AO.Attachment0 = A0
+					A1.Parent = LocalPlayer.Character.RightArm
+				end
+			else
+				if selected.Adornee ~= nil then
+					if selected.Adornee:FindFirstChild("Attachment") then
+						selected.Adornee["Attachment"]:Destroy()
+					end
+					if selected.Adornee:FindFirstChild("AlignPosition") then
+						selected.Adornee["AlignPosition"]:Destroy()
+					end
+					if selected.Adornee:FindFirstChild("AlignOrientation") then
+						selected.Adornee["AlignOrientation"]:Destroy()
+					end
+					if selected.Adornee:FindFirstChild("Attachment") then
+						selected.Adornee["Attachment"]:Destroy()
+					end
+				end
+			end
+
+			while wait() do
+				if array_toggler.colide == false then break end
+				lib:descendant(selected.Adornee,function(v)
+					if v:IsA("Part") and v.Name ~= "HumanoidRootPart" then
+						v.CanCollide = false
+					end
+				end)
 			end
 		end)
 	end)
