@@ -6250,7 +6250,49 @@ function lib.DeveloperEncrypt(window,isShowed)
 			writefile(value .. ".lua",game:GetObjects("rbxassetid://" .. value)[1].Source)
 			lib:notify(lib:ColorFonts("File saved to " .. lib:ColorFonts(Exploit() .. "/Workspace/" .. value .. ".lua","Underline"),"Bold,Green"),10)
 		end)
-			
+
+		T100:Button("Fling unanchored part tool",function()
+			if LocalPlayer.Backpack:FindFirstChild("Fling Tool") then
+				LocalPlayer.Backpack["Fling Tool"]:Destroy()
+			elseif LocalPlayer.Character:FindFirstChild("Fling Tool") then
+				LocalPlayer.Character["Fling Tool"].Parent = LocalPlayer.Backpack
+				wait(1)
+				if LocalPlayer.Backpack:FindFirstChild("Fling Tool") then
+					LocalPlayer.Backpack["Fling Tool"]:Destroy()
+				else
+					TurtleScreenNotify("Turtle Hub | Anti-Duplicate tool","A tool named 'Fling Tool' not found in LocalPlayer.Backpack",{"Force Delete"},nil,{
+									["Force Delete"] = function()
+										LocalPlayer.Character["Fling Tool"].Parent = LocalPlayer.Backpack
+										wait(1)
+										if LocalPlayer.Backpack:FindFirstChild("Fling Tool") then
+											LocalPlayer.Backpack["Fling Tool"]:Destroy()
+										else
+											TurtleScreenNotify("Turtle Hub | Anti-Duplicate tool","Delete failed. tool not found in LocalPlayer.Character or in LocalPlayer.Backpack",{},nil,{})
+										end
+									end
+					})
+				end
+			else
+				local ft = Instance.new("Tool")
+				ft.Name = "Fling Tool"
+				ft.RequiresHandle = false
+				ft.Parent = LocalPlayer.Backpack
+				ft.Activated:Connect(function()
+					if Mouse.Target:IsA("BasePart") or Mouse.Target:IsA("Part") or Mouse.Target:IsA("MeshPart") or Mouse.Target:IsA("CornerWedgePart") or Mouse.Target:IsA("TrussPart") or Mouse.Target:IsA("WedgePart") then
+						if Mouse.Target.Anchored == false then
+							local bambam = Instance.new("BodyAngularVelocity")
+							bambam.Name = "NetworkOnwership"
+							bambam.Parent = Mouse.Target
+							bambam.AngularVelocity = Vector3.new(99999,99999,99999)
+							bambam.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
+							bambam.P = math.huge
+						else
+							TurtleScreenNotify("Turtle Hub | Fling-Unanchored Parts","This part has Anchored property enabled.\nSelect other part with Anchored disabled",{},nil,{})
+						end
+					end
+				end)
+			end
+		end)
 		local T101 = window:Tab("Snipe")
 		local var = {
 			game_id = game.PlaceId,
