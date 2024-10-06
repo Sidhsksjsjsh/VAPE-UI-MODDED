@@ -45,6 +45,7 @@ local isGuiOpened = true
 local FLYING = false
 local flyKeyDown = nil
 local flyKeyUp = nil
+local controlModule = require(LocalPlayer["PlayerScripts"]["PlayerModule"]["ControlModule"])
 local envs = {
 	__SELF = function()
 		return LocalPlayer
@@ -408,17 +409,19 @@ local letters2 = {
         [" "] = " "
 }
 
-local expfunctions = {
-    writefile,
-    print,
-    setclipboard,
-    rconsoleerr,
-    rconsolewarn,
-    warn,
-    error,
-    isfile,
-    readfile
-}
+getgenv().Network = {
+  BaseParts = {},
+  FakeConnections = {},
+  Connections = {},
+  Output = {
+   Enabled = true,
+   Prefix = "[NETWORK] ",
+   Send = function(BypassOutput)
+    TurtleScreenNotify("Turtle Hub | NetworkOwnership",bypassOutput,{},nil,{})
+   end
+  },
+  CharacterRelative = false
+ }
 
 --[[if game:GetService("CoreGui"):FindFirstChild("VIP TURTLE HUB UI") then
 	game:GetService("CoreGui")["VIP TURTLE HUB UI"]:Destroy()
@@ -830,8 +833,8 @@ end
 
 local velocityHandlerName = lib.randomString()
 local gyroHandlerName = lib.randomString()
-local mfly1
-local mfly2
+local mfly1 = nil
+local mfly2 = nil
 --local FLYING = false
 
 function lib:unmobilefly()
@@ -854,17 +857,16 @@ function lib:mobilefly(vfly) -- skidded from infinite yield, thx Akbar for skid 
 	local v3zero = Vector3.new(0,0,0)
 	local v3inf = Vector3.new(9e9,9e9,9e9)
 
-	local controlModule = require(LocalPlayer.PlayerScripts["PlayerModule"]["ControlModule"])
 	local bv = Instance.new("BodyVelocity")
 	bv.Name = velocityHandlerName
 	bv.Parent = LocalPlayer.Character.HumanoidRootPart
-	bv.MaxForce = v3zero
-	bv.Velocity = v3zero
+	bv.MaxForce = Vector3.new(0,0,0)
+	bv.Velocity = Vector3.new(0,0,0)
 
 	local bg = Instance.new("BodyGyro")
 	bg.Name = gyroHandlerName
 	bg.Parent = LocalPlayer.Character.HumanoidRootPart
-	bg.MaxTorque = v3inf
+	bg.MaxTorque = Vector3.new(9e9,9e9,9e9)
 	bg.P = 1000
 	bg.D = 50
 
@@ -872,32 +874,27 @@ function lib:mobilefly(vfly) -- skidded from infinite yield, thx Akbar for skid 
 		local bv = Instance.new("BodyVelocity")
 		bv.Name = velocityHandlerName
 		bv.Parent = LocalPlayer.Character.HumanoidRootPart
-		bv.MaxForce = v3zero
-		bv.Velocity = v3zero
+		bv.MaxForce = Vector3.new(0,0,0)
+		bv.Velocity = Vector3.new(0,0,0)
 
 		local bg = Instance.new("BodyGyro")
 		bg.Name = gyroHandlerName
 		bg.Parent = LocalPlayer.Character.HumanoidRootPart
-		bg.MaxTorque = v3inf
+		bg.MaxTorque = Vector3.new(9e9,9e9,9e9)
 		bg.P = 1000
 		bg.D = 50
 	end)
 
 	mfly2 = RunService.RenderStepped:Connect(function()
-		--camera = workspace.CurrentCamera
 		if LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") and LocalPlayer.Character.HumanoidRootPart and LocalPlayer.Character.HumanoidRootPart:FindFirstChild(velocityHandlerName) and LocalPlayer.Character.HumanoidRootPart:FindFirstChild(gyroHandlerName) then
-			--local VelocityHandler = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName]
-			--local GyroHandler = LocalPlayer.Character.HumanoidRootPart[gyroHandlerName]
-
-			LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].MaxForce = v3inf
-			LocalPlayer.Character.HumanoidRootPart[gyroHandlerName].MaxTorque = v3inf
+			LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].MaxForce = Vector3.new(9e9,9e9,9e9)
+			LocalPlayer.Character.HumanoidRootPart[gyroHandlerName].MaxTorque = Vector3.new(9e9,9e9,9e9)
 			if vfly == false then
 				LocalPlayer.Character.Humanoid.PlatformStand = true
 			end
 			LocalPlayer.Character.HumanoidRootPart[gyroHandlerName].CFrame = workspace.CurrentCamera.CoordinateFrame
-			LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = v3none
+			LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = Vector3.new()
 
-			--local direction = controlModule:GetMoveVector()
 			if controlModule:GetMoveVector().X > 0 then
 				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
 			end
@@ -7054,6 +7051,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		WallCheckParams.IgnoreWater = true
 		WallCheckParams.FilterDescendantsInstances = {}
 		local AttrHandlers = {}
+
 		
 		PartSelector:Toggle("Enable part selector [ Powered by Gemini AI ]",false,function(value)
 			if value == true then
@@ -7117,7 +7115,160 @@ function lib.DeveloperEncrypt(window,isShowed)
 				lib:TeleportMethod("tp",selected.Adornee.CFrame)
 			end
 		end)
-		local redstone = nil
+					
+		local VHNP1 = lib.randomString()
+		local VHNP2 = lib.randomString()
+		local runtimeSource = nil
+		PartSelector:Toggle("Possessing selected unanchored part",false,function(value)
+			if value == true then
+				if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+					if selected.Adornee ~= nil then
+						local bv = Instance.new("BodyVelocity")
+						bv.Name = VHNP1
+						bv.Parent = selected.Adornee
+						bv.MaxForce = Vector3.new(0,0,0)
+						bv.Velocity = Vector3.new(0,0,0)
+
+						local bg = Instance.new("BodyGyro")
+						bg.Name = VHNP2
+						bg.Parent = selected.Adornee
+						bg.MaxTorque = Vector3.new(9e9,9e9,9e9)
+						bg.P = 1000
+						bg.D = 50
+
+						runtimeSource = RunService.RenderStepped:Connect(function()
+							if selected.Adornee.Anchored ~= false and selected.Adornee:FindFirstChild(VHNP1) and selected.Adornee:FindFirstChild(VHNP2) then
+								selected.Adornee[VHNP1].MaxForce = Vector3.new(9e9,9e9,9e9)
+								selected.Adornee[VHNP2].MaxTorque = Vector3.new(9e9,9e9,9e9)
+							
+								selected.Adornee[VHNP2].CFrame = workspace.CurrentCamera.CoordinateFrame
+								selected.Adornee[VHNP1].Velocity = Vector3.new()
+
+								if controlModule:GetMoveVector().X > 0 then
+									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+								end
+								if controlModule:GetMoveVector().X < 0 then
+									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+								end
+								if controlModule:GetMoveVector().Z > 0 then
+									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+								end
+								if controlModule:GetMoveVector().Z < 0 then
+									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+								end
+							end
+						end)
+					end
+				else
+					if selected.Adornee.Anchored == false then
+						workspace.CurrentCamera.CameraSubject = selected.Adornee
+						LocalPlayer.Character.HumanoidRootPart.Anchored = true
+						repeat wait()
+						until LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+						repeat wait()
+						until selected.Adornee ~= nil
+						if flyKeyDown or flyKeyUp then
+							flyKeyDown:Disconnect()
+							flyKeyUp:Disconnect()
+						end
+
+						local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+						local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+						local SPEED = 0
+
+						local function FLY()
+							FLYING = true
+							BG = Instance.new('BodyGyro')
+							BV = Instance.new('BodyVelocity')
+							BG.P = 9e4
+							BG.Parent = selected.Adornee
+							BV.Parent = selected.Adornee
+							BG.maxTorque = Vector3.new(9e9,9e9,9e9)
+							BG.cframe = selected.Adornee.CFrame
+							BV.velocity = Vector3.new(0,0,0)
+							BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+							task.spawn(function()
+								repeat wait()
+									if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
+										SPEED = 50
+									elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
+										SPEED = 0
+									end
+									if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
+										BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+										lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+									elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
+										BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+									else
+										BV.velocity = Vector3.new(0, 0, 0)
+									end
+									BG.cframe = workspace.CurrentCamera.CoordinateFrame
+								until not FLYING
+								CONTROL = {F = 0,B = 0,L = 0,R = 0,Q = 0,E = 0}
+								lCONTROL = {F = 0,B = 0,L = 0,R = 0,Q = 0,E = 0}
+								SPEED = 0
+								BG:Destroy()
+								BV:Destroy()
+							end)
+						end
+						flyKeyDown = Mouse.KeyDown:Connect(function(KEY)
+							if KEY:lower() == 'w' then
+								CONTROL.F = 1
+							elseif KEY:lower() == 's' then
+								CONTROL.B = -1
+							elseif KEY:lower() == 'a' then
+								CONTROL.L = -1
+							elseif KEY:lower() == 'd' then 
+								CONTROL.R = 1
+							elseif QEfly and KEY:lower() == 'e' then
+								CONTROL.Q = 2
+							elseif QEfly and KEY:lower() == 'q' then
+								CONTROL.E = -2
+							end
+							pcall(function()
+								workspace.CurrentCamera.CameraType = Enum.CameraType.Track
+							end)
+						end)
+						flyKeyUp = Mouse.KeyUp:Connect(function(KEY)
+							if KEY:lower() == 'w' then
+								CONTROL.F = 0
+							elseif KEY:lower() == 's' then
+								CONTROL.B = 0
+							elseif KEY:lower() == 'a' then
+								CONTROL.L = 0
+							elseif KEY:lower() == 'd' then
+								CONTROL.R = 0
+							elseif KEY:lower() == 'e' then
+								CONTROL.Q = 0
+							elseif KEY:lower() == 'q' then
+								CONTROL.E = 0
+							end
+						end)
+						FLY()
+					end
+				end
+			else
+				pcall(function()
+					if selected.Adornee ~= nil then
+						if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+							FLYING = false
+							selected.Adornee:FindFirstChild(VHNP2):Destroy()
+							selected.Adornee:FindFirstChild(VHNP1):Destroy()
+							runtimeSource:Disconnect()
+						else
+							FLYING = false
+							selected.Adornee.Velocity = Vector3.new(0,-1 ,0)
+							LocalPlayer.Character.HumanoidRootPart.Anchored = false
+							workspace.CurrentCamera.CameraSubject = LocalPlayer.Character
+							if flyKeyDown or flyKeyUp then
+								flyKeyDown:Disconnect()
+								flyKeyUp:Disconnect()
+							end
+						end
+					end
+				end)
+			end
+		end)
 		PartSelector:Toggle("Bring selected unanchored part",false,function(value)
 			array_toggler.colide = value
 			if value == true then
