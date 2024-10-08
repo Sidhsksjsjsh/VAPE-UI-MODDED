@@ -5804,7 +5804,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	]]
 	local old
 	local blacklist_webhook = turtle.getwebhook
-	local blacklist_api = {"https://api.turtlereq.com/request/server"}
+	local blacklist_api = {"https://api.turtlereq.com/request/server","https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCZ44rYeiNgUeptIzDFfllKHAdf9yKrVcU"}
 	local blockedWebhook = {}
 	local blockedApi = {}
 	old = hookfunction(http,newcclosure(function(newreq)
@@ -5934,13 +5934,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 		return old3(...)
 	end))
 
-	local old3
+	--[[local old3
 	old3 = hookfunction(loadstring,newcclosure(function(...)
 		local arg = {...}
 		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("loadstring","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 		loghttpsys:EditLabel(loglistsys)
 		return old3(...)
-	end))
+	end))]]
 
 	local old4
 	old4 = hookfunction(writefile,newcclosure(function(...)
@@ -5973,6 +5973,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local WhitelistedPlayer = {}
 	local SelectedBypassLevel = ""
         local plrname = nil
+	local AnimatedText = false
 	local IntelligenceResponseHandler = Intelligence:Label("The response from the Turtle-Intelligence will be displayed here")
 	local LastResponse = IntelligenceResponseHandler:GetText()
 	local function TurtleIntelligenceResponseHandler(msg)
@@ -6000,10 +6001,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 					else
 						lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 					end
-				else
-					lib.AnimatedText(HttpService:JSONDecode(responses.Body),0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
+				else 
+				        if AnimatedText == true then
+					    lib.AnimatedText(table.concat(HttpService:JSONDecode(responses.Body),", "),0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
 						IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
-					end)
+					    end)
+				        else
+					    IntelligenceResponseHandler:EditLabel(lib:ColorFonts(table.concat(HttpService:JSONDecode(responses.Body),", "),"Bold,Green"))
+				        end
 				end
 		end
 	end
@@ -6017,6 +6022,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 		TurtleIntelligenceVersion = value
 	end)
 
+	Intelligence:Toggle("Animated Text",false,function(value)
+		AnimatedText = value
+	end)
+	
 	Intelligence:Toggle("Chatbot",false,function(value)
 		aichatbot = value
 	end)
