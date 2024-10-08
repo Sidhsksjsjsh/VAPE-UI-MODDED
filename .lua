@@ -1300,7 +1300,7 @@ function lib:LoadRepository(path,bool)
 					Url = path,
 					Method = "GET",
 					Headers = {
-						["Authorization"] = "Bearer \103\105\116\104\117\98\95\112\97\116\95\49\49\65\52\65\86\90\88\89\48\114\72\111\87\109\114\119\70\49\107\118\99\95\56\116\109\54\72\69\88\111\107\89\118\100\88\85\82\51\119\50\70\52\83\114\97\74\56\76\122\78\76\82\118\107\77\121\97\72\110\84\98\87\81\117\82\66\79\90\77\86\79\90\73\51\74\56\108\52\71\52\52"
+						["Authorization"] = "Bearer " .. GithubAPIKey
 					}
 				})
 		end)
@@ -1805,7 +1805,7 @@ function lib.getTable(str,name)
 		if str == "get" then
 			return {"announcement","chat","cmd","meme","rules","galau"}
 		elseif str == "sent" then
-			return name:gsub("announcement","https://discord.com/api/webhooks/1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl"):gsub("chat","https://discord.com/api/webhooks/1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9"):gsub("cmd","https://discord.com/api/webhooks/1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz"):gsub("meme","https://discord.com/api/webhooks/1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw"):gsub("rules","https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt"):gsub("galau","https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ")
+			return name:gsub("announcement",turtle.webhook.announce):gsub("chat",turtle.webhook.chat):gsub("cmd",turtle.webhook.cmd):gsub("meme",turtle.webhook.meme):gsub("rules",turtle.webhook.rules):gsub("galau",turtle.webhook.galau)
 		end
 	end
 end
@@ -5803,15 +5803,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	]]
 	local old
-	local blacklist_webhook = {
-		"https://discord.com/api/webhooks/1239491702943907901/ubuChRbUSzMDL1YsTfXI1IAkTuycAgKO1pcDBW4pBCik5doM96B6WyevIyCfBBL6ANzl",
-		"https://discord.com/api/webhooks/1239492190565175368/TMmWJGqk1p80APfqHVmhLOZ0FJuQZ4HOWkn5Ypgv_H-9fmvZTJs8rG59NJJqOGluVBx9",
-		"https://discord.com/api/webhooks/1239492495969226803/dWhjW1Sbmq-x8RXZwJqvLwvs6kZUhYkav3A2Y7ZWK_bIgKIfGkmYsLxoXzFM-21yXABz",
-		"https://discord.com/api/webhooks/1239492690186604594/y_xzIQXOton0_jOzgsmq4VoNh9vSb9i62wvs-DwnJLeZD9PGNHuXZulyVrgRRpNyh3qw",
-		"https://discord.com/api/webhooks/1239492927902711818/-2_U804I6-N3wW9S9l6RaUrG7fX-quwH_tGP9fzE_nVS5Db_FTvhnGgYMbm3bnzh2UWt",
-		"https://discord.com/api/webhooks/1241031789997330483/GkDMMq6BwtOYgf80ioPP53pB8UIR-QOcvFHbclUYPnV7pugW0DJfOcqQJnRnhawewRCJ",
-		"https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT"
-	}
+	local blacklist_webhook = turtle.getwebhook
 	local blacklist_api = {"https://api.turtlereq.com/request/server"}
 	local blockedWebhook = {}
 	local blockedApi = {}
