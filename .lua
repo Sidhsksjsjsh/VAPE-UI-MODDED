@@ -6014,16 +6014,22 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end
 
 	Intelligence:Textbox("Insert ur question",false,function(value)
-		TurtleIntelligenceResponseHandler(value:gsub(" ","+"))
+		TurtleIntelligenceResponseHandler(value) --value:gsub(" ","+"))
 		LastResponse = IntelligenceResponseHandler:GetText()
 	end)
 	--IntelligenceResponseHandler:GetText()
 	Intelligence:Dropdown("Select Turtle-Intelligence version",{"Gemini Advanced","N/A","N/A"},function(value)
 		TurtleIntelligenceVersion = value
 	end)
+	
+	lib:DeveloperAccess(function()
+		Intelligence:Toggle("Animated Text",false,function(value)
+			AnimatedText = value
+		end)
 
-	Intelligence:Toggle("Animated Text",false,function(value)
-		AnimatedText = value
+		Intelligence:Button("Copy Response",function()
+			lib:Copy(IntelligenceResponseHandler:GetText())
+		end)
 	end)
 	
 	Intelligence:Toggle("Chatbot",false,function(value)
