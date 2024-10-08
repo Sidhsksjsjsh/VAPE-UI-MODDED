@@ -6001,7 +6001,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 						lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 					end
 				else
-					lib.AnimatedText(responses.Body,0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
+					lib.AnimatedText(HttpService:JSONDecode(responses.Body),0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
 						IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
 					end)
 				end
