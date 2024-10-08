@@ -5942,6 +5942,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 		return old3(...)
 	end))
 
+	local old3
+	old3 = hookfunction(loadstring,newcclosure(function(...)
+		local arg = {...}
+		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("loadstring","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
+		loghttpsys:EditLabel(loglistsys)
+		return old3(...)
+	end))
+
 	local old4
 	old4 = hookfunction(writefile,newcclosure(function(...)
 		local arg = {...}
