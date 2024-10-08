@@ -6003,11 +6003,11 @@ function lib.DeveloperEncrypt(window,isShowed)
 					end
 				else 
 				        if AnimatedText == true then
-					    lib.AnimatedText(table.concat(HttpService:JSONDecode(responses.Body),", "),0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
+					    lib.AnimatedText(responses.Body,0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
 						IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
 					    end)
 				        else
-					    IntelligenceResponseHandler:EditLabel(lib:ColorFonts(table.concat(HttpService:JSONDecode(responses.Body),", "),"Bold,Green"))
+					    IntelligenceResponseHandler:EditLabel(lib:ColorFonts(responses.Body,"Bold,Green"))
 				        end
 				end
 		end
