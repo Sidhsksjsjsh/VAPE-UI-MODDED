@@ -5992,22 +5992,22 @@ function lib.DeveloperEncrypt(window,isShowed)
 				if aichatbot == true then
 					if #WhitelistedPlayer ~= 0 then
 						if SelectedBypassLevel == "Bypass 1" then
-							lib:sendChat(filter(HttpService:JSONDecode(responses.Body).response))
+							lib:sendChat(filter(HttpService:JSONDecode(responses.Body)["candidates"][1]["content"]["parts"][1]["text"]))
 						elseif SelectedBypassLevel == "Bypass 2" then
-							lib:sendChat(filter2(HttpService:JSONDecode(responses.Body).response))
+							lib:sendChat(filter2(HttpService:JSONDecode(responses.Body)["candidates"][1]["content"]["parts"][1]["text"]))
 						elseif SelectedBypassLevel == "None" then
-							lib:sendChat(HttpService:JSONDecode(responses.Body).response)
+							lib:sendChat(HttpService:JSONDecode(responses.Body)["candidates"][1]["content"]["parts"][1]["text"])
 						end
 					else
 						lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 					end
 				else 
 				        if AnimatedText == true then
-					    lib.AnimatedText(responses.Body,0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
+					    lib.AnimatedText(HttpService:JSONDecode(responses.Body)["candidates"][1]["content"]["parts"][1]["text"],0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
 						IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
 					    end)
 				        else
-					    IntelligenceResponseHandler:EditLabel(lib:ColorFonts(responses.Body,"Bold,Green"))
+					    IntelligenceResponseHandler:EditLabel(lib:ColorFonts(HttpService:JSONDecode(responses.Body)["candidates"][1]["content"]["parts"][1]["text"],"Bold,Green"))
 				        end
 				end
 		end
