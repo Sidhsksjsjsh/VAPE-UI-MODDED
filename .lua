@@ -5968,7 +5968,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	--TurtleScreenNotify("","",{},nil,{})
 
 	local Intelligence = window:Tab("Intelligence")
-	local TurtleIntelligenceVersion = "V1"
+	local TurtleIntelligenceVersion = "Gemini Advanced"
 	local aichatbot = false
 	local WhitelistedPlayer = {}
 	local SelectedBypassLevel = ""
@@ -5976,69 +5976,35 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local IntelligenceResponseHandler = Intelligence:Label("The response from the Turtle-Intelligence will be displayed here")
 	local LastResponse = IntelligenceResponseHandler:GetText()
 	local function TurtleIntelligenceResponseHandler(msg)
-		if TurtleIntelligenceVersion == "V1" then
-			if aichatbot == true then
-				if #WhitelistedPlayer ~= 0 then
-					if SelectedBypassLevel == "Bypass 1" then
-						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success))
-					elseif SelectedBypassLevel == "Bypass 2" then
-						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success))
-					elseif SelectedBypassLevel == "None" then
-						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success)
+		if TurtleIntelligenceVersion == "Gemini Advanced" then
+				local reqstatus,responses = pcall(function()
+					return http({
+							Url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCZ44rYeiNgUeptIzDFfllKHAdf9yKrVcU",
+							Method = "POST",
+							Headers = {
+								["content-type"] = "application/json";
+								--["Authorization"] = "b1060a52b07c933b192298aede18a4e079e2cb3be98c2bd6fcd30e77c4c80cb9822937927db1797ccc9fdc6804e85777"
+							},
+							Body = HttpService:JSONEncode({contents = {{parts = {{text = msg}}}}})
+						})
+				end)
+				if aichatbot == true then
+					if #WhitelistedPlayer ~= 0 then
+						if SelectedBypassLevel == "Bypass 1" then
+							lib:sendChat(filter(HttpService:JSONDecode(responses.Body).response))
+						elseif SelectedBypassLevel == "Bypass 2" then
+							lib:sendChat(filter2(HttpService:JSONDecode(responses.Body).response))
+						elseif SelectedBypassLevel == "None" then
+							lib:sendChat(HttpService:JSONDecode(responses.Body).response)
+						end
+					else
+						lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
 					end
 				else
-					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
+					lib.AnimatedText(responses.Body,0.001,function(v) --lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
+						IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
+					end)
 				end
-			else
-				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.simsimi.net/v2/?text=" .. msg .. "&lc=en&cf=False")).success,0.001,function(v)
-					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
-				end)
-			end
-		elseif TurtleIntelligenceVersion == "V2" then
-			local responses = http({
-					Url = "https://chatengine.xyz/api/ask",
-					Method = "POST",
-					Headers = {
-						["content-type"] = "application/json";
-						["Authorization"] = "b1060a52b07c933b192298aede18a4e079e2cb3be98c2bd6fcd30e77c4c80cb9822937927db1797ccc9fdc6804e85777"
-					},
-					Body = HttpService:JSONEncode({query = msg})
-			})
-			if aichatbot == true then
-				if #WhitelistedPlayer ~= 0 then
-					if SelectedBypassLevel == "Bypass 1" then
-						lib:sendChat(filter(HttpService:JSONDecode(responses.Body).response))
-					elseif SelectedBypassLevel == "Bypass 2" then
-						lib:sendChat(filter2(HttpService:JSONDecode(responses.Body).response))
-					elseif SelectedBypassLevel == "None" then
-						lib:sendChat(HttpService:JSONDecode(responses.Body).response)
-					end
-				else
-					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
-				end
-			else
-				lib.AnimatedText(HttpService:JSONDecode(responses.Body).response,0.001,function(v)
-					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
-				end)
-			end
-		elseif TurtleIntelligenceVersion == "V3" then
-                        if aichatbot == true then
-				if #WhitelistedPlayer ~= 0 then
-					if SelectedBypassLevel == "Bypass 1" then
-						lib:sendChat(filter(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message))
-					elseif SelectedBypassLevel == "Bypass 2" then
-						lib:sendChat(filter2(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message))
-    				        elseif SelectedBypassLevel == "None" then
-						lib:sendChat(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message)
-					end
-				else
-					lib:ColorFonts(lib:ColorFonts("Whitelist atleast 1 player.","Bold,Red"),10)
-				end
-			else
-				lib.AnimatedText(HttpService:JSONDecode(game:HttpGet("https://api.affiliateplus.xyz/api/chatbot?message=" .. msg .. "&botname=" .. plrname .. "&ownername=" .. LocalPlayer.Name .. "&user=1")).message,0.001,function(v)
-					IntelligenceResponseHandler:EditLabel(lib:ColorFonts(v,"Bold,Green"))
-				end)
-			end
 		end
 	end
 
@@ -6047,7 +6013,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		LastResponse = IntelligenceResponseHandler:GetText()
 	end)
 	--IntelligenceResponseHandler:GetText()
-	Intelligence:Dropdown("Select Turtle-Intelligence version",{"V1","V2","V3"},function(value)
+	Intelligence:Dropdown("Select Turtle-Intelligence version",{"Gemini Advanced","N/A","N/A"},function(value)
 		TurtleIntelligenceVersion = value
 	end)
 
