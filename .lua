@@ -3301,10 +3301,10 @@ function lib:Window(text, preset, closebind)
 	end
 
 	if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
-		if game.PlaceId == 12135640403 or game.PlaceId == 15502802094 or game.PlaceId == 15742087191 then -- Anime Dungeon Fighters world 1 & 2 & 3
+		if game.PlaceId == 12135640403 or game.PlaceId == 15502802094 or game.PlaceId == 15742087191 or game.PlaceId == 18314395469 then -- Anime Dungeon Fighters world 1 & 2 & 3, Evolution Simulator
 			local THHUI = Instance.new("ScreenGui")
 			THHUI.Name = "VIP TURTLE HUB HIDE UI"
-			THHUI.Parent = game:GetService("CoreGui")
+			THHUI.Parent = lib.Interface("hide") --game:GetService("CoreGui")
 			THHUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 			local HIDEUINIGGER = Instance.new("Frame")
