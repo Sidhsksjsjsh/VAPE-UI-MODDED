@@ -837,6 +837,60 @@ local mfly1 = nil
 local mfly2 = nil
 --local FLYING = false
 
+function lib.getHierarchy(obj)
+	local fullname
+	local period
+
+	if string.find(obj.Name,' ') then
+		fullname = '["'..obj.Name..'"]'
+		period = false
+	else
+		fullname = obj.Name
+		period = true
+	end
+
+	local getS = obj
+	local parent = obj
+	local service = ''
+
+	if getS.Parent ~= game then
+		repeat
+			getS = getS.Parent
+			service = getS.ClassName
+		until getS.Parent == game
+	end
+
+	if parent.Parent ~= getS then
+		repeat
+			parent = parent.Parent
+			if string.find(tostring(parent),' ') then
+				if period then
+					fullname = '["'..parent.Name..'"].'..fullname
+				else
+					fullname = '["'..parent.Name..'"]'..fullname
+				end
+				period = false
+			else
+				if period then
+					fullname = parent.Name..'["'..fullname..'"]'
+				else
+					fullname = parent.Name..''..fullname
+				end
+				period = true
+			end
+		until parent.Parent == getS
+	elseif string.find(tostring(parent),' ') then
+		fullname = '["'..parent.Name..'"]'
+		period = false
+	end
+
+	if period then
+		return 'game:GetService("'..service..'").'..fullname
+	else
+		return 'game:GetService("'..service..'")'..fullname
+	end
+end
+
 function lib:unmobilefly()
 	pcall(function()
 		FLYING = false
@@ -1520,24 +1574,6 @@ function lib:TeleportMethod(mthd,str,param)
 	else
 		lib:notify("Teleport method is invalid, try select another method",10)
 	end
-end
-
-function lib:GetPlayerMessage(who,handle)
-	who.Chatted:Connect(function(message)
-		handle(message)
-	end)
-end
-
-function lib.onPlayerJoin(func)
-	game:GetService("Players").PlayerAdded:Connect(function(plr)
-		func(plr)
-	end)
-end
-
-function lib.onPlayerLeft(func)
-	game:GetService("Players").PlayerRemoving:Connect(function(plr)
-		func(plr)
-	end)
 end
 
 --[[
@@ -2299,115 +2335,132 @@ local function CrawlInstances(Inst)
                 --setclipboard("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. "")
                 lib:notify("Copied " .. lib:ColorFonts(Instance.ClassName,"Bold,Green"),10)
 		if Instance:IsA("RemoteEvent") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()")
+			lib:Copy(lib.getHierarchy(SelectedInstance) .. ":FireServer()")--(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()")
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":FireServer()",
+				lib.getHierarchy(SelectedInstance) .. ":FireServer()",
 				{}
 			)
 		elseif Instance:IsA("RemoteFunction") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":InvokeServer()")
+			lib:Copy(lib.getHierarchy(SelectedInstance) .. ":InvokeServer()")
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":InvokeServer()",
+				lib.getHierarchy(SelectedInstance) .. ":InvokeServer()",
 				{}
 			)
 		elseif Instance:IsA("BindableFunction") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Invoke()")
+			lib:Copy(lib.getHierarchy(SelectedInstance) .. ":Invoke()")
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Invoke()",
+				lib.getHierarchy(SelectedInstance) .. ":Invoke()",
 				{}
 			)
 		elseif Instance:IsA("BindableEvent") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()")
+			lib:Copy(lib.getHierarchy(SelectedInstance) .. ":Fire()")
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ":Fire()",
+				lib.getHierarchy(SelectedInstance) .. ":Fire()",
 				{}
 			)
 		elseif Instance:IsA("StringValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("BoolValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("IntValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("NumberValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("ObjectValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("Vector3Value") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("CFrameValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("BrickColorValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("Color3Value") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("RayValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		elseif Instance:IsA("FloatValue") then
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. ` -> "{Instance.Value}" • {typeof(Instance.Value)}` .. "\n\n" .. Instance.ClassName,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
+				{}
+			)
+		--[[
+		Properties[v.Name] = {
+                    Value = Instance[v.Name],
+                    Type = v.ValueType,
+                } table.concat(Properties,"\n")
+		]]
+		elseif Instance:IsA("TextLabel") or Instance:IsA("TextBox") or Instance:IsA("TextButton") or Instance:IsA("ImageButton") then
+			local prop = {}
+			for PropertyName,PropDetails in pairs(Properties) do
+				lib:AddTable(`Name = {PropertyName}, Property type = {PropDetails.Type}, Value = {tostring(PropDetails.Value)} (value type : {typeof(PropDetails.Value)})`,prop)
+			end
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Text}"\n\nProperties : \n{table.concat(prop,"\n")}`)
+			lib.sentMessage(
+				lib.getTable("sent","galau"),
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}\n\nProperties : \n[[\n{table.concat(prop,"\n")}\n]]`,
 				{}
 			)
 		else
-			lib:Copy("game." .. (SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE"))
+			lib:Copy(lib.getHierarchy(SelectedInstance))
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				(SelectedInstance and SelectedInstance:GetFullName() or "UNKNOWN INSTANCE") .. "\n\n" .. Instance.ClassName,
+				lib.getHierarchy(SelectedInstance) .. "\n\n" .. Instance.ClassName,
 				{}
 			)
 		end -- end
@@ -2837,6 +2890,30 @@ function lib:ErrorReader(func,ssd)
 		})
 		SendMessage("https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT","An error has occured when running Turtle Hub.```diff\n- " .. dick .. "\n" .. debug.traceback() .. "\n```")
 	end
+end
+
+function lib:GetPlayerMessage(who,handle)
+	lib:ErrorReader(function()
+		who.Chatted:Connect(function(message)
+			handle(message)
+		end)
+	end)
+end
+
+function lib.onPlayerJoin(func)
+	lib:ErrorReader(function()
+		game:GetService("Players").PlayerAdded:Connect(function(plr)
+			func(plr)
+		end)
+	end)
+end
+
+function lib.onPlayerLeft(func)
+	lib:ErrorReader(function()
+		game:GetService("Players").PlayerRemoving:Connect(function(plr)
+			func(plr)
+		end)
+	end)
 end
 
 --[[
@@ -5250,60 +5327,6 @@ local player = Players:GetPlayerByUserId(message.TextSource.UserId)
 
 ]]
 
-local function getHierarchy(obj)
-	local fullname
-	local period
-
-	if string.find(obj.Name,' ') then
-		fullname = '["'..obj.Name..'"]'
-		period = false
-	else
-		fullname = obj.Name
-		period = true
-	end
-
-	local getS = obj
-	local parent = obj
-	local service = ''
-
-	if getS.Parent ~= game then
-		repeat
-			getS = getS.Parent
-			service = getS.ClassName
-		until getS.Parent == game
-	end
-
-	if parent.Parent ~= getS then
-		repeat
-			parent = parent.Parent
-			if string.find(tostring(parent),' ') then
-				if period then
-					fullname = '["'..parent.Name..'"].'..fullname
-				else
-					fullname = '["'..parent.Name..'"]'..fullname
-				end
-				period = false
-			else
-				if period then
-					fullname = parent.Name..'.'..fullname
-				else
-					fullname = parent.Name..''..fullname
-				end
-				period = true
-			end
-		until parent.Parent == getS
-	elseif string.find(tostring(parent),' ') then
-		fullname = '["'..parent.Name..'"]'
-		period = false
-	end
-
-	if period then
-		return 'game:GetService("'..service..'").'..fullname
-	else
-		return 'game:GetService("'..service..'")'..fullname
-	end
-end
-
 
 	--[[ActivateHighlight = Mouse.Move:Connect(HighlightPart)
 local function SelectPart()
@@ -5973,7 +5996,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local WhitelistedPlayer = {}
 	local SelectedBypassLevel = ""
         local plrname = nil
-	local AnimatedText = false
+	local AnimatedText = true
 	local IntelligenceResponseHandler = Intelligence:Label("The response from the Turtle-Intelligence will be displayed here")
 	local LastResponse = IntelligenceResponseHandler:GetText()
 	local function TurtleIntelligenceResponseHandler(msg)
@@ -6010,6 +6033,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 					    IntelligenceResponseHandler:EditLabel(lib:ColorFonts(HttpService:JSONDecode(responses.Body)["candidates"][1]["content"]["parts"][1]["text"],"Bold,Green"))
 				        end
 				end
+		else
+			TurtleScreenNotify("Turtle Hub | AI","This version for AI is not available due to API issues.",{},nil,{})
 		end
 	end
 
@@ -6023,13 +6048,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end)
 	
 	lib:DeveloperAccess(function()
-		Intelligence:Toggle("Animated Text",false,function(value)
+		Intelligence:Toggle("Animated Text",true,function(value)
 			AnimatedText = value
 		end)
+	end)
 
-		Intelligence:Button("Copy Response",function()
-			lib:Copy(IntelligenceResponseHandler:GetText())
-		end)
+	Intelligence:Button("Copy Response",function()
+		lib:Copy(IntelligenceResponseHandler:GetText())
 	end)
 	
 	Intelligence:Toggle("Chatbot",false,function(value)
@@ -6044,9 +6069,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		lib:TrackPlayer(value,function(v)
 			lib:AddTable(v.DisplayName,WhitelistedPlayer)
 			lib:notify(lib:ColorFonts("Player successfully whitelisted.",""),10)
-			wait(0.5)
 			IntelligenceResponseHandler:EditLabel(lib:ColorFonts("Currently whitelisted player : " .. table.concat(WhitelistedPlayer,", "),"Bold,Green"))
-			wait(2.5)
+			wait(5)
 			IntelligenceResponseHandler:EditLabel(lib:ColorFonts(LastResponse,"Bold,Green"))
 		end)
 	end)
@@ -6075,9 +6099,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		if table.find(WhitelistedPlayer,plr.DisplayName) then
 			task.spawn(function()
 				table.remove(WhitelistedPlayer,table.find(WhitelistedPlayer,plr.DisplayName))
-				wait(0.5)
 				IntelligenceResponseHandler:EditLabel(lib:ColorFonts("Currently whitelisted player : " .. table.concat(WhitelistedPlayer,", "),"Bold,Green"))
-				wait(2.5)
+				wait(5)
 				IntelligenceResponseHandler:EditLabel(lib:ColorFonts(LastResponse,"Bold,Green"))
 			end)
 		end
@@ -7046,9 +7069,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 							table.insert(AttrHandlers,`['{name}'] = {value} • {typeof(value)}`)
 						end)
 						if #AttrHandlers > 0 then
-							partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}") -- .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
+							partname:EditLabel(lib.getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}") -- .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
 						else
-							partname:EditLabel(getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Raycast : " .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
+							partname:EditLabel(lib.getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Raycast : " .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
 						end
 					end
 				end)
@@ -7070,11 +7093,11 @@ function lib.DeveloperEncrypt(window,isShowed)
 		PartSelector:Button("Copy instance",function()
 			if getHierarchy(selected.Adornee) ~= nil or getHierarchy(selected.Adornee) ~= "" or partname:GetText() ~= "Part selector disabled." then
 				if #AttrHandlers > 0 then
-					lib:Copy(getHierarchy(selected.Adornee) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
-					lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee) .. "\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
+					lib:Copy(lib.getHierarchy(selected.Adornee) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
+					lib.sentMessage(lib.getTable("sent","galau"),lib.getHierarchy(selected.Adornee) .. "\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
 				else
-					lib:Copy(getHierarchy(selected.Adornee))
-					lib.sentMessage(lib.getTable("sent","galau"),getHierarchy(selected.Adornee))
+					lib:Copy(lib.getHierarchy(selected.Adornee))
+					lib.sentMessage(lib.getTable("sent","galau"),lib.getHierarchy(selected.Adornee))
 				end
 			else
 				lib:notify(lib:ColorFonts("Select a part to copy its path","Bold,Red"),10)
@@ -7118,7 +7141,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 						bg.D = 50
 
 						runtimeSource = RunService.RenderStepped:Connect(function()
-							if selected.Adornee.Anchored ~= false and selected.Adornee:FindFirstChild(VHNP1) and selected.Adornee:FindFirstChild(VHNP2) then
+							if selected.Adornee ~= nil and selected.Adornee.Anchored ~= false and selected.Adornee:FindFirstChild(VHNP1) and selected.Adornee:FindFirstChild(VHNP2) then
 								selected.Adornee[VHNP1].MaxForce = Vector3.new(9e9,9e9,9e9)
 								selected.Adornee[VHNP2].MaxTorque = Vector3.new(9e9,9e9,9e9)
 							
@@ -7141,7 +7164,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 						end)
 					end
 				else
-					if selected.Adornee.Anchored == false then
+					if selected.Adornee ~= nil and selected.Adornee.Anchored == false then
 						workspace.CurrentCamera.CameraSubject = selected.Adornee
 						LocalPlayer.Character.HumanoidRootPart.Anchored = true
 						repeat wait()
