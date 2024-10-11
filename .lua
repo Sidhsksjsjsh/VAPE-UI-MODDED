@@ -872,7 +872,7 @@ function lib.getHierarchy(obj)
 				period = false
 			else
 				if period then
-					fullname = parent.Name..'["'..fullname..'"]'
+					fullname = parent.Name..'.'..fullname
 				else
 					fullname = parent.Name..''..fullname
 				end
