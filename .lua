@@ -5407,10 +5407,20 @@ function lib:sendChat(msg)
         if Chat:FilterStringForBroadcast(msg,LocalPlayer) ~= msg then
             lib:notify(lib:ColorFonts("Message is filtered.","Bold,Red"),10)
         else
-            if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
-                game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
-            else
-                TextChatService["ChatInputBarConfiguration"]["TargetTextChannel"]:SendAsync(msg)
+	    if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
+		if #msg > 200 then
+			TurtleScreenNotify("Turtle Hub | Character Limit","Your character limit has exceeded the limit\nLimit : 200\n\nYour message text has been truncated from 1 to 200 characters",{},nil,{})
+			game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg:sub(1,200),"All")
+		else
+			game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
+		end
+	    else
+		if #msg > 1000 then
+			TurtleScreenNotify("Turtle Hub | Character Limit","Your character limit has exceeded the limit\nLimit : 1000\n\nYour message text has been truncated from 1 to 1000 characters",{},nil,{})
+			TextChatService["ChatInputBarConfiguration"]["TargetTextChannel"]:SendAsync(msg:sub(1,1000))
+		else
+			TextChatService["ChatInputBarConfiguration"]["TargetTextChannel"]:SendAsync(msg)
+		end -- character count
 	    end
         end
 end
