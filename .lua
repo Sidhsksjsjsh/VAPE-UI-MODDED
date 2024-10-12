@@ -5090,7 +5090,7 @@ end
 			TextboxTitle.Text = `{text} ({limit} left)`
 			lib.getElementChanged(TextBox,"Text",function()
 				if #TextBox.Text < limit then
-					TextboxTitle.Text = `{text} ({#TextBox.Text - limit} left)`
+					TextboxTitle.Text = `{text} ({limit - #TextBox.Text} left)`
 				elseif #TextBox.Text > limit then
 					TextboxTitle.Text = `{text} (0 left)`
 					TextBox.Text = `{text:sub(1,limit)}`
@@ -5750,11 +5750,19 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local WordPreview = chatbypass:Label(lib:ColorFonts("Text bypass preview","Bold,Green"))
 	local AutomaticBypass = false
 	local V2Bypass = false
-	local textboxhandler = chatbypass:Textbox("Insert ur text here.",false,function(value)
-		texthandler = value
-	end)
+	local textboxhandler = nil
 
-	chatbypass:Toggle("V2 Bypass",false,function(value)
+	if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
+		textboxhandler = chatbypass:Textbox("Insert ur text here.",false,function(value)
+			texthandler = value
+		end,200)
+	else
+		textboxhandler = chatbypass:Textbox("Insert ur text here.",false,function(value)
+			texthandler = value
+		end,1000)
+	end
+
+	chatbypass:Toggle("V2 Bypass",true,function(value)
 		V2Bypass = value
 		if value == true then
 			if Chat:FilterStringForBroadcast(filter2(texthandler),LocalPlayer) ~= filter2(texthandler) then
