@@ -5048,7 +5048,7 @@ end
             TextboxTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
             TextboxTitle.Size = UDim2.new(0, 187, 0, 42)
             TextboxTitle.Font = Enum.Font.Gotham
-            --TextboxTitle.Text = text .. (max and ` ({limit} left)` or "")
+            TextboxTitle.Text = text
             TextboxTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             TextboxTitle.TextSize = 14.000
             TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -5090,7 +5090,7 @@ end
 			TextboxTitle.Text = `{text} ({limit} left)`
 			lib.getElementChanged(TextBox,"Text",function()
 				if #TextBox.Text < limit then
-					TextboxTitle.Text = `{text} ({limit - #TextBox.Text} left)`
+					TextboxTitle.Text = `{text} ({#TextBox.Text - limit} left)`
 				elseif #TextBox.Text > limit then
 					TextboxTitle.Text = `{text} (0 left)`
 					TextBox.Text = `{text:sub(1,limit)}`
