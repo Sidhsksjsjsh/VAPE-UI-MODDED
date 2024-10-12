@@ -2656,18 +2656,19 @@ function lib:hooksend(str)
 end
 
 function lib:TrackPlayer(name,f)
-	lib:GetPlayer(function(v)
-		if name == "all" or name == "All" then
-			f(v)
-		elseif name == "me" or name == "Me" then
-			f(LocalPlayer)
-			--break
-		else
-			if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) or (string.sub(string.lower(v.DisplayName),1,string.len(name))) == string.lower(name) then
+	if name ~= "me" or name ~= "Me" then
+		lib:GetPlayer(function(v)
+			if name == "all" or name == "All" then
 				f(v)
+			else
+				if (string.sub(string.lower(v.Name),1,string.len(name))) == string.lower(name) or (string.sub(string.lower(v.DisplayName),1,string.len(name))) == string.lower(name) then
+					f(v)
+				end
 			end
-		end
-	end)
+		end)
+	else
+		f(LocalPlayer)
+	end
 end
 
 function lib.getInstanceFullName(path,name,f)
@@ -5019,7 +5020,7 @@ end
 	 end
 		return lbl
         end
-        function tabcontent:Textbox(text, disapper, callback)
+        function tabcontent:Textbox(text,disapper,callback,max)
             local Textbox = Instance.new("Frame")
             local TextboxCorner = Instance.new("UICorner")
             local TextboxTitle = Instance.new("TextLabel")
@@ -5027,7 +5028,8 @@ end
             local TextboxFrameCorner = Instance.new("UICorner")
             local TextBox = Instance.new("TextBox")
 	    local tablehandler = {}
-	
+	    local limit = max or "no limits"
+			
             Textbox.Name = "Textbox"
             Textbox.Parent = Tab
             Textbox.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
@@ -5046,7 +5048,7 @@ end
             TextboxTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
             TextboxTitle.Size = UDim2.new(0, 187, 0, 42)
             TextboxTitle.Font = Enum.Font.Gotham
-            TextboxTitle.Text = text
+            --TextboxTitle.Text = text .. (max and ` ({limit} left)` or "")
             TextboxTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             TextboxTitle.TextSize = 14.000
             TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -5084,8 +5086,20 @@ end
                 end
             )
 
+		if limit ~= "no limits" then
+			TextboxTitle.Text = `{text} ({limit} left)`
+			lib.getElementChanged(TextBox,"Text",function()
+				if #TextBox.Text < limit then
+					TextboxTitle.Text = `{text} ({limit - #TextBox.Text} left)`
+				elseif #TextBox.Text > limit then
+					TextboxTitle.Text = `{text} (0 left)`
+					TextBox.Text = `{text:sub(1,limit)}`
+				end
+			end)
+		end
+			
 	    function tablehandler:GetInputChanged(get)
-		TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+		lib.getElementChanged(TextBox,"Text",function()
 			pcall(get,TextBox.Text)
 		end)
 	    end
