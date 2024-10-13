@@ -407,7 +407,33 @@ local letters2 = {
         ["w"] = "\225\180\161\204\178",
         ["x"] = "\209\133\204\178",
         ["y"] = "\202\143\204\178",
-        ["z"] = "\225\180\162\204\178",
+        ["z"] = "\225\180\162\204\178", -- end this
+        ["A"] = "\225\180\128\204\178",
+        ["B"] = "\202\153\204\178",
+        ["C"] = "\225\180\132\204\178",
+        ["D"] = "\225\180\133\204\178",
+        ["E"] = "\225\180\135\204\178",
+        ["F"] = "\210\147\204\178",
+        ["G"] = "\201\162\204\178",
+        ["H"] = "\202\156\204\178",
+        ["I"] = "\201\170\204\178",
+        ["I"] = "\225\180\138\204\178",
+        ["K"] = "\225\180\139\204\178",
+        ["L"] = "\202\159\204\178",
+        ["M"] = "\225\180\141\204\178",
+        ["N"] = "\201\180\204\178",
+        ["O"] = "\225\180\143\204\178",
+        ["P"] = "\225\180\152\204\178",
+        ["Q"] = "\225\180\143\204\178\204\168",
+        ["R"] = "\202\128\204\178",
+        ["S"] =  "s\204\178",
+        ["T"] = "\225\180\155\204\178",
+        ["U"] = "\225\180\156\204\178\204\178",
+        ["V"] = "\225\180\160\204\178",
+        ["W"] = "\225\180\161\204\178",
+        ["X"] = "\209\133\204\178",
+        ["Y"] = "\202\143\204\178",
+        ["Z"] = "\225\180\162\204\178", -- end this
         [" "] = " "
 }
 
@@ -5787,6 +5813,32 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end
 	end)
 
+	lib:DeveloperAccess(function()
+		chatbypass:Button("Ubah karakter menjadi karakter normal",function()
+			local result = ""
+
+			for i = 1,#filter2(texthandler) do
+				local byte = string.byte(filter2(texthandler),i)
+				result = result .. string.char(byte)
+			end
+			
+			lib:Copy(result)
+		end)
+
+		chatbypass:Button("Ubah semua karakter menjadi karakter normal",function()
+			local result = ""
+
+			for search,replacement in pairs(letters2) do
+				for i = 1,#replacement do
+					local byte = string.byte(replacement,i)
+					result = result .. string.char(byte)
+				end
+			end
+				
+			lib:Copy(result)
+		end)
+	end)
+	
 	chatbypass:Toggle("Automatic bypass",false,function(value)
 		AutomaticBypass = value
 	end)
@@ -5805,13 +5857,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			if Chat:FilterStringForBroadcast(filter2(value),LocalPlayer) ~= filter2(value) then
 				WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
 			else
-				WordPreview:EditLabel(lib:ColorFonts(filter2(value),"Bold,Green"))
+				WordPreview:EditLabel(lib:ColorFonts(`{filter2(value)}\n\nCharacter Used : {#filter2(value)}`,"Bold,Green"))
 			end
 		else
 			if Chat:FilterStringForBroadcast(filter(value),LocalPlayer) ~= filter(value) then
 				WordPreview:EditLabel(lib:ColorFonts("Tags! No one can see it.","Bold,Red"))
 			else
-				WordPreview:EditLabel(lib:ColorFonts(filter(value),"Bold,Green"))
+				WordPreview:EditLabel(lib:ColorFonts(`{filter(value)}\n\nCharacter Used : {#filter(value)}`,"Bold,Green"))
 			end
 		end
 	end)
