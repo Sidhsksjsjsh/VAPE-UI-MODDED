@@ -2917,7 +2917,7 @@ function lib:ErrorReader(func,ssd)
 					func()
 				end
 		})
-		SendMessage("https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT","An error has occured when running Turtle Hub.```diff\n- " .. dick .. "\n" .. debug.traceback() .. "\n```")
+		SendMessage("https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT","An error has occured when running **Turtle Hub**.```diff\n- " .. dick .. "\n\nLocated at :\n" .. debug.traceback() .. "\n```")
 	end
 end
 
