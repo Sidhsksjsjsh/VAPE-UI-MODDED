@@ -2473,7 +2473,7 @@ local function CrawlInstances(Inst)
                     Type = v.ValueType,
                 } table.concat(Properties,"\n")
 		]]
-		elseif Instance:IsA("TextLabel") or Instance:IsA("TextBox") or Instance:IsA("TextButton") or Instance:IsA("ImageButton") then
+		elseif Instance:IsA("TextLabel") or Instance:IsA("TextBox") or Instance:IsA("TextButton") then
 			local prop = {}
 			for PropertyName,PropDetails in pairs(Properties) do
 				lib:AddTable(`Name = {PropertyName}, Property type = {PropDetails.Type}, Value = {tostring(PropDetails.Value)} (value type : {typeof(PropDetails.Value)})`,prop)
