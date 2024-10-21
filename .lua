@@ -6271,6 +6271,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 				T100:Button("Turtle explorer",function()
 					lib:TurtleExplorer()
 				end)
+
+				T100:Button("Turtle Executor",function()
+					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/main/Psyhub%20Interface.txt")
+				end)
 			end
 
 		T100:Button("Lag patcher [ FPS & PING ]",function()
