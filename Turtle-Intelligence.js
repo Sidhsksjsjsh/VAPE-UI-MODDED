@@ -1,3 +1,5 @@
+// this script is only for controlling player character, chat, and do action and sex and blowjob (soon)
+
 const express = require('express');
 const app = express();
 const port = 3000;
