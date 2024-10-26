@@ -7432,7 +7432,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
-		local RemoteScanner = window:Tab("Remote Scan")
+		--[[local RemoteScanner = window:Tab("Remote Scan")
 		local ClientScanning = RemoteScanner:Label("?")
 		local scanRemotes = true
 
@@ -7482,7 +7482,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		for name,enabled in next,detectClasses do
 			if enabled then
-				realMethods[classMethods[name]] = Instance.new(name)[classMethods[name]]
+				realMethods[classMethods[name = Instance.new(name)[classMethods[name
 			end
 		end
 
@@ -7521,7 +7521,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				return unpack(returnValues)
 			end
 		end
--- end
+end]]
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
 --[[
