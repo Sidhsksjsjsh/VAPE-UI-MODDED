@@ -1,5 +1,5 @@
 // this script is only for controlling player character, chat, and do action and sex and blowjob (soon)
-
+// full script is in the API "https://api.turtle.ai/mode/action/"
 const express = require('express');
 const app = express();
 const port = 3000;
