@@ -7431,6 +7431,97 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end)
 			end
 		end)
+
+		local RemoteScanner = window:Tab("Remote Scan")
+		local ClientScanning = RemoteScanner:Label("?")
+		local scanRemotes = true
+
+		local ignoreNames = {
+			Event = true,
+			MessagesChanged = true
+		}
+
+		setreadonly(getrawmetatable(game),false)
+		local pseudoEnv = {}
+		local gameMeta = getrawmetatable(game)
+
+		local detectClasses = {
+			BindableEvent = true,
+			BindableFunction = true,
+			RemoteEvent = true,
+			RemoteFunction = true
+		}
+
+		local classMethods = {
+			BindableEvent = "Fire",
+			BindableFunction = "Invoke",
+			RemoteEvent = "FireServer",
+			RemoteFunction = "InvokeServer"
+		}
+
+		local RemoteScannerSettings = window:Tab("Remote Settings")
+		RemoteScannerSettings:Toggle("Pause remote from scanning",false,function(value)
+			scanRemotes = value
+		end)
+
+		RemoteScannerSettings:Toggle("Ignore MessageChanged Event",false,function(value)
+			ignoreNames.MessagesChanged = value
+		end)
+
+		RemoteScannerSettings:Toggle("Ignore Events from firing",false,function(value)
+			ignoreNames.Event = value
+		end)
+		--k
+		for name,enabled in next,detectClasses do
+			RemoteScannerSettings:Toggle(name,enabled,function(value)
+				detectClasses[name] = value
+			end)
+		end
+			
+		local realMethods = {}
+
+		for name,enabled in next,detectClasses do
+			if enabled then
+				realMethods[classMethods[name]] = Instance.new(name)[classMethods[name]]
+			end
+		end
+
+		for key,value in next,gameMeta do
+			pseudoEnv[key] = value
+		end
+
+		--local incId = 0
+
+		local function getValues(self,key,...)
+			return {realMethods[key](self,...)}
+		end
+
+		gameMeta.__index,gameMeta.__namecall = function(self,key)
+			if not realMethods[key] or ignoreNames[self.Name] or not scanRemotes then
+				return pseudoEnv.__index(self,key)
+			end
+			return function(_,...)
+				--incId = incId + 1
+				--local nowId = incId
+				--local strId = "[RemoteSpy_" .. nowId .. "]"
+
+				local allPassed = {...}
+				local returnValues = {}
+				local ok,data = pcall(getValues,self,key,...)
+
+				if ok then
+					returnValues = data
+					--print("ClassName: " .. self.ClassName .. " | Path: " .. self:GetFullName() .. " | Method: " .. key .. "\nPacked Arguments: " .. tableToString(allPassed) .. "\n" .. strId .. " Packed Returned: " .. tableToString(returnValues) .. "\n")
+					ClientScanning:EditLabel(`[{lib:ColorFonts(self.ClassName,"Bold,Green")}] - {lib.getHierarchy(self)}:{key}\n{lib.parseData(allPassed,0,false,{},nil,false)} -> {lib.parseData(returnValues,0,false,{},nil,false)}`)
+				else
+					--print("ClassName: " .. self.ClassName .. " | Path: " .. self:GetFullName() .. " | Method: " .. key .. "\nPacked Arguments: " .. tableToString(allPassed) .. "\n" .. strId .. " Packed Returned: [ERROR] " .. data .. "\n")
+					ClientScanning:EditLabel(`[{lib:ColorFonts(self.ClassName,"Bold,Green")}] - {lib.getHierarchy(self)}:{key}\n{lib.parseData(allPassed,0,false,{},nil,false)} -> data`)
+				end
+
+				return unpack(returnValues)
+			end
+		end
+-- end
 	end)
 end --lib.CodeEncrypter(b) lib:mobilefly(false) lib:unmobilefly() lib.promptNewRig("R15")
 --[[
