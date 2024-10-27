@@ -7181,7 +7181,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		
 		PartSelector:Button("Copy instance",function()
-			if getHierarchy(selected.Adornee) ~= nil or getHierarchy(selected.Adornee) ~= "" or partname:GetText() ~= "Part selector disabled." then
+			if lib.getHierarchy(selected.Adornee) ~= nil or lib.getHierarchy(selected.Adornee) ~= "" or partname:GetText() ~= "Part selector disabled." then
 				if #AttrHandlers > 0 then
 					lib:Copy(lib.getHierarchy(selected.Adornee) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
 					lib.sentMessage(lib.getTable("sent","galau"),lib.getHierarchy(selected.Adornee) .. "\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
