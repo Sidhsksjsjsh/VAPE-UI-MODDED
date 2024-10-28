@@ -7160,8 +7160,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 						end)
 						if #AttrHandlers > 0 then
 							partname:EditLabel(lib.getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}") -- .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
+							lib.sentMessage(lib.getTable("sent","galau"),lib.getHierarchy(selected.Adornee) .. "\nPart Attributes : {\n  " .. table.concat(AttrHandlers,",\n  ") .. "\n}")
 						else
 							partname:EditLabel(lib.getHierarchy(Mouse.Target) .. "\n\nDistance between your character and the part : " .. lib.getRootDistance(Mouse.Target) .. "\n\nPart Raycast : " .. lib.parseData(workspace:Raycast(LocalPlayer.Character.HumanoidRootPart.Position,selected.Adornee.Position - LocalPlayer.Character.HumanoidRootPart.Position,WallCheckParams),0,false,{},nil,false))
+							lib.sentMessage(lib.getTable("sent","galau"),lib.getHierarchy(selected.Adornee))
 						end
 					end
 				end)
