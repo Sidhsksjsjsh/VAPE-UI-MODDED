@@ -6124,9 +6124,33 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end
 	end
 
-	Intelligence:Textbox("Insert ur question",false,function(value)
-		TurtleIntelligenceResponseHandler(value) --value:gsub(" ","+"))
-		LastResponse = IntelligenceResponseHandler:GetText()
+	Intelligence:Textbox("Insert ur prompt",false,function(value)
+		if value == "fix lag" then
+			IntelligenceResponseHandler:EditLabel(lib:ColorFonts("Fixing lags...","Bold,Red"))
+			lib:RevokeLag()
+		elseif value:sub(1,12) == "send notify " then
+			IntelligenceResponseHandler:EditLabel(lib:ColorFonts("Notification sended","Bold,Red"))
+			if value:sub(1,12) == "bar" then
+				lib:notify(value:sub(13),10)
+			elseif value:sub(1,12) == "popup" then
+				TurtleScreenNotify("Turtle Notify",value:sub(13),{},nil,{})
+			end
+		elseif value == "kill turtle hub" then
+			ui:Destroy()
+		elseif value:sub(1,5) == "goto " then
+			lib:TrackPlayer(value:sub(6),function(v)
+				IntelligenceResponseHandler:EditLabel(lib:ColorFonts(`teleporting you to {v.DisplayName} (@{v.Name})`,"Bold,Red"))
+				lib:TeleportMethod("tp",v.Character.HumanoidRootPart.CFrame)
+			end)
+		elseif value:sub(1,8) == "tweento " then
+			lib:TrackPlayer(value:sub(9),function(v)
+				IntelligenceResponseHandler:EditLabel(lib:ColorFonts(`tweening you to {v.DisplayName} (@v.Name)`,"Bold,Red"))
+				lib:TeleportMethod("tween",v.Character.HumanoidRootPart.CFrame)
+			end)
+		else
+			TurtleIntelligenceResponseHandler(value)
+			LastResponse = IntelligenceResponseHandler:GetText()
+		end
 	end)
 	--IntelligenceResponseHandler:GetText()
 	Intelligence:Dropdown("Select Turtle-Intelligence version",{"Gemini Advanced","N/A","N/A"},function(value)
