@@ -7228,6 +7228,23 @@ function lib.DeveloperEncrypt(window,isShowed)
 		PartSelector:Button("Teleport to instance",function()
 			lib:TeleportMethod("tp",selected.Adornee.CFrame)
 		end)
+		PartSelector:Button("Tween to instance [ AI ]",function()
+			if TurtleRemoteEvent and typeof(TurtleRemoteEvent) == "Instance" then
+				TurtleRemoteEvent:Fire("AI","tween",selected.Adornee.CFrame)
+			else
+				lib:notify(lib:ColorFonts("Missing TurtleRemote","Bold,Red"),10)
+			end
+		end)
+		PartSelector:Button("Walk to instance [ AI ]",function()
+			if TurtleRemoteEvent and typeof(TurtleRemoteEvent) == "Instance" then
+				TurtleRemoteEvent:Fire("AI","walk",selected.Adornee.Position)
+			else
+				lib:notify(lib:ColorFonts("Missing TurtleRemote","Bold,Red"),10)
+			end
+		end)
+		PartSelector:Button("Destroy instance",function()
+			selected.Adornee:Destroy()
+		end)
 		PartSelector:Toggle("Loop teleport to instance",false,function(value)
 			array_toggler.switch = value
 			while wait() do
