@@ -7093,6 +7093,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			_spam = false,
 			_message = "",
 			_strike = "",
+			_request_sent = 0,
 			_strike_list = {
 					"application/json",
 					"application/javascript",
@@ -7117,6 +7118,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 				}
 		}
 
+		local ddoswebsitestrike = ddos:Label(`URL : {lib:ColorFonts("nil","Bold,Red")}\n\nStatus Code : {lib:ColorFonts("nil","Bold,Red")}\nStatus Text : {lib:ColorFonts("nil","Bold,Red")}\nRequest send : {lib:ColorFonts("nil","Bold,Red")}`)
+		
 		ddos:Textbox("Insert endpoint",false,function(value)
 			web._endpoint = value
 		end)
@@ -7187,6 +7190,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 							})
 					else
 						--lib.sentMessage(web._endpoint,web._message,{})
+						web._request_sent = web._request_sent + 1
+						ddoswebsitestrike:EditLabel(`URL : {lib:ColorFonts(web._strike,"Bold,Green")}\n\nStatus Code : {lib:ColorFonts(strike.Status,"Bold,Sky Blue")}\nStatus Text : {lib:ColorFonts(strike.Status:gsub("100","Continue"):gsub("101","Switching Protocols"):gsub("200","OK / Received"):gsub("201","Created"):gsub("204","No Content"):gsub("301","Moved Permanently"):gsub("302","Found"):gsub("304","Not Modified"):gsub("400","Bad Request"):gsub("401","Unauthorized"):gsub("403","Forbidden"):gsub("404","Not Found"):gsub("429","Too Many Request"):gsub("500","Internal Server Error"):gsub("502","Bad Gateway"):gsub("503","Service Unavailable"):gsub("504","Gateway Timeout"),"Bold,Sky Blue")}\nRequest send : {lib:ColorFonts(lib:CurrencyFormat(web._request_sent),"Bold,Sky Blue")}`)
 						http({
 							Url = web._endpoint,
 							Method = "POST",
