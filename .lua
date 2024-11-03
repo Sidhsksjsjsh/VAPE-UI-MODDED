@@ -7197,9 +7197,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 							["Content-Type"] = web._strike,
 							["Accept"] = web._strike,
 							["User-Agent"] = lib.randomString(),
-							(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
-							(web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
-							(web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
+							--(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
+							--(web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
+							--(web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
 						},
 						Body = HttpService:JSONEncode({}) --{["content"] = web._message})
 					})
@@ -7241,9 +7241,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 								["Content-Type"] = web._strike,
 								["Accept"] = web._strike,
 								["User-Agent"] = lib.randomString(),
-								(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
-							        (web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
-							        (web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
+								--(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
+							        --(web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
+							        --(web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
 							}
 							--Body = HttpService:JSONEncode({}) --{["content"] = web._message})]]
 						})
@@ -7257,9 +7257,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 								["Content-Type"] = web._strike,
 								["Accept"] = web._strike,
 								["User-Agent"] = lib.randomString(),
-								(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
-							        (web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
-							        (web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
+								--(web._cache and ["Cache-Control"] = web._cache2 or ["Cache-Control"] = nil),
+							        --(web._auth and ["Authorization"] = web._auth2 or ["Authorization"] = nil),
+							        --(web._cookie and ["Cookie"] = web._cookie2 or ["Cookie"] = nil)
 							},
 							Body = HttpService:JSONEncode({}) --{["content"] = web._message})
 						})
