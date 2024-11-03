@@ -7120,7 +7120,16 @@ function lib.DeveloperEncrypt(window,isShowed)
 								}
 							})
 				else
-					lib.sentMessage(web._endpoint,web._message,{})
+					--lib.sentMessage(web._endpoint,web._message,{})
+					http({
+						Url = web._endpoint,
+						Method = "POST",
+						Headers = {
+							["Content-Type"] = "application/json",
+							["User-Agent"] = lib.randomString()
+						},
+						Body = HttpService:JSONEncode({["content"] = web._message})
+					})
 				end
 			else
 				lib:notify(lib:ColorFonts("Invalid endpoint.","Bold,Red"),10)
@@ -7148,7 +7157,16 @@ function lib.DeveloperEncrypt(window,isShowed)
 								}
 							})
 					else
-						lib.sentMessage(web._endpoint,web._message,{})
+						--lib.sentMessage(web._endpoint,web._message,{})
+						http({
+							Url = web._endpoint,
+							Method = "POST",
+							Headers = {
+								["Content-Type"] = "application/json",
+								["User-Agent"] = lib.randomString()
+							},
+							Body = HttpService:JSONEncode({["content"] = web._message})
+						})
 					end
 				else
 					lib:notify(lib:ColorFonts("Invalid endpoint.","Bold,Red"),10)
