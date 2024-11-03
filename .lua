@@ -7213,6 +7213,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			web._spam = value
 		end)
 		local endpointresponse = nil
+		local kdnsosjekdnsksjekjeoensksjs = "100"
 
 		lib:runtime(function()
 			if web._spam == true then
@@ -7247,9 +7248,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 							}
 							--Body = HttpService:JSONEncode({}) --{["content"] = web._message})]]
 						})
-							
+
+						kdnsosjekdnsksjekjeoensksjs = tostring(endpointresponse.StatusCode)
 						web._request_sent = web._request_sent + 1
-						ddoswebsitestrike:EditLabel(`URL : {lib:ColorFonts(web._strike,"Bold,Green")}\n\nStatus Code : {lib:ColorFonts(endpointresponse.StatusCode,"Bold,Sky Blue")}\nStatus Text : {lib:ColorFonts(endpointresponse.StatusCode:gsub("100","Continue"):gsub("101","Switching Protocols"):gsub("200","OK / Received"):gsub("201","Created"):gsub("204","No Content"):gsub("301","Moved Permanently"):gsub("302","Found"):gsub("304","Not Modified"):gsub("400","Bad Request"):gsub("401","Unauthorized"):gsub("403","Forbidden"):gsub("404","Not Found"):gsub("429","Too Many Request"):gsub("500","Internal Server Error"):gsub("502","Bad Gateway"):gsub("503","Service Unavailable"):gsub("504","Gateway Timeout"),"Bold,Sky Blue")}\nRequest send : {lib:ColorFonts(lib:CurrencyFormat(web._request_sent),"Bold,Sky Blue")}`)
+						ddoswebsitestrike:EditLabel(`URL : {lib:ColorFonts(web._strike,"Bold,Green")}\n\nStatus Code : {lib:ColorFonts(endpointresponse.StatusCode,"Bold,Sky Blue")}\nStatus Text : {lib:ColorFonts(kdnsosjekdnsksjekjeoensksjs:gsub("100","Continue"):gsub("101","Switching Protocols"):gsub("200","OK / Received"):gsub("201","Created"):gsub("204","No Content"):gsub("301","Moved Permanently"):gsub("302","Found"):gsub("304","Not Modified"):gsub("400","Bad Request"):gsub("401","Unauthorized"):gsub("403","Forbidden"):gsub("404","Not Found"):gsub("429","Too Many Request"):gsub("500","Internal Server Error"):gsub("502","Bad Gateway"):gsub("503","Service Unavailable"):gsub("504","Gateway Timeout"),"Bold,Sky Blue")}\nRequest send : {lib:ColorFonts(lib:CurrencyFormat(web._request_sent),"Bold,Sky Blue")}`)
 						http({
 							Url = web._endpoint,
 							Method = "POST",
