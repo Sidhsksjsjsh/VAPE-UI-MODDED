@@ -4,6 +4,7 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
+local Network = game:GetService("NetworkClient")
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 local http = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
@@ -5908,6 +5909,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			ChatHndlingSystem:EditLabel(chathandling)
 		end)
 	end)
+
+	Network.ConnectionAccepted:Connect(function(Server,ReplicatorInstance)
+		_G.Server = Server:gsub("|", ":")
+		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("NetworkClient","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(`Server : {Server:gsub("|",":")}, ReplicatorInstance : {tostring(ReplicatorInstance)}, Replicator Type : {typeof(ReplicatorInstance)}`,"Underline"),"Bold,Sky Blue")
+		loghttpsys:EditLabel(loglistsys)
+	end)
+	
 	--[[
 	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	]]
