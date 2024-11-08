@@ -1400,10 +1400,10 @@ function lib:LoadRepository(path,bool)
 					lib:notify(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold,Green"),5)
 				end
 			else
-				lib:notify(lib:ColorFonts("Failed to run script. Error located at " .. lib:ColorFonts(logic.Body,"Underline"),"Bold,Red"),10)
+				TurtleScreenNotify("Turtle Hub | Error","Failed to run script. Error located at \n" .. logic.Body,{},nil,{})
 			end
 		else
-			lib:notify(lib:ColorFonts("Failed to make HTTP Request. Error Code : " .. lib:ColorFonts(logic.StatusCode,"Underline"),"Bold,Red"),9e9)
+			TurtleScreenNotify("Turtlen Hub | " .. tostring(logic.StatusCode),"Failed to make HTTP Request. Error Code : " .. tostring(logic.StatusCode),{},nil,{})
 		end
 	else
 		lib:notify(lib:ColorFonts("ONLY GITHUB API ENDPOINT ARE ALLOWED TO USE THIS FUNCTION","Bold,Red"),10)
