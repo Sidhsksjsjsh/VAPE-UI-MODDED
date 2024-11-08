@@ -1400,7 +1400,7 @@ function lib:LoadRepository(path,bool)
 					lib:notify(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold,Green"),5)
 				end
 			else
-				TurtleScreenNotify("Turtle Hub | Error","Failed to run script. Error located at \n" .. logic.Body,{},nil,{})
+				TurtleScreenNotify("Turtle Hub | Error","Failed to run script. Error located at \n" .. ModuleScript .. "\n" .. success,{},nil,{}) --logic.Body,{},nil,{})
 			end
 		else
 			TurtleScreenNotify("Turtlen Hub | " .. tostring(logic.StatusCode),"Failed to make HTTP Request. Error Code : " .. tostring(logic.StatusCode),{},nil,{})
