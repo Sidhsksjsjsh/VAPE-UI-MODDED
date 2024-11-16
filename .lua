@@ -2294,7 +2294,7 @@ end
 
 --https://www.roblox.com/users/6133870238/profile
 function lib:DeveloperAccess(f)
-	if turtle_admin[table.find(turtle_admin,LocalPlayer.UserId)] == LocalPlayer.UserId then --if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 then
+	if DATA("admin.json")[table.find(DATA("admin.json"),LocalPlayer.UserId)] == LocalPlayer.UserId then --if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 then
 		--TurtleScreenNotify("Turtle Hub | Developer only","Loading hidden feature",{},3,{})
 		f()
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("Loading developer tab/panel...","Bold"),"Red"),10)
@@ -2302,7 +2302,7 @@ function lib:DeveloperAccess(f)
 end
 
 function lib.isDeveloper()
-	if turtle_tester[table.find(turtle_tester,LocalPlayer.UserId)] == LocalPlayer.UserId then --if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 or LocalPlayer.UserId == 5596804337 or LocalPlayer.UserId == 377597987 or LocalPlayer.UserId == 9174393 then
+	if DATA("userdata.json")[table.find(DATA("userdata.json"),LocalPlayer.UserId)] == LocalPlayer.UserId then --if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 or LocalPlayer.UserId == 5596804337 or LocalPlayer.UserId == 377597987 or LocalPlayer.UserId == 9174393 then
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("WELCOME TESTER!","Bold"),"Green"),10)
 		--TurtleScreenNotify("Turtle Hub | Beta Tester","Welcome beta test!",{},nil,{})
 		return true
