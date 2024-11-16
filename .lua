@@ -6370,8 +6370,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 
 		T100:Textbox("Leak code from asset id",false,function(value)
-			writefile(value .. ".lua",game:GetObjects("rbxassetid://" .. value)[1].Source)
-			lib:notify(lib:ColorFonts("File saved to " .. lib:ColorFonts(Exploit() .. "/Workspace/" .. value .. ".lua","Underline"),"Bold,Green"),10)
+			if (game:GetObjects("rbxassetid://" .. value)[1].Source and game:GetObjects("rbxassetid://" .. value)[1].Source ~= nil) then
+				writefile(value .. ".lua",game:GetObjects("rbxassetid://" .. value)[1].Source)
+				lib:notify(lib:ColorFonts("File saved to " .. lib:ColorFonts(Exploit() .. "/Workspace/" .. value .. ".lua","Underline"),"Bold,Green"),10)
+			else
+				TurtleScreenNotify("Turtle Hub | RBX Asset Deobfuscator","Only RBXASSETID are allowed to use this.",{},nil,{})
+			end
 		end)
 
 		T100:Button("Fling unanchored part tool",function()
