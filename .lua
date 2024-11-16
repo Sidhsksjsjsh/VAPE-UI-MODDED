@@ -6369,10 +6369,20 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
-		T100:Textbox("Leak code from asset id",false,function(value)
+		local GithubRepository = window:Tab("RBX Asset")
+		local lastStrings = ""
+		GithubRepository:Textbox("Leak code from asset id",false,function(value)
 			if (game:GetObjects("rbxassetid://" .. value)[1].Source and game:GetObjects("rbxassetid://" .. value)[1].Source ~= nil) then
-				writefile(value .. ".lua",game:GetObjects("rbxassetid://" .. value)[1].Source)
-				lib:notify(lib:ColorFonts("File saved to " .. lib:ColorFonts(Exploit() .. "/Workspace/" .. value .. ".lua","Underline"),"Bold,Green"),10)
+				if CreateFile and EditFile and typeof(CreateFile) == "function" and typeof(EditFile) == "function" then
+					if value ~= lastStrings then
+						CreateFile(value .. ".lua",game:GetObjects("rbxassetid://" .. value)[1].Source)
+						lib:notify(lib:ColorFonts("File saved to " .. lib:ColorFonts(Exploit() .. "/Workspace/" .. value .. ".lua","Underline"),"Bold,Green"),10)
+					else
+						EditFile(value .. ".lua",game:GetObjects("rbxassetid://" .. value)[1].Source)
+					end
+				else
+					TurtleScreenNotify("Turtle Github Repository Creator",`Failed to send request to github.\n\nReason [Function Check] [CreateFile]: {(CreateFile and "✓" or "X")}\nReason [Function Check] [EditFile]: {(EditFile and "✓" or "X")}\nFunction identity: CreateFile - {typeof(CreateFile)}, EditFile - {typeof(EditFile)}`,{},nil,{})
+				end
 			else
 				TurtleScreenNotify("Turtle Hub | RBX Asset Deobfuscator","Only RBXASSETID are allowed to use this.",{},nil,{})
 			end
