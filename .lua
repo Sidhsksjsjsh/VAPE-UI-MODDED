@@ -211,8 +211,6 @@ local envs = {
 }
 
 setmetatable(lib,envs)
-local turtle_tester = {3621188307,7289597899,5596804337,377597987,9174393}
-local turtle_admin = {3621188307,7289597899}
 local returned_string = {
 	["type() function"] = {
 		"nil",
