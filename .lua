@@ -6087,6 +6087,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local aichatbot = false
 	local WhitelistedPlayer = {}
 	local SelectedBypassLevel = ""
+	local suggestprompt = ""
         local plrname = nil
 	local AnimatedText = true
 	local IntelligenceResponseHandler = Intelligence:Label("The response from the Turtle-Intelligence will be displayed here")
@@ -6130,6 +6131,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end
 	end
 
+	lib:DeveloperAccess(function()
+		Intelligence:Textbox("Insert ur suggestion for answering",false,function(value)
+			suggestprompt = value
+		end)
+	end)
+	
 	Intelligence:Textbox("Insert ur prompt",false,function(value)
 		if value == "fix lag" then
 			IntelligenceResponseHandler:EditLabel(lib:ColorFonts("Fixing lags...","Bold,Red"))
@@ -6154,7 +6161,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				lib:TeleportMethod("tween",v.Character.HumanoidRootPart.CFrame)
 			end)
 		else
-			TurtleIntelligenceResponseHandler(value)
+			TurtleIntelligenceResponseHandler(value .. " (" .. suggestprompt .. ")")
 			LastResponse = IntelligenceResponseHandler:GetText()
 		end
 	end)
