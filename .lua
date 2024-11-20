@@ -1125,7 +1125,7 @@ local function NOFLY() -- for PC
 	end)
 end
 
-function lib:startFly(vfly,fspeed,vspeed)
+function lib:startFly(vfly) --,fspeed,vspeed)
 	--mobileflyspeed = fspeed or 1
 	--vflyspeed = vspeed or 1
 	if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
