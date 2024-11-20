@@ -47,6 +47,12 @@ local FLYING = false
 local flyKeyDown = nil
 local flyKeyUp = nil
 local controlModule = require(LocalPlayer["PlayerScripts"]["PlayerModule"]["ControlModule"])
+
+if getgenv and not getgenv().mobileflyspeed and not getgenv().vflyspeed then --global variable for changing fly speed through Turtle-Intelligence
+	getgenv().mobileflyspeed = 1
+	getgenv().vflyspeed = 1
+end
+
 local envs = {
 	__SELF = function()
 		return LocalPlayer
@@ -977,16 +983,16 @@ function lib:mobilefly(vfly) -- skidded from infinite yield, thx Akbar for skid 
 			LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = Vector3.new()
 
 			if controlModule:GetMoveVector().X > 0 then
-				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vflyspeed or mobileflyspeed) * 50))
 			end
 			if controlModule:GetMoveVector().X < 0 then
-				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vflyspeed or mobileflyspeed) * 50))
 			end
 			if controlModule:GetMoveVector().Z > 0 then
-				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vflyspeed or mobileflyspeed) * 50))
 			end
 			if controlModule:GetMoveVector().Z < 0 then
-				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+				LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity = LocalPlayer.Character.HumanoidRootPart[velocityHandlerName].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vflyspeed or mobileflyspeed) * 50))
 			end
 		end
 	end)
@@ -1071,17 +1077,17 @@ local function FLY(vfly,tweenbool,tweenspeed)
 	end
 	flyKeyDown = Mouse.KeyDown:Connect(function(KEY)
 		if KEY:lower() == 'w' then
-			CONTROL.F = (vfly and vehicleflyspeed or iyflyspeed)
+			CONTROL.F = (vfly and vflyspeed or mobileflyspeed)
 		elseif KEY:lower() == 's' then
-			CONTROL.B = - (vfly and vehicleflyspeed or iyflyspeed)
+			CONTROL.B = - (vfly and vflyspeed or mobileflyspeed)
 		elseif KEY:lower() == 'a' then
-			CONTROL.L = - (vfly and vehicleflyspeed or iyflyspeed)
+			CONTROL.L = - (vfly and vflyspeed or mobileflyspeed)
 		elseif KEY:lower() == 'd' then 
-			CONTROL.R = (vfly and vehicleflyspeed or iyflyspeed)
+			CONTROL.R = (vfly and vflyspeed or mobileflyspeed)
 		elseif QEfly and KEY:lower() == 'e' then
-			CONTROL.Q = (vfly and vehicleflyspeed or iyflyspeed)*2
+			CONTROL.Q = (vfly and vflyspeed or mobileflyspeed) * 2
 		elseif QEfly and KEY:lower() == 'q' then
-			CONTROL.E = -(vfly and vehicleflyspeed or iyflyspeed)*2
+			CONTROL.E = -(vfly and vflyspeed or mobileflyspeed) * 2
 		end
 		pcall(function()
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Track
@@ -1120,8 +1126,8 @@ local function NOFLY() -- for PC
 end
 
 function lib:startFly(vfly,fspeed,vspeed)
-	iyflyspeed = fspeed or 1
-	vehicleflyspeed = vspeed or 1
+	--mobileflyspeed = fspeed or 1
+	--vflyspeed = vspeed or 1
 	if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
 		--return "Mobile"
 		lib:mobilefly(vfly)
@@ -6795,14 +6801,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local ArrayForSpeed = false
 		local ArrayForJump = false
 		T106:Slider("Fly speed",0,100,1,function(value)
-			intvarspeed.speed1 = value
+			mobileflyspeed = value --intvarspeed.speed1 = value
 		end)
 		T106:Slider("Vehicle fly speed",0,100,1,function(value)
-			intvarspeed.speed2 = value
+			vflyspeed = value --intvarspeed.speed2 = value
 		end)
 		T106:Toggle("Start fly",false,function(value)
 			if value == true then
-				lib:startFly(false,intvarspeed.speed1,intvarspeed.speed2)
+				lib:startFly(false) --,intvarspeed.speed1,intvarspeed.speed2)
 				if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 					lib.PlayAnim(134283166482394,5,0,false) -- 5/13
 				end
@@ -6815,7 +6821,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 		T106:Toggle("Start vehicle fly",false,function(value)
 			if value == true then
-				lib:startFly(true,intvarspeed.speed1,intvarspeed.speed2)
+				lib:startFly(true) --,intvarspeed.speed1,intvarspeed.speed2)
 			else
 				lib:stopFly()
 			end
@@ -7427,16 +7433,16 @@ function lib.DeveloperEncrypt(window,isShowed)
 								selected.Adornee[VHNP1].Velocity = Vector3.new()
 
 								if controlModule:GetMoveVector().X > 0 then
-									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vflyspeed or mobileflyspeed) * 50))
 								end
 								if controlModule:GetMoveVector().X < 0 then
-									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity + workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * ((vfly and vflyspeed or mobileflyspeed) * 50))
 								end
 								if controlModule:GetMoveVector().Z > 0 then
-									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vflyspeed or mobileflyspeed) * 50))
 								end
 								if controlModule:GetMoveVector().Z < 0 then
-									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vehicleflyspeed or iyflyspeed) * 50))
+									selected.Adornee[VHNP1].Velocity = selected.Adornee[VHNP1].Velocity - workspace.CurrentCamera.CFrame.LookVector * (controlModule:GetMoveVector().Z * ((vfly and vflyspeed or mobileflyspeed) * 50))
 								end
 							end
 						end)
