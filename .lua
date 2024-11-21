@@ -477,26 +477,26 @@ function lib.Interface(str)
 			local Main = Instance.new("ScreenGui")
 			Main.Name = lib.randomString()
 			Main.Parent = hiddenUI()
-			Notif:NotifyUser(`<b>Turtle Hub running in {identifyexecutor()} Environment</b>`,10)
+			--Notif:NotifyUser(`<b>Turtle Hub running in {identifyexecutor()} Environment</b>`,10)
 			return Main
 		elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
 			local Main = Instance.new("ScreenGui")
 			Main.Name = lib.randomString()
 			syn.protect_gui(Main)
 			Main.Parent = game:GetService("CoreGui")
-			Notif:NotifyUser("<b>Turtle Hub running in Synapse X Environment</b>",10)
+			--Notif:NotifyUser("<b>Turtle Hub running in Synapse X Environment</b>",10)
 			return Main
 		elseif game:GetService("CoreGui"):FindFirstChild('RobloxGui') then
 			local Main = Instance.new("ScreenGui")
 			Main.Name = lib.randomString()
 			Main.Parent = game:GetService("CoreGui")["RobloxGui"]
-			Notif:NotifyUser("<b>Turtle Hub running in Roblox Client</b>",10)
+			--Notif:NotifyUser("<b>Turtle Hub running in Roblox Client</b>",10)
 			return Main
 		else
 			local Main = Instance.new("ScreenGui")
 			Main.Name = lib.randomString()
 			Main.Parent = game:GetService("CoreGui")
-			Notif:NotifyUser("<b>No environment available</b>",10)
+			--Notif:NotifyUser("<b>No environment available</b>",10)
 			return Main
 		end
 	elseif str == "log" or str == "get" then
