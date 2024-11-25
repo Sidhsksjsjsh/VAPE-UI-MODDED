@@ -4098,7 +4098,7 @@ end
 			end)
 		end
 
-		local function Set(str)
+		TurtleFlags[text .. " • Turtle Interface"] = function(str)
 			toggled = str
 			if toggled == true then
 				TweenService:Create(Toggle,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
@@ -4119,7 +4119,7 @@ end
 				callback(toggled)
 			end)
 		end
-		TurtleFlags[text .. " • Turtle Interface"] = Set
+		--TurtleFlags[text .. " • Turtle Interface"] = Set
             Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
 	    return asslabel
         end
