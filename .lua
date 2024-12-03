@@ -3877,8 +3877,8 @@ end
             Toggle.Name = "Toggle"
             Toggle.Parent = Tab
             Toggle.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Toggle.Position = UDim2.new(0.215625003, 0, 0.446271926, 0)
-            Toggle.Size = UDim2.new(0, 363, 0, 42)
+            Toggle.Position = UDim2.new(0.215625003,0,0.446271926,0)
+            Toggle.Size = UDim2.new(0,363,0,42)
             Toggle.AutoButtonColor = false
             Toggle.Font = Enum.Font.SourceSans
             Toggle.Text = ""
@@ -3922,6 +3922,7 @@ end
 			TweenService:Create(ToggleTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 			if typeof(descName) == "string" then
 				ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+				--TweenService:Create(Toggle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 				if descName ~= "" then
 					TweenService:Create(ToggleTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextSize = 12.000}):Play()
@@ -4140,8 +4141,7 @@ end
 			end)
 		end
 
-		TurtleFlags[text .. " desc"] = ToggleDesc
-		TurtleFlags[text .. " title"] = ToggleTitle
+		TurtleFlags[text .. " UI"] = Toggle
 		TurtleFlags[text .. " • Turtle Interface"] = function(str)
 			toggled = str
 			if toggled == true then
