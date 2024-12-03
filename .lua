@@ -3906,7 +3906,7 @@ end
             ToggleDesc.Parent = Toggle
             ToggleDesc.BackgroundColor3 = Color3.fromRGB(255,255,255)
             ToggleDesc.BackgroundTransparency = 1.000
-            ToggleDesc.Position = UDim2.new(0.0358126722,0,0,0)
+            ToggleDesc.Position = UDim2.new(0.0358126722,0,0.160,0)
             ToggleDesc.Size = UDim2.new(0,187,0,42)
             ToggleDesc.Font = Enum.Font.Gotham
             ToggleDesc.Text = ""
@@ -3916,21 +3916,24 @@ end
             ToggleDesc.RichText = true
 	    ToggleDesc.Visible = false
 
-	    if typeof(descToggle) ~= "nil" then
-		ToggleDesc.Visible = true
-		ToggleTitle.Position = UDim2.new(0.0358126722,0,-0.160,0)
-		ToggleDesc.Position = UDim2.new(0.0358126722,0,0.160,0)
-		if typeof(descToggle) == "string" then
-			if descToggle ~= "" then
-				ToggleDesc.Text = lib:ColorFonts(descToggle,"Bold")
-				TweenService:Create(
-						ToggleDesc,
-						TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 1
-					}):Play()
+	    TurtleFlags[text .. " desc"] = function(descName)
+		if typeof(descName) ~= "nil" then
+			ToggleDesc.Visible = true
+			TweenService:Create(ToggleTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
+			if typeof(descName) == "string" then
+				ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+				if descName ~= "" then
+					TweenService:Create(ToggleTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
+					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextSize = 12.000}):Play()
+				else
+					TweenService:Create(ToggleTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,0,0)}):Play()
+					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextSize = 0}):Play()
+				end
 			end
 		end
 	    end
-			
+
+	    TurtleFlags[text .. " desc"](descToggle)
             FrameToggle1.Name = "FrameToggle1"
             FrameToggle1.Parent = Toggle
             FrameToggle1.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
