@@ -1930,6 +1930,9 @@ function lib.getUserTag(label,name)
 			):gsub(
 				"@Axtr0",
 				"<@984175806106464356>"
+			):gsub(
+				"@Kiki",
+				"<@788702331184742411>"
 			)
 		end
 	end
