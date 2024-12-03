@@ -6321,6 +6321,17 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Jshdjdhdkdb/main/Omgshit.lua")
 				end)
 
+				T100:Toggle("Include BindableEvents [ Remote Spy ]",false,function(value)
+					if getgenv and not getgenv().BindableRemotes then
+						BindableRemotes = value
+					else
+						if value == true then
+							TurtleScreenNotify("Turtle Client","Missing enviroment table",{},nil,{})
+							TurtleFlags["Include BindableEvents [ Remote Spy ] • Turtle Interface"](false)
+						end
+					end
+				end)
+				
 				T100:Button("Dex V1",function()
 					TurtleScreenNotify("Turtle Confirmation | Are you sure?","Running Dex V1?",{"Yes"},nil,{
 								Yes = function()
