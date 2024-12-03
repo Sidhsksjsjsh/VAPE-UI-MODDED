@@ -3857,7 +3857,7 @@ end
 	    return asslabel
         end
 	
-        function tabcontent:Toggle(text,default,callback)
+        function tabcontent:Toggle(text,default,callback,descToggle)
             local toggled = false
 	    local asslabel = {}
 
@@ -3893,7 +3893,7 @@ end
             ToggleTitle.Parent = Toggle
             ToggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ToggleTitle.BackgroundTransparency = 1.000
-            ToggleTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
+            ToggleTitle.Position = UDim2.new(0.0358126722,0,0,0)
             ToggleTitle.Size = UDim2.new(0, 187, 0, 42)
             ToggleTitle.Font = Enum.Font.Gotham
             ToggleTitle.Text = text
@@ -3909,12 +3909,27 @@ end
             ToggleDesc.Position = UDim2.new(0.0358126722,0,0,0)
             ToggleDesc.Size = UDim2.new(0,187,0,42)
             ToggleDesc.Font = Enum.Font.Gotham
-            ToggleDesc.Text = text
+            ToggleDesc.Text = ""
             ToggleDesc.TextColor3 = Color3.fromRGB(255, 255, 255)
-            ToggleDesc.TextSize = 14.000
+            ToggleDesc.TextSize = 12.000
             ToggleDesc.TextXAlignment = Enum.TextXAlignment.Left
             ToggleDesc.RichText = true
 	    ToggleDesc.Visible = false
+
+	    if typeof(descToggle) ~= "nil" then
+		ToggleDesc.Visible = true
+		ToggleTitle.Position = UDim2.new(0.0358126722,0,-0.160,0)
+		ToggleDesc.Position = UDim2.new(0.0358126722,0,0.160,0)
+		if typeof(descToggle) == "string" then
+			if descToggle ~= "" then
+				ToggleDesc.Text = lib:ColorFonts(descToggle,"Bold")
+				TweenService:Create(
+						ToggleDesc,
+						TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency = 1
+					}):Play()
+			end
+		end
+	    end
 			
             FrameToggle1.Name = "FrameToggle1"
             FrameToggle1.Parent = Toggle
