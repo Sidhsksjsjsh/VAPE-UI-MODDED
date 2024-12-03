@@ -6939,6 +6939,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				"Patrol Animation",
 				"FE Zombie Animation",
 				"Bold Animation",
+				"Girly Animation",
 				"Adidas Sport Animation",
 				"Udzal Animation",
 				"Toilet Animation"
@@ -7126,13 +7127,21 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
 				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
 			elseif anim_table.sel == "Bold Animation" then
-				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
-				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
-				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=3489174223"
-				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=3489173414"
-				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
-				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
-				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=16738333868" -- changed
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=16738334710" -- changed
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=11600249883" -- changed
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=16738337225" -- changed
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=16738336650" -- changed
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=10921300839" -- changed
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=10921307241" -- changed
+			elseif anim_table.sel == "Girly Animation" then
+				Animate.idle.Animation1.AnimationId = "https://www.roblox.com/asset/?id=118832222982049" -- changed
+				Animate.idle.Animation2.AnimationId = "https://www.roblox.com/asset/?id=76049494037641" -- changed
+				Animate.walk.WalkAnim.AnimationId = "https://www.roblox.com/asset/?id=92072849924640" -- changed
+				Animate.run.RunAnim.AnimationId = "https://www.roblox.com/asset/?id=72301599441680" -- changed
+				Animate.jump.JumpAnim.AnimationId = "https://www.roblox.com/asset/?id=104325245285198" -- changed
+				Animate.climb.ClimbAnim.AnimationId = "https://www.roblox.com/asset/?id=131326830509784" -- changed
+				Animate.fall.FallAnim.AnimationId = "https://www.roblox.com/asset/?id=121152442762481" -- changed
 			elseif anim_table.sel == "Adidas Sport Animation" then --✓
 				Animate.idle.Animation1.AnimationId = "https://www.roblox.com/asset/?id=18537376492"
 				Animate.idle.Animation2.AnimationId = "https://www.roblox.com/asset/?id=18537371272"
