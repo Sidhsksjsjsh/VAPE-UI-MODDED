@@ -3133,7 +3133,11 @@ function lib:RemoteSpy(arg)
 		return
 	end
 	local isrun,iserror = pcall(function()
-		lib:RemoteBypass()
+		if getgenv() and typeof(AdonisRemoteBypass) ~= "nil" then
+			if AdonisRemoteBypass == true then
+				lib:RemoteBypass()
+			end
+		end
 		if verrspy == "V1" then
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V1.lua")
 		elseif verrspy == "V2" then
@@ -6637,6 +6641,18 @@ function lib.DeveloperEncrypt(window,isShowed)
 						end
 					end
 				end)
+				--AdonisRemoteBypass
+
+				T100:Toggle("Bypass Anti Remote-spy",false,function(value)
+					if getgenv and typeof(AdonisRemoteBypass) ~= "nil" then
+						AdonisRemoteBypass = value
+					else
+						if value == true then
+							TurtleScreenNotify("Turtle Client","Missing enviroment table",{},nil,{})
+							TurtleFlags["Bypass Anti Remote-spy • Turtle Interface"](false)
+						end
+					end
+				end,"Only work for a game with adonis anti-cheat")
 				
 				T100:Button("Dex V1",function()
 					TurtleScreenNotify("Turtle Confirmation | Are you sure?","Running Dex V1?",{"Yes"},nil,{
