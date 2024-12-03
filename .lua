@@ -6336,7 +6336,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			
 			if hidetab == false then
 				T100:Button("Remote spy [ NEXT-GEN ]",function()
-					lib:RemoteSpy("V1")
+					lib:RemoteSpy("V4")
 				end)
 
 				T100:Button("Remote spy [ OLD ]",function()
