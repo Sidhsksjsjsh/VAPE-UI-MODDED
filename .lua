@@ -6363,8 +6363,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end)
 
 				T100:Toggle("Include BindableEvents [ Remote Spy ]",false,function(value)
-					if getgenv and not getgenv().BindableRemotes then
-						BindableRemotes = value
+					if getgenv and typeof(BooleanIncludeBindableRemotes) ~= "nil" then
+						BooleanIncludeBindableRemotes = value
 					else
 						if value == true then
 							TurtleScreenNotify("Turtle Client","Missing enviroment table",{},nil,{})
