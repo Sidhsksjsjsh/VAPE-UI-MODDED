@@ -3128,7 +3128,7 @@ end
 
 function lib:RemoteSpy(arg)
 	local verrspy = arg or "V1"
-	if getgenv and not BindableRemotes then -- this table is for turtle client remotes
+	if getgenv and typeof(BindableRemotes) ~= "nil" then -- this table is for turtle client remotes
 		TurtleScreenNotify("Turtle Client",`Missing environment table\nPlease contact a scripter for fixing it\n\ngetgenv : {(getgenv and "added" or "missing")}\nEnvironment table : {(BindableRemotes and "added" or "missing")}`,{},nil,{})
 		return
 	end
