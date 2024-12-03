@@ -3125,6 +3125,10 @@ end
 
 function lib:RemoteSpy(arg)
 	local verrspy = arg or "V1"
+	if getgenv and not getgenv().BindableRemotes then -- this table is for turtle client remotes
+		TurtleScreenNotify("Turtle Client","Missing enviroment table\nPlease contact a scripter for fixing it",{},nil,{})
+		return
+	end
 	local isrun,iserror = pcall(function()
 		lib:RemoteBypass()
 		if verrspy == "V1" then
