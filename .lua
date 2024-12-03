@@ -1966,7 +1966,7 @@ local APIUrl = {
 }
 
 local function SearchWikipedia(searchq,funct)
-local success, response = pcall(function()
+local success,response = pcall(function()
 	return http({
 		Url = APIUrl.wikipedia .. searchq
 		})
@@ -3140,6 +3140,8 @@ function lib:RemoteSpy(arg)
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V2.lua")
 		elseif verrspy == "V3" then
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/main/V3.lua")
+		elseif verrspy == "V4" then
+			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/modified-remote-spy/refs/heads/main/V4.lua")
 		elseif verrspy == "Old" then
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Jshdjdhdkdb/main/Omgshit.lua")
 		end
