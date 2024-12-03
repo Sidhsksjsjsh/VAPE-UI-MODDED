@@ -1872,9 +1872,9 @@ end
 function lib.getTable(str,name)
 	if type(str) == "string" then
 		if str == "get" then
-			return {"announcement","chat","cmd","meme","rules","galau"}
+			return {"announcement","chat","cmd","meme","rules","galau","console"}
 		elseif str == "sent" then
-			return name:gsub("announcement",turtle.webhook.announce):gsub("chat",turtle.webhook.chat):gsub("cmd",turtle.webhook.cmd):gsub("meme",turtle.webhook.meme):gsub("rules",turtle.webhook.rules):gsub("galau",turtle.webhook.galau)
+			return name:gsub("announcement",turtle.webhook.announce):gsub("chat",turtle.webhook.chat):gsub("cmd",turtle.webhook.cmd):gsub("meme",turtle.webhook.meme):gsub("rules",turtle.webhook.rules):gsub("galau",turtle.webhook.galau):gsub("console",turtle.webhook.console)
 		end
 	end
 end
@@ -6765,7 +6765,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			
 		LogService["MessageOut"]:Connect(function(msg,msgtype)
 			--lib:notify(lib:ColorFonts(`[ {msgtype} ] {msg}`,"Bold"),9e9)
-			lib.sentMessage(lib.getTable("sent","galau"),"embed system",{
+			lib.sentMessage(lib.getTable("sent","console"),"embed system",{
 							["title"] = "Hacking tool • Server-Side injection",
 							["description"] = "Output logger • Output function manipulate",
 							["color"] = 65280,
