@@ -3862,6 +3862,7 @@ end
             local Toggle = Instance.new("TextButton")
             local ToggleCorner = Instance.new("UICorner")
             local ToggleTitle = Instance.new("TextLabel")
+	    local ToggleDesc = Instance.new("TextLabel")
             local FrameToggle1 = Instance.new("Frame")
             local FrameToggle1Corner = Instance.new("UICorner")
             local FrameToggle2 = Instance.new("Frame")
@@ -3898,6 +3899,20 @@ end
             ToggleTitle.TextSize = 14.000
             ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
             ToggleTitle.RichText = true
+			
+	    ToggleDesc.Name = "ToggleDesc"
+            ToggleDesc.Parent = Toggle
+            ToggleDesc.BackgroundColor3 = Color3.fromRGB(255,255,255)
+            ToggleDesc.BackgroundTransparency = 1.000
+            ToggleDesc.Position = UDim2.new(0.0358126722,0,0,0)
+            ToggleDesc.Size = UDim2.new(0,187,0,42)
+            ToggleDesc.Font = Enum.Font.Gotham
+            ToggleDesc.Text = text
+            ToggleDesc.TextColor3 = Color3.fromRGB(255, 255, 255)
+            ToggleDesc.TextSize = 14.000
+            ToggleDesc.TextXAlignment = Enum.TextXAlignment.Left
+            ToggleDesc.RichText = true
+	    ToggleDesc.Visible = false
 			
             FrameToggle1.Name = "FrameToggle1"
             FrameToggle1.Parent = Toggle
@@ -4105,6 +4120,8 @@ end
 			end)
 		end
 
+		TurtleFlags[text .. " desc"] = ToggleDesc
+		TurtleFlags[text .. " title"] = ToggleTitle
 		TurtleFlags[text .. " • Turtle Interface"] = function(str)
 			toggled = str
 			if toggled == true then
