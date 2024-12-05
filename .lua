@@ -48,7 +48,7 @@ local flyKeyDown = nil
 local flyKeyUp = nil
 local controlModule = require(LocalPlayer["PlayerScripts"]["PlayerModule"]["ControlModule"])
 
-if getgenv and not getgenv().mobileflyspeed and not getgenv().vflyspeed then --global variable for changing fly speed through Turtle-Intelligence
+if getgenv and typeof(mobileflyspeed) == "nil" and typeof(vflyspeed) == "nil" then --global variable for changing fly speed through Turtle-Intelligence
 	getgenv().mobileflyspeed = 1
 	getgenv().vflyspeed = 1
 end
@@ -329,7 +329,6 @@ local HTMLcolors = {
     ["Slate Gray"] = "rgb(112, 128, 144)",
     ["Deep Sky Blue"] = "rgb(0, 191, 255)"
 }
-TurtleFlags.DescTextStyle = "Bold,Gray"
 
 local letters = {
         ["A"] = "🅰",
@@ -3304,6 +3303,8 @@ function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
     fs = false
+    TurtleFlags.DescTextStyle = "Bold,Gray"
+	
     local Main = Instance.new("Frame")
     local TabHold = Instance.new("ScrollingFrame")
     local TabHoldLayout = Instance.new("UIListLayout")
