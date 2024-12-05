@@ -329,6 +329,7 @@ local HTMLcolors = {
     ["Slate Gray"] = "rgb(112, 128, 144)",
     ["Deep Sky Blue"] = "rgb(0, 191, 255)"
 }
+TurtleFlags.DescTextStyle = "Bold,Gray"
 
 local letters = {
         ["A"] = "🅰",
@@ -3351,7 +3352,7 @@ function lib:Window(text, preset, closebind)
     Title.TextColor3 = Color3.fromRGB(68,68,68)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
-    Title.RichText = true --"Alya is the most beautiful woman 🎉"
+    Title.RichText = true
     if emoji then
 	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
@@ -3827,14 +3828,14 @@ end
             ToggleDesc.TextSize = 12.000
             ToggleDesc.TextXAlignment = Enum.TextXAlignment.Left
             ToggleDesc.RichText = true
-	    ToggleDesc.Visible = false
+	    ToggleDesc.Visible = false --["Gray"] = "rgb(128,128,128)"
 
 	    TurtleFlags[text .. " desc"] = function(descName)
 		if typeof(descName) ~= "nil" then
 			ToggleDesc.Visible = true
 			TweenService:Create(ButtonTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 			if typeof(descName) == "string" or typeof(descName) == "number" then
-				ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+				ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 				--TweenService:Create(Toggle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.215625003,0,0.446271926,TabLayout.AbsoluteContentSize.Y)}):Play()
 				if descName ~= "" then
 					TweenService:Create(ButtonTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
@@ -3847,12 +3848,12 @@ end
 				task.spawn(function()
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z/a-z & 0-9 not a " .. typeof(descName),"Bold")
+					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z, a-z & 0-9 not a " .. typeof(descName),TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-					wait(1)
+					wait(2)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+					ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 				end)
 			end
@@ -3974,7 +3975,7 @@ end
 			ToggleDesc.Visible = true
 			TweenService:Create(ToggleTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 			if typeof(descName) == "string" or typeof(descName) == "number" then
-				ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+				ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 				--TweenService:Create(Toggle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.215625003,0,0.446271926,TabLayout.AbsoluteContentSize.Y)}):Play()
 				if descName ~= "" then
 					TweenService:Create(ToggleTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
@@ -3987,12 +3988,12 @@ end
 				task.spawn(function()
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z/a-z & 0-9 not a " .. typeof(descName),"Bold")
+					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z, a-z & 0-9 not a " .. typeof(descName),TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 					wait(1)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+					ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 				end)
 			end
@@ -4481,7 +4482,7 @@ end
 			ToggleDesc.Visible = true
 			TweenService:Create(DropdownTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 			if typeof(descName) == "string" or typeof(descName) == "number" then
-				ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+				ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 				--TweenService:Create(Toggle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.215625003,0,0.446271926,TabLayout.AbsoluteContentSize.Y)}):Play()
 				if descName ~= "" then
 					TweenService:Create(DropdownTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
@@ -4494,12 +4495,12 @@ end
 				task.spawn(function()
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z/a-z & 0-9 not a " .. typeof(descName),"Bold")
+					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z, a-z & 0-9 not a " .. typeof(descName),TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 					wait(1)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+					ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 				end)
 			end
@@ -4781,7 +4782,7 @@ end
 			ToggleDesc.Visible = true
 			TweenService:Create(ColorpickerTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 			if typeof(descName) == "string" or typeof(descName) == "number" then
-				ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+				ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 				--TweenService:Create(Toggle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.215625003,0,0.446271926,TabLayout.AbsoluteContentSize.Y)}):Play()
 				if descName ~= "" then
 					TweenService:Create(ColorpickerTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
@@ -4794,12 +4795,12 @@ end
 				task.spawn(function()
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z/a-z & 0-9 not a " .. typeof(descName),"Bold")
+					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z, a-z & 0-9 not a " .. typeof(descName),TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 					wait(1)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+					ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 				end)
 			end
@@ -5337,7 +5338,7 @@ end
 			ToggleDesc.Visible = true
 			TweenService:Create(TextboxTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 			if typeof(descName) == "string" or typeof(descName) == "number" then
-				ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+				ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 				--TweenService:Create(Toggle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.215625003,0,0.446271926,TabLayout.AbsoluteContentSize.Y)}):Play()
 				if descName ~= "" then
 					TweenService:Create(TextboxTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
@@ -5350,12 +5351,12 @@ end
 				task.spawn(function()
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z/a-z & 0-9 not a " .. typeof(descName),"Bold")
+					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z, a-z & 0-9 not a " .. typeof(descName),TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 					wait(1)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+					ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 				end)
 			end
@@ -5594,7 +5595,7 @@ end
 			ToggleDesc.Visible = true
 			TweenService:Create(BindTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
 			if typeof(descName) == "string" or typeof(descName) == "number" then
-				ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+				ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 				--TweenService:Create(Toggle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.215625003,0,0.446271926,TabLayout.AbsoluteContentSize.Y)}):Play()
 				if descName ~= "" then
 					TweenService:Create(BindTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
@@ -5607,12 +5608,12 @@ end
 				task.spawn(function()
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z/a-z & 0-9 not a " .. typeof(descName),"Bold")
+					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z, a-z & 0-9 not a " .. typeof(descName),TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 					wait(1)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
 					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts(descName,"Bold")
+					ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
 					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 				end)
 			end
