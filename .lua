@@ -2808,6 +2808,15 @@ function lib:runtime(funct)
 	end
 end
 
+function lib:Loop(funct)
+	if typeof(funct) == "function" then
+		lib:notify(lib:ColorFonts("Real-Time Loop has started.","Bold,Green"),10)
+		RunService.Heartbeat:Connect(funct)
+	else
+		TurtleScreenNotify("Turtle Hub | Runtime • Argument","Argument must be a function.",{},nil,{})
+	end
+end
+
 
 local emoji = ({
 	["01 01"] = lib:ColorFonts("🎆 NEW YEAR 🎆","Bright Blue"),
