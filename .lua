@@ -6750,7 +6750,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 
 		local ScriptDump2 = window:Tab("Script Decompile")
-		local InjectionDecompile = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/Decompile/main/Mobile.lua"))()
+		--local InjectionDecompile = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/Decompile/main/Mobile.lua"))()
 		ScriptDump2:Textbox("Path to Decompile",false,function(value)
 			TurtleFlags.PathDecompiler = value
 		end)
