@@ -6750,15 +6750,73 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 
 		local ScriptDump2 = window:Tab("Script Decompile")
+		local InjectionDecompile = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/Decompile/main/Mobile.lua"))()
+		ScriptDump2:Textbox("Path to Decompile",false,function(value)
+			TurtleFlags.PathDecompiler = value
+		end)
+			
+		ScriptDump2:Dropdown("Select Decompiler",{"Exploit Decompiler","Turtle Decompile","Decompile 1","Decompile 2"},function(value)
+			TurtleFlags.selectedDecompilerList = value
+			if value == "Decompile 2" then
+				task.spawn(function()
+					TurtleFlags["getconstant desc"]("")
+					TurtleFlags["getupvalues desc"]("")
+					TurtleFlags["setclipboard desc"]("")
+					wait(1)
+					TurtleFlags["getconstant desc"]("⚠️ REQUIRED ⚠️")
+					TurtleFlags["getupvalues desc"]("⚠️ REQUIRED ⚠️")
+					TurtleFlags["setclipboard desc"]("⚠️ REQUIRED ⚠️")
+				end)
+			else
+				task.spawn(function()
+					TurtleFlags["getconstant desc"]("")
+					TurtleFlags["getupvalues desc"]("")
+					TurtleFlags["setclipboard desc"]("")
+					wait(1)
+					TurtleFlags["getconstant desc"]("⚠️ DOES NOT REQUIRED ⚠️")
+					TurtleFlags["getupvalues desc"]("⚠️ DOES NOT REQUIRED ⚠️")
+					TurtleFlags["setclipboard desc"]("⚠️ DOES NOT REQUIRED ⚠️")
+				end)
+			end
+		end)
+
+		ScriptDump2:Toggle("getconstant",false,function(value)
+			InjectionDecompile.getconstants = value
+		end,"⚠️ DOES NOT REQUIRED ⚠️")
+			
+		ScriptDump2:Toggle("getupvalues",false,function(value)
+			InjectionDecompile.getupvalues = value
+		end,"⚠️ DOES NOT REQUIRED ⚠️")
+			
+		ScriptDump2:Toggle("setclipboard",false,function(value)
+			InjectionDecompile.setclipboard = value
+		end,"⚠️ DOES NOT REQUIRED ⚠️")
+	
 		ScriptDump2:Toggle("Save to github",false,function(value)
 			TurtleFlags.ToGithubDatabase = value
 		end)
 			
 		ScriptDump2:Button("Start Decompile",function()
 			if TurtleFlags.ToGithubDatabase == true then
-				print(2)
+				if TurtleFlags.selectedDecompilerList == "Exploit Decompiler" then
+					CreateFile(getInstanceFromPath(TurtleFlags.PathDecompiler).Name,decompile(getInstanceFromPath(TurtleFlags.PathDecompiler)))
+				elseif TurtleFlags.selectedDecompilerList == "Turtle Decompile" then
+					CreateFile(getInstanceFromPath(TurtleFlags.PathDecompiler).Name,TurtleDecompile(getInstanceFromPath(TurtleFlags.PathDecompiler)))
+				elseif TurtleFlags.selectedDecompilerList == "Decompile 1" then
+					CreateFile(getInstanceFromPath(TurtleFlags.PathDecompiler).Name,"N/A") --Decompile2(getInstanceFromPath(TurtleFlags.PathDecompiler)))
+				elseif TurtleFlags.selectedDecompilerList == "Decompile 2" then
+					CreateFile(getInstanceFromPath(TurtleFlags.PathDecompiler).Name,InjectionDecompile.new(getInstanceFromPath(TurtleFlags.PathDecompiler)))
+				end
 			else
-				print(3)
+				if TurtleFlags.selectedDecompilerList == "Exploit Decompiler" then
+					writefile(getInstanceFromPath(TurtleFlags.PathDecompiler).Name,decompile(getInstanceFromPath(TurtleFlags.PathDecompiler)))
+				elseif TurtleFlags.selectedDecompilerList == "Turtle Decompile" then
+					writefile(getInstanceFromPath(TurtleFlags.PathDecompiler).Name,TurtleDecompile(getInstanceFromPath(TurtleFlags.PathDecompiler)))
+				elseif TurtleFlags.selectedDecompilerList == "Decompile 1" then
+					writefile(getInstanceFromPath(TurtleFlags.PathDecompiler).Name,"N/A") --Decompile2(getInstanceFromPath(TurtleFlags.PathDecompiler)))
+				elseif TurtleFlags.selectedDecompilerList == "Decompile 2" then
+					writefile(getInstanceFromPath(TurtleFlags.PathDecompiler).Name,InjectionDecompile.new(getInstanceFromPath(TurtleFlags.PathDecompiler)))
+				end
 			end
 		end)
 
