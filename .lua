@@ -6614,7 +6614,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end)
 		end
 		
-		local T100 = window:Tab("Developer Access",true)
+		local T100 = window:Tab("Developer Access")
 			local function getInstanceFromPath(path)
 				local currentInstance = game
 				for instanceName in string.gmatch(path,"[^.]+") do 
@@ -6746,6 +6746,19 @@ function lib.DeveloperEncrypt(window,isShowed)
 				print(TurtleDecompile(getInstanceFromPath(value)))
 			else
 				lib:notify(lib:ColorFonts('"TurtleDecompile" only available on Turtle Exploit',"Bold,Red"),10)
+			end
+		end)
+
+		local ScriptDump2 = window:Tab("Script Decompile")
+		ScriptDump2:Toggle("Save to github",false,function(value)
+			TurtleFlags.ToGithubDatabase = value
+		end)
+			
+		ScriptDump2:Button("Start Decompile",function()
+			if TurtleFlags.ToGithubDatabase == true then
+				print(2)
+			else
+				print(3)
 			end
 		end)
 
