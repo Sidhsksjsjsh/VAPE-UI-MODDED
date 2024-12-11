@@ -674,7 +674,7 @@ end
 
 function lib:CurrencyFormat(x: number): string 
 	if math.abs(x) < 1000 then
-		return tostring(x)
+		return math.floor(x)
 	end 
 	--local p = math.min(math.floor(math.log10(math.abs(x))/3),#names)
 	--local num = math.floor(math.abs(x)/pows[math.min(math.floor(math.log10(math.abs(x))/3),#names)]*100)/100
