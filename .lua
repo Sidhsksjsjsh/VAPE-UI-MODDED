@@ -6786,20 +6786,33 @@ function lib.DeveloperEncrypt(window,isShowed)
 		
 		GameEnv:Button("Start",function()
 			task.spawn(function()
+				GCCollected = ""
 				for i,v in pairs(getgc(IsGarbageEnabled)) do
 					if typeof(v) == selectedGarbageType and GarbageCount < GarbageCollectorAmountMax then
+						GarbageCount = GarbageCount + 1
 						if typeof(v) == "table" then
 							GCCollected = GCCollected .. "\n\n" .. lib.parseData(v,0,false,{},nil,false)
 						elseif typeof(v) == "function" then
-							GCCollected = GCCollected .. "\n\n" .. debug.getinfo(myFunction,"nS")
+							GCCollected = GCCollected .. "\n\nfunction name : " .. (debug.getinfo(v,"nS").name or "anonymous") .. " [ " .. (debug.getinfo(v,"u") and debug.getinfo(v,"u").nparams or "0") .. " args ]\nSource : " .. debug.getinfo(v,"nS").source .. "\nWhat : " .. debug.getinfo(v,"nS").what
+						else
+							GCCollected = GCCollected .. "\n\n" .. tostring(v)
 						end
 					end
 				end
-				HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK:EditLabel("hi")
+				GarbageCount = 0
+				HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK:EditLabel(GCCollected)
 			end)
 		end)
 		TurtleFlags.HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK = GameEnv:Label("")
-			
+
+		GameEnv:Button("Copy",function()
+			if GCCollected ~= "" then
+				lib:Copy(GCCollected)
+			else
+				TurtleScreenNotify("Turtle Hub","Garbage is empty. click to get some.",{},nil,{})
+			end
+		end)
+		
 		local ScriptDump2 = window:Tab("Script Decompile")
 		--local InjectionDecompile = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/Decompile/main/Mobile.lua"))()
 		ScriptDump2:Textbox("Path to Decompile",false,function(value)
