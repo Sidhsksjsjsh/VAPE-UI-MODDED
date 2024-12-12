@@ -2354,7 +2354,8 @@ end
 local ScriptContent = [[]]
 local SelectedInstance = nil
 local Properties = {}
-
+local AttrInject = {}
+	
 local function CrawlInstances(Inst)
     for _, Instance in next, Inst:GetChildren() do
         local InstTree = Iris.Tree({Instance.Name})
@@ -2493,12 +2494,24 @@ local function CrawlInstances(Inst)
 				{}
 			)
 		else
-			lib:Copy(lib.getHierarchy(SelectedInstance))
-			lib.sentMessage(
-				lib.getTable("sent","galau"),
-				lib.getHierarchy(SelectedInstance) .. "\n\n" .. Instance.ClassName,
-				{}
-			)
+			lib:attributes(Instance,function(name,value)
+				table.insert(AttrInject,`['{name}'] = {value} • {typeof(value)}`)
+			end)
+			if #AttrInject > 0 then
+				lib:Copy(lib.getHierarchy(SelectedInstance) .. "\n\n" .. lib.parseData(AttrInject,0,false,{},nil,false))
+				lib.sentMessage(
+					lib.getTable("sent","galau"),
+					lib.getHierarchy(SelectedInstance) .. "\n\n" .. Instance.ClassName .. "\n\n" .. lib.parseData(AttrInject,0,false,{},nil,false),
+					{}
+				)
+			else
+				lib:Copy(lib.getHierarchy(SelectedInstance))
+				lib.sentMessage(
+					lib.getTable("sent","galau"),
+					lib.getHierarchy(SelectedInstance) .. "\n\n" .. Instance.ClassName,
+					{}
+				)
+			end
 		end -- end
             end
             Iris.End()
