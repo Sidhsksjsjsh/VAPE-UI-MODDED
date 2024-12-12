@@ -217,7 +217,7 @@ local envs = {
 }
 
 setmetatable(lib,envs)
-local returned_string = {
+local returned_string = { -- returned_string["typeof() function"]
 	["type() function"] = {
 		"nil",
 		"number",
@@ -2919,7 +2919,7 @@ function lib:AddTable(gameservice,tbl)
 			table.insert(tbl,v.Name)
 		end
 	elseif typeof(gameservice) == "table" then
-		for i,v in ipairs(gameservice) do 
+		for i,v in pairs(gameservice) do 
 			table.insert(tbl,v)
 		end
 	else
@@ -6763,6 +6763,43 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
+		local GameEnv = window:Tab("Garbage Collector")
+		local GCCollected = ""
+		local GarbageCount = 0
+		local GarbageTypeTable = {}
+		local selectedGarbageType = ""
+		local GarbageCollectorAmountMax = 1
+		local IsGarbageEnabled = false
+		lib:AddTable(returned_string["typeof() function"],GarbageTypeTable)
+		
+		GameEnv:Textbox("GC amount collecting",false,function(value)
+			GarbageCollectorAmountMax = tonumber(value)
+		end) --returned_string["typeof() function"]
+
+		GameEnv:Dropdown("Garbage Type",GarbageTypeTable,function(value)
+			selectedGarbageType = value
+		end)
+
+		GameEnv:Toggle("Can detect hidden garbage",true,function(value)
+			IsGarbageEnabled = value
+		end)
+		
+		GameEnv:Button("Start",function()
+			task.spawn(function()
+				for i,v in pairs(getgc(IsGarbageEnabled)) do
+					if typeof(v) == selectedGarbageType and GarbageCount < GarbageCollectorAmountMax then
+						if typeof(v) == "table" then
+							GCCollected = GCCollected .. "\n\n" .. lib.parseData(v,0,false,{},nil,false)
+						elseif typeof(v) == "function" then
+							GCCollected = GCCollected .. "\n\n" .. debug.getinfo(myFunction,"nS")
+						end
+					end
+				end
+				HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK:EditLabel("hi")
+			end)
+		end)
+		TurtleFlags.HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK = GameEnv:Label("")
+			
 		local ScriptDump2 = window:Tab("Script Decompile")
 		--local InjectionDecompile = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/Decompile/main/Mobile.lua"))()
 		ScriptDump2:Textbox("Path to Decompile",false,function(value)
