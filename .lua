@@ -1707,8 +1707,12 @@ end
 function lib:Queue_On_Teleport(str)
     if (queue_on_teleport) then
         if type(str) == "string" then
-		lib:notify("Auto execute is ready... this script will automatically execute when u join another game",10)
-		queue_on_teleport('loadstring(game:HttpGet("' .. str .. '"))()');
+		lib:notify("Auto execute is ready... this script will automatically execute when u join another subplaces/game",10)
+		if str:find("Sidhsksjsjsh/Elite-Script-Folder") then
+			queue_on_teleport('lib:LoadRepository("' .. str .. '")')
+		else
+			queue_on_teleport('loadstring(game:HttpGet("' .. str .. '"))()');
+		end
 	else
 		lib:notify(lib:ColorFonts(`Argument must be a string, got {typeof(str)} / {type(str)}`,"Red"),10)
         end
