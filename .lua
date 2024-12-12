@@ -2617,11 +2617,9 @@ end
 
 function lib:RevokeLag()
 	task.spawn(function()
-		TurtleScreenNotify("Turtle Hub | Lag Patcher","Patching lag...",{},3,{})
 		for i,v in pairs(getconnections(LogService["MessageOut"])) do
 			v:Disconnect()
 		end
-		TurtleScreenNotify("Turtle Hub | Lag Patcher","Patching success, enjoy!",{},nil,{})
 	end)
 end
 
@@ -3382,6 +3380,9 @@ function lib:Window(text, preset, closebind)
     else
 	lib:runtime(function(v)
 		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. math.round(1/v) .. "FPS (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
+		if math.round(1/v) < 6 then -- i do this to prevent lagging when log on console. roblox fps lock : 60
+			lib:RevokeLag()
+		end
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
