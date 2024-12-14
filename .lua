@@ -2491,13 +2491,14 @@ local function CrawlInstances(Inst)
 			for PropertyName,PropDetails in pairs(Properties) do
 				lib:AddTable(`Name = {PropertyName}, Property type = {PropDetails.Type}, Value = {tostring(PropDetails.Value)} (value type : {typeof(PropDetails.Value)})`,prop)
 			end
-			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Text}"\n\nProperties : \n{table.concat(prop,"\n")}`)
+			lib:Copy(`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Text}"`)
 			lib.sentMessage(
 				lib.getTable("sent","galau"),
-				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}\n\nProperties : \n[[\n{table.concat(prop,"\n")}\n]]`,
+				`{lib.getHierarchy(SelectedInstance)} -> "{Instance.Value}" • {typeof(Instance.Value)}\n\n{Instance.ClassName}`,
 				{}
 			)
 		else
+			AttrInject = {}
 			lib:attributes(Instance,function(name,value)
 				table.insert(AttrInject,`['{name}'] = {value} • {typeof(value)}`)
 			end)
@@ -2509,6 +2510,7 @@ local function CrawlInstances(Inst)
 					{}
 				)
 			else
+				AttrInject = {}
 				lib:Copy(lib.getHierarchy(SelectedInstance))
 				lib.sentMessage(
 					lib.getTable("sent","galau"),
@@ -3384,7 +3386,7 @@ function lib:Window(text, preset, closebind)
     else
 	lib:runtime(function(v)
 		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts(tonumber(string.split(Stats["Network"]["ServerStatsItem"]["Data Ping"]:GetValueString()," ")[1]) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. math.round(1/v) .. "FPS (" .. math.floor(workspace:GetRealPhysicsFPS()) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
-		if math.round(1/v) < 6 then -- i do this to prevent lagging when log on console. roblox fps lock : 60
+		if math.round(1/v) < 2 then -- i do this to prevent lagging when log on console. roblox fps lock : 60
 			lib:RevokeLag()
 		end
 	end)
@@ -6361,6 +6363,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			local arg = {...}
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
+			lib:DeveloperAccess(function()
+				lib.sentMessage(
+						lib.getTable("sent","galau"),
+						`{lib.parseData(arg,0,false,{},nil,false)}`,
+						{}
+				)
+			end)
 			return clipb1(...)
 		end))
 	elseif toclipboard then
@@ -6369,6 +6378,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			local arg = {...}
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
+			lib:DeveloperAccess(function()
+				lib.sentMessage(
+						lib.getTable("sent","galau"),
+						`{lib.parseData(arg,0,false,{},nil,false)}`,
+						{}
+				)
+			end)
 			return clipb2(...)
 		end))
 	elseif set_clipboard then
@@ -6377,6 +6393,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			local arg = {...}
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
+			lib:DeveloperAccess(function()
+				lib.sentMessage(
+						lib.getTable("sent","galau"),
+						`{lib.parseData(arg,0,false,{},nil,false)}`,
+						{}
+				)
+			end)
 			return clipb3(...)
 		end))
 	elseif (Clipboard and Clipboard.set) then
@@ -6385,6 +6408,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			local arg = {...}
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
+			lib:DeveloperAccess(function()
+				lib.sentMessage(
+						lib.getTable("sent","galau"),
+						`{lib.parseData(arg,0,false,{},nil,false)}`,
+						{}
+				)
+			end)
 			return clipb4(...)
 		end))
 	else
