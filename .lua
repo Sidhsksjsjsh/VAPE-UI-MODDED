@@ -7011,7 +7011,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				curr = 0,
 				min = 0,
 				max = 0,
-				id = "0"
+				id = "0",
 				musiclist = {
 						["Christmas Song"] = "1839285792"
 				}
