@@ -7012,6 +7012,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 				min = 0,
 				max = 0,
 				id = "0"
+				musiclist = {
+						["Christmas Song"] = "1839285792"
+				}
 		}
 		musiclib:Textbox("Insert music id",false,function(value)
 			lib:AddTable(value,musichand.music)
@@ -7022,6 +7025,15 @@ function lib.DeveloperEncrypt(window,isShowed)
 				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(value)).Name}\nSound Id : {value}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
 			else
 				musichand.id = value
+			end
+		end)
+
+		musiclib:Dropdown("Music List [ From Turtle-Music-Library ]",{"Christmas Song"},function(value)
+			if musicplayer ~= nil then
+				musicplayer["SoundId"] = "rbxassetid://" .. musichand.musiclist[value]
+				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.musiclist[value])).Name}\nSound Id : {musichand.musiclist[value]}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
+			else
+				musichand.id = musichand.musiclist[value]
 			end
 		end)
 				
