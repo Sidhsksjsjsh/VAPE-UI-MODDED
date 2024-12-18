@@ -3324,7 +3324,36 @@ function lib.FPSConfigs(str,value)
 	end
 end
 
---lib:FormatRGB("gradient")
+function lib.RaycastManipulation(mode) -- this function will let u modified/manipulation in-game weapon bullet direction
+	if mode == "newcclosure" then
+		local meta = getrawmetatable(game)
+		setreadonly(meta,false)
+		TurtleFlags.Target = LocalPlayer -- use this flags to change the user/target
+		TurtleFlags.TrackType = "Humanoid" -- it will make the bullet redirect to the part u put
+		local raycastParams = RaycastParams.new()
+                raycastParams.FilterType = (typeof(TurtleFlags.FilterType) ~= "nil" and TurtleFlags.FilterType or Enum.RaycastFilterType.Whitelist)  -- bullet obstacle, use turtle global table to make it working
+                raycastParams.FilterDescendantsInstances = (typeof(TurtleFlags.FilterInstance) ~= "nil" and TurtleFlags.FilterInstance or {LocalPlayer.Character})
+		
+		local oldNamecall = meta.__namecall
+		meta.__namecall = newcclosure(function(self,...)
+			local args = {...}
+			local method = getnamecallmethod()
+			if method == "Raycast" then
+				--args[1] = LocalPlayer.Character[TurtleFlags.TrackType].Position
+				args[2] = (args[1] - TurtleFlags.Target[TurtleFlags.TrackType].Position).unit * 5000 -- bullet direction ⚠️DONT CHANGE IT IF U DOESNT UNDERSTAND LUA!⚠️
+				args[3] = raycastParams -- bullet obstacle, this will make ur gun shoot through the wall [ we call it wallbang ]
+				return oldNamecall(self,unpack(args))
+			end
+			return oldNamecall(self,...)
+		end)
+	elseif mode == "hookfunction" then
+		lib:notify(lib:ColorFonts("This mode is in development and coming soon.","Bold,Red"),10)
+	else
+		TurtleScreenNotify("Turtle Hub | null mode","the mode u entered are invalid or missing or no listed",{},nil,{})
+	end
+end
+
+--lib:FormatRGB("gradient") local method = getnamecallmethod()
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
