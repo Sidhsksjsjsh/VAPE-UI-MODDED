@@ -3390,6 +3390,20 @@ function lib.RaycastManipulation(mode) -- this function will let u modified/mani
 end
 
 --[[
+```
+• Message : C stack overflow
+    Stack Begin
+    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.ZoomController.Popper', Line 260 - function queryPoint
+    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.ZoomController.Popper', Line 332 - function queryViewport
+    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.ZoomController.Popper', Line 402 - function Popper
+    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.ZoomController', Line 109 - function Update
+    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.Poppercam', Line 112 - function Update
+    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule', Line 512 - function Update
+    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule', Line 144
+    Stack End
+• Output type : Enum.MessageType.MessageError
+```
+
 local function getRayPosition(direct)
   return Ray.new(myself.Character.HumanoidRootPart.Position,(direct + Vector3.new(0,(myself.Character.HumanoidRootPart.Position - direct).Magnitude / 500,0) - myself.Character.HumanoidRootPart.Position).Unit * 9e9)
 end
