@@ -46,6 +46,7 @@ local isGuiOpened = true
 local FLYING = false
 local flyKeyDown = nil
 local flyKeyUp = nil
+local CameraModule = LocalPlayer["PlayerScripts"]["PlayerModule"]["CameraModule"]
 local controlModule = require(LocalPlayer["PlayerScripts"]["PlayerModule"]["ControlModule"])
 
 if getgenv and typeof(mobileflyspeed) == "nil" and typeof(vflyspeed) == "nil" then --global variable for changing fly speed through Turtle-Intelligence
@@ -3366,6 +3367,10 @@ function lib.RaycastManipulation(mode) -- this function will let u modified/mani
 		end)
 	elseif mode == "hookfunction" then
 		local oldRay = hookfunction(Ray.new,function(...)
+			if getcallingscript() == CameraModule["ZoomController"]["Popper"] or getcallingscript() == CameraModule["ZoomController"] or getcallingscript() == CameraModule["Poppercam"] or getcallingscript() == CameraModule then
+				return oldRay(...)
+			end -- this will block Infinite Loop caused by CameraModule... now, this wont spam any error (i think)
+				
 			local args = {...}
 			if TurtleFlags.EnableRayMod == true then
 				for i,v in pairs(game:GetService("Players"):GetPlayers()) do
@@ -3393,13 +3398,13 @@ end
 ```
 • Message : C stack overflow
     Stack Begin
-    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.ZoomController.Popper', Line 260 - function queryPoint
-    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.ZoomController.Popper', Line 332 - function queryViewport
-    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.ZoomController.Popper', Line 402 - function Popper
-    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.ZoomController', Line 109 - function Update
-    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule.Poppercam', Line 112 - function Update
-    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule', Line 512 - function Update
-    Script 'Players.CookieProgamming.PlayerScripts.PlayerModule.CameraModule', Line 144
+    Script 'CameraModule.ZoomController.Popper', Line 260 - function queryPoint
+    Script 'CameraModule.ZoomController.Popper', Line 332 - function queryViewport
+    Script 'CameraModule.ZoomController.Popper', Line 402 - function Popper
+    Script 'CameraModule.ZoomController', Line 109 - function Update
+    Script 'CameraModule.Poppercam', Line 112 - function Update
+    Script 'CameraModule', Line 512 - function Update
+    Script 'CameraModule', Line 144
     Stack End
 • Output type : Enum.MessageType.MessageError
 ```
