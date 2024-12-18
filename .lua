@@ -3328,21 +3328,71 @@ function lib.RaycastManipulation(mode) -- this function will let u modified/mani
 	if mode == "newcclosure" then
 		local meta = getrawmetatable(game)
 		setreadonly(meta,false)
-		TurtleFlags.Target = LocalPlayer -- use this flags to change the user/target
 		TurtleFlags.TrackType = "Humanoid" -- it will make the bullet redirect to the part u put
+		TurtleFlags.Target = LocalPlayer.Character[TurtleFlags.TrackType] -- use this flags to change the user/target
+		TurtleFlags.FindPartOnRayIgnoreList = {}
+		TurtleFlags.FindPartOnRayWhitelist = {}
 		local raycastParams = RaycastParams.new()
-                raycastParams.FilterType = (typeof(TurtleFlags.FilterType) ~= "nil" and TurtleFlags.FilterType or Enum.RaycastFilterType.Whitelist)  -- bullet obstacle, use turtle global table to make it working
-                raycastParams.FilterDescendantsInstances = (typeof(TurtleFlags.FilterInstance) ~= "nil" and TurtleFlags.FilterInstance or {LocalPlayer.Character})
+                --raycastParams.FilterType = (typeof(TurtleFlags.FilterType) ~= "nil" and TurtleFlags.FilterType or Enum.RaycastFilterType.Whitelist)  -- bullet obstacle, use turtle global table to make it working
+                --raycastParams.FilterDescendantsInstances = (typeof(TurtleFlags.FilterInstance) ~= "nil" and TurtleFlags.FilterInstance or {LocalPlayer.Character})
 		
 		local oldNamecall = meta.__namecall
 		meta.__namecall = newcclosure(function(self,...)
 			local args = {...}
 			local method = getnamecallmethod()
+			raycastParams.FilterType = (typeof(TurtleFlags.FilterType) ~= "nil" and TurtleFlags.FilterType or Enum.RaycastFilterType.Whitelist)  -- bullet obstacle, use turtle global table to make it working
+                	raycastParams.FilterDescendantsInstances = (typeof(TurtleFlags.FilterInstance) ~= "nil" and TurtleFlags.FilterInstance or {LocalPlayer.Character})
+				
 			if method == "Raycast" then
-				--args[1] = LocalPlayer.Character[TurtleFlags.TrackType].Position
-				args[2] = (args[1] - TurtleFlags.Target[TurtleFlags.TrackType].Position).unit * 5000 -- bullet direction ⚠️DONT CHANGE IT IF U DOESNT UNDERSTAND LUA!⚠️
-				args[3] = raycastParams -- bullet obstacle, this will make ur gun shoot through the wall [ we call it wallbang ]
-				return oldNamecall(self,unpack(args))
+				if ScreenRadius(TurtleFlags.Target)[1] == true then -- this mean will check the target if it is in screen
+					if TurtleFlags.FOVDetection == true then
+						if ScreenRadius(TurtleFlags.Target)[2] < TurtleFlags.ScreenRadiusPercentage then -- will check if the target is inside the circle/screen radius
+							args[2] = (args[1] - TurtleFlags.Target[TurtleFlags.TrackType].Position).unit * 5000 -- bullet direction ⚠️DONT CHANGE IT IF U DOESNT UNDERSTAND LUA!⚠️
+							args[3] = raycastParams -- bullet obstacle, this will make ur gun shoot through the wall [ we call it wallbang ]
+							return oldNamecall(self,unpack(args))
+						end
+					else -- will redirect the bullets if u wanna track all players
+						if DetectionAI_Detected_Obstacle_From_User_Or_NPC(user.Character.HumanoidRootPart) == 0 then -- only find a non-hidding player
+							args[2] = (args[1] - TurtleFlags.Target[TurtleFlags.TrackType].Position).unit * 5000 -- bullet direction ⚠️DONT CHANGE IT IF U DOESNT UNDERSTAND LUA!⚠️
+							args[3] = raycastParams -- bullet obstacle, this will make ur gun shoot through the wall [ we call it wallbang ]
+							return oldNamecall(self,unpack(args))
+						end
+					end --
+				end
+			end
+			if method == "FindPartOnRay" then
+				if ScreenRadius(TurtleFlags.Target)[1] == true then -- this mean will check the target if it is in screen
+					if TurtleFlags.FOVDetection == true then
+						if ScreenRadius(TurtleFlags.Target)[2] < TurtleFlags.ScreenRadiusPercentage then -- will check if the target is inside the circle/screen radius
+							args[1] = AI_Raycast(args[1].Origin,TurtleFlags.Target.Position) -- bullet direction ⚠️DONT CHANGE IT IF U DOESNT UNDERSTAND LUA!⚠️
+							args[2] = TurtleFlags.FindPartOnRayIgnoreList -- bullet obstacle, this will make ur gun shoot through the wall [ we call it wallbang ]
+							return oldNamecall(self,unpack(args))
+						end
+					else -- will redirect the bullets if u wanna track all players
+						if DetectionAI_Detected_Obstacle_From_User_Or_NPC(user.Character.HumanoidRootPart) == 0 then -- only find a non-hidding player
+							args[1] = AI_Raycast(args[1].Origin,TurtleFlags.Target.Position) -- bullet direction ⚠️DONT CHANGE IT IF U DOESNT UNDERSTAND LUA!⚠️
+							args[2] = TurtleFlags.FindPartOnRayIgnoreList -- bullet obstacle, this will make ur gun shoot through the wall [ we call it wallbang ]
+							return oldNamecall(self,unpack(args))
+						end
+					end --
+				end
+			end
+			if method == "FindPartOnRayWithWhitelist" then
+				if ScreenRadius(TurtleFlags.Target)[1] == true then -- this mean will check the target if it is in screen
+					if TurtleFlags.FOVDetection == true then
+						if ScreenRadius(TurtleFlags.Target)[2] < TurtleFlags.ScreenRadiusPercentage then -- will check if the target is inside the circle/screen radius
+							args[1] = AI_Raycast(args[1].Origin,TurtleFlags.Target.Position) -- bullet direction ⚠️DONT CHANGE IT IF U DOESNT UNDERSTAND LUA!⚠️
+							args[2] = TurtleFlags.FindPartOnRayWhitelist -- bullet obstacle, this will make ur gun shoot through the wall [ we call it wallbang ]
+							return oldNamecall(self,unpack(args))
+						end
+					else -- will redirect the bullets if u wanna track all players
+						if DetectionAI_Detected_Obstacle_From_User_Or_NPC(user.Character.HumanoidRootPart) == 0 then -- only find a non-hidding player
+							args[1] = AI_Raycast(args[1].Origin,TurtleFlags.Target.Position) -- bullet direction ⚠️DONT CHANGE IT IF U DOESNT UNDERSTAND LUA!⚠️
+							args[2] = TurtleFlags.FindPartOnRayWhitelist -- bullet obstacle, this will make ur gun shoot through the wall [ we call it wallbang ]
+							return oldNamecall(self,unpack(args))
+						end
+					end --
+				end
 			end
 			return oldNamecall(self,...)
 		end)
