@@ -3367,12 +3367,12 @@ function lib.RaycastManipulation(mode) -- this function will let u modified/mani
 		end)
 	elseif mode == "hookfunction" then
 		local oldRay = hookfunction(Ray.new,function(...)
-			if getcallingscript() == CameraModule["ZoomController"]["Popper"] or getcallingscript() == CameraModule["ZoomController"] or getcallingscript() == CameraModule["Poppercam"] or getcallingscript() == CameraModule then
+			if getcallingscript().Name == "Popper" or getcallingscript().Name == "ZoomController" or getcallingscript().Name == "Poppercam" or getcallingscript().Name == "CameraModule" then
 				return oldRay(...)
 			end -- this will block Infinite Loop caused by CameraModule... now, this wont spam any error (i think)
 				
-			local args = {...}
 			if TurtleFlags.EnableRayMod == true then
+				local args = {...}
 				for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 					if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("Head") then
 						local pos,OnScreen = Camera:WorldToViewportPoint(v.Character.Head.Position)
@@ -3386,8 +3386,9 @@ function lib.RaycastManipulation(mode) -- this function will let u modified/mani
 						end
 					end
 				end
+				return oldRay(unpack(args))
 			end
-			return oldRay(unpack(args))
+			return oldRay(...)
 		end)
 	else
 		TurtleScreenNotify("Turtle Hub | null mode","the mode u entered are invalid or missing or no listed",{},nil,{})
