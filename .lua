@@ -3365,21 +3365,22 @@ function lib.RaycastManipulation(mode) -- this function will let u modified/mani
 			return oldNamecall(self,...)
 		end)
 	elseif mode == "hookfunction" then
-		local BULLETRAY = Ray.new
-		local oldRay = hookfunction(Ray.new,function(origin,direction)
+		local oldRay = hookfunction(Ray.new,function(...)
+			local args = {...}
 			if TurtleFlags.EnableRayMod == true then
 				for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 					local pos,OnScreen = Camera:WorldToViewportPoint(v.Character.Head.Position)
 					if OnScreen == true then -- this mean will check the target if it is in screen
 						if TurtleFlags.FOVDetection == true then
 							if (Vector2.new(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2) - Vector2.new(pos.X,pos.Y)).Magnitude < TurtleFlags.ScreenRadiusPercentage then -- will check if the target is inside the circle/screen radius
-								return BULLETRAY(LocalPlayer.Character.HumanoidRootPart.Position,(v.Character.Head.Position + Vector3.new(0,(LocalPlayer.Character.HumanoidRootPart.Position - v.Character.Head.Position).Magnitude / 500,0) - LocalPlayer.Character.HumanoidRootPart.Position).Unit * 9e9)
+								args[1] = LocalPlayer.Character.HumanoidRootPart.Position
+								args[2] = (v.Character.Head.Position + Vector3.new(0,(LocalPlayer.Character.HumanoidRootPart.Position - v.Character.Head.Position).Magnitude / 500,0) - LocalPlayer.Character.HumanoidRootPart.Position).Unit * 9e9
 							end
 						end
 					end
 				end
 			end
-			return BULLETRAY(origin,direction)
+			return oldRay(unpack(args))
 		end)
 	else
 		TurtleScreenNotify("Turtle Hub | null mode","the mode u entered are invalid or missing or no listed",{},nil,{})
