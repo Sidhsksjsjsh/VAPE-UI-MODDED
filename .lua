@@ -4018,6 +4018,16 @@ end
 		end
             end)
 
+	    TurtleFlags[text .. " click"] = function()
+		if server.dc == true then
+			dcfunc()
+		else
+			lib:ErrorReader(function()
+				pcall(callback)
+			end)
+		end
+	    end
+			
 	    function asslabel:ClearCache()
 		    Button:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                         Button:Destroy()
@@ -7499,16 +7509,18 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 		local function loopForSpeedAndJump(chr)
+			        if chr:WaitForChild("Humanoid") then
 				lib.getHumanoidElementChanged("WalkSpeed",function()
 						if ArrayForSpeed == true then
-							LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
+							chr.Humanoid.WalkSpeed = intvarspeed.custspeed
 						end
 				end)
 				lib.getHumanoidElementChanged("JumpPower",function()
 						if ArrayForJump == true then
-							LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custjump
+							chr.Humanoid.JumpPower = intvarspeed.custjump
 						end
 				end)
+			        end
 		end
 		loopForSpeedAndJump(LocalPlayer.Character)
 		LocalPlayer.CharacterAdded:Connect(loopForSpeedAndJump)
@@ -7766,7 +7778,23 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
 			end
 		end)
-			
+
+		T107:Toggle("Set animation",false,function(value)
+			TurtleFlags.PermaAnimation = value
+			if value == true then
+				TurtleFlags["Change animation click"]()
+			end
+		end,"U still have this animation when respawned")
+
+		local function setpemaAnimate(chr)
+			if TurtleFlags.PermaAnimation == true then
+				if chr:WaitForChild("Animate") and chr:WaitForChild("Humanoid") then
+					TurtleFlags["Change animation click"]()
+				end
+			end
+		end
+				
+		LocalPlayer.CharacterAdded:Connect(setpemaAnimate)
 		local ddos = window:Tab("HTTP Spam / DDOS",true)
 		local web = {
 			_endpoint = "",
