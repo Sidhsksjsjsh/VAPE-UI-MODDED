@@ -6932,7 +6932,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 					end
 				end
 				GarbageCount = 0
-				HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK:EditLabel(GCCollected)
+				TurtleFlags.HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK:EditLabel(GCCollected)
 			end)
 		end)
 		TurtleFlags.HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK = GameEnv:Label("")
