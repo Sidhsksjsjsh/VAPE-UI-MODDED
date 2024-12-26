@@ -2920,14 +2920,24 @@ function lib:HookCalled(func)
         end)
 end
 		
-function lib:AddTable(gameservice,tbl)
+function lib:AddTable(gameservice,tbl,ElementToRemove)
 	if typeof(gameservice) == "Instance" then
 		for i,v in pairs(gameservice:GetChildren()) do 
 			table.insert(tbl,v.Name)
 		end
+		if typeof(ElementToRemove) == "table" and #ElementToRemove > 0 then
+			for i,v in pairs(ElementToRemove) do 
+				table.remove(tbl,v) -- removing table children
+			end
+		end
 	elseif typeof(gameservice) == "table" then
 		for i,v in pairs(gameservice) do 
 			table.insert(tbl,v)
+		end
+		if typeof(ElementToRemove) == "table" and #ElementToRemove > 0 then
+			for i,v in pairs(ElementToRemove) do 
+				table.remove(tbl,v)
+			end
 		end
 	else
 		table.insert(tbl,gameservice)
