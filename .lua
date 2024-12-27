@@ -643,7 +643,7 @@ function lib:WarnUser(title) --,params)
   end]]
 end --lib:WarnUser("",{AutoClose = true,CanClick = false,Duration = 9e9})
 
-coroutine.wrap(
+--[[coroutine.wrap(
     function()
         while wait() do
             lib.RainbowColorValue = lib.RainbowColorValue + 1 / 255
@@ -658,7 +658,7 @@ coroutine.wrap(
             end
         end
     end
-)()
+)()]]
 
 for i = 1,#names do 
   table.insert(pows,1000^i)
@@ -2926,18 +2926,38 @@ function lib:AddTable(gameservice,tbl,ElementToRemove)
 			table.insert(tbl,v.Name)
 		end
 		if typeof(ElementToRemove) == "table" and #ElementToRemove > 0 then
-			for i,v in pairs(ElementToRemove) do 
-				table.remove(tbl,v) -- removing table children
-			end
+			for i,v in pairs(ElementToRemove) do
+				if typeof(i) == "number" then
+					table.remove(tbl,i) -- removing table children
+				elseif typeof(i) == "table" then
+					table.remove(tbl,i)
+				elseif typeof(i) == "string" then
+					for a,b in pairs(i) do
+						if typeof(a) == "table" then
+							table.remove(tbl,a)
+						end
+					end -- end
+				end
+			end -- for-do loop
 		end
 	elseif typeof(gameservice) == "table" then
 		for i,v in pairs(gameservice) do 
 			table.insert(tbl,v)
 		end
 		if typeof(ElementToRemove) == "table" and #ElementToRemove > 0 then
-			for i,v in pairs(ElementToRemove) do 
-				table.remove(tbl,v)
-			end
+			for i,v in pairs(ElementToRemove) do
+				if typeof(i) == "number" then
+					table.remove(tbl,i) -- removing table children
+				elseif typeof(i) == "table" then
+					table.remove(tbl,i)
+				elseif typeof(i) == "string" then
+					for a,b in pairs(i) do
+						if typeof(a) == "table" then
+							table.remove(tbl,a)
+						end
+					end -- end
+				end
+			end -- coroutine
 		end
 	else
 		table.insert(tbl,gameservice)
