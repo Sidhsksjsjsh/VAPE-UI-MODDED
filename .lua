@@ -6404,7 +6404,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end)
 
 	Network.ConnectionAccepted:Connect(function(Server,ReplicatorInstance)
-		_G.Server = Server:gsub("|", ":")
+		--_G.Server = Server:gsub("|", ":")
 		loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("NetworkClient","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(`Server : {Server:gsub("|",":")}, ReplicatorInstance : {tostring(ReplicatorInstance)}, Replicator Type : {typeof(ReplicatorInstance)}`,"Underline"),"Bold,Sky Blue")
 		loghttpsys:EditLabel(loglistsys)
 	end)
@@ -7068,6 +7068,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
+		local FUPT = false
+		local FUPT2 = false
 		T100:Button("Fling unanchored part tool",function()
 			if LocalPlayer.Backpack:FindFirstChild("Fling Tool") then
 				LocalPlayer.Backpack["Fling Tool"]:Destroy()
@@ -7094,6 +7096,17 @@ function lib.DeveloperEncrypt(window,isShowed)
 				ft.Name = "Fling Tool"
 				ft.RequiresHandle = false
 				ft.Parent = LocalPlayer.Backpack
+				ft.Equipped:Connect(function()
+					FUPT = true
+				end)
+				ft.Unequipped:Connect(function()
+					FUPT = false
+					lib:descendant(workspace,function(v)
+						if v.Name == "NetworkOnwership" then
+							v:Destroy()
+						end
+					end)
+				end)
 				ft.Activated:Connect(function()
 					if Mouse.Target:IsA("BasePart") or Mouse.Target:IsA("Part") or Mouse.Target:IsA("MeshPart") or Mouse.Target:IsA("CornerWedgePart") or Mouse.Target:IsA("TrussPart") or Mouse.Target:IsA("WedgePart") then
 						if Mouse.Target.Anchored == false then
@@ -7499,6 +7512,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 		T106:Toggle("Start fly",false,function(value)
 			if value == true then
+				TurtleFlags["Start vehicle fly • Turtle Interface"](false)
+				wait(0.2)
 				lib:startFly(false) --,intvarspeed.speed1,intvarspeed.speed2)
 				if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 					lib.PlayAnim(134283166482394,5,0,false) -- 5/13
@@ -7512,6 +7527,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 		T106:Toggle("Start vehicle fly",false,function(value)
 			if value == true then
+				TurtleFlags["Start fly • Turtle Interface"](false)
+				wait(0.2)
 				lib:startFly(true) --,intvarspeed.speed1,intvarspeed.speed2)
 			else
 				lib:stopFly()
