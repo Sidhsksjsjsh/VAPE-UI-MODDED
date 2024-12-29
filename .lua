@@ -7097,12 +7097,17 @@ function lib.DeveloperEncrypt(window,isShowed)
 				ft.Activated:Connect(function()
 					if Mouse.Target:IsA("BasePart") or Mouse.Target:IsA("Part") or Mouse.Target:IsA("MeshPart") or Mouse.Target:IsA("CornerWedgePart") or Mouse.Target:IsA("TrussPart") or Mouse.Target:IsA("WedgePart") then
 						if Mouse.Target.Anchored == false then
-							local bambam = Instance.new("BodyAngularVelocity")
-							bambam.Name = "NetworkOnwership"
-							bambam.Parent = Mouse.Target
-							bambam.AngularVelocity = Vector3.new(99999,99999,99999)
-							bambam.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
-							bambam.P = math.huge
+							if Mouse.Target:FindFirstChild("NetworkOnwership") then
+								TurtleScreenNotify("Turtle Hub | Fling-Unanchored Parts","This part has 'NetworkOwnership' enabled\nSelect another part with 'NetworkOwnership' disabled",{},nil,{})
+							else
+								local bambam = Instance.new("BodyAngularVelocity")
+								bambam.Name = "NetworkOnwership"
+								bambam.Parent = Mouse.Target
+								bambam.AngularVelocity = Vector3.new(99999,99999,99999)
+								bambam.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
+								bambam.P = math.huge
+								lib:notify(lib:ColorFonts("Success","Bold,Green"),10)
+							end
 						else
 							TurtleScreenNotify("Turtle Hub | Fling-Unanchored Parts","This part has Anchored property enabled.\nSelect other part with Anchored disabled",{},nil,{})
 						end
@@ -7110,6 +7115,11 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end)
 			end
 		end)
+
+		T100:Button("Touch Fling",function()
+			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/ToggleFling/main/Roblox/Script.lua")
+		end)
+					
 		local T101 = window:Tab("Snipe")
 		local var = {
 			game_id = game.PlaceId,
