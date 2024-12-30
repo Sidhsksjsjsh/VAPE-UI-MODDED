@@ -6416,7 +6416,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local blacklist_webhook = turtle.getwebhook
 	local blacklist_api = {"https://api.turtlereq.com/request/server","https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCZ44rYeiNgUeptIzDFfllKHAdf9yKrVcU"}
 	local blockedWebhook = {}
+	local IgnoredWebhook = {}
 	local blockedApi = {}
+	local IgnoredLocalAPI = {}
 	old = hookfunction(http,newcclosure(function(newreq)
 		if newreq.Url:find("webhook") and newreq.Url:find("discord") then
 			if newreq.Url:sub(1,#newreq.Url) == blacklist_webhook[table.find(blacklist_webhook,newreq.Url)] then
@@ -6429,22 +6431,32 @@ function lib.DeveloperEncrypt(window,isShowed)
 						loghttpsys:EditLabel(loglistsys)
 						return 
 					else
-						TurtleScreenNotify("⚠️ SUSPICIOUS WEBHOOK ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS WEBHOOK FROM THE SCRIPT YOU ARE RUNNING!\n\nWebhook : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
+						if newreq.Url:sub(1,#newreq.Url) ~= IgnoredWebhook[table.find(IgnoredWebhook,newreq.Url)] then
+							TurtleScreenNotify("⚠️ SUSPICIOUS WEBHOOK ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS WEBHOOK FROM THE SCRIPT YOU ARE RUNNING!\n\nWebhook : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue","Ignore This Webhook"},nil,{
 								Continue = function()
 									lib:AddTable(tostring(newreq.Url),blockedWebhook)
-									return 
+									--return 
+								end,
+								["Ignore This Webhook"] = function()
+									lib:AddTable(newreq.Url:sub(1,#newreq.Url),IgnoredWebhook)
 								end
-						})
+							})
+						end
 						loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
 						loghttpsys:EditLabel(loglistsys)
 					end
 				else
-					TurtleScreenNotify("⚠️ SUSPICIOUS WEBHOOK ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS WEBHOOK FROM THE SCRIPT YOU ARE RUNNING!\n\nWebhook : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue"},nil,{
-								Continue = function()
-									lib:AddTable(tostring(newreq.Url),blockedWebhook)
-									return 
-								end
-					})
+					if newreq.Url:sub(1,#newreq.Url) ~= IgnoredWebhook[table.find(IgnoredWebhook,newreq.Url)] then
+						TurtleScreenNotify("⚠️ SUSPICIOUS WEBHOOK ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS WEBHOOK FROM THE SCRIPT YOU ARE RUNNING!\n\nWebhook : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING WEBHOOK ACCESS)",{"Continue","Ignore This Webhook"},nil,{
+							Continue = function()
+								lib:AddTable(tostring(newreq.Url),blockedWebhook)
+								--return 
+							end,
+							["Ignore This Webhook"] = function()
+								lib:AddTable(tostring(newreq.Url),IgnoredWebhook)
+							end
+						})
+					end
 					loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
 					loghttpsys:EditLabel(loglistsys)
 				end
@@ -6460,22 +6472,32 @@ function lib.DeveloperEncrypt(window,isShowed)
 						loghttpsys:EditLabel(loglistsys)
 						return 
 					else
-						TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue"},nil,{
+						if newreq.Url ~= IgnoredLocalAPI[table.find(IgnoredLocalAPI,newreq.Url)] then
+							TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue","Ignore This Local-API"},nil,{
 								Continue = function()
 									lib:AddTable(tostring(newreq.Url),blockedApi)
-									return 
+									--return 
+								end,
+								["Ignore This Local-API"] = function()
+									lib:AddTable(tostring(newreq.Url),IgnoredLocalAPI)
 								end
-						})
+							})
+						end
 						loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
 						loghttpsys:EditLabel(loglistsys)
 					end
 				else
-					TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue"},nil,{
-								Continue = function()
-									lib:AddTable(tostring(newreq.Url),blockedApi)
-									return 
-								end
-					})
+					if newreq.Url ~= IgnoredLocalAPI[table.find(IgnoredLocalAPI,newreq.Url)] then
+						TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue","Ignore This Local-API"},nil,{
+							Continue = function()
+								lib:AddTable(tostring(newreq.Url),blockedApi)
+								--return 
+							end,
+							["Ignore This Local-API"] = function()
+								lib:AddTable(tostring(newreq.Url),IgnoredLocalAPI)
+							end
+						})
+					end
 					loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
 					loghttpsys:EditLabel(loglistsys)
 				end
