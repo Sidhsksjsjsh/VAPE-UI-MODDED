@@ -8071,14 +8071,15 @@ function lib.DeveloperEncrypt(window,isShowed)
 			switch = false,
 			colide = false
 		}
-		
+
 		local WallCheckParams = RaycastParams.new()
 		WallCheckParams.FilterType = Enum.RaycastFilterType.Whitelist
 		WallCheckParams.IgnoreWater = true
 		WallCheckParams.FilterDescendantsInstances = {}
 		local AttrHandlers = {}
+                local SelectedPartLine = CreateLine({visible = false,origin = Vector2.new(0,0),direction = Vector2.new(1,1),LineColor = Color3.fromRGB(0,166,0),thickness = 2,transparency = 0})
+                local UnSelectedPartLine = CreateLine({visible = false,origin = Vector2.new(0,0),direction = Vector2.new(1,1),LineColor = Color3.fromRGB(225,255,255),thickness = 2,transparency = 0})
 
-		
 		PartSelector:Toggle("Enable part selector [ Powered by Gemini AI ]",false,function(value)
 			if value == true then
 				lib:notify(lib:ColorFonts("Part selector enabled.","Bold,Green"),10)
