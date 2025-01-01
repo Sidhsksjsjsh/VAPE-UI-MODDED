@@ -6790,13 +6790,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local ActivateHighlight = nil
 		local ClickSelect = nil
 
-		local function HighlightPart()
-			if selected.Adornee ~= Mouse.Target then
-				selectionBox.Adornee = Mouse.Target
-			else
-				selectionBox.Adornee = nil
-			end
-		end
 			
 		local function CatchCaller(func,output)
 			task.spawn(function()
@@ -8080,13 +8073,27 @@ function lib.DeveloperEncrypt(window,isShowed)
                 local SelectedPartLine,Ray1 = CreateLine({visible = false,origin = Vector2.new(0,0),direction = Vector2.new(1,1),LineColor = Color3.fromRGB(0,166,0),thickness = 2,transparency = 0})
                 local UnSelectedPartLine,Ray2 = CreateLine({visible = false,origin = Vector2.new(0,0),direction = Vector2.new(1,1),LineColor = Color3.fromRGB(225,255,255),thickness = 2,transparency = 0})
 
+		local function HighlightPart()
+			if selected.Adornee ~= Mouse.Target then
+				Ray2.Origin(LocalPlayer.Character.HumanoidRootPart)
+				selectionBox.Adornee = Mouse.Target
+				Ray2.Direction(Mouse.Target)
+			else
+				selectionBox.Adornee = nil
+			end
+		end
+					
 		PartSelector:Toggle("Enable part selector [ Powered by Gemini AI ]",false,function(value)
+			SelectedPartLine.Visible = value
+			UnSelectedPartLine.Visible = value
 			if value == true then
 				lib:notify(lib:ColorFonts("Part selector enabled.","Bold,Green"),10)
 				ActivateHighlight = Mouse.Move:Connect(HighlightPart)
 				ClickSelect = Mouse.Button1Down:Connect(function()
 					if Mouse.Target ~= nil then
-						selected.Adornee = Mouse.Target
+						Ray1.Origin(LocalPlayer.Character.HumanoidRootPart)
+				                selected.Adornee = Mouse.Target
+						Ray1.Direction(selected.Adornee)
 						AttrHandlers = {}
 						lib:attributes(selected.Adornee.Parent,function(name,value)
 							table.insert(AttrHandlers,`['{name}'] = {value} • {typeof(value)}`)
