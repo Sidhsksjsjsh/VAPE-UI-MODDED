@@ -7549,6 +7549,47 @@ function lib.DeveloperEncrypt(window,isShowed)
 				lib:stopFly()
 			end
 		end)
+
+		T106:Button("Invisble fling",function()
+			TurtleFlags["Start fly • Turtle Interface"](false)
+			local prt = Instance.new("Model")
+			prt.Parent = LocalPlayer.Character
+			local z1 = Instance.new("Part")
+			z1.Name = "Torso"
+			z1.CanCollide = false
+			z1.Anchored = true
+			local z2 = Instance.new("Part")
+			z2.Name = "Head"
+			z2.Parent = prt
+			z2.Anchored = true
+			z2.CanCollide = false
+			local z3 = Instance.new("Humanoid")
+			z3.Name = "Humanoid"
+			z3.Parent = prt
+			z1.Position = Vector3.new(0,9999,0)
+			LocalPlayer.Character = prt
+			wait(1)
+			LocalPlayer.Character = LocalPlayer.Character.HumanoidRootPart
+			wait(1)
+			local Hum = Instance.new("Humanoid")
+			z2:Clone()
+			Hum.Parent = LocalPlayer.Character
+			lib:children(LocalPlayer.Character,function(v)
+				if v ~= LocalPlayer.Character.HumanoidRootPart and v.Name ~= "Humanoid" then
+					v:Destroy()
+				end
+			end)
+			LocalPlayer.Character.HumanoidRootPart.Transparency = 0
+			LocalPlayer.Character.HumanoidRootPart.Color = Color3.new(1,1,1)
+			LocalPlayer.Character.HumanoidRootPart.CanCollide = false
+			TurtleFlags["Start fly • Turtle Interface"](true)
+			Camera.CameraSubject = LocalPlayer.Character.HumanoidRootPart
+			local bambam = Instance.new("BodyThrust")
+			bambam.Parent = LocalPlayer.Character.HumanoidRootPart
+			bambam.Force = Vector3.new(99999,99999 * 10,99999)
+			bambam.Location = LocalPlayer.Character.HumanoidRootPart.Position
+		end,"Fling without getting noticed")
+					
 		T106:Button("Change rig to R15",function()
 			lib.promptNewRig("R15")
 		end)
