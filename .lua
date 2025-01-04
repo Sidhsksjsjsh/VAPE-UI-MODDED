@@ -34,6 +34,8 @@ local TP_DISTANCE2 = {under = -20,top = 20,behind = -1.5,tpm = "behind"}
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local names = {"K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dd","Ud","Dd","Td","Qad","Qid","Sxd","Spd","Ocd","Nod","Vg","Uvg","Dvg","Tvg","Qavg","Qivg","Sxvg","Spvg","Ocvg"}
 local pows = {}
+local Studs = {"Meters","Kilometers","Megameters","Gigameters","Terameter"}
+local pows2 = {}
 local MemorySizes = {"MB","GB","TB","PB","EB","ZB","YB"}
 local MemoryIndex = 1
 local MemoryConvertedValue = 0
@@ -658,16 +660,19 @@ end --lib:WarnUser("",{AutoClose = true,CanClick = false,Duration = 9e9})
             end
         end
     end
-)()]]
+)()
+Studs
+]]
 
 for i = 1,#names do 
-  table.insert(pows,1000^i)
+  table.insert(pows,1000 ^ i)
+end
+
+for i = 1,#Studs do 
+  table.insert(pows2,1000 ^ i)
 end
 
 function lib:MemoryFormat(bytes)
-    --MemoryIndex = math.floor(math.log(bytes) / math.log(1024))
-    --MemoryConvertedValue = bytes / math.pow(1024,MemoryIndex)
-
     return string.format("%.2f %s",bytes / math.pow(1024,math.floor(math.log(bytes) / math.log(1024))),MemorySizes[math.floor(math.log(bytes) / math.log(1024)) + 1]) --MemoryConvertedValue,MemorySizes[MemoryIndex + 1])
 end
 
@@ -676,10 +681,17 @@ end
 function lib:CurrencyFormat(x: number): string 
 	if math.abs(x) < 1000 then
 		return math.floor(x)
-	end 
-	--local p = math.min(math.floor(math.log10(math.abs(x))/3),#names)
-	--local num = math.floor(math.abs(x)/pows[math.min(math.floor(math.log10(math.abs(x))/3),#names)]*100)/100
-	return math.floor(math.abs(x)/pows[math.min(math.floor(math.log10(math.abs(x))/3),#names)] * 100) / 100 * math.sign(x) .. names[math.min(math.floor(math.log10(math.abs(x))/3),#names)]
+	end
+	
+	return math.floor(math.abs(x) / pows[math.min(math.floor(math.log10(math.abs(x)) / 3),#names)] * 100) / 100 * math.sign(x) .. names[math.min(math.floor(math.log10(math.abs(x)) / 3),#names)]
+end
+
+function lib:DistanceFormat(x: number): string 
+	if math.abs(x) < 1000 then
+		return math.floor(x)
+	end
+	
+	return math.floor(math.abs(x) / pows2[math.min(math.floor(math.log10(math.abs(x)) / 3),#Studs)] * 100) / 100 * math.sign(x) .. Studs[math.min(math.floor(math.log10(math.abs(x)) / 3),#Studs)]
 end
 
 local function MakeDraggable(topbarobject, object)
