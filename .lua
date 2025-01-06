@@ -6789,6 +6789,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end)
 		end
 	end)
+
+	local jajsjsjsjsjskaeiwjsoqhsksbqkskanswbsakmlllkkkLLL = window:Tab("Credits")
+	jajsjsjsjsjskaeiwjsoqhsksbqkskanswbsakmlllkkkLLL:Label(`lib:ColorFonts("This script were developed by\n• Fahri [ OWNER ]\n• Izatul\n• Farhan\n• Naufal\n• Fadil\n• Rasyid\n• Pasya\n• Ikbal\n• Reza\n• Wahyu\n• Wisnu\n• Akmal\n\nThey're the real admin & staff since turtle hub was released to public.","Bold,Sky Blue")`)
 	
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
