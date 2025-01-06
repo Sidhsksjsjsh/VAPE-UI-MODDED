@@ -4173,6 +4173,10 @@ end
 		end
 	    end
 
+	    TurtleFlags[text .. " value"] = function()
+		return toggled
+	    end
+			
 	    TurtleFlags[text .. " desc"](descToggle)
             FrameToggle1.Name = "FrameToggle1"
             FrameToggle1.Parent = Toggle
