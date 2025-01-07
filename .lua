@@ -1907,7 +1907,7 @@ Axtr0 : 984175806106464356
 function lib.getUserTag(label,name)
 	if type(label) == "string" then
 		if label == "get" then
-			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin","@Skibidi","@Chouko","@Axtr0"}
+			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin","@Skibidi","@Chouko","@Axtr0","@Salsah","@Panda / @.reanie"}
 		elseif label == "sent" then
 			return name:gsub(
 				"@Fahri",
@@ -1952,8 +1952,11 @@ function lib.getUserTag(label,name)
 				"@Axtr0",
 				"<@984175806106464356>"
 			):gsub(
-				"@Kiki",
+				"@Salsah",
 				"<@788702331184742411>"
+			):gsub(
+				"@Panda / @.reanie",
+				"<@>"
 			)
 		end
 	end
@@ -2853,39 +2856,39 @@ end
 
 
 local emoji = ({
-	["01 01"] = lib:ColorFonts("🎆 NEW YEAR 🎆","Bright Blue"),
+	["01 01"] = lib:ColorFonts("🎆 NEW YEAR 🎆","Bold,Bright Blue"),
 	[(function(Year)
-		local A = math.floor(Year/100)
-		local B = math.floor((13+8*A)/25)
-		local C = (15-B+A-math.floor(A/4))%30
-		local D = (4+A-math.floor(A/4))%7
-		local E = (19*(Year%19)+C)%30
-		local F = (2*(Year%4)+4*(Year%7)+6*E+D)%7
-		local G = (22+E+F)
+		local A = math.floor(Year / 100)
+		local B = math.floor((13 + 8 * A) / 25)
+		local C = (15 - B + A - math.floor(A / 4)) % 30
+		local D = (4 + A - math.floor(A / 4)) % 7
+		local E = (19 * (Year % 19) + C) % 30
+		local F = (2 * (Year % 4) + 4 * (Year % 7) + 6 * E + D) % 7
+		local G = (22 + E + F)
 		if E == 29 and F == 6 then
 			return "04 19"
 		elseif E == 28 and F == 6 then
 			return "04 18"
 		elseif 31 < G then
-			return ("04 %02d"):format(G-31)
+			return ("04 %02d"):format(G - 31)
 		end
 		return ("03 %02d"):format(G)
-	end)(tonumber(os.date("%Y")))] = lib:ColorFonts("🐰🥚 EASTER 🥚🐰","Sky Blue"),
-	["10 31"] = lib:ColorFonts("🎃 HALLOWEEN 🎃","Gold"),
-	["12 25"] = lib:ColorFonts("🎄 CHRISTMAS 🎄","Green"),
-	["04 10"] = lib:ColorFonts("EID UL FITRI","Light Green"),
-	["04 11"] = lib:ColorFonts("EID UL FITRI","Light Green"),
-	["03 29"] = lib:ColorFonts("💞🎂 FAHRI'S GF'S BIRTHDAY 🎂💞","Pink"),
-	["01 29"] = lib:ColorFonts("🎂 FAHRI'S BIRTHDAY 🎂","Yellow"),
-	["01 10"] = lib:ColorFonts("🎂 ASYA'S BIRTHDAY 🎂","Pink"),
-	["05 05"] = lib:ColorFonts("🎂 AKBAR'S BIRTHDAY 🎂","Green"),
-	["04 12"] = lib:ColorFonts("🎉 TURTLE HUB ANNIVERSARY 🎉","Sky Blue"),
-	["04 15"] = lib:ColorFonts("🎉 VANGUARD ANNIVERSARY 🎉","Red"),
-	["02 14"] = lib:ColorFonts("💕 VALENTINE'S DAY 💕","Pink"),
-	["03 08"] = lib:ColorFonts("👸🏻 INTERNATIONAL WOMEN'S DAY 👸🏻","Pink"),
-	["04 01"] = lib:ColorFonts("❌ LAST UPDATE ❌","Red"),
-	["05 01"] = lib:ColorFonts("🔪 INTERNATIONAL LABOR DAY 🔪","Red"),
-	["08 17"] = lib:ColorFonts("🇮🇩 INDONESIA'S INDEPENDENCE DAY 🇮🇩","Red")
+	end)(tonumber(os.date("%Y")))] = lib:ColorFonts("🐰🥚 EASTER 🥚🐰","Bold,Sky Blue"),
+	["10 31"] = lib:ColorFonts("🎃 HALLOWEEN 🎃","Bold,Gold"),
+	["12 25"] = lib:ColorFonts("🎄 CHRISTMAS 🎄","Bold,Green"),
+	["04 10"] = lib:ColorFonts("EID UL FITRI","Bold,Light Green"),
+	["04 11"] = lib:ColorFonts("EID UL FITRI","Bold,Light Green"),
+	["03 29"] = lib:ColorFonts("💞🎂 FAHRI'S GF'S BIRTHDAY 🎂💞","Bold,Pink"),
+	["01 29"] = lib:ColorFonts("🎂 FAHRI'S BIRTHDAY 🎂","Bold,Yellow"),
+	["01 10"] = lib:ColorFonts("🎂 ASYA'S BIRTHDAY 🎂","Bold,Pink"),
+	["05 05"] = lib:ColorFonts("🎂 AKBAR'S BIRTHDAY 🎂","Bold,Green"),
+	["04 12"] = lib:ColorFonts("🎉 TURTLE HUB ANNIVERSARY 🎉","Bold,Sky Blue"),
+	["04 15"] = lib:ColorFonts("🎉 VANGUARD ANNIVERSARY 🎉","Bold,Red"),
+	["02 14"] = lib:ColorFonts("💕 VALENTINE'S DAY 💕","Bold,Pink"),
+	["03 08"] = lib:ColorFonts("👸🏻 INTERNATIONAL WOMEN'S DAY 👸🏻","Bold,Pink"),
+	["04 01"] = lib:ColorFonts("❌ LAST UPDATE ❌","Bold,Red"),
+	["05 01"] = lib:ColorFonts("🔪 INTERNATIONAL LABOR DAY 🔪","Bold,Red"),
+	["08 17"] = lib:ColorFonts("🇮🇩 INDONESIA'S INDEPENDENCE DAY 🇮🇩","Bold,Red")
 })[os.date("%m %d")] --Light Green
 
 --[[local THHUI = Instance.new("ScreenGui")
