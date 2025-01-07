@@ -1956,7 +1956,7 @@ function lib.getUserTag(label,name)
 				"<@788702331184742411>"
 			):gsub(
 				"@Panda / @.reanie",
-				"<@>"
+				"<@824663108848975922>"
 			)
 		end
 	end
