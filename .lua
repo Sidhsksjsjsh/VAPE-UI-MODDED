@@ -7689,7 +7689,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				"Bold Animation",
 				"Girly Animation",
 				"Adidas Sport Animation",
-				"Udzal Animation",
+				"CalWalk Glam Animation",
 				"Toilet Animation"
 			},
 			sel = "",
@@ -7901,13 +7901,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.jump.JumpAnim.AnimationId = "https://www.roblox.com/asset/?id=18537380791"
 				Animate.climb.ClimbAnim.AnimationId = "https://www.roblox.com/asset/?id=18537363391"
 				Animate.fall.FallAnim.AnimationId = "https://www.roblox.com/asset/?id=18537367238"
-			elseif anim_table.sel == "Udzal Animation" then
-				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
-				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
-				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=3489174223"
-				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=3489173414"
-				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
-				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
+			elseif anim_table.sel == "CalWalk Glam Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=133806214992291" -- ✓
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=94970088341563" -- ✓
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=109168724482748"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=81024476153754"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=116936326516985"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=119377220967554"
 				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
 			elseif anim_table.sel == "Toilet Animation" then
 				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
