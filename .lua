@@ -2820,7 +2820,7 @@ setmetatable(
 
 local server = {
 	dc = false,
-	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard ✘ Roblox? 😲","Alya is the most beautiful woman 🎉","We wont share ur Personal Information","Only turtle can bypass adonis","rgb bar mean that feature is special"}
+	quote = {"Fahri never asking for a code","Vanguard was developed by Turtle Secure","Vanguard ✘ Roblox? 😲","We wont share ur Personal Information","Only turtle can bypass adonis","rgb bar mean that feature is special"}
 } -- server.quote
 
 local function dcfunc()
@@ -4658,41 +4658,7 @@ end
             ToggleDesc.RichText = true
 	    ToggleDesc.Visible = false
 
-	    TurtleFlags[text .. " desc"] = function(descName)
-		if typeof(descName) ~= "nil" then
-			ToggleDesc.Visible = true
-			TweenService:Create(DropdownTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
-			if typeof(descName) == "string" or typeof(descName) == "number" then
-				ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
-				--TweenService:Create(Toggle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.215625003,0,0.446271926,TabLayout.AbsoluteContentSize.Y)}):Play()
-				if descName ~= "" then
-					TweenService:Create(DropdownTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,-0.160,0)}):Play()
-					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-				else
-					TweenService:Create(DropdownTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,0,0)}):Play()
-					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
-				end
-			else
-				task.spawn(function()
-					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
-					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts("Only accept A-Z, a-z & 0-9 not a " .. typeof(descName),TurtleFlags.DescTextStyle)
-					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-					wait(1)
-					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
-					wait(0.3)
-					ToggleDesc.Text = lib:ColorFonts(descName,TurtleFlags.DescTextStyle)
-					TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-				end)
-			end
-		else
-			TweenService:Create(DropdownTitle,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out,0,false,0),{Position = UDim2.new(0.0358126722,0,0,0)}):Play()
-			TweenService:Create(ToggleDesc,TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
-		end
-	    end
-
-	    TurtleFlags[text .. " desc"](descToggle)
-            ArrowImg.Name = "ArrowImg"
+	    ArrowImg.Name = "ArrowImg"
             ArrowImg.Parent = DropdownTitle
             ArrowImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ArrowImg.BackgroundTransparency = 1.000
@@ -4752,24 +4718,24 @@ end
 
 	    pcall(callback,list[1])
 	    DropdownTitle.Text = text .. " - " .. list[1]
-            for i, v in next,list do
+            for i,v in next,list do
                 itemcount = itemcount + 1
                 if itemcount <= 3 then
                     framesize = framesize + 26
-                    DropItemHolder.Size = UDim2.new(0, 342, 0, framesize)
+                    DropItemHolder.Size = UDim2.new(0,342,0,framesize)
                 end
                 local Item = Instance.new("TextButton")
                 local ItemCorner = Instance.new("UICorner")
 
                 Item.Name = "Item"
                 Item.Parent = DropItemHolder
-                Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                Item.BackgroundColor3 = Color3.fromRGB(34,34,34)
                 Item.ClipsDescendants = true
-                Item.Size = UDim2.new(0, 335, 0, 25)
+                Item.Size = UDim2.new(0,335,0,25)
                 Item.AutoButtonColor = false
                 Item.Font = Enum.Font.Gotham
                 Item.Text = v
-                Item.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Item.TextColor3 = Color3.fromRGB(255,255,255)
                 Item.TextSize = 15.000
                 Item.RichText = true
 				
@@ -4792,83 +4758,90 @@ end
                         Dropdown:TweenSize(UDim2.new(0,363,0,42),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
                         TweenService:Create(ArrowImg,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Rotation = 0}):Play()
                         wait(.2)
-                        Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+                        Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
                     end)
 
-                DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
+                DropItemHolder.CanvasSize = UDim2.new(0,0,0,DropLayout.AbsoluteContentSize.Y)
             end
 
 
-		function ahhts.ClearItems(cannotify)
-			if type(cannotify) == "boolean" then
-				itemcount = 0
-				framesize = 0
-				if cannotify == true then
-					lib:notify(lib:ColorFonts(lib:ColorFonts(`Refreshing the dropdown, got {#DropItemHolder:GetChildren()} items need to be replaced`,"Bold"),"Green"),10)
-				end
-				DropItemHolder.CanvasSize = UDim2.new(0,0,0,0)
-				wait(0.1)
+		function ahhts.ClearItem(value)
+			if typeof(value) == "string" then
 				lib:children(DropItemHolder,function(v)
-					v:Destroy()
+					if v:IsA("TextButton") and v.Text == value then
+						v:Destroy()
+					end
 				end)
-				DropItemHolder.Size = UDim2.new(0,342,0,0)
-			else
-				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE FIRST ARGUMEN MUST BE A BOOLEAN! EXPECTED {lib:ColorFonts("BOOLEAN","Underline")}, GOT {lib:ColorFonts(type(cannotify),"Underline")}`,"Bold"),"Red"),30)
 			end
 		end
-			
-		function ahhts.AsyncOptions(itemHeld)
-			if type(itemHeld) == "table" then
-				DropdownTitle.Text = text .. " - " .. itemHeld[1]
-                       		pcall(callback,itemHeld[1])
-				wait(0.2)
-				for i,v in next,itemHeld do
-					itemcount = itemcount + 1
-					if itemcount <= 3 then
-						framesize = framesize + 26
-						DropItemHolder.Size = UDim2.new(0,342,0,framesize)
-					end
-					local Item = Instance.new("TextButton")
-					local ItemCorner = Instance.new("UICorner")
 
-					Item.Name = "Item"
-               				Item.Parent = DropItemHolder
-                			Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                			Item.ClipsDescendants = true
-                			Item.Size = UDim2.new(0, 335, 0, 25)
-                			Item.AutoButtonColor = false
-                			Item.Font = Enum.Font.Gotham
-                			Item.Text = v
-                			Item.TextColor3 = Color3.fromRGB(255, 255, 255)
-               				Item.TextSize = 15.000
-                			Item.RichText = true
+		local function addItems(name)
+			itemcount = itemcount + 1
+                	if itemcount <= 3 then
+                		framesize = framesize + 26
+                    		DropItemHolder.Size = UDim2.new(0,342,0,framesize)
+                	end
+                	local Item = Instance.new("TextButton")
+               	 	local ItemCorner = Instance.new("UICorner")
+
+                	Item.Name = "Item"
+                	Item.Parent = DropItemHolder
+               	 	Item.BackgroundColor3 = Color3.fromRGB(34,34,34)
+                	Item.ClipsDescendants = true
+                	Item.Size = UDim2.new(0,335,0,25)
+                	Item.AutoButtonColor = false
+                	Item.Font = Enum.Font.Gotham
+                	Item.Text = name
+                	Item.TextColor3 = Color3.fromRGB(255,255,255)
+                	Item.TextSize = 15.000
+                	Item.RichText = true
 				
-                			ItemCorner.CornerRadius = UDim.new(0, 4)
-               			 	ItemCorner.Name = "ItemCorner"
-                			ItemCorner.Parent = Item
+                	ItemCorner.CornerRadius = UDim.new(0,4)
+                	ItemCorner.Name = "ItemCorner"
+                	ItemCorner.Parent = Item
 
-					Item.MouseEnter:Connect(function()
-						TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
-                			end)
+               	 	Item.MouseEnter:Connect(function()
+                        	TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
+                	end)
 
-                			Item.MouseLeave:Connect(function()
-						TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(34,34,34)}):Play()
-                			end)
+                	Item.MouseLeave:Connect(function()
+                        	TweenService:Create(Item,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(34,34,34)}):Play()
+                	end)
 
-                			Item.MouseButton1Click:Connect(function()
-						droptog = not droptog
-                        			DropdownTitle.Text = text .. " - " .. v
-                       				pcall(callback,v)
-                        			Dropdown:TweenSize(UDim2.new(0,363,0,42),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
-                        			TweenService:Create(ArrowImg,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Rotation = 0}):Play()
-                        			wait(.2)
-                        			Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
-                    			end)
+                	Item.MouseButton1Click:Connect(function()
+                        	droptog = not droptog
+                        	DropdownTitle.Text = text .. " - " .. v
+                        	pcall(callback,v)
+                        	Dropdown:TweenSize(UDim2.new(0,363,0,42),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
+                        	TweenService:Create(ArrowImg,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Rotation = 0}):Play()
+                        	wait(.2)
+                        	Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
+                    	end)
 
-                    			DropItemHolder.CanvasSize = UDim2.new(0,0,0,DropLayout.AbsoluteContentSize.Y)
-                		end
-			else
-				lib:notify(lib:ColorFonts(lib:ColorFonts(`THE FIRST ARGUMEN MUST BE A TABLE! {lib:ColorFonts("TABLE","Underline")} EXPECTED, GOT {lib:ColorFonts(type(itemHeld),"Underline")}`,"Bold"),"Red"),30)
+                	DropItemHolder.CanvasSize = UDim2.new(0,0,0,DropLayout.AbsoluteContentSize.Y)
+		end
+			
+		function ahhts.AsyncOptions(value,opt)
+			if typeof(value) == "string" then
+				if value == "manual add" then
+					addItems(opt)
+				elseif value == "players" then
+					lib:GetPlayer(function(v)
+						addItems(v.DisplayName)
+					end)
+					lib.onPlayerJoin(function(v)
+						addItems(v.DisplayName)
+					end)
+					lib.onPlayerLeft(function(plr)
+						lib:children(DropItemHolder,function(v)
+							if v:IsA("TextButton") and v.Text == plr.DisplayName then
+								v:Destroy()
+								wait(0.5)
+								DropItemHolder.CanvasSize = UDim2.new(0,0,0,DropLayout.AbsoluteContentSize.Y)
+							end
+						end)
+					end)
+				end
 			end
 		end
 			
