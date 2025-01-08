@@ -7923,6 +7923,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end,"U still have this animation when respawned")
 
+		T107:Toggle("Show console",false,function(value)
+			TurtleRemoteEvent:Fire("SHOW CONSOLE",value)
+		end)
+		T107:Button("Test log",function()
+			TurtleRemoteEvent:Fire("CONSOLE LOG","TEST HI")
+		end)
 		local function setpemaAnimate(chr)
 			if TurtleFlags.PermaAnimation == true then
 				if chr:WaitForChild("Animate") and chr:WaitForChild("Humanoid") then
