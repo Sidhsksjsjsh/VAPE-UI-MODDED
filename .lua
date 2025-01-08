@@ -7690,7 +7690,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				"Girly Animation",
 				"Adidas Sport Animation",
 				"CalWalk Glam Animation",
-				"Toilet Animation"
+				"NFL Animation"
 			},
 			sel = "",
 			looping = false
@@ -7908,15 +7908,15 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=81024476153754"
 				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=116936326516985"
 				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=119377220967554"
-				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
-			elseif anim_table.sel == "Toilet Animation" then
-				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
-				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=3489171152"
-				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=3489174223"
-				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=3489173414"
-				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
-				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
-				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=92294537340807"
+			elseif anim_table.sel == "NFL Animation" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=92080889861410"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=74451233229259"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=110358958299415"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=117333533048078"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=119846112151352"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=134630013742019"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=129773241321032"
 			end
 		end)
 
