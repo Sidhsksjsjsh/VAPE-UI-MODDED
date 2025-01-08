@@ -4769,6 +4769,16 @@ end
 			if typeof(value) == "string" then
 				lib:children(DropItemHolder,function(v)
 					if v:IsA("TextButton") and v.Text == value then
+						for i,v in pairs(getconnections(v["MouseEnter"])) do
+							v:Disconnect()
+						end
+						for i,v in pairs(getconnections(v["MouseLeave"])) do
+							v:Disconnect()
+						end
+						for i,v in pairs(getconnections(v["MouseButton1Click"])) do
+							v:Disconnect()
+						end
+						wait(0.5)
 						v:Destroy()
 					end
 				end)
@@ -4810,8 +4820,8 @@ end
 
                 	Item.MouseButton1Click:Connect(function()
                         	droptog = not droptog
-                        	DropdownTitle.Text = text .. " - " .. v
-                        	pcall(callback,v)
+                        	DropdownTitle.Text = text .. " - " .. name
+                        	pcall(callback,name)
                         	Dropdown:TweenSize(UDim2.new(0,363,0,42),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.2,true)
                         	TweenService:Create(ArrowImg,TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Rotation = 0}):Play()
                         	wait(.2)
@@ -4835,6 +4845,15 @@ end
 					lib.onPlayerLeft(function(plr)
 						lib:children(DropItemHolder,function(v)
 							if v:IsA("TextButton") and v.Text == plr.DisplayName then
+								for i,v in pairs(getconnections(v["MouseEnter"])) do
+									v:Disconnect()
+								end
+								for i,v in pairs(getconnections(v["MouseLeave"])) do
+									v:Disconnect()
+								end
+								for i,v in pairs(getconnections(v["MouseButton1Click"])) do
+									v:Disconnect()
+								end
 								v:Destroy()
 								wait(0.5)
 								DropItemHolder.CanvasSize = UDim2.new(0,0,0,DropLayout.AbsoluteContentSize.Y)
