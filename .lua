@@ -7165,6 +7165,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T100:Button("Touch Fling",function()
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/ToggleFling/main/Roblox/Script.lua")
 		end)
+
+		T100:Button("Super Ring",function()
+			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/Super-Ring-Part.lua")
+		end)
 					
 		local T101 = window:Tab("Snipe")
 		local var = {
