@@ -1955,7 +1955,7 @@ function lib.getUserTag(label,name)
 				"@Salsah",
 				"<@788702331184742411>"
 			):gsub(
-				"@Panda / @.reanie",
+				"@.reiane",
 				"<@824663108848975922>"
 			)
 		end
@@ -7627,12 +7627,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 			        if chr:WaitForChild("Humanoid") then
 				lib.getHumanoidElementChanged("WalkSpeed",function()
 						if ArrayForSpeed == true then
-							chr.Humanoid.WalkSpeed = intvarspeed.custspeed
+							LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
 						end
 				end)
 				lib.getHumanoidElementChanged("JumpPower",function()
 						if ArrayForJump == true then
-							chr.Humanoid.JumpPower = intvarspeed.custjump
+							LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custjump
 						end
 				end)
 			        end
@@ -7675,6 +7675,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		T107:Dropdown("Select animation",anim_table.table,function(value)
 			anim_table.sel = value
+			if TurtleFlags.PermaAnimation == true then
+				TurtleFlags["Change animation click"]()
+			end
 		end)
 
 		T107:Button("Change animation",function()
