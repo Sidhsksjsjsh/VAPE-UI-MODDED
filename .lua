@@ -6353,10 +6353,30 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end)
 	--game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
 	if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
-		lib:HookCalled(function(remotePath,args)
-			if remotePath.Name == "SayMessageRequest" and args[2] == "All" and AutomaticBypass == true then
-				args[1] = filter(args[1])
-				return remotePath.FireServer(remotePath,unpack(args))
+		hookfunc(game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"].FireServer,function(...)
+			if AutomaticBypass == true then
+				if V2Bypass == true then
+					args[1] = filter2(args[1])
+					args[2] = "All"
+				else
+					args[1] = filter(args[1])
+					args[2] = "All"
+				end
+			else
+				args[1] = args[1]
+				args[2] = "All"
+			end
+		end)
+	else
+		hookfunc(TextChatService["ChatInputBarConfiguration"]["TargetTextChannel"].SendAsync,function(...)
+			if AutomaticBypass == true then
+				if V2Bypass == true then
+					args[1] = filter2(args[1])
+				else
+					args[1] = filter(args[1])
+				end
+			else
+				args[1] = args[1]
 			end
 		end)
 	end
