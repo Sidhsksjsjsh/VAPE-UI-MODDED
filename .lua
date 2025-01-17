@@ -2727,7 +2727,7 @@ function lib:hooksend(str)
 end
 
 function lib:TrackPlayer(name,f)
-	if name ~= "me" or name ~= "Me" then
+	if name ~= "me" and name ~= "Me" then
 		lib:GetPlayer(function(v)
 			if name == "all" or name == "All" then
 				f(v)
@@ -6983,7 +6983,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		local GameEnv = window:Tab("TROLL")
 		local versionHole = "V1"
-		local GarbageCount = 0
+		local PLAYERNAME = "me"
 		local GarbageTypeTable = {}
 		local annoytypefuck = "RING"
 		local GarbageCollectorAmountMax = 1
@@ -7013,6 +7013,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 			annoytypefuck = value
 		end)
 
+		GameEnv:Textbox("Player",false,function(value)
+			lib:TrackPlayer(value,function(v)
+				PLAYERNAME = v.Name
+			end)
+		end)
+			
 		GameEnv:Toggle("START ANNOY",false,function(value)
 			IsHolyEnabled = value
 			if value == true then
@@ -8086,7 +8092,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		lib:Loop(function()
 			if IsHolyEnabled == true then
-				TurtleRemoteEvent:Fire("ANNOY","DOMAIN",{USER = LocalPlayer,TYPE = annoytypefuck,VERSION = versionHole})
+				TurtleRemoteEvent:Fire("ANNOY","DOMAIN",{USER = PLAYERNAME,TYPE = annoytypefuck,VERSION = versionHole})
 			end
 			if web._spam == true then
 				if web._endpoint ~= "" then
