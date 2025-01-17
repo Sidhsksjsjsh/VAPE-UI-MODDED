@@ -6981,56 +6981,48 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
-		local GameEnv = window:Tab("Garbage Collector")
-		local GCCollected = ""
+		local GameEnv = window:Tab("TROLL")
+		local versionHole = "V1"
 		local GarbageCount = 0
 		local GarbageTypeTable = {}
-		local selectedGarbageType = ""
+		local annoytypefuck = "RING"
 		local GarbageCollectorAmountMax = 1
-		local IsGarbageEnabled = false
-		lib:AddTable(returned_string["typeof() function"],GarbageTypeTable)
+		local IsHolyEnabled = false
 		
-		GameEnv:Textbox("GC amount collecting",false,function(value)
-			GarbageCollectorAmountMax = tonumber(value)
-		end) --returned_string["typeof() function"]
-
-		GameEnv:Dropdown("Garbage Type",GarbageTypeTable,function(value)
-			selectedGarbageType = value
+		GameEnv:Slider("Radius",0,1000,50,function(value)
+			TurtleRemoteEvent:Fire("ANNOY","RADIUS",value)
 		end)
 
-		GameEnv:Toggle("Can detect hidden garbage",true,function(value)
-			IsGarbageEnabled = value
+		GameEnv:Slider("Height",0,1500,100,function(value)
+			TurtleRemoteEvent:Fire("ANNOY","HEIGHT",value)
 		end)
-		
-		GameEnv:Button("Start",function()
-			task.spawn(function()
-				GCCollected = ""
-				for i,v in pairs(getgc(IsGarbageEnabled)) do
-					if typeof(v) == selectedGarbageType and GarbageCount < GarbageCollectorAmountMax then
-						GarbageCount = GarbageCount + 1
-						if typeof(v) == "table" then
-							GCCollected = GCCollected .. "\n\n" .. lib.parseData(v,0,false,{},nil,false)
-						elseif typeof(v) == "function" then
-							GCCollected = GCCollected .. "\n\nfunction name : " .. (debug.getinfo(v,"nS").name or "anonymous") .. " [ " .. (debug.getinfo(v,"u") and debug.getinfo(v,"u").nparams or "0") .. " args ]\nSource : " .. debug.getinfo(v,"nS").source .. "\nWhat : " .. debug.getinfo(v,"nS").what
-						else
-							GCCollected = GCCollected .. "\n\n" .. tostring(v)
-						end
-					end
-				end
-				GarbageCount = 0
-				TurtleFlags.HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK:EditLabel(GCCollected)
-			end)
-		end)
-		TurtleFlags.HsjshkshskIEHSOSJEOEKSJSODJSKEKEDICK = GameEnv:Label("")
 
-		GameEnv:Button("Copy",function()
-			if GCCollected ~= "" then
-				lib:Copy(GCCollected)
+		GameEnv:Slider("Rotation Speed",0,25,1,function(value)
+			TurtleRemoteEvent:Fire("ANNOY","ROTATION SPEED",value)
+		end)
+
+		GameEnv:Slider("Attraction Strength",0,1500,1000,function(value)
+			TurtleRemoteEvent:Fire("ANNOY","ATTRACTION STRENGTH",1000)
+		end)
+
+		GameEnv:Dropdown("Annoy Version",{"V1","V2"},function(value)
+			versionHole = value
+		end)
+
+		GameEnv:Dropdown("Annoy Type",{"RING","BALL"},function(value)
+			annoytypefuck = value
+		end)
+
+		GameEnv:Toggle("START ANNOY",false,function(value)
+			IsHolyEnabled = value
+			if value == true then
+				TurtleRemoteEvent:Fire("ANNOY","Set NetworkOwnership to Client Workspace")
+				TurtleRemoteEvent:Fire("ANNOY","PART DETECT")
 			else
-				TurtleScreenNotify("Turtle Hub","Garbage is empty. click to get some.",{},nil,{})
+				TurtleRemoteEvent:Fire("ANNOY","STOP DETECT")
 			end
 		end)
-		
+
 		local ScriptDump2 = window:Tab("Script Decompile")
 		--local InjectionDecompile = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/Decompile/main/Mobile.lua"))()
 		ScriptDump2:Textbox("Path to Decompile",false,function(value)
@@ -8092,7 +8084,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local endpointresponse = nil
 		local kdnsosjekdnsksjekjeoensksjs = "100"
 
-		lib:runtime(function()
+		lib:Loop(function()
+			if IsHolyEnabled == true then
+				TurtleRemoteEvent:Fire("ANNOY","DOMAIN",{USER = LocalPlayer,TYPE = annoytypefuck,VERSION = versionHole})
+			end
 			if web._spam == true then
 				if web._endpoint ~= "" then
 					if web._endpoint:find("discord.com/api/webhooks/") then
