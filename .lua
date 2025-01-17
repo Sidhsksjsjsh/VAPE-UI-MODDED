@@ -1955,7 +1955,7 @@ function lib.getUserTag(label,name)
 				"@Salsah",
 				"<@788702331184742411>"
 			):gsub(
-				"@.reiane",
+				"@Panda / @.reiane",
 				"<@824663108848975922>"
 			)
 		end
@@ -2727,7 +2727,9 @@ function lib:hooksend(str)
 end
 
 function lib:TrackPlayer(name,f)
-	if name ~= "me" and name ~= "Me" then
+	if name == "me" or name == "Me" then
+		f(LocalPlayer)
+	else
 		lib:GetPlayer(function(v)
 			if name == "all" or name == "All" then
 				f(v)
@@ -2737,8 +2739,6 @@ function lib:TrackPlayer(name,f)
 				end
 			end
 		end)
-	else
-		f(LocalPlayer)
 	end
 end
 
@@ -7016,6 +7016,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		GameEnv:Textbox("Player",false,function(value)
 			lib:TrackPlayer(value,function(v)
 				PLAYERNAME = v.Name
+				lib:notify(lib:ColorFonts(`Player found! {v.DisplayName} - (@{v.Name})`,"Bold,Green"),10)
 			end)
 		end)
 			
