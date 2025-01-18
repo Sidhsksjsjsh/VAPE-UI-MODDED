@@ -1674,13 +1674,13 @@ function lib:CustomTeleport(mthd,str,tip,param)
 end
 
 function lib:RemoteBypass()
-for k,v in pairs(getgc(true)) do
-   if pcall(function() return rawget(v, "indexInstance") end) and type(rawget(v, "indexInstance")) == "table" and (rawget(v, "indexInstance"))[1] == "kick" then
-       v.tvk = {"kick", function() 
-			return false
-		end}
-     end
-   end
+	for k,v in pairs(getgc(true)) do 
+		if pcall(function() return rawget(v, "indexInstance") end) and type(rawget(v, "indexInstance")) == "table" and (rawget(v, "indexInstance"))[1] == "kick" then
+			v.tvk = {"kick", function() 
+				return false
+			end}
+		end
+	end
 end
 
 function lib.AnimatedText(arg,time,f)
@@ -1759,13 +1759,12 @@ function lib:BypassKick()
 	return old(self, ...)
 	end)
 	hookfunction(LocalPlayer.Kick,protect(function()
-			wait(9e9)
+		wait(9e9)
 	end))
 end
 
 function lib.getToolHandleEvent(plr)
     local toolName = plr.Character and plr.Character:FindFirstChildWhichIsA("Tool")
-
     if toolName ~= nil then
         return toolName.Name
     else
