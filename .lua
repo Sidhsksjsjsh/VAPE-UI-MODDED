@@ -1607,11 +1607,11 @@ function lib:TeleportMethod(mthd,str,param)
 	TP_DISTANCE = param or {under = -20,top = 20,behind = 1.5,tpm = "behind"}
 	if mthd == "tween" then
 		if TP_DISTANCE.tpm == "top" then
-			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.Angles(math.rad(-90),0,0) + Vector3.new(0,TP_DISTANCE.top,0)}):Play()
+			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(0.7,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.Angles(math.rad(-90),0,0) + Vector3.new(0,TP_DISTANCE.top,0)}):Play()
 		elseif TP_DISTANCE.tpm == "under" then
-			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE.under,0)}):Play()
+			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(0.7,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE.under,0)}):Play()
 		elseif TP_DISTANCE.tpm == "behind" then
-			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.new(0,0,TP_DISTANCE.behind)}):Play()
+			TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(0.7,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = str * CFrame.new(0,0,TP_DISTANCE.behind)}):Play()
 		end
 	elseif mthd == "tp" then
 		if TP_DISTANCE.tpm == "top" then
