@@ -4594,11 +4594,12 @@ end
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 	    return tblFeature
         end
-        function tabcontent:Dropdown(text, list, callback, descToggle)
+        function tabcontent:Dropdown(text,list,callback,descToggle)
             local droptog = false
             local framesize = 0
             local itemcount = 0
             local ahhts = {}
+	    local randomSelectedValueOption = list
 			
             local Dropdown = Instance.new("Frame")
             local DropdownCorner = Instance.new("UICorner")
@@ -4830,18 +4831,25 @@ end
                 	DropItemHolder.CanvasSize = UDim2.new(0,0,0,DropLayout.AbsoluteContentSize.Y)
 		end
 			
-		function ahhts.AsyncOptions(value,opt)
+		function ahhts.AsyncOptions(value,opt) --randomSelectedValueOption = 
 			if typeof(value) == "string" then
 				if value == "manual add" then
+					lib:AddTable(opt,randomSelectedValueOption)
 					addItems(opt)
 				elseif value == "players" then
 					lib:GetPlayer(function(v)
+						lib:AddTable(v.DisplayName,randomSelectedValueOption)
 						addItems(v.DisplayName)
 					end)
 					lib.onPlayerJoin(function(v)
+						lib:AddTable(v.DisplayName,randomSelectedValueOption)
 						addItems(v.DisplayName)
 					end)
 					lib.onPlayerLeft(function(plr)
+						table.remove(randomSelectedValueOption,table.find(randomSelectedValueOption,plr.DisplayName))
+						local randomValueAtChanged = randomSelectedValueOption[math.random(1,#randomSelectedValueOption)]
+						DropdownTitle.Text = text .. " - " .. randomValueAtChanged
+                        			pcall(callback,randomValueAtChanged)
 						lib:children(DropItemHolder,function(v)
 							if v:IsA("TextButton") and v.Text == plr.DisplayName then
 								for i,v in pairs(getconnections(v["MouseEnter"])) do
