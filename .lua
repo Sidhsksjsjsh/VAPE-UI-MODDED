@@ -4875,7 +4875,7 @@ end
 			DropdownTitle.Text = str
 		end
 			
-            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+            Tab.CanvasSize = UDim2.new(0,0,0,TabLayout.AbsoluteContentSize.Y)
 		return ahhts
         end
         function tabcontent:Colorpicker(text, preset, callback, descToggle)
