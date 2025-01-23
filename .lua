@@ -4779,6 +4779,7 @@ end
 							v:Disconnect()
 						end
 						wait(0.5)
+					        table.remove(randomSelectedValueOption,table.find(randomSelectedValueOption,value))
 						v:Destroy()
 					end
 				end)
@@ -4867,6 +4868,13 @@ end
 							end
 						end)
 					end)
+				elseif value == "select" then
+					if opt == randomSelectedValueOption[table.find(randomSelectedValueOption,opt)] then
+						DropdownTitle.Text = text .. " - " .. randomSelectedValueOption[table.find(randomSelectedValueOption,opt)]
+                        			pcall(callback,randomSelectedValueOption[table.find(randomSelectedValueOption,opt)])
+					else
+						lib:notify(lib:ColorFonts(`Cannot find '{lib:ColorFonts(opt,"underline")}'`,"Bold,Red"),10)
+					end -- end
 				end
 			end
 		end
