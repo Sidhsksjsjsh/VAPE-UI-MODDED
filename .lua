@@ -224,7 +224,6 @@ local envs = {
 }
 
 setmetatable(lib,envs)
-set_read_only_env(envs)
 local returned_string = { -- returned_string["typeof() function"]
 	["type() function"] = {
 		"nil",
