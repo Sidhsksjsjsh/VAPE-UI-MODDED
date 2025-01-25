@@ -3908,13 +3908,13 @@ end
 
         TabBtn.MouseButton1Click:Connect(
             function()
-                for i, v in next, TabFolder:GetChildren() do
+                for i, v in next,TabFolder:GetChildren() do
                     if v.Name == "Tab" then
                         v.Visible = false
                     end
                     Tab.Visible = true
                 end
-                for i, v in next, TabHold:GetChildren() do
+                for i, v in next,TabHold:GetChildren() do
                     if v.Name == "TabBtn" then
                         v.TabBtnIndicator:TweenSize(
                             UDim2.new(0, 0, 0, 2),
