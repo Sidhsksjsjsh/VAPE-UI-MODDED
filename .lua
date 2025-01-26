@@ -3524,7 +3524,7 @@ function lib:Window(text, preset, closebind)
 	lib:notify("Current event : " .. emoji,10)
     else
 	lib:runtime(function(v)
-		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts((getPing() >= 1000 and lib:ColorFonts(getPing(),"Red") or getPing() >= 500 and lib:ColorFonts(getPing(),"Yellow") or getPing() <= 100 and lib:ColorFonts(getPing(),"White")) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. (math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White")) .. "FPS (" .. (math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White")) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
+		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts((getPing() >= 1000 and lib:ColorFonts(getPing(),"Red") or getPing() >= 500 and lib:ColorFonts(getPing(),"Yellow") or lib:ColorFonts(getPing(),"White")) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. (math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White")) .. "FPS (" .. (math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White")) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
@@ -6368,7 +6368,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	end)
 	--game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
 	if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
-		hookfunc(game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"].FireServer,function(...)
+		hookfunc(game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"].FireServer,function(args)
 			if AutomaticBypass == true then
 				if V2Bypass == true then
 					args[1] = filter2(args[1])
@@ -6383,7 +6383,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 	else
-		hookfunc(TextChatService["ChatInputBarConfiguration"]["TargetTextChannel"].SendAsync,function(...)
+		hookfunc(TextChatService["ChatInputBarConfiguration"]["TargetTextChannel"].SendAsync,function(args)
 			if AutomaticBypass == true then
 				if V2Bypass == true then
 					args[1] = filter2(args[1])
@@ -6726,12 +6726,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end
 	end
 
-	lib:DeveloperAccess(function()
-		Intelligence:Textbox("Insert ur suggestion for answering",false,function(value)
-			suggestprompt = value
-		end)
-	end)
-	
 	Intelligence:Textbox("Insert ur prompt",false,function(value)
 		if value == "fix lag" then
 			IntelligenceResponseHandler:EditLabel(lib:ColorFonts("Fixing lags...","Bold,Red"))
@@ -6756,7 +6750,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				lib:TeleportMethod("tween",v.Character.HumanoidRootPart.CFrame)
 			end)
 		else
-			TurtleIntelligenceResponseHandler(value .. " (" .. suggestprompt .. ")")
+			TurtleIntelligenceResponseHandler(value)
 			LastResponse = IntelligenceResponseHandler:GetText()
 		end
 	end)
@@ -7499,7 +7493,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 					loadstring(lib.CodeEncrypter(obf.text))()
 				end
 			end
-		end)]]
+		end)
 			
 		LogService["MessageOut"]:Connect(function(msg,msgtype)
 			--lib:notify(lib:ColorFonts(`[ {msgtype} ] {msg}`,"Bold"),9e9)
@@ -7521,7 +7515,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 								["text"] = "Turtle Manipulator"
 							}
 						},"")
-		end)
+		end)]]
 		local animati = window:Tab("Spoofer")
 		local idx = {}
 		local spoofed = animati:Label("Spoofed animation will be showed here.")
