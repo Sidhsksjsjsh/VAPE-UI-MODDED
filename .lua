@@ -6469,7 +6469,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local blacklist_webhook = turtle.getwebhook
 	local blacklist_api = {"https://api.turtlereq.com/request/server","https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCZ44rYeiNgUeptIzDFfllKHAdf9yKrVcU"}
 	local blockedWebhook = {}
-	local IgnoredWebhook = {}
+	local IgnoredWebhook = turtle.getwebhook
 	local blockedApi = {}
 	local IgnoredLocalAPI = {}
 	old = hookfunction(http,newcclosure(function(newreq)
