@@ -1906,7 +1906,7 @@ Axtr0 : 984175806106464356
 function lib.getUserTag(label,name)
 	if type(label) == "string" then
 		if label == "get" then
-			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin","@Skibidi","@Chouko","@Axtr0","@Salsah","@Panda / @.reanie"}
+			return {"@None","@everyone","@here","@Fahri","@Asya","@Akbar","@Fania","@Gapryong","@Sauce","@Timmy","@TW O","@Kaiseanat","@nino","@BM Kooozin","@Skibidi","@Chouko","@Axtr0","@Salsah","@Panda / @.reanie","@bleeding from tears (@frodowithglasses)"}
 		elseif label == "sent" then
 			return name:gsub(
 				"@Fahri",
@@ -1956,6 +1956,9 @@ function lib.getUserTag(label,name)
 			):gsub(
 				"@Panda / @.reiane",
 				"<@824663108848975922>"
+			):gsub(
+				"@bleeding from tears (@frodowithglasses)",
+				"<@878889508119150594>"
 			)
 		end
 	end
