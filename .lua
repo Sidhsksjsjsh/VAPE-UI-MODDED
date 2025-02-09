@@ -6369,7 +6369,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	chatbypass:Toggle("Automatic bypass",false,function(value)
 		AutomaticBypass = value
 	end)
-	--game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
+	--[[game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(msg,"All")
 	if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
 		hookfunc(game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"].FireServer,function(args)
 			if AutomaticBypass == true then
@@ -6397,7 +6397,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				args[1] = args[1]
 			end
 		end)
-	end
+	end]]
 	
 	textboxhandler:GetInputChanged(function(value)
 		if V2Bypass == true then
@@ -6942,6 +6942,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 			StarterGui:SetCore("ResetButtonCallback",value)
 		end)
 
+		T100:Toggle("Auto Jump",false,function(value)
+			TurtleFlags.UserJump = value
+		end,`Good for {lib:ColorFonts("Nico's Nextbots","Bold,Green")}`)
+			
 		T100:Button("Sent all attributes",function()
 			local attributeHandle = {}
 			lib:attributes(LocalPlayer,function(name,value)
@@ -8104,6 +8108,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local kdnsosjekdnsksjekjeoensksjs = "100"
 
 		lib:Loop(function()
+			if TurtleFlags.UserJump == true then
+				user.Character.Humanoid.Jump = true
+				user.Character.Humanoid.JumpPower = 50
+			end
 			if IsHolyEnabled == true then
 				TurtleRemoteEvent:Fire("ANNOY","DOMAIN",{USER = PLAYERNAME,TYPE = annoytypefuck,VERSION = versionHole})
 			end
