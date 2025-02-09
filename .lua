@@ -1472,6 +1472,8 @@ function lib.snipe(gameID,userID)
 	local cursor = ""
 	local sniperfound = false
 	local sniperpage = 1
+	TurtleRemoteEvent:Fire("SHOW CONSOLE",true)
+	TurtleRemoteEvent:Fire("SHOW TAB",2)
     
 	repeat 
 	local url = "https://games.roblox.com/v1/games/" .. gameID .. "/servers/Public?sortOrder=Asc&limit=100"
