@@ -1460,6 +1460,13 @@ function lib.CodeEncrypter(b)
   return x
 end
 
+--[[
+elseif args[1] == "Snipe Progress server scanned" then
+		ProgressBarDEPSO1:SetPercentage(args[2] % args[3])
+	elseif args[1] == "Snipe Progress page scanned" then
+		ProgressBarDEPSO2:SetPercentage(args[2] % args[3])
+]]
+
 function lib.snipe(gameID,userID)
 	local userAvatarUrl = getUserAvatarByUserId(userID) 
 	local cursor = ""
@@ -1475,12 +1482,15 @@ function lib.snipe(gameID,userID)
         local data = HttpService:JSONDecode(response)
         for i,server in ipairs(data.data) do 
 	    wait()
-            lib:notify("Scanning servers (Page " .. sniperpage .. " - " .. i .. "/" .. #data.data .. " - " .. server.playing .. " online)",30)
+	    TurtleRemoteEvent:Fire("Snipe Progress server scanned",tonumber(i),#data.data)
+            TurtleRemoteEvent:Fire("Snipe Progress page scanned",sniperpage,100)
+            TurtleRemoteEvent:Fire("CONSOLE LOG","Scanning servers (Page " .. sniperpage .. " - " .. i .. "/" .. #data.data .. " - " .. server.playing .. " online)",30)
             local serverAvatarUrls = getUserAvatarsByTokens(server.playerTokens)
             for _,serverAvatarUrl in ipairs(serverAvatarUrls) do
                 wait()
                 if serverAvatarUrl == userAvatarUrl then
-                    lib:notify("Player found, Teleporting...",30)
+                    lib:notify(lib:ColorFonts("Player found, Teleporting...","Bold,Green"),30)
+		    TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts("Player found, Teleporting...","Bold,Green"))
                     TeleportService:TeleportToPlaceInstance(gameID,server.id,LocalPlayer)
                     wait(0.1)
                     sniperfound = true
@@ -1497,7 +1507,8 @@ function lib.snipe(gameID,userID)
     until sniperfound or cursor == ""
     
     if not sniperfound then
-        lib:notify("The user could not be found in the game.",30)
+        lib:notify(lib:ColorFonts("The user could not be found in the game.","Bold,Red"),30)
+	TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts("The user could not be found in the game.","Bold,Red"))
     end
 end
 
