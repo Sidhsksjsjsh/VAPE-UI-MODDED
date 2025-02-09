@@ -7211,6 +7211,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			userid = LocalPlayer.UserId,
 			channel = lib.getTable("sent","announcement"),
 			user = lib.getUserTag("sent","@None"),
+			sameserver = true,
 			msg = "",
 			bot = {
 				channel = lib.getTable("sent","announcement"),
@@ -7219,9 +7220,22 @@ function lib.DeveloperEncrypt(window,isShowed)
 				msg = ""
 			}
 		}
-		T101:Textbox("Insert player ID",false,function(value)
-			var.userid = value
+
+		T101:Toggle("Player in the same server",true,function(value)
+			var.sameserver = value
+		end,"if false, u need to type full name of the player username (MUST BE SAME)")
+					
+		T101:Textbox("Insert player name",false,function(value)
+			--var.userid = value
+			if var.sameserver == true then
+				lib:TrackPlayer(value,function(v)
+					var.userid = game:GetService("Players"):GetUserIdFromNameAsync(v)
+				end)
+			else
+				var.userid = game:GetService("Players"):GetUserIdFromNameAsync(value)
+			end
 		end)
+		TurtleFlags["Insert player name desc"]("Type player name to sniping [ Powered by AI ]")
 			
 		T101:Textbox("Insert game ID",false,function(value)
 			var.game_id = value
@@ -7230,6 +7244,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T101:Button("Start snipe",function()
 			lib.snipe(var.game_id,var.userid)
 		end)
+					
 		local musiclib = window:Tab("Music")
 		local musicplayer = nil
 		local musichand = {
