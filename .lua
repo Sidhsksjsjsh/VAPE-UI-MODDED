@@ -1511,6 +1511,7 @@ function lib.snipe(gameID,userID)
     if not sniperfound then
         lib:notify(lib:ColorFonts("The user could not be found in the game.","Bold,Red"),30)
 	TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts("The user could not be found in the game.","Bold,Red"))
+	TurtleRemoteEvent:Fire("SHOW CONSOLE",false)
     end
 end
 
@@ -7217,6 +7218,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T100:Button("Super Ring",function()
 			lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/Super-Ring-Part.lua")
 		end)
+
+		T100:Toggle("FE Orbit Part",true,function(value)
+			TurtleFlags.FEOrbitParts = value
+		end,"FE RING PARTS")
 					
 		local T101 = window:Tab("Snipe")
 		local var = {
@@ -7236,13 +7241,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		T101:Toggle("Player in the same server",true,function(value)
 			var.sameserver = value
-		end,"if false, u need to type full name of the player username (MUST BE SAME)")
+		end,"if false, u need to type full name of the player username")
 					
 		T101:Textbox("Insert player name",false,function(value)
 			--var.userid = value
 			if var.sameserver == true then
 				lib:TrackPlayer(value,function(v)
-					var.userid = game:GetService("Players"):GetUserIdFromNameAsync(v)
+					lib:notify(lib:ColorFonts(`Player Found! {v.DisplayName} - (@{v.Name})`,"Bold,Green"),10)
+					var.userid = game:GetService("Players"):GetUserIdFromNameAsync(v.Name)
 				end)
 			else
 				var.userid = game:GetService("Players"):GetUserIdFromNameAsync(value)
