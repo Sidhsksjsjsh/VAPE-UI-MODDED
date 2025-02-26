@@ -1417,7 +1417,9 @@ function lib:LoadRepository(path,bool)
 					return ModuleScript()
 				elseif gui == false then
 					lib:notify(lib:ColorFonts("[ Turtle-Client ] Injecting a script...","Bold,Green"),5)
-					ModuleScript()
+					lib:ErrorReader(function()
+						ModuleScript()
+					end)
 					lib:notify(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold,Green"),5)
 				end
 			else
@@ -3012,7 +3014,8 @@ function lib:ErrorReader(func,ssd)
 	if not shit and shut == false then
 		--lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","🔧 |"):gsub(":" .. dick:sub(2,4) .. ":","🔧 |"):gsub(":" .. dick:sub(2,3) .. ":","🔧 |"):gsub(":" .. dick:sub(2,2) .. ":","🔧 |"),"Bold,Red"),9e9)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
-		TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick:gsub(':' .. dick:sub(2,5) .. ': ',''):gsub(':' .. dick:sub(2,4) .. ': ',''):gsub(':' .. dick:sub(2,3) .. ': ',''):gsub(':' .. dick:sub(2,2) .. ': ','')}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
+		--dick:gsub(':' .. dick:sub(2,5) .. ': ',''):gsub(':' .. dick:sub(2,4) .. ': ',''):gsub(':' .. dick:sub(2,3) .. ': ',''):gsub(':' .. dick:sub(2,2) .. ': ','')
+		TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
 				Yea = function()
 					func()
 				end
