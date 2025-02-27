@@ -2353,7 +2353,7 @@ function lib:DeveloperAccess(f)
 end
 
 function lib.isDeveloper()
-	if DATA("userdata.lua")[table.find(DATA("userdata.lua"),LocalPlayer.UserId)] == LocalPlayer.UserId or LocalPlayer.UserId == 8075076391 then --if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 or LocalPlayer.UserId == 5596804337 or LocalPlayer.UserId == 377597987 or LocalPlayer.UserId == 9174393 then
+	if DATA("userdata.lua")[table.find(DATA("userdata.lua"),LocalPlayer.UserId)] == LocalPlayer.UserId then --if LocalPlayer.UserId == 3621188307 or LocalPlayer.UserId == 7289597899 or LocalPlayer.UserId == 5596804337 or LocalPlayer.UserId == 377597987 or LocalPlayer.UserId == 9174393 then
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("WELCOME TESTER!","Bold"),"Green"),10)
 		--TurtleScreenNotify("Turtle Hub | Beta Tester","Welcome beta test!",{},nil,{})
 		return true
