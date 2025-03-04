@@ -2383,7 +2383,7 @@ local function GetPropertiesForInstance(Instance)
     for i,v in next, PropertyAPIDump do
         if v.Class == Instance.ClassName and v.type == "Property" then
             pcall(function()
-		if typeof(v.Name) == "nil" then
+		if typeof(v.Name) ~= "nil" then
 			--Properties[v:GetChildren()[1].Name] = {Value = Instance[v:GetChildren()[1].Name],Type = v:GetChildren()[1].ValueType}
 		--else
 			Properties[v.Name] = {Value = Instance[v.Name],Type = v.ValueType}
