@@ -7625,14 +7625,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 				TurtleFlags["Start vehicle fly • Turtle Interface"](false)
 				wait(0.2)
 				lib:startFly(false) --,intvarspeed.speed1,intvarspeed.speed2)
-				if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
-					lib.PlayAnim(134283166482394,5,0,false) -- 5/13
-				end
+				--if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+				--	lib.PlayAnim(134283166482394,5,0,false) -- 5/13
+				--end
 			else
 				lib:stopFly()
-				if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
-					lib.StopAnim()
-				end
+				--if LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+				--	lib.StopAnim()
+				--end
 			end
 		end)
 		T106:Toggle("Start vehicle fly",false,function(value)
