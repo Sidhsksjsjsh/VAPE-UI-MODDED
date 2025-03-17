@@ -8772,5 +8772,9 @@ TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 end
 ]]
 
+if typeof(Meta_Env) == "nil" then
+    getgenv().Meta_Env = lib
+end
+
 print("Turtle Interface successfully injected.")
 return lib
