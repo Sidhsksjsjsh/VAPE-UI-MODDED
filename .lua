@@ -3507,7 +3507,7 @@ function lib:GameManipulation(func)
 	local oldIndex = mt.__index
 	
 	mt.__index = newcclosure(function(path,key)
-		func(path,key)
+		func(path.Name,key)
 		return oldIndex(path,key)
 	end)
 end
