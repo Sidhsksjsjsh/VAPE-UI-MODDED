@@ -6864,6 +6864,52 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	local jajsjsjsjsjskaeiwjsoqhsksbqkskanswbsakmlllkkkLLL = window:Tab("Credits")
 	jajsjsjsjsjskaeiwjsoqhsksbqkskanswbsakmlllkkkLLL:Label(`lib:ColorFonts("This script were developed by\n• Fahri [ OWNER ]\n• Izatul\n• Farhan\n• Naufal\n• Fadil\n• Rasyid\n• Pasya\n• Ikbal\n• Reza\n• Wahyu\n• Wisnu\n• Akmal\n\nThey're the real admin & staff since turtle hub was released to public.","Bold,Sky Blue")`)
+
+	local tamperbypassreplicate = window:Tab("Bypass")
+	tamperbypassreplicate:Toggle("Detection Bypass",false,function(value)
+		TurtleFlags.BypassDetection = value
+		if value == true then
+			if TurtleFlags.RunningVanguard.SystemDetectionProtector == false then
+				lib:BypassKick()
+			end
+		end
+	end)
+
+	tamperbypassreplicate:Toggle("Bypass Adonis Detection",false,function(value)
+		TurtleFlags.BypassAdonisDetection = value
+		if value == true then
+			if TurtleFlags.RunningVanguard.AdonisDetection == false then
+				lib:ACPatch()
+			end
+		end
+	end,"Adonis Only")
+
+	tamperbypassreplicate:Toggle("Bypass Adonis Client Kill/Crash",false,function(value)
+		TurtleFlags.AdonisClientKillBypass = value
+		if value == true then
+			if TurtleFlags.RunningVanguard.AdonisDetection == false then
+				lib:ACPatch()
+			end
+		end
+	end,"Adonis Only")
+
+	tamperbypassreplicate:Toggle("Bypass Adonis Anti Cheat Flags",false,function(value)
+		TurtleFlags.AdonisACFlagBypass = value
+		if value == true then
+			if TurtleFlags.RunningVanguard.AdonisDetection == false then
+				lib:ACPatch()
+			end
+		end
+	end,"Adonis Only")
+
+	tamperbypassreplicate:Toggle("Other Adonis Bypass",false,function(value)
+		TurtleFlags.AdonisVulnBypass = value
+		if value == true then
+			if TurtleFlags.RunningVanguard.Vulns == false then
+				lib:VulnsBypass()
+			end
+		end
+	end,"Adonis Only")
 	
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
