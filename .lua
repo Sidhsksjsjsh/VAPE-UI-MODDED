@@ -6909,7 +6909,17 @@ function lib.DeveloperEncrypt(window,isShowed)
 				lib:VulnsBypass()
 			end
 		end
-	end,"Adonis Only")
+	end,"Adonis Only") --turtle.sys.GameplayPaused(false)
+
+	tamperbypassreplicate:Toggle("Bypass Gameplay Paused",false,function(value)
+		TurtleFlags.BypassAnnoyPopup = value
+	end)
+
+	lib:Loop(function()
+		if TurtleFlags.BypassAnnoyPopup == true then
+			turtle.sys.GameplayPaused(false)
+		end
+	end)
 	
 	lib:DeveloperAccess(function()
 		local selectionBox = Instance.new("SelectionBox")
