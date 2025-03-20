@@ -1689,10 +1689,10 @@ function lib:CustomTeleport(mthd,str,tip,param)
 	end
 end
 
-function lib:RemoteBypass()
+function lib:RemoteBypass() -- adonis
 	for k,v in pairs(getgc(true)) do 
-		if pcall(function() return rawget(v, "indexInstance") end) and type(rawget(v, "indexInstance")) == "table" and (rawget(v, "indexInstance"))[1] == "kick" then
-			v.tvk = {"kick", function() 
+		if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and (rawget(v,"indexInstance"))[1] == "kick" then
+			v.tvk = {"kick",function() 
 				return false
 			end}
 		end
@@ -1717,24 +1717,33 @@ function lib.AnimatedText(arg,time,f)
 	end
 end
 
+TurtleFlags.RunningVanguard = {
+	Vulns = false,
+	SystemDetectionProtector = false,
+	AdonisDetection = false
+}
+
 function lib:VulnsBypass()
-for _, v in next,getgc(true) do
-	if typeof(v) == "table" and rawget(v, "Detected") and typeof(rawget(v, "Detected")) == "function" and rawget(v, "RLocked") then
-		for i, v in next,v do
-			lib:notify(i .. " | " .. typeof(v),15)
-			if rawequal(i, "Detected") then
-				local old;
-				old = hookfunction(v, function(action, info, nocrash)
-					if rawequal(action, "_") and rawequal(info, "_") and rawequal(nocrash, true) then
-						return old(action, info, nocrash)
-					end
-					return task.wait(9e9)
-				end)
-				break
+	TurtleFlags.RunningVanguard.Vulns = true
+	for _,v in next,getgc(true) do 
+		if typeof(v) == "table" and rawget(v,"Detected") and typeof(rawget(v,"Detected")) == "function" and rawget(v,"RLocked") then
+			for i,v in next,v do
+				lib:notify(i .. " | " .. typeof(v),15)
+				if rawequal(i,"Detected") then
+					local old
+					old = hookfunction(v,function(action,info,nocrash)
+						if TurtleFlags.AdonisVulnBypass == true then
+							if rawequal(action,"_") and rawequal(info,"_") and rawequal(nocrash,true) then
+								return old(action, info, nocrash)
+							end
+							return task.wait(9e9)
+						end
+					end)
+					break
+				end
 			end
 		end
 	end
-end
 end
 
 function lib:Queue_On_Teleport(str)
@@ -1755,6 +1764,7 @@ function lib:Queue_On_Teleport(str)
 end	
 
 function lib:BypassKick()
+	TurtleFlags.RunningVanguard.SystemDetectionProtector = false
 	local mt = getrawmetatable(game)
 	local old = mt.__namecall
 	local protect = newcclosure or protect_function
@@ -1765,17 +1775,22 @@ function lib:BypassKick()
 		end
 	end
 
-	setreadonly(mt, false)
-	mt.__namecall = protect(function(self, ...)
-	local method = getnamecallmethod()
-		if method == "Kick" then
-			lib:notify(lib:ColorFonts(`Tamper bypassed | {self} - {...}`,"Green"),10)
-			return
+	setreadonly(mt,false)
+	mt.__namecall = protect(function(self,...)
+	        local method = getnamecallmethod()
+		if TurtleFlags.BypassDetection == true then
+			if method == "Kick" then
+				lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed system detection`,"Bold,Green"),10)
+				return
+			end
 		end
-	return old(self, ...)
+	        return old(self,...)
 	end)
 	hookfunction(LocalPlayer.Kick,protect(function()
-		wait(9e9)
+		if TurtleFlags.BypassDetection == true then
+			lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed system detection`,"Bold,Green"),10)
+			wait(math.huge)
+		end
 	end))
 end
 
@@ -1788,57 +1803,65 @@ function lib.getToolHandleEvent(plr)
     end
 end
 
-function lib:ACPatch()
-setthreadidentity(2)
+function lib:ACPatch() -- adonis detection algorithm
+	TurtleFlags.RunningVanguard.AdonisDetection = true
+	setthreadidentity(2)
 
-for i, v in getgc(true) do
-    if typeof(v) == "table" then
-        local DetectFunc = rawget(v, "Detected")
-        local KillFunc = rawget(v, "Kill")
+	for i,v in getgc(true) do
+    		if typeof(v) == "table" then
+        		local DetectFunc = rawget(v,"Detected")
+        		local KillFunc = rawget(v,"Kill")
     
-        if typeof(DetectFunc) == "function" and not Detected then
-            Detected = DetectFunc
+        		if typeof(DetectFunc) == "function" and not Detected then
+           	 		Detected = DetectFunc
             
-            local Old; Old = hookfunction(Detected, function(Action, Info, NoCrash)
-                if Action ~= "_" then
-                    if DEBUG then
-                        lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}, Info: {Info}`,"Red"),10)
-                    end
-                end
-                
-                return true
-            end)
+            		local Old
+	  	 	Old = hookfunction(Detected,function(Action,Info,NoCrash)
+				if TurtleFlags.AdonisACFlagBypass == true then 
+					if Action ~= "_" then
+						if DEBUG then
+							lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}, Info: {Info}`,"Red"),10)
+						end
+					end
+				        return true
+				end
+            		end)
 
-            table.insert(Hooked, Detected)
-        end
+            		table.insert(Hooked,Detected)
+        	end
 
-        if rawget(v, "Variables") and rawget(v, "Process") and typeof(KillFunc) == "function" and not Kill then
-            Kill = KillFunc
-            local Old; Old = hookfunction(Kill, function(Info)
-                if DEBUG then
-                    lib:notify(lib:ColorFonts(`Adonis Anti Cheat tried to kill (fallback): {Info}`,"Red"),10)
-                end
-            end)
+		if rawget(v,"Variables") and rawget(v,"Process") and typeof(KillFunc) == "function" and not Kill then
+            		Kill = KillFunc
+            		local Old
+			Old = hookfunction(Kill,function(Info)
+				if TurtleFlags.AdonisClientKillBypass == true then
+					if DEBUG then
+						lib:notify(lib:ColorFonts(`Adonis Anti Cheat tried to kill (fallback): {Info}`,"Red"),10)
+					end
+				end
+            		end)
 
-            table.insert(Hooked, Kill)
-        end
-    end
-end
+            		table.insert(Hooked,Kill)
+        	end
+    	end
+	end
 
-local Old; Old = hookfunction(getrenv().debug.info, newcclosure(function(...)
-    local LevelOrFunc, Info = ...
+	local Old
+	Old = hookfunction(getrenv().debug.info,newcclosure(function(...)
+    		local LevelOrFunc,Info = ...
+		if TurtleFlags.BypassAdonisDetection == true then
+			if Detected and LevelOrFunc == Detected then
+        			if DEBUG then
+           	 			lib:notify("Turtle Script Patcher V10 | adonis bypassed",10)
+        			end
 
-    if Detected and LevelOrFunc == Detected then
-        if DEBUG then
-            lib:notify("Turtle Script Patcher V10 | adonis bypassed",10)
-        end
-
-        return coroutine.yield(coroutine.running())
-    end
+        			return coroutine.yield(coroutine.running())
+    			end
     
-    return Old(...)
-end))
-setthreadidentity(7)
+    			return Old(...)
+		end
+	end))
+	setthreadidentity(7)
 end
 
 function lib:BypassPurchase(script)
@@ -7719,22 +7742,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.origjump
 			end
 		end)
-		local function loopForSpeedAndJump(chr)
-			        if chr:WaitForChild("Humanoid") then
-				lib.getHumanoidElementChanged("WalkSpeed",function()
-						if ArrayForSpeed == true then
-							LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
-						end
-				end)
-				lib.getHumanoidElementChanged("JumpPower",function()
-						if ArrayForJump == true then
-							LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custjump
-						end
-				end)
-			        end
-		end
-		loopForSpeedAndJump(LocalPlayer.Character)
-		LocalPlayer.CharacterAdded:Connect(loopForSpeedAndJump)
 		local T107 = window:Tab("Animation")
 		local anim_table = {
 			table = {
@@ -8146,6 +8153,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local kdnsosjekdnsksjekjeoensksjs = "100"
 
 		lib:Loop(function()
+			if ArrayForJump == true then
+				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custjump
+			end
+			if ArrayForSpeed == true then
+				LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
+			end
 			if TurtleFlags.UserJump == true then
 				user.Character.Humanoid.Jump = true
 				user.Character.Humanoid.JumpPower = 50
