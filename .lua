@@ -1717,14 +1717,14 @@ function lib.AnimatedText(arg,time,f)
 	end
 end
 
-local temp = RunningVanguard = {
+local RunningVanguard = {
 	Vulns = false,
 	SystemDetectionProtector = false,
 	AdonisDetection = false
 }
 
 function lib:VulnsBypass()
-	temp.RunningVanguard.Vulns = true
+	RunningVanguard.Vulns = true
 	for _,v in next,getgc(true) do 
 		if typeof(v) == "table" and rawget(v,"Detected") and typeof(rawget(v,"Detected")) == "function" and rawget(v,"RLocked") then
 			for i,v in next,v do
@@ -1764,7 +1764,7 @@ function lib:Queue_On_Teleport(str)
 end	
 
 function lib:BypassKick()
-	temp.RunningVanguard.SystemDetectionProtector = false
+	RunningVanguard.SystemDetectionProtector = false
 	local mt = getrawmetatable(game)
 	local old = mt.__namecall
 	local protect = newcclosure or protect_function
@@ -1804,7 +1804,7 @@ function lib.getToolHandleEvent(plr)
 end
 
 function lib:ACPatch() -- adonis detection algorithm
-	temp.RunningVanguard.AdonisDetection = true
+	RunningVanguard.AdonisDetection = true
 	setthreadidentity(2)
 
 	for i,v in getgc(true) do
@@ -6869,7 +6869,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	tamperbypassreplicate:Toggle("Detection Bypass",false,function(value)
 		TurtleFlags.BypassDetection = value
 		if value == true then
-			if temp.RunningVanguard.SystemDetectionProtector == false then
+			if RunningVanguard.SystemDetectionProtector == false then
 				lib:BypassKick()
 			end
 		end
@@ -6878,7 +6878,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	tamperbypassreplicate:Toggle("Bypass Adonis Detection",false,function(value)
 		TurtleFlags.BypassAdonisDetection = value
 		if value == true then
-			if temp.RunningVanguard.AdonisDetection == false then
+			if RunningVanguard.AdonisDetection == false then
 				lib:ACPatch()
 			end
 		end
@@ -6887,7 +6887,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	tamperbypassreplicate:Toggle("Bypass Adonis Client Kill/Crash",false,function(value)
 		TurtleFlags.AdonisClientKillBypass = value
 		if value == true then
-			if temp.RunningVanguard.AdonisDetection == false then
+			if RunningVanguard.AdonisDetection == false then
 				lib:ACPatch()
 			end
 		end
@@ -6896,7 +6896,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	tamperbypassreplicate:Toggle("Bypass Adonis Anti Cheat Flags",false,function(value)
 		TurtleFlags.AdonisACFlagBypass = value
 		if value == true then
-			if temp.RunningVanguard.AdonisDetection == false then
+			if RunningVanguard.AdonisDetection == false then
 				lib:ACPatch()
 			end
 		end
@@ -6905,7 +6905,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 	tamperbypassreplicate:Toggle("Other Adonis Bypass",false,function(value)
 		TurtleFlags.AdonisVulnBypass = value
 		if value == true then
-			if temp.RunningVanguard.Vulns == false then
+			if RunningVanguard.Vulns == false then
 				lib:VulnsBypass()
 			end
 		end
