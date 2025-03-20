@@ -3487,6 +3487,31 @@ function lib.RaycastManipulation(mode) -- this function will let u modified/mani
 	end
 end
 
+function lib:ChangePropertyWithoutBeingDetected(instname,prop)
+	local mt = getrawmetatable(game)
+	setreadonly(mt,false)
+	local oldNewIndex = mt.__newindex
+	mt.__newindex = newcclosure(function(path,key,value)
+		if tostring(path) == instname and key == prop then
+			rawset(path,key,value) -- Mengubah nilai tanpa terdeteksi
+			return
+		end
+		return oldNewIndex(path,key,value)
+	end)
+end
+
+function lib:GameManipulation(func)
+	local mt = getrawmetatable(game)
+	setreadonly(mt,false)
+	local oldNamecall = mt.__namecall
+	local oldIndex = mt.__index
+	
+	mt.__index = newcclosure(function(path,key)
+		func(path,key)
+		return oldIndex(path,key)
+	end)
+end
+
 --[[
 ```
 • Message : C stack overflow
