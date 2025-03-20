@@ -3507,12 +3507,19 @@ function lib:GameManipulation(func)
 	local oldIndex = mt.__index
 	
 	mt.__index = newcclosure(function(path,key)
-		func(path.Name,key)
+		func(path,path.Name,key)
 		return oldIndex(path,key)
 	end)
 end
 
 --[[
+task.defer(function()
+Meta_Env:GameManipulation(function(a,b,c)
+if a == "Humanoid" and b == "WalkSpeed" then
+return 16
+end
+end)
+end)
 ```
 • Message : C stack overflow
     Stack Begin
