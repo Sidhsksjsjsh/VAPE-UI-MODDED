@@ -1551,6 +1551,7 @@ function lib.revokeESP()
 	end)
 end
 
+--lib.clickScreen("corner")
 function lib.clickScreen(area,position)
   local hitpos = position or {5,5,5}
   if area == "middle" then
@@ -7057,8 +7058,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:rejoin()
 				end)
 				
-			end
+			end --TurtleFlags.ScreenClickForInGameScreenClick
 
+		T100:Toggle("Screen Click [ Screen Corner ]",false,function(value)
+			TurtleFlags.ScreenClickForInGameScreenClick = value
+		end,"For a map that uses screen click")
+		
 		T100:Button("Lag patcher [ FPS & PING ]",function()
 			lib:RevokeLag()
 		end)
@@ -8241,6 +8246,9 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local kdnsosjekdnsksjekjeoensksjs = "100"
 
 		lib:Loop(function()
+			if TurtleFlags.ScreenClickForInGameScreenClick == true then
+				lib.clickScreen("corner")
+			end
 			if ArrayForJump == true then
 				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custjump
 			end
