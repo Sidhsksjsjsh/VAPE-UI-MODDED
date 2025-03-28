@@ -280,6 +280,7 @@ local returned_string = { -- returned_string["typeof() function"]
 		"UserSettings"
 	}
 }
+
 local HTMLcolors = { 
     ["Red"] = "rgb(255, 0, 0)",
     ["Yellow"] = "rgb(255, 255, 0)",
@@ -3540,6 +3541,31 @@ local function getRayPosition(direct)
 end
 ]]
 
+-- FPS and Ping Display (Optional, if you want to keep it)
+
+local FpsPingFrame = Instance.new("Frame")
+FpsPingFrame.Name = "FpsPingFrame"
+FpsPingFrame.Parent = ui
+FpsPingFrame.BackgroundColor3 = Color3.fromRGB(29,29,29)
+FpsPingFrame.BackgroundTransparency = 0.2
+FpsPingFrame.BorderSizePixel = 0
+FpsPingFrame.Position = UDim2.new(0.01,0,0.01,0)
+FpsPingFrame.Size = UDim2.new(0,150,0,50)
+FpsPingFrame.Visible = false
+
+local UICorner_FpsPing = Instance.new("UICorner")
+UICorner_FpsPing.CornerRadius = UDim.new(0,8)
+UICorner_FpsPing.Parent = FpsPingFrame
+
+local Blur_FpsPing = Instance.new("ImageLabel")
+Blur_FpsPing.Name = "Blur_FpsPing"
+Blur_FpsPing.Parent = FpsPingFrame
+Blur_FpsPing.BackgroundTransparency = 1
+Blur_FpsPing.BorderSizePixel = 0
+Blur_FpsPing.Size = UDim2.new(1,0,1,0)
+Blur_FpsPing.Image = "http://www.roblox.com/asset/?id=6758962034"
+Blur_FpsPing.ImageTransparency = 0.55
+
 --lib:FormatRGB("gradient") local method = getnamecallmethod()
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
@@ -3596,12 +3622,88 @@ function lib:Window(text, preset, closebind)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
     Title.RichText = true
+
+    local FpsLabel = Instance.new("TextLabel")
+    FpsLabel.Name = "FPS"
+    FpsLabel.Parent = FpsPingFrame
+    FpsLabel.BackgroundTransparency = 1
+    FpsLabel.BorderSizePixel = 0
+    FpsLabel.Position = UDim2.new(0.1,0,0.1,0)
+    FpsLabel.Size = UDim2.new(0.8,0,0.3,0)
+    FpsLabel.Font = Enum.Font.JosefinSans
+    FpsLabel.Text = "FPS : %"
+    FpsLabel.TextColor3 = Color3.fromRGB(93,255,255)
+    FpsLabel.TextSize = 14
+    FpsLabel.TextXAlignment = Enum.TextXAlignment.Left
+    FpsLabel.RichText = true
+	
+    local PingLabel = Instance.new("TextLabel")
+    PingLabel.Name = "PING"
+    PingLabel.Parent = FpsPingFrame
+    PingLabel.BackgroundTransparency = 1
+    PingLabel.BorderSizePixel = 0
+    PingLabel.Position = UDim2.new(0.1,0,0.5,0)
+    PingLabel.Size = UDim2.new(0.8,0,0.3,0)
+    PingLabel.Font = Enum.Font.JosefinSans
+    PingLabel.Text = "Ping : %ms"
+    PingLabel.TextColor3 = Color3.fromRGB(93,255,255)
+    PingLabel.TextSize = 14
+    PingLabel.TextXAlignment = Enum.TextXAlignment.Left
+    PingLabel.RichText = true
+
+    local MemoryLabel = Instance.new("TextLabel")
+    MemoryLabel.Name = "MEMORY"
+    MemoryLabel.Parent = FpsPingFrame
+    MemoryLabel.BackgroundTransparency = 1
+    MemoryLabel.BorderSizePixel = 0
+    MemoryLabel.Position = UDim2.new(0.1,0,PingLabel.Position.Y.Scale + 0.4,0)
+    MemoryLabel.Size = UDim2.new(0.8,0,0.3,0)
+    MemoryLabel.Font = Enum.Font.JosefinSans
+    MemoryLabel.Text = "Memory Usage : %MB"
+    MemoryLabel.TextColor3 = Color3.fromRGB(93,255,255)
+    MemoryLabel.TextSize = 14
+    MemoryLabel.TextXAlignment = Enum.TextXAlignment.Left
+    MemoryLabel.RichText = true
+
+    local PlayersLabel = Instance.new("TextLabel")
+    PlayersLabel.Name = "Player"
+    PlayersLabel.Parent = FpsPingFrame
+    PlayersLabel.BackgroundTransparency = 1
+    PlayersLabel.BorderSizePixel = 0
+    PlayersLabel.Position = UDim2.new(0.1,0,MemoryLabel.Position.Y.Scale + 0.4,0)
+    PlayersLabel.Size = UDim2.new(0.8,0,0.3,0)
+    PlayersLabel.Font = Enum.Font.JosefinSans
+    PlayersLabel.Text = "Players : %"
+    PlayersLabel.TextColor3 = Color3.fromRGB(93,255,255)
+    PlayersLabel.TextSize = 14
+    PlayersLabel.TextXAlignment = Enum.TextXAlignment.Left
+    PlayersLabel.RichText = true
+
+    local TimesLabel = Instance.new("TextLabel")
+    TimesLabel.Name = "Player"
+    TimesLabel.Parent = FpsPingFrame
+    TimesLabel.BackgroundTransparency = 1
+    TimesLabel.BorderSizePixel = 0
+    TimesLabel.Position = UDim2.new(0.1,0,PlayersLabel.Position.Y.Scale + 0.4,0)
+    TimesLabel.Size = UDim2.new(0.8,0,0.3,0)
+    TimesLabel.Font = Enum.Font.JosefinSans
+    TimesLabel.Text = "Time : %"
+    TimesLabel.TextColor3 = Color3.fromRGB(93,255,255)
+    TimesLabel.TextSize = 14
+    TimesLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TimesLabel.RichText = true
+	
     if emoji then
 	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
-    else
+    else --DateTime.now():FormatLocalTime("h:mm:ss A","en-us")
 	lib:runtime(function(v)
 		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts((getPing() >= 1000 and lib:ColorFonts(getPing(),"Red") or getPing() >= 500 and lib:ColorFonts(getPing(),"Yellow") or lib:ColorFonts(getPing(),"White")) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. (math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White")) .. "FPS (" .. (math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White")) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
+		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White"))}/R)`
+		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","White"))} ({math.floor((LocalPlayer:GetNetworkPing() or 0))}ms)`
+		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")}`
+		PlayersLabel.Text = `Players : {(#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren())}`
+		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
@@ -3658,11 +3760,13 @@ function lib:Window(text, preset, closebind)
 			if MobileToggled == true then
 				ui.Enabled = true
 				isGuiOpened = true
+				FpsPingFrame.Visible = true
 				Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
 			elseif MobileToggled == false then
 				Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
 					ui.Enabled = false
 					isGuiOpened = false
+					FpsPingFrame.Visible = false
 				end)
 			end
 		end
