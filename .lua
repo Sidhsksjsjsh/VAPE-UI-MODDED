@@ -3734,22 +3734,22 @@ function lib:Window(text, preset, closebind)
 		OpenHideUI.BackgroundColor3 = Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
     end)
 	]]
-    Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
+    Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
 
-    MakeDraggable(DragFrame, Main)
+    MakeDraggable(DragFrame,Main)
 
     local uitoggled = false
     local MobileToggled = false
-    UserInputService.InputBegan:Connect(function(io, p)
+    UserInputService.InputBegan:Connect(function(io,p)
             if io.KeyCode == CloseBind then
                 if uitoggled == false then
                     uitoggled = true
                     OpenHideUI.Text = "SHOW UI"
 		    --lib:RevokeLag()
+		    FpsPingFrame.Visible = true
                     Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
                             ui.Enabled = false
 			    isGuiOpened = false
-			    FpsPingFrame.Visible = true
                    end)
                 else
                     uitoggled = false
@@ -3772,10 +3772,10 @@ function lib:Window(text, preset, closebind)
 				FpsPingFrame.Visible = false
 				Main:TweenSize(UDim2.new(0,560,0,319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
 			elseif MobileToggled == false then
+				FpsPingFrame.Visible = true
 				Main:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
 					ui.Enabled = false
 					isGuiOpened = false
-					FpsPingFrame.Visible = true
 				end)
 			end
 		end
