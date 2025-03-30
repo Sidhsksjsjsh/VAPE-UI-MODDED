@@ -3612,7 +3612,7 @@ function lib:Window(text, preset, closebind)
 	FpsPingFrame.BackgroundTransparency = 0.2
 	FpsPingFrame.BorderSizePixel = 0
 	FpsPingFrame.Position = UDim2.new(0.01,0,0.01,0)
-	FpsPingFrame.Size = UDim2.new(0,150,0,125) --UDim2.new(0,150,0,50)
+	FpsPingFrame.Size = UDim2.new(0,150,0,50) --UDim2.new(0,150,0,50)
 	FpsPingFrame.Visible = false
 	drag(FpsPingFrame)
 	TurtleFlags.CounterFrame = FpsPingFrame
@@ -3695,7 +3695,8 @@ function lib:Window(text, preset, closebind)
     FpsLabel.RichText = true
 	local FPS_BLUR = Blur_FpsPing:Clone()
 	FPS_BLUR.Parent = FpsLabel
-	FPS_BLUR.Position = FpsLabel.Position
+	--FPS_BLUR.Position = FpsLabel.Position
+	TurtleFlags.forfps = FpsLabel
 	
     local PingLabel = Instance.new("TextLabel")
     PingLabel.Name = "PING"
@@ -3712,8 +3713,9 @@ function lib:Window(text, preset, closebind)
     PingLabel.RichText = true
 	local PING_BLUR = Blur_FpsPing:Clone()
 	PING_BLUR.Parent = PingLabel
-	PING_BLUR.Position = PingLabel.Position
-
+	--PING_BLUR.Position = PingLabel.Position
+	TurtleFlags.forping = PingLabel
+	
     local MemoryLabel = Instance.new("TextLabel")
     MemoryLabel.Name = "MEMORY"
     MemoryLabel.Parent = FpsPingFrame
@@ -3729,8 +3731,9 @@ function lib:Window(text, preset, closebind)
     MemoryLabel.RichText = true
 	local MEMORY_BLUR = Blur_FpsPing:Clone()
 	MEMORY_BLUR.Parent = MemoryLabel
-	MEMORY_BLUR.Position = MemoryLabel.Position
-
+	--MEMORY_BLUR.Position = MemoryLabel.Position
+	TurtleFlags.formemory = MemoryLabel
+	
     local PlayersLabel = Instance.new("TextLabel")
     PlayersLabel.Name = "Player"
     PlayersLabel.Parent = FpsPingFrame
@@ -3746,7 +3749,8 @@ function lib:Window(text, preset, closebind)
     PlayersLabel.RichText = true
 	local PLAYERS_BLUR = Blur_FpsPing:Clone()
 	PLAYERS_BLUR.Parent = PlayersLabel
-	PLAYERS_BLUR.Position = PlayersLabel.Position
+	--PLAYERS_BLUR.Position = PlayersLabel.Position
+	TurtleFlags.forplayers = PlayersLabel
 
     local TimesLabel = Instance.new("TextLabel")
     TimesLabel.Name = "Player"
@@ -3763,7 +3767,8 @@ function lib:Window(text, preset, closebind)
     TimesLabel.RichText = true
 	local TIMES_BLUR = Blur_FpsPing:Clone()
 	TIMES_BLUR.Parent = TimesLabel
-	TIMES_BLUR.Position = TimesLabel.Position
+	--TIMES_BLUR.Position = TimesLabel.Position
+	TurtleFlags.fortimes = TimesLabel
 
     local TIMEPLAYEDLabel = Instance.new("TextLabel")
     TIMEPLAYEDLabel.Name = "Time Played"
@@ -3780,7 +3785,8 @@ function lib:Window(text, preset, closebind)
     TIMEPLAYEDLabel.RichText = true
 	local TIME_PLAYED_BLUR = Blur_FpsPing:Clone()
 	TIME_PLAYED_BLUR.Parent = TIMEPLAYEDLabel
-	TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
+	--TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
+	TurtleFlags.fortimeplayed = TIMEPLAYEDLabel
 	
     if emoji then -- GetTimePlayed()
 	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
