@@ -704,7 +704,7 @@ function lib:DistanceFormat(x: number): string
 	return math.floor(math.abs(x) / pows2[math.min(math.floor(math.log10(math.abs(x)) / 3),#Studs)] * 100) / 100 * math.sign(x) .. Studs[math.min(math.floor(math.log10(math.abs(x)) / 3),#Studs)]
 end
 
-local function MakeDraggable(topbarobject, object)
+local function MakeDraggable(topbarobject,object)
     local Dragging = nil
     local DragInput = nil
     local DragStart = nil
@@ -3544,7 +3544,7 @@ end)
 local function getRayPosition(direct)
   return Ray.new(myself.Character.HumanoidRootPart.Position,(direct + Vector3.new(0,(myself.Character.HumanoidRootPart.Position - direct).Magnitude / 500,0) - myself.Character.HumanoidRootPart.Position).Unit * 9e9)
 end
-]]
+
 
 -- FPS and Ping Display (Optional, if you want to keep it)
 
@@ -3572,7 +3572,7 @@ Blur_FpsPing.Size = UDim2.new(1,0,1,0)
 Blur_FpsPing.Image = "http://www.roblox.com/asset/?id=6758962034"
 Blur_FpsPing.ImageTransparency = 0.55
 
---[[local function GetTimePlayed()
+local function GetTimePlayed()
 	local seconds = math.floor(workspace.DistributedGameTime)
 	local minutes = math.floor(workspace.DistributedGameTime / 60)
 	local hours = math.floor(workspace.DistributedGameTime / 60 / 60)
@@ -3604,6 +3604,30 @@ function lib:Window(text, preset, closebind)
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
     fs = false
     TurtleFlags.DescTextStyle = "Bold,Gray"
+
+	local FpsPingFrame = Instance.new("Frame")
+	FpsPingFrame.Name = "FpsPingFrame"
+	FpsPingFrame.Parent = GO_FUCK_URSELF
+	FpsPingFrame.BackgroundColor3 = Color3.fromRGB(29,29,29)
+	FpsPingFrame.BackgroundTransparency = 0.2
+	FpsPingFrame.BorderSizePixel = 0
+	FpsPingFrame.Position = UDim2.new(0.01,0,0.01,0)
+	FpsPingFrame.Size = UDim2.new(0,150,0,50) --UDim2.new(0,150,0,50)
+	FpsPingFrame.Visible = false
+	drag(FpsPingFrame)
+
+	local UICorner_FpsPing = Instance.new("UICorner")
+	UICorner_FpsPing.CornerRadius = UDim.new(0,8)
+	UICorner_FpsPing.Parent = FpsPingFrame
+
+	local Blur_FpsPing = Instance.new("ImageLabel")
+	Blur_FpsPing.Name = "Blur_FpsPing"
+	Blur_FpsPing.Parent = lib.Interface("hide")
+	Blur_FpsPing.BackgroundTransparency = 1
+	Blur_FpsPing.BorderSizePixel = 0
+	Blur_FpsPing.Size = UDim2.new(1,0,1,0)
+	Blur_FpsPing.Image = "http://www.roblox.com/asset/?id=6758962034"
+	Blur_FpsPing.ImageTransparency = 0.55
 	
     local Main = Instance.new("Frame")
     local TabHold = Instance.new("ScrollingFrame")
