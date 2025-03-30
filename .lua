@@ -3557,6 +3557,7 @@ FpsPingFrame.BorderSizePixel = 0
 FpsPingFrame.Position = UDim2.new(0.01,0,0.01,0)
 FpsPingFrame.Size = UDim2.new(0,150,0,50) --UDim2.new(0,150,0,50)
 FpsPingFrame.Visible = false
+drag(FpsPingFrame)
 
 local UICorner_FpsPing = Instance.new("UICorner")
 UICorner_FpsPing.CornerRadius = UDim.new(0,8)
