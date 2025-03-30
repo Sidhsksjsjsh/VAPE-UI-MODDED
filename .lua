@@ -526,6 +526,11 @@ ui.Name = "VIP TURTLE HUB UI"
 ui.Parent = lib.Interface("hide")
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
+local GO_FUCK_URSELF = Instance.new("ScreenGui")
+GO_FUCK_URSELF.Name = "INTERFACE HANDLERS"
+GO_FUCK_URSELF.Parent = lib.Interface("hide")
+GO_FUCK_URSELF.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
 local ScreenGuisForTH = Instance.new("ScreenGui")
 local THNFrame = Instance.new("Frame")
 local UIAspectRatioConstraints = Instance.new("UIAspectRatioConstraint")
@@ -3545,12 +3550,12 @@ end
 
 local FpsPingFrame = Instance.new("Frame")
 FpsPingFrame.Name = "FpsPingFrame"
-FpsPingFrame.Parent = ui
+FpsPingFrame.Parent = GO_FUCK_URSELF
 FpsPingFrame.BackgroundColor3 = Color3.fromRGB(29,29,29)
 FpsPingFrame.BackgroundTransparency = 0.2
 FpsPingFrame.BorderSizePixel = 0
 FpsPingFrame.Position = UDim2.new(0.01,0,0.01,0)
-FpsPingFrame.Size = UDim2.new(0,150,0,50)
+FpsPingFrame.Size = UDim2.new(0,150,0,50) --UDim2.new(0,150,0,50)
 FpsPingFrame.Visible = false
 
 local UICorner_FpsPing = Instance.new("UICorner")
@@ -3559,12 +3564,38 @@ UICorner_FpsPing.Parent = FpsPingFrame
 
 local Blur_FpsPing = Instance.new("ImageLabel")
 Blur_FpsPing.Name = "Blur_FpsPing"
-Blur_FpsPing.Parent = FpsPingFrame
+Blur_FpsPing.Parent = lib.Interface("hide")
 Blur_FpsPing.BackgroundTransparency = 1
 Blur_FpsPing.BorderSizePixel = 0
 Blur_FpsPing.Size = UDim2.new(1,0,1,0)
 Blur_FpsPing.Image = "http://www.roblox.com/asset/?id=6758962034"
 Blur_FpsPing.ImageTransparency = 0.55
+
+--[[local function GetTimePlayed()
+	local seconds = math.floor(workspace.DistributedGameTime)
+	local minutes = math.floor(workspace.DistributedGameTime / 60)
+	local hours = math.floor(workspace.DistributedGameTime / 60 / 60)
+	local seconds = seconds - (minutes * 60)
+	local minutes = minutes - (hours * 60)
+	if hours < 1 then 
+		if minutes < 1 then
+			return seconds .. ' Second(s)'
+		else
+			return minutes .. " Minute(s), " .. seconds .. ' Second(s)'
+		end
+	else
+		return hours .. ' Hour(s), ' .. minutes .. ' Minute(s), ' .. seconds .. ' Second(s)'
+	end
+end]]
+
+local function GetTimePlayed()
+	local seconds = math.floor(workspace.DistributedGameTime)
+	local minutes = math.floor(workspace.DistributedGameTime / 60)
+	local hours = math.floor(workspace.DistributedGameTime / 60 / 60)
+	local seconds = seconds - (minutes * 60)
+	local minutes = minutes - (hours * 60)
+	return (hours or 0) .. ':' .. (minutes or 0) .. ':' .. (seconds or 0) .. ''
+end
 
 --lib:FormatRGB("gradient") local method = getnamecallmethod()
 function lib:Window(text, preset, closebind)
@@ -3636,6 +3667,9 @@ function lib:Window(text, preset, closebind)
     FpsLabel.TextSize = 14
     FpsLabel.TextXAlignment = Enum.TextXAlignment.Left
     FpsLabel.RichText = true
+	local FPS_BLUR = Blur_FpsPing:Clone()
+	FPS_BLUR.Parent = FpsLabel
+	FPS_BLUR.Position = FpsLabel.Position
 	
     local PingLabel = Instance.new("TextLabel")
     PingLabel.Name = "PING"
@@ -3650,6 +3684,9 @@ function lib:Window(text, preset, closebind)
     PingLabel.TextSize = 14
     PingLabel.TextXAlignment = Enum.TextXAlignment.Left
     PingLabel.RichText = true
+	local PING_BLUR = Blur_FpsPing:Clone()
+	PING_BLUR.Parent = PingLabel
+	PING_BLUR.Position = PingLabel.Position
 
     local MemoryLabel = Instance.new("TextLabel")
     MemoryLabel.Name = "MEMORY"
@@ -3664,6 +3701,9 @@ function lib:Window(text, preset, closebind)
     MemoryLabel.TextSize = 14
     MemoryLabel.TextXAlignment = Enum.TextXAlignment.Left
     MemoryLabel.RichText = true
+	local MEMORY_BLUR = Blur_FpsPing:Clone()
+	MEMORY_BLUR.Parent = MemoryLabel
+	MEMORY_BLUR.Position = MemoryLabel.Position
 
     local PlayersLabel = Instance.new("TextLabel")
     PlayersLabel.Name = "Player"
@@ -3678,6 +3718,9 @@ function lib:Window(text, preset, closebind)
     PlayersLabel.TextSize = 14
     PlayersLabel.TextXAlignment = Enum.TextXAlignment.Left
     PlayersLabel.RichText = true
+	local PLAYERS_BLUR = Blur_FpsPing:Clone()
+	PLAYERS_BLUR.Parent = PlayersLabel
+	PLAYERS_BLUR.Position = PlayersLabel.Position
 
     local TimesLabel = Instance.new("TextLabel")
     TimesLabel.Name = "Player"
@@ -3692,8 +3735,28 @@ function lib:Window(text, preset, closebind)
     TimesLabel.TextSize = 14
     TimesLabel.TextXAlignment = Enum.TextXAlignment.Left
     TimesLabel.RichText = true
+	local TIMES_BLUR = Blur_FpsPing:Clone()
+	TIMES_BLUR.Parent = TimesLabel
+	TIMES_BLUR.Position = TimesLabel.Position
+
+    local TIMEPLAYEDLabel = Instance.new("TextLabel")
+    TIMEPLAYEDLabel.Name = "Time Played"
+    TIMEPLAYEDLabel.Parent = FpsPingFrame
+    TIMEPLAYEDLabel.BackgroundTransparency = 1
+    TIMEPLAYEDLabel.BorderSizePixel = 0
+    TIMEPLAYEDLabel.Position = UDim2.new(0.1,0,PlayersLabel.Position.Y.Scale + 0.4,0)
+    TIMEPLAYEDLabel.Size = UDim2.new(0.8,0,0.3,0)
+    TIMEPLAYEDLabel.Font = Enum.Font.JosefinSans
+    TIMEPLAYEDLabel.Text = "Time Played : %"
+    TIMEPLAYEDLabel.TextColor3 = Color3.fromRGB(93,255,255)
+    TIMEPLAYEDLabel.TextSize = 14
+    TIMEPLAYEDLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TIMEPLAYEDLabel.RichText = true
+	local TIME_PLAYED_BLUR = Blur_FpsPing:Clone()
+	TIME_PLAYED_BLUR.Parent = TIMEPLAYEDLabel
+	TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
 	
-    if emoji then
+    if emoji then -- GetTimePlayed()
 	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
 	lib:runtime(function(v)
@@ -3702,6 +3765,7 @@ function lib:Window(text, preset, closebind)
 		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")}`
 		PlayersLabel.Text = `Players : {(#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren())}`
 		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
+		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
 	end)
     else --DateTime.now():FormatLocalTime("h:mm:ss A","en-us")
 	lib:runtime(function(v)
@@ -3711,6 +3775,7 @@ function lib:Window(text, preset, closebind)
 		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")}`
 		PlayersLabel.Text = `Players : {(#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren())}`
 		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
+		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
