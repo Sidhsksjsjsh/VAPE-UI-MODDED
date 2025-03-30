@@ -3612,9 +3612,10 @@ function lib:Window(text, preset, closebind)
 	FpsPingFrame.BackgroundTransparency = 0.2
 	FpsPingFrame.BorderSizePixel = 0
 	FpsPingFrame.Position = UDim2.new(0.01,0,0.01,0)
-	FpsPingFrame.Size = UDim2.new(0,150,0,50) --UDim2.new(0,150,0,50)
+	FpsPingFrame.Size = UDim2.new(0,150,0,125) --UDim2.new(0,150,0,50)
 	FpsPingFrame.Visible = false
 	drag(FpsPingFrame)
+	TurtleFlags.CounterFrame = FpsPingFrame
 
 	local UICorner_FpsPing = Instance.new("UICorner")
 	UICorner_FpsPing.CornerRadius = UDim.new(0,8)
@@ -3622,7 +3623,7 @@ function lib:Window(text, preset, closebind)
 
 	local Blur_FpsPing = Instance.new("ImageLabel")
 	Blur_FpsPing.Name = "Blur_FpsPing"
-	Blur_FpsPing.Parent = lib.Interface("hide")
+	Blur_FpsPing.Parent = nil
 	Blur_FpsPing.BackgroundTransparency = 1
 	Blur_FpsPing.BorderSizePixel = 0
 	Blur_FpsPing.Size = UDim2.new(1,0,1,0)
@@ -3769,7 +3770,7 @@ function lib:Window(text, preset, closebind)
     TIMEPLAYEDLabel.Parent = FpsPingFrame
     TIMEPLAYEDLabel.BackgroundTransparency = 1
     TIMEPLAYEDLabel.BorderSizePixel = 0
-    TIMEPLAYEDLabel.Position = UDim2.new(0.1,0,PlayersLabel.Position.Y.Scale + 0.4,0)
+    TIMEPLAYEDLabel.Position = UDim2.new(0.1,0,TimesLabel.Position.Y.Scale + 0.4,0)
     TIMEPLAYEDLabel.Size = UDim2.new(0.8,0,0.3,0)
     TIMEPLAYEDLabel.Font = Enum.Font.JosefinSans
     TIMEPLAYEDLabel.Text = "Time Played : %"
