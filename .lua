@@ -7940,10 +7940,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 		}
 		local ArrayForSpeed = false
 		local ArrayForJump = false
-		T106:Slider("Fly speed",0,100,1,function(value)
+		T106:Slider("Fly speed",1,100,1,function(value)
 			mobileflyspeed = value --intvarspeed.speed1 = value
 		end)
-		T106:Slider("Vehicle fly speed",0,100,1,function(value)
+		T106:Slider("Vehicle fly speed",1,100,1,function(value)
 			vflyspeed = value --intvarspeed.speed2 = value
 		end)
 		T106:Toggle("Start fly",false,function(value)
@@ -8017,13 +8017,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T106:Button("Change rig to R6",function()
 			lib.promptNewRig("R6")
 		end)
-		T106:Slider("Walk speed",0,200,intvarspeed.origspeed,function(value)
+		T106:Slider("Walk speed",1,200,intvarspeed.origspeed,function(value)
 			intvarspeed.custspeed = value
 			if ArrayForSpeed == true then
 				LocalPlayer.Character.Humanoid.WalkSpeed = intvarspeed.custspeed
 			end
 		end)
-		T106:Slider("Jump power",0,350,intvarspeed.origjump,function(value)
+		T106:Slider("Jump power",1,350,intvarspeed.origjump,function(value)
 			intvarspeed.custjump = value
 			if ArrayForJump == true then
 				LocalPlayer.Character.Humanoid.JumpPower = intvarspeed.custspeed
