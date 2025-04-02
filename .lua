@@ -7261,7 +7261,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end)
 
 				T100:Button("Turtle Executor",function()
-					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/main/Psyhub%20Interface.txt")
+					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/Psyhub-Interface-Theme-1.lua")
 				end)
 
 				T100:Button("Rejoin",function()
