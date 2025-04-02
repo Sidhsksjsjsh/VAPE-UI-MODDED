@@ -1727,7 +1727,8 @@ end
 local RunningVanguard = {
 	Vulns = false,
 	SystemDetectionProtector = false,
-	AdonisDetection = false
+	AdonisDetection = false,
+	IdleDetection = false
 }
 
 function lib:VulnsBypass()
@@ -2764,6 +2765,7 @@ task.spawn(function()
 	end
 end)
 ]]
+
 function lib:hooksend(str)
 	local f,c = pcall(function()
 		if LocalPlayer.Name ~= "Rivanda_Cheater" then
