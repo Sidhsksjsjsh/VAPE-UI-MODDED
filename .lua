@@ -7110,15 +7110,23 @@ function lib.DeveloperEncrypt(window,isShowed)
 	local jajsjsjsjsjskaeiwjsoqhsksbqkskanswbsakmlllkkkLLL = window:Tab("Credits")
 	jajsjsjsjsjskaeiwjsoqhsksbqkskanswbsakmlllkkkLLL:Label(`lib:ColorFonts("This script were developed by\n• Fahri [ OWNER ]\n• Izatul\n• Farhan\n• Naufal\n• Fadil\n• Rasyid\n• Pasya\n• Ikbal\n• Reza\n• Wahyu\n• Wisnu\n• Akmal\n\nThey're the real admin & staff since turtle hub was released to public.","Bold,Sky Blue")`)
 
+	LocalPlayer.Idled:connect(function()
+		if TurtleFlags.BypassDetection == true then
+			VirtualUser:CaptureController()
+			VirtualUser:ClickButton2(Vector2.new())
+			lib:notify(lib:ColorFonts("[ Vanguard ] Bypassed Idle Detection in Client","Bold,Red"),10)
+		end
+	end)
+
 	local tamperbypassreplicate = window:Tab("Bypass")
-	tamperbypassreplicate:Toggle("Detection Bypass",false,function(value)
+	tamperbypassreplicate:Toggle("Bypass Detection",false,function(value)
 		TurtleFlags.BypassDetection = value
 		if value == true then
 			if RunningVanguard.SystemDetectionProtector == false then
 				lib:BypassKick()
 			end
 		end
-	end)
+	end,"This including anti kick and anti afk")
 
 	tamperbypassreplicate:Toggle("Bypass Adonis Detection",false,function(value)
 		TurtleFlags.BypassAdonisDetection = value
