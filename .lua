@@ -3753,6 +3753,7 @@ function lib:Window(text,preset,closebind)
     PlayersLabel.TextSize = 14
     PlayersLabel.TextXAlignment = Enum.TextXAlignment.Left
     PlayersLabel.RichText = true
+    PlayersLabel.TextStrokeTransparency = 0
 	local PLAYERS_BLUR = Blur_FpsPing:Clone()
 	PLAYERS_BLUR.Parent = PlayersLabel
 	--PLAYERS_BLUR.Position = PlayersLabel.Position
@@ -3809,7 +3810,7 @@ function lib:Window(text,preset,closebind)
 		--\\\--
 		FPS_BLUR.Size = UDim2.new(0,FpsLabel.TextBounds.X + 10,0,FpsLabel.TextBounds.Y + 6)
 		PING_BLUR.Size = UDim2.new(0,PingLabel.TextBounds.X + 10,0,PingLabel.TextBounds.Y + 6)
-		MEMORY_BLUR.Size = UDim2.new(0,MEMORY_BLUR.TextBounds.X + 10,0,MEMORY_BLUR.TextBounds.Y + 6)
+		MEMORY_BLUR.Size = UDim2.new(0,MemoryLabel.TextBounds.X + 10,0,MemoryLabel.TextBounds.Y + 6)
 		PLAYERS_BLUR.Size = UDim2.new(0,PlayersLabel.TextBounds.X + 10,0,PlayersLabel.TextBounds.Y + 6)
 		TIMES_BLUR.Size = UDim2.new(0,TimesLabel.TextBounds.X + 10,0,TimesLabel.TextBounds.Y + 6)
 		TIME_PLAYED_BLUR.Size = UDim2.new(0,TIMEPLAYEDLabel.TextBounds.X + 10,0,TIMEPLAYEDLabel.TextBounds.Y + 6)
@@ -3826,7 +3827,7 @@ function lib:Window(text,preset,closebind)
 		--\\\--
 		FPS_BLUR.Size = UDim2.new(0,FpsLabel.TextBounds.X + 10,0,FpsLabel.TextBounds.Y + 6)
 		PING_BLUR.Size = UDim2.new(0,PingLabel.TextBounds.X + 10,0,PingLabel.TextBounds.Y + 6)
-		MEMORY_BLUR.Size = UDim2.new(0,MEMORY_BLUR.TextBounds.X + 10,0,MEMORY_BLUR.TextBounds.Y + 6)
+		MEMORY_BLUR.Size = UDim2.new(0,MemoryLabel.TextBounds.X + 10,0,MemoryLabel.TextBounds.Y + 6)
 		PLAYERS_BLUR.Size = UDim2.new(0,PlayersLabel.TextBounds.X + 10,0,PlayersLabel.TextBounds.Y + 6)
 		TIMES_BLUR.Size = UDim2.new(0,TimesLabel.TextBounds.X + 10,0,TimesLabel.TextBounds.Y + 6)
 		TIME_PLAYED_BLUR.Size = UDim2.new(0,TIMEPLAYEDLabel.TextBounds.X + 10,0,TIMEPLAYEDLabel.TextBounds.Y + 6)
