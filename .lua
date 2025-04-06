@@ -3601,7 +3601,7 @@ local function GetTimePlayed()
 end
 
 --lib:FormatRGB("gradient") local method = getnamecallmethod()
-function lib:Window(text, preset, closebind)
+function lib:Window(text,preset,closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(0, 255, 0)
     fs = false
@@ -3616,6 +3616,7 @@ function lib:Window(text, preset, closebind)
 	FpsPingFrame.Position = UDim2.new(0.01,0,0.01,0)
 	FpsPingFrame.Size = UDim2.new(0,150,0,50) --UDim2.new(0,150,0,50)
 	FpsPingFrame.Visible = false
+	FpsPingFrame.Transparency = 1
 	drag(FpsPingFrame)
 	TurtleFlags.CounterFrame = FpsPingFrame
 
@@ -3642,8 +3643,8 @@ function lib:Window(text, preset, closebind)
 	
     Main.Name = "Main"
     Main.Parent = ui
-    Main.AnchorPoint = Vector2.new(0.5, 0.5)
-    Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    Main.AnchorPoint = Vector2.new(0.5,0.5)
+    Main.BackgroundColor3 = Color3.fromRGB(30,30,30)
     Main.BorderSizePixel = 0
     Main.Position = UDim2.new(0.5, 0, 0.5, 0)
     Main.Size = UDim2.new(0, 0, 0, 0)
@@ -3695,6 +3696,7 @@ function lib:Window(text, preset, closebind)
     FpsLabel.TextSize = 14
     FpsLabel.TextXAlignment = Enum.TextXAlignment.Left
     FpsLabel.RichText = true
+    FpsLabel.TextStrokeTransparency = 0
 	local FPS_BLUR = Blur_FpsPing:Clone()
 	FPS_BLUR.Parent = FpsLabel
 	--FPS_BLUR.Position = FpsLabel.Position
@@ -3713,6 +3715,7 @@ function lib:Window(text, preset, closebind)
     PingLabel.TextSize = 14
     PingLabel.TextXAlignment = Enum.TextXAlignment.Left
     PingLabel.RichText = true
+    PingLabel.TextStrokeTransparency = 0
 	local PING_BLUR = Blur_FpsPing:Clone()
 	PING_BLUR.Parent = PingLabel
 	--PING_BLUR.Position = PingLabel.Position
@@ -3731,6 +3734,7 @@ function lib:Window(text, preset, closebind)
     MemoryLabel.TextSize = 14
     MemoryLabel.TextXAlignment = Enum.TextXAlignment.Left
     MemoryLabel.RichText = true
+    MemoryLabel.TextStrokeTransparency = 0
 	local MEMORY_BLUR = Blur_FpsPing:Clone()
 	MEMORY_BLUR.Parent = MemoryLabel
 	--MEMORY_BLUR.Position = MemoryLabel.Position
@@ -3767,6 +3771,7 @@ function lib:Window(text, preset, closebind)
     TimesLabel.TextSize = 14
     TimesLabel.TextXAlignment = Enum.TextXAlignment.Left
     TimesLabel.RichText = true
+    TimesLabel.TextStrokeTransparency = 0
 	local TIMES_BLUR = Blur_FpsPing:Clone()
 	TIMES_BLUR.Parent = TimesLabel
 	--TIMES_BLUR.Position = TimesLabel.Position
@@ -3785,6 +3790,7 @@ function lib:Window(text, preset, closebind)
     TIMEPLAYEDLabel.TextSize = 14
     TIMEPLAYEDLabel.TextXAlignment = Enum.TextXAlignment.Left
     TIMEPLAYEDLabel.RichText = true
+    TIMEPLAYEDLabel.TextStrokeTransparency = 0
 	local TIME_PLAYED_BLUR = Blur_FpsPing:Clone()
 	TIME_PLAYED_BLUR.Parent = TIMEPLAYEDLabel
 	--TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
@@ -3800,6 +3806,13 @@ function lib:Window(text, preset, closebind)
 		PlayersLabel.Text = `Players : {(#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren())}`
 		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
 		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
+		--\\\--
+		FPS_BLUR.Size = UDim2.new(0,FpsLabel.TextBounds.X + 10,0,FpsLabel.TextBounds.Y + 6)
+		PING_BLUR.Size = UDim2.new(0,PingLabel.TextBounds.X + 10,0,PingLabel.TextBounds.Y + 6)
+		MEMORY_BLUR.Size = UDim2.new(0,MEMORY_BLUR.TextBounds.X + 10,0,MEMORY_BLUR.TextBounds.Y + 6)
+		PLAYERS_BLUR.Size = UDim2.new(0,PlayersLabel.TextBounds.X + 10,0,PlayersLabel.TextBounds.Y + 6)
+		TIMES_BLUR.Size = UDim2.new(0,TimesLabel.TextBounds.X + 10,0,TimesLabel.TextBounds.Y + 6)
+		TIME_PLAYED_BLUR.Size = UDim2.new(0,TIMEPLAYEDLabel.TextBounds.X + 10,0,TIMEPLAYEDLabel.TextBounds.Y + 6)
 	end)
     else --DateTime.now():FormatLocalTime("h:mm:ss A","en-us")
 	lib:runtime(function(v)
@@ -3810,6 +3823,13 @@ function lib:Window(text, preset, closebind)
 		PlayersLabel.Text = `Players : {(#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren())}`
 		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
 		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
+		--\\\--
+		FPS_BLUR.Size = UDim2.new(0,FpsLabel.TextBounds.X + 10,0,FpsLabel.TextBounds.Y + 6)
+		PING_BLUR.Size = UDim2.new(0,PingLabel.TextBounds.X + 10,0,PingLabel.TextBounds.Y + 6)
+		MEMORY_BLUR.Size = UDim2.new(0,MEMORY_BLUR.TextBounds.X + 10,0,MEMORY_BLUR.TextBounds.Y + 6)
+		PLAYERS_BLUR.Size = UDim2.new(0,PlayersLabel.TextBounds.X + 10,0,PlayersLabel.TextBounds.Y + 6)
+		TIMES_BLUR.Size = UDim2.new(0,TimesLabel.TextBounds.X + 10,0,TimesLabel.TextBounds.Y + 6)
+		TIME_PLAYED_BLUR.Size = UDim2.new(0,TIMEPLAYEDLabel.TextBounds.X + 10,0,TIMEPLAYEDLabel.TextBounds.Y + 6)
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
