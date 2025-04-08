@@ -7336,15 +7336,20 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end) --lib.getHiddenConnection(b,get)
 
-		T100:Button("Sent all game's vulnerabilities",function()
-			local vis_table_2o = {}
-			lib.getHiddenConnection(true,function(name,value)
-				table.insert(vis_table_2o,value)
+		T100:Button("Sent all attributes",function()
+			local attributeHandle = {}
+			lib:attributes(LocalPlayer.Character,function(name,value)
+				table.insert(attributeHandle,`['{name}'] = {value}`)
 			end)
-			local tableToString = lib.parseData(vis_table_2o,0,false,{},nil,false)
-			lib.sentMessage(lib.getTable("sent","galau"),`local vulns = {tableToString}\n\nSuccess : [{#vis_table_2o}]\nFailed : [{#vis_table_2o * 2 / 1 * 2 * 1}]\nWarning : [{#vis_table_2o * 1 + 2}]\nTotal hidden environment (includes hidden functions) : {#vis_table_2o / 3}`)
-			lib:Copy(table.concat(vis_table_2o,", "))
-		end)
+			wait(0.5)
+			if #attributeHandle > 0 then
+				local tableToString = lib.parseData(attributeHandle,0,false,{},nil,false)
+				lib.sentMessage(lib.getTable("sent","galau"),`local hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1}]\nWarning : [{#attributeHandle * 1 + 2 / 2}]`)
+				lib:Copy(table.concat(attributeHandle,", "))
+			else
+				lib:notify(lib:ColorFonts("No attributes were found.","Bold,Red"),10)
+			end
+		end,"Catch all Character's Attributes")
 
 		T100:Textbox("Run private repository link",false,function(value)
 			lib:LoadRepository(value)
