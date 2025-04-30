@@ -7639,8 +7639,16 @@ function lib.DeveloperEncrypt(window,isShowed)
 				max = 0,
 				id = "0",
 				musiclist = {
-						["Christmas Song"] = "1839285792"
-				}
+						["Christmas Song"] = "1839285792",
+						["You And Me"] = "1841296740",
+						["We're Running Wild"] = "1842104602",
+						["Got Me Like"] = "9038571012",
+						["Braziliana"] = "1840302441",
+						["Summer Flow 60"] = "1836568924",
+						["Flying To Space"] = "1835680814"
+						
+				},
+				musicsavedlist = {"Christmas Song","You And Me","We're Running Wild","Got Me Like","Braziliana","Summer Flow 60","Flying To Space"}
 		}
 		musiclib:Textbox("Insert music id",false,function(value)
 			lib:AddTable(value,musichand.music)
@@ -7654,7 +7662,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end)
 
-		musiclib:Dropdown("Music List [ From Turtle-Music-Library ]",{"Christmas Song"},function(value)
+		musiclib:Dropdown("Music List [ From Turtle-Music-Library ]",musichand.musicsavedlist,function(value)
 			if musicplayer ~= nil then
 				musicplayer["SoundId"] = "rbxassetid://" .. musichand.musiclist[value]
 				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.musiclist[value])).Name}\nSound Id : {musichand.musiclist[value]}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
