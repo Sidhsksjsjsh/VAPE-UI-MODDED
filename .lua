@@ -1788,7 +1788,7 @@ function lib:BypassKick()
 	        local method = getnamecallmethod()
 		if TurtleFlags.BypassDetection == true then
 			if method == "Kick" then
-				lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed system detection`,"Bold,Green"),10)
+				lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed system detection`,"Bold,Green"),100)
 				return
 			end
 		end
@@ -1796,7 +1796,7 @@ function lib:BypassKick()
 	end)
 	hookfunction(LocalPlayer.Kick,protect(function()
 		if TurtleFlags.BypassDetection == true then
-			lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed system detection`,"Bold,Green"),10)
+			lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed system detection`,"Bold,Green"),100)
 			wait(math.huge)
 		end
 	end))
@@ -1828,7 +1828,7 @@ function lib:ACPatch() -- adonis detection algorithm
 				if TurtleFlags.AdonisACFlagBypass == true then 
 					if Action ~= "_" then
 						if DEBUG then
-							lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}, Info: {Info}`,"Red"),10)
+							lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}, Info: {Info}`,"Red"),100)
 						end
 					end
 				        return true
@@ -1844,7 +1844,7 @@ function lib:ACPatch() -- adonis detection algorithm
 			Old = hookfunction(Kill,function(Info)
 				if TurtleFlags.AdonisClientKillBypass == true then
 					if DEBUG then
-						lib:notify(lib:ColorFonts(`Adonis Anti Cheat tried to kill (fallback): {Info}`,"Red"),10)
+						lib:notify(lib:ColorFonts(`Adonis Anti Cheat tried to kill (fallback): {Info}`,"Red"),100)
 					end
 				end
             		end)
@@ -1860,7 +1860,7 @@ function lib:ACPatch() -- adonis detection algorithm
 		if TurtleFlags.BypassAdonisDetection == true then
 			if Detected and LevelOrFunc == Detected then
         			if DEBUG then
-           	 			lib:notify("Turtle Script Patcher V10 | adonis bypassed",10)
+           	 			lib:notify("[ Turtle Script Patcher ] Bypassed adonis detection",100)
         			end
 
         			return coroutine.yield(coroutine.running())
@@ -6874,11 +6874,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
 			lib:DeveloperAccess(function()
-				lib.sentMessage(
+				if TurtleFlags.DisableClipboardLogger == false then
+					lib.sentMessage(
 						lib.getTable("sent","galau"),
 						`{lib.parseData(arg,0,false,{},nil,false)}`,
 						{}
-				)
+					)
+				end
 			end)
 			return clipb1(...)
 		end))
@@ -6889,11 +6891,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
 			lib:DeveloperAccess(function()
-				lib.sentMessage(
+				if TurtleFlags.DisableClipboardLogger == false then
+					lib.sentMessage(
 						lib.getTable("sent","galau"),
 						`{lib.parseData(arg,0,false,{},nil,false)}`,
 						{}
-				)
+					)
+				end
 			end)
 			return clipb2(...)
 		end))
@@ -6904,11 +6908,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
 			lib:DeveloperAccess(function()
-				lib.sentMessage(
+				if TurtleFlags.DisableClipboardLogger == false then
+					lib.sentMessage(
 						lib.getTable("sent","galau"),
 						`{lib.parseData(arg,0,false,{},nil,false)}`,
 						{}
-				)
+					)
+				end
 			end)
 			return clipb3(...)
 		end))
@@ -6919,11 +6925,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 			loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("Clipboard","Bold,Red") .. "] " .. lib:ColorFonts(table.concat(arg,", "),"Bold,Green")
 			loghttpsys:EditLabel(loglistsys)
 			lib:DeveloperAccess(function()
-				lib.sentMessage(
+				if TurtleFlags.DisableClipboardLogger == false then
+					lib.sentMessage(
 						lib.getTable("sent","galau"),
 						`{lib.parseData(arg,0,false,{},nil,false)}`,
 						{}
-				)
+					)
+				end
 			end)
 			return clipb4(...)
 		end))
@@ -7135,7 +7143,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		if TurtleFlags.BypassDetection == true then
 			VirtualUser:CaptureController()
 			VirtualUser:ClickButton2(Vector2.new())
-			lib:notify(lib:ColorFonts("[ Vanguard ] Bypassed Idle Detection in Client","Bold,Red"),10)
+			lib:notify(lib:ColorFonts("[ Vanguard ] Bypassed AFK Detection in Client","Bold,Red"),100)
 		end
 	end)
 
@@ -7187,6 +7195,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 	tamperbypassreplicate:Toggle("Bypass Gameplay Paused",false,function(value)
 		TurtleFlags.BypassAnnoyPopup = value
+	end)
+
+	tamperbypassreplicate:Toggle("Disable clipboard logger",false,function(value)
+		TurtleFlags.DisableClipboardLogger = value
 	end)
 
 	lib:Loop(function()
