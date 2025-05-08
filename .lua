@@ -3012,7 +3012,7 @@ function lib:AddTable(gameservice,tbl,ElementToRemove)
 		end
 	elseif typeof(gameservice) == "table" then
 		for i,v in pairs(gameservice) do 
-			table.insert(tbl,v)
+			table.insert(tbl,i)
 		end
 		if typeof(ElementToRemove) == "table" and #ElementToRemove > 0 then
 			for i,v in pairs(ElementToRemove) do
