@@ -1612,15 +1612,13 @@ end
 
 function lib.getRootDistance(instance)
 	if typeof(instance) == "Instance" then
-		if typeof(instance) == "Instance" then
-			return (LocalPlayer.Character.HumanoidRootPart.Position - instance.Position).Magnitude
-		elseif typeof(instance) == "Vector3" then
-			return (LocalPlayer.Character.HumanoidRootPart.Position - instance).Magnitude
-		elseif typeof(instance) == "CFrame" then
-			return (LocalPlayer.Character.HumanoidRootPart.CFrame - instance).Magnitude
-		end
+		return (LocalPlayer.Character.HumanoidRootPart.Position - instance.Position).Magnitude
+	elseif typeof(instance) == "Vector3" then
+		return (LocalPlayer.Character.HumanoidRootPart.Position - instance).Magnitude
+	elseif typeof(instance) == "CFrame" then
+		return (LocalPlayer.Character.HumanoidRootPart.CFrame - instance).Magnitude
 	else
-		lib:notify(lib:ColorFonts("The first rgument must be an " .. lib:ColorFonts(lib:ColorFonts("instance","Underline"),"Bold") .. " to make this function working properly","Red"),30)
+		lib:notify(lib:ColorFonts("The first argument must be an " .. lib:ColorFonts(lib:ColorFonts("instance","Underline"),"Bold") .. " to make this function working properly","Red"),30)
 	end
 end
 
