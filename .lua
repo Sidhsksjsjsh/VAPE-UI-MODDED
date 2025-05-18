@@ -480,7 +480,7 @@ end
 
 function lib.Interface(str)
 	if str == "hide" then
-		if get_hidden_gui or gethui then
+		if typeof(get_hidden_gui) ~= "nil" or typeof(gethui) ~= "nil" then
 			local hiddenUI = get_hidden_gui or gethui
 			local Main = Instance.new("ScreenGui")
 			Main.Name = lib.randomString()
@@ -1661,6 +1661,8 @@ function lib:TeleportMethod(mthd,str,param)
 			LocalPlayer.Character.HumanoidRootPart.CFrame = str * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,TP_DISTANCE.under,0)
 		elseif TP_DISTANCE.tpm == "behind" then
 			LocalPlayer.Character.HumanoidRootPart.CFrame = str * CFrame.new(0,0,TP_DISTANCE.behind)
+		else
+			LocalPlayer.Character.HumanoidRootPart.CFrame = str
 		end
 	else
 		lib:notify("Teleport method is invalid, try select another method",10)
@@ -1806,7 +1808,7 @@ function lib:BypassKick()
 	        local method = getnamecallmethod()
 		if TurtleFlags.BypassDetection == true then
 			if method == "Kick" then
-				lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed system detection`,"Bold,Green"),100)
+				lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed client kick`,"Bold,Green"),100)
 				return
 			end
 		end
@@ -1814,7 +1816,7 @@ function lib:BypassKick()
 	end)
 	hookfunction(LocalPlayer.Kick,protect(function()
 		if TurtleFlags.BypassDetection == true then
-			lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed system detection`,"Bold,Green"),100)
+			lib:notify(lib:ColorFonts(`[ Turtle Protection ] Bypassed client kick`,"Bold,Green"),100)
 			wait(math.huge)
 		end
 	end))
@@ -1846,7 +1848,7 @@ function lib:ACPatch() -- adonis detection algorithm
 				if TurtleFlags.AdonisACFlagBypass == true then 
 					if Action ~= "_" then
 						if DEBUG then
-							lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}, Info: {Info}`,"Red"),100)
+							lib:notify(lib:ColorFonts(`Adonis Anti Cheat flagged. Method: {Action}, Info: {Info}`,"Bold,Red"),100)
 						end
 					end
 				        return true
@@ -1862,7 +1864,7 @@ function lib:ACPatch() -- adonis detection algorithm
 			Old = hookfunction(Kill,function(Info)
 				if TurtleFlags.AdonisClientKillBypass == true then
 					if DEBUG then
-						lib:notify(lib:ColorFonts(`Adonis Anti Cheat tried to kill (fallback): {Info}`,"Red"),100)
+						lib:notify(lib:ColorFonts(`Adonis Anti Cheat tried to kill (fallback): {Info}`,"Bold,Red"),100)
 					end
 				end
             		end)
@@ -1878,7 +1880,7 @@ function lib:ACPatch() -- adonis detection algorithm
 		if TurtleFlags.BypassAdonisDetection == true then
 			if Detected and LevelOrFunc == Detected then
         			if DEBUG then
-           	 			lib:notify("[ Turtle Script Patcher ] Bypassed adonis detection",100)
+           	 			lib:notify(lib:ColorFonts("[ Turtle Script Patcher ] Bypassed adonis detection","Bold,Green"),100)
         			end
 
         			return coroutine.yield(coroutine.running())
