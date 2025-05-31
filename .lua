@@ -8603,8 +8603,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 		WallCheckParams.IgnoreWater = true
 		WallCheckParams.FilterDescendantsInstances = {}
 		local AttrHandlers = {}
-                local SelectedPartLine,Ray1 = CreateLine({visible = false,origin = Vector2.new(0,0),direction = Vector2.new(1,1),LineColor = Color3.fromRGB(0,166,0),thickness = 2,transparency = 0})
-                local UnSelectedPartLine,Ray2 = CreateLine({visible = false,origin = Vector2.new(0,0),direction = Vector2.new(1,1),LineColor = Color3.fromRGB(225,255,255),thickness = 2,transparency = 0})
+                local SelectedPartLine,Ray1 = CreateLine({visible = false,origin = Vector2.new(0,0),direction = Vector2.new(1,1),LineColor = Color3.fromRGB(0,166,0),thickness = 2,transparency = 1})
+                local UnSelectedPartLine,Ray2 = CreateLine({visible = false,origin = Vector2.new(0,0),direction = Vector2.new(1,1),LineColor = Color3.fromRGB(225,255,255),thickness = 2,transparency = 1})
 
 		local function HighlightPart()
 			if selected.Adornee ~= Mouse.Target then
