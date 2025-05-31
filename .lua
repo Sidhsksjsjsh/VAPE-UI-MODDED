@@ -3251,7 +3251,7 @@ function lib:FireTouch(gameservice)
 		if v:IsA("TouchTransmitter") then
 			if firetouchinterest then
 				firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,0)
-				wait()
+				task.wait()
 				firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,1)
 			else
 				lib:notify(lib:ColorFonts(lib:ColorFonts("Your executor doesnt support " .. lib:ColorFonts("firetouchinterest()","Underline") .. " | attempt to index nil function with " .. lib:ColorFonts("'firetouchinterest'","Underline"),"Bold"),"Red"),10)
