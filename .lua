@@ -3246,13 +3246,19 @@ function lib:synapse(bool)
 	end)
 end
 
-function lib:FireTouch(gameservice)
+function lib:FireTouch(gameservice,maindetect)
 	lib:descendant(gameservice,function(v)
 		if v:IsA("TouchTransmitter") then
-			if firetouchinterest then
-				firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,0)
-				task.wait()
-				firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,1)
+			if typeof(firetouchinterest) == "function" then
+				if typeof(maindetect) ~= "nil" then
+					firetouchinterest(maindetect,v.Parent,0)
+					task.wait()
+					firetouchinterest(maindetect,v.Parent,1)
+				elseif typeof(maindetect) == "nil" then
+					firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,0)
+					task.wait()
+					firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,1)
+				end
 			else
 				lib:notify(lib:ColorFonts(lib:ColorFonts("Your executor doesnt support " .. lib:ColorFonts("firetouchinterest()","Underline") .. " | attempt to index nil function with " .. lib:ColorFonts("'firetouchinterest'","Underline"),"Bold"),"Red"),10)
 			end
