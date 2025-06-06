@@ -7689,7 +7689,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		musiclib:Dropdown("Music List [ From Turtle-Music-Library ]",musichand.musicsavedlist,function(value)
 			if musicplayer ~= nil then
 				musicplayer["SoundId"] = "rbxassetid://" .. musichand.musiclist[value]
-				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.musiclist[value])).Name}\nSound Id : {musichand.musiclist[value]}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
+				TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.musiclist[value])).Name}\nSound Id : {musichand.musiclist[value]}\nLength : {math.floor(musicplayer["TimeLength"])}`,{},nil,{})
 			else
 				musichand.id = musichand.musiclist[value]
 			end
@@ -7715,7 +7715,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 					if value == true then
 						if musicplayer ~= nil then
 							musicplayer:Play()
-							TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {musicplayer["TimeLength"]}`,{},nil,{})
+							TurtleScreenNotify("Turtle Hub | Current Playing • Music",`Name : {MarketplaceService:GetProductInfo(tonumber(musichand.id)).Name}\nSound Id : {musichand.id}\nLength : {math.floor(musicplayer["TimeLength"])}`,{},nil,{})
 						else
 							TurtleScreenNotify("Turtle Hub | Error While Playing • Music",`Theres was a problem when playing the sound`,{},nil,{})
 						end
