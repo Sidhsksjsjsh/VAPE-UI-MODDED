@@ -3035,6 +3035,25 @@ function lib:AddTable(gameservice,tbl,ElementToRemove)
 				end
 			end -- coroutine
 		end
+	elseif typeof(gameservice) == "function" then
+		for i,v in pairs(gameservice) do 
+			table.insert(tbl,i)
+		end
+		if typeof(ElementToRemove) == "table" and #ElementToRemove > 0 then
+			for i,v in pairs(ElementToRemove) do
+				if typeof(i) == "number" then
+					table.remove(tbl,i) -- removing table children
+				elseif typeof(i) == "table" then
+					table.remove(tbl,i)
+				elseif typeof(i) == "string" then
+					for a,b in pairs(i) do
+						if typeof(a) == "table" then
+							table.remove(tbl,a)
+						end
+					end -- end
+				end
+			end -- coroutine
+		end
 	else
 		table.insert(tbl,gameservice)
 	end
@@ -3508,13 +3527,13 @@ function lib.RaycastManipulation(mode) -- this function will let u modified/mani
 	end
 end
 
-function lib:ChangePropertyWithoutBeingDetected(instname,prop)
+function lib:ChangePropertyWithoutBeingDetected(instname,prop,changedvalue)
 	local mt = getrawmetatable(game)
 	setreadonly(mt,false)
 	local oldNewIndex = mt.__newindex
 	mt.__newindex = newcclosure(function(path,key,value)
-		if tostring(path) == instname and key == prop then
-			rawset(path,key,value) -- Mengubah nilai tanpa terdeteksi
+		if path.Name == instname and key == prop then
+			rawset(path,key,(typeof(changedvalue) ~= "nil" and changedvalue or value)) -- Mengubah nilai tanpa terdeteksi
 			return
 		end
 		return oldNewIndex(path,key,value)
