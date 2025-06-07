@@ -3532,9 +3532,16 @@ function lib:ChangePropertyWithoutBeingDetected(instname,prop,changedvalue)
 	setreadonly(mt,false)
 	local oldNewIndex = mt.__newindex
 	mt.__newindex = newcclosure(function(path,key,value)
-		if path.Name == instname and key == prop then
-			rawset(path,key,(typeof(changedvalue) ~= "nil" and changedvalue or value)) -- Mengubah nilai tanpa terdeteksi
-			return
+		if typeof(instname) == "string" then
+			if path.Name == instname and key == prop then
+				rawset(path,key,(typeof(changedvalue) ~= "nil" and changedvalue or value)) -- Mengubah nilai tanpa terdeteksi
+				return
+			end
+		elseif typeof(instname) == "Instance" then
+			if path == instname and key == prop then
+				rawset(path,key,(typeof(changedvalue) ~= "nil" and changedvalue or value)) -- Mengubah nilai tanpa terdeteksi
+				return
+			end
 		end
 		return oldNewIndex(path,key,value)
 	end)
