@@ -2942,7 +2942,7 @@ local emoji = ({
 	["04 12"] = lib:ColorFonts("🎉 TURTLE HUB ANNIVERSARY 🎉","Bold,Sky Blue"),
 	["04 15"] = lib:ColorFonts("🎉 VANGUARD ANNIVERSARY 🎉","Bold,Red"),
 	["02 14"] = lib:ColorFonts("💕 VALENTINE'S DAY 💕","Bold,Pink"),
-	["03 08"] = lib:ColorFonts("👸🏻 INTERNATIONAL WOMEN'S DAY 👸🏻","Bold,Pink"),
+	["03 08"] = lib:ColorFonts("👸🏻 INTERNATIONAL WOMENS DAY 👸🏻","Bold,Pink"),
 	["04 01"] = lib:ColorFonts("❌ LAST UPDATE ❌","Bold,Red"),
 	["05 01"] = lib:ColorFonts("🔪 INTERNATIONAL LABOR DAY 🔪","Bold,Red"),
 	["08 17"] = lib:ColorFonts("🇮🇩 INDONESIA'S INDEPENDENCE DAY 🇮🇩","Bold,Red")
@@ -3265,24 +3265,27 @@ function lib:synapse(bool)
 	end)
 end
 
-function lib:FireTouch(gameservice,maindetect)
-	lib:descendant(gameservice,function(v)
-		if v:IsA("TouchTransmitter") then
-			if typeof(firetouchinterest) == "function" then
-				if typeof(maindetect) ~= "nil" then
-					firetouchinterest(maindetect,v.Parent,0)
-					task.wait()
-					firetouchinterest(maindetect,v.Parent,1)
-				elseif typeof(maindetect) == "nil" then
+function lib:FireTouch(gameservice,maindetect) -- sorted by vito, cuz fahri makes this code looks goofy
+	if typeof(firetouchinterest) == "function" then
+		if typeof(maindetect) ~= "nil" then
+			if gameservice:FindFirstChild("TouchInterest") then
+				firetouchinterest(maindetect,gameservice,0)
+				task.wait()
+				firetouchinterest(maindetect,gameservice,1)
+			end
+		elseif typeof(maindetect) == "nil" then
+			lib:descendant(gameservice,function(v)
+				if v:IsA("TouchTransmitter") then
 					firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,0)
 					task.wait()
 					firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,1)
 				end
-			else
-				lib:notify(lib:ColorFonts(lib:ColorFonts("Your executor doesnt support " .. lib:ColorFonts("firetouchinterest()","Underline") .. " | attempt to index nil function with " .. lib:ColorFonts("'firetouchinterest'","Underline"),"Bold"),"Red"),10)
-			end
+			end)
 		end
-	end)
+	else
+		lib:notify(lib:ColorFonts("Your exploit doesnt support firetouchinterest function.","Bold,Red"),20)
+		return 
+	end -- firetouchinterest function detect
 end
 
 function lib:RemoteSpy(arg)
