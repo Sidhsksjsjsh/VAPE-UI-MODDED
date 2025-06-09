@@ -8399,13 +8399,13 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=134630013742019"
 				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=129773241321032"
 			elseif anim_table.sel == "Adidas Community" then
-				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=17172918855"
-				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=17173014241"
-				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=11600249883"
-				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=11600211410"
-				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=11600210487"
-				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=11600205519"
-				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=11600206437"
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=122257458498464"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=102357151005774"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=122150855457006"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=82598234841035"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=75290611992385"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=88763136693023"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=98600215928904"
 			end
 		end)
 
