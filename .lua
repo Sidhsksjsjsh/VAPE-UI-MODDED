@@ -8170,7 +8170,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 				"Girly Animation",
 				"Adidas Sport Animation",
 				"CalWalk Glam Animation",
-				"NFL Animation"
+				"NFL Animation",
+				"Adidas Community"
 			},
 			sel = "",
 			looping = false
@@ -8397,6 +8398,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=119846112151352"
 				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=134630013742019"
 				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=129773241321032"
+			elseif anim_table.sel == "Adidas Community" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=17172918855"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=17173014241"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=11600249883"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=11600211410"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=11600210487"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=11600205519"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=11600206437"
 			end
 		end)
 
