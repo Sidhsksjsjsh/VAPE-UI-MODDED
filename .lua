@@ -9197,8 +9197,9 @@ TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 end
 ]]
 
-if typeof(Meta_Env) == "nil" then
-    getgenv().Meta_Env = lib
+if typeof(env) == "nil" and typeof(colors) == "nil" then
+	getgenv().env = lib
+	getgenv().colors = HTMLcolors
 end
 
 print("Turtle Interface successfully injected.")
