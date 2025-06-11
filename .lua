@@ -51,8 +51,12 @@ local flyKeyUp = nil
 local CameraModule = nil
 local controlModule = nil
 if LocalPlayer["PlayerScripts"]:FindFirstChild("PlayerModule") then
-	CameraModule = LocalPlayer["PlayerScripts"]["PlayerModule"]["CameraModule"]
-	controlModule = require(LocalPlayer["PlayerScripts"]["PlayerModule"]["ControlModule"])
+	if LocalPlayer["PlayerScripts"]["PlayerModule"]:FindFirstChild("CameraModule") then
+		CameraModule = LocalPlayer["PlayerScripts"]["PlayerModule"]["CameraModule"]
+	end
+	if LocalPlayer["PlayerScripts"]["PlayerModule"]:FindFirstChild("ControlModule") then
+		controlModule = require(LocalPlayer["PlayerScripts"]["PlayerModule"]["ControlModule"])
+	end
 end
 
 if getgenv and typeof(mobileflyspeed) == "nil" and typeof(vflyspeed) == "nil" then --global variable for changing fly speed through Turtle-Intelligence
