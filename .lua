@@ -7442,28 +7442,20 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local GarbageCollectorAmountMax = 1
 		local IsHolyEnabled = false
 		
-		GameEnv:Slider("Radius",0,1000,50,function(value)
-			TurtleRemoteEvent:Fire("ANNOY","RADIUS",value)
+		GameEnv:Slider("Radius",0,1000,radius,function(value)
+			radius = value
 		end)
 
-		GameEnv:Slider("Height",0,1500,100,function(value)
-			TurtleRemoteEvent:Fire("ANNOY","HEIGHT",value)
+		GameEnv:Slider("Height",0,1500,height,function(value)
+			height = value
 		end)
 
-		GameEnv:Slider("Rotation Speed",0,25,1,function(value)
-			TurtleRemoteEvent:Fire("ANNOY","ROTATION SPEED",value)
+		GameEnv:Slider("Rotation Speed",0,25,rotationSpeed,function(value)
+			rotationSpeed = value
 		end)
 
-		GameEnv:Slider("Attraction Strength",0,1500,1000,function(value)
-			TurtleRemoteEvent:Fire("ANNOY","ATTRACTION STRENGTH",1000)
-		end)
-
-		GameEnv:Dropdown("Annoy Version",{"V1","V2"},function(value)
-			versionHole = value
-		end)
-
-		GameEnv:Dropdown("Annoy Type",{"RING","BALL"},function(value)
-			annoytypefuck = value
+		GameEnv:Slider("Attraction Strength",0,1500,attractionStrength,function(value)
+			attractionStrength = value
 		end)
 
 		GameEnv:Textbox("Player",false,function(value)
@@ -7475,12 +7467,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 			
 		GameEnv:Toggle("START ANNOY",false,function(value)
 			IsHolyEnabled = value
-			if value == true then
-				TurtleRemoteEvent:Fire("ANNOY","Set NetworkOwnership to Client Workspace")
-				TurtleRemoteEvent:Fire("ANNOY","PART DETECT")
-			else
-				TurtleRemoteEvent:Fire("ANNOY","STOP DETECT")
-			end
 		end)
 
 		local ScriptDump2 = window:Tab("Script Decompile")
@@ -8566,6 +8552,23 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local kdnsosjekdnsksjekjeoensksjs = "100"
 
 		lib:Loop(function()
+			if IsHolyEnabled == true then
+				if PLAYERNAME == "me" or PLAYERNAME == "Me" or PLAYERNAME == "ME" then
+					lib:descendant(workspace,function(v)
+						if v:IsA("Part") or v:IsA("BasePart") and v.Anchored == false and not v:IsDescendantOf(user.Name) then
+							NetworkOwnershipPart(v,user.Character.HumanoidRootPart.Position)
+						end
+					end)
+				else
+					lib:TrackPlayer(PLAYERNAME,function(v)
+						lib:descendant(workspace,function(i)
+							if i:IsA("Part") or i:IsA("BasePart") and i.Anchored == false and not i:IsDescendantOf(v.Name) then
+								NetworkOwnershipPart(i,v.Character.HumanoidRootPart.Position)
+							end
+						end)
+					end)
+				end
+			end
 			if TurtleFlags.ScreenClickForInGameScreenClick == true then
 				lib.clickScreen("corner")
 			end
