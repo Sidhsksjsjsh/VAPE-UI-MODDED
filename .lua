@@ -1257,7 +1257,7 @@ function lib.parseData(obj,numTabs,isKey,overflow,noTables,forceDict)
 				nextIndex = nextIndex + 1
 			end
 
-			data[#data+1] = {key, val}
+			data[#data+1] = {key,val}
 		end
 
 		if isDict or hasTables or forceDict then
@@ -1299,7 +1299,7 @@ function lib.parseData(obj,numTabs,isKey,overflow,noTables,forceDict)
 			out[#out+1] = string.rep(tabChar,numTabs) .. "}"
 		else
 			local data2 = {}
-			for i = 1, #data do
+			for i = 1,#data do
 				local arr = data[i]
 				local nowVal = arr[2]
 				local parseVal = lib.parseData(nowVal,0,false,overflow,isCyclic)
@@ -1308,7 +1308,7 @@ function lib.parseData(obj,numTabs,isKey,overflow,noTables,forceDict)
 			out[#out+1] = "{\n" .. tabChar .. table.concat(data2,",\n" .. tabChar) .. "\n}"
 		end
 
-		return table.concat(out, "\n")
+		return table.concat(out,"\n")
 	else
 		local returnVal = nil
 		if (objType == "string" or objType == "Content") and (not isKey or tonumber(obj:sub(1,1))) then
