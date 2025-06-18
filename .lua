@@ -1562,8 +1562,8 @@ function lib.clickScreen(area,position)
 	end
   elseif area == "custom" then
 	if isGuiOpened == false then
-		VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],hitpos[3],true,game,1)
-		VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],hitpos[3],false,game,1)
+		VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],0,true,game,1)
+		VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],0,false,game,1)
 	end
   end
 end
