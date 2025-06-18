@@ -1608,7 +1608,7 @@ function lib.getRootDistance(instance)
 	elseif typeof(instance) == "CFrame" then
 		return (LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(instance.X,instance.Y,instance.Z)).Magnitude
 	else
-		lib:notify(lib:ColorFonts("The first argument must be an " .. lib:ColorFonts(lib:ColorFonts("instance","Underline"),"Bold") .. " to make this function working properly","Red"),30)
+		lib:notify(lib:ColorFonts("The first argument must be an " .. lib:ColorFonts(lib:ColorFonts("instance","Underline"),"Bold") .. " or " .. lib:ColorFonts(lib:ColorFonts("Vector3","Underline"),"Bold") .. " or " .. lib:ColorFonts(lib:ColorFonts("CFrame (3D Position)","Underline"),"Bold") .. " to make this function working properly","Red"),30)
 	end
 end
 
