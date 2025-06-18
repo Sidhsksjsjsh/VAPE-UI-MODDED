@@ -1548,24 +1548,25 @@ function lib.revokeESP()
 end
 
 --lib.clickScreen("corner")
-function lib.clickScreen(area,position)
-  local hitpos = position or {5,5,5}
-  if area == "middle" then
-	if isGuiOpened == false then
-		VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,true,game,1)
-		VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,false,game,1)
-	end
-  elseif area == "corner" then
-	if isGuiOpened == false then
-		VirtualInputManager:SendMouseButtonEvent(0,0,0,true,game,1)
-		VirtualInputManager:SendMouseButtonEvent(0,0,0,false,game,1)
-	end
-  elseif area == "custom" then
-	if isGuiOpened == false then
-		VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],0,true,game,1)
-		VirtualInputManager:SendMouseButtonEvent(hitpos[1],hitpos[2],0,false,game,1)
-	end
-  end
+function lib.clickScreen(area,targetclick)
+	local hitpos = (typeof(targetclick) == "Vector3" and targetclick or {0,0,0})
+  	if area == "middle" then
+		if isGuiOpened == false then
+			VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,true,game,1)
+			VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,false,game,1)
+		end
+ 	elseif area == "corner" then
+		if isGuiOpened == false then
+			VirtualInputManager:SendMouseButtonEvent(0,0,0,true,game,1)
+			VirtualInputManager:SendMouseButtonEvent(0,0,0,false,game,1)
+		end
+  	elseif area == "custom" then
+		if isGuiOpened == false then
+			local pos,OnScreen = Camera:WorldToViewportPoint(hitpos)
+			VirtualInputManager:SendMouseButtonEvent(pos.X,pos.Y,0,true,game,1)
+			VirtualInputManager:SendMouseButtonEvent(pos.X,pos.Y,0,false,game,1)
+		end
+  	end
 end
 
 function lib.getCharacterElementChanged(name,f)
