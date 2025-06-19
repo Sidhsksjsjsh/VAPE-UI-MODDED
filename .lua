@@ -2687,7 +2687,7 @@ local dates = {}
 end]]
 
 local function CreatorID()
-if game.CreatorType == Enum.CreatorType.User then
+	if game.CreatorType == Enum.CreatorType.User then
 		return game.CreatorId
 	elseif game.CreatorType == Enum.CreatorType.Group then
 		return GroupService:GetGroupInfoAsync(game.CreatorId).Owner.Id
