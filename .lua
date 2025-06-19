@@ -1549,7 +1549,7 @@ end
 
 --lib.clickScreen("corner")
 function lib.clickScreen(area,targetclick)
-	local hitpos = (typeof(targetclick) == "Vector3" and targetclick or {0,0,0})
+	local hitpos = (typeof(targetclick) == "Vector3" and targetclick or Vector3.new(0,0,0))
   	if area == "middle" then
 		if isGuiOpened == false then
 			VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2,Camera.ViewportSize.Y / 2,0,true,game,1)
@@ -1563,8 +1563,10 @@ function lib.clickScreen(area,targetclick)
   	elseif area == "custom" then
 		if isGuiOpened == false then
 			local pos,OnScreen = Camera:WorldToViewportPoint(hitpos)
-			VirtualInputManager:SendMouseButtonEvent(pos.X,pos.Y,0,true,game,1)
-			VirtualInputManager:SendMouseButtonEvent(pos.X,pos.Y,0,false,game,1)
+			if OnScreen == true then
+				VirtualInputManager:SendMouseButtonEvent(pos.X,pos.Y,0,true,game,1)
+				VirtualInputManager:SendMouseButtonEvent(pos.X,pos.Y,0,false,game,1)
+			end
 		end
   	end
 end
