@@ -3748,7 +3748,6 @@ function lib:Window(text,preset,closebind)
 	local FPS_BLUR = Blur_FpsPing:Clone()
 	FPS_BLUR.Parent = FpsLabel
 	--FPS_BLUR.Position = FpsLabel.Position
-	TurtleFlags.forfps = FpsLabel
 	
     local PingLabel = Instance.new("TextLabel")
     PingLabel.Name = "PING"
@@ -3767,7 +3766,6 @@ function lib:Window(text,preset,closebind)
 	local PING_BLUR = Blur_FpsPing:Clone()
 	PING_BLUR.Parent = PingLabel
 	--PING_BLUR.Position = PingLabel.Position
-	TurtleFlags.forping = PingLabel
 	
     local MemoryLabel = Instance.new("TextLabel")
     MemoryLabel.Name = "MEMORY"
@@ -3786,7 +3784,6 @@ function lib:Window(text,preset,closebind)
 	local MEMORY_BLUR = Blur_FpsPing:Clone()
 	MEMORY_BLUR.Parent = MemoryLabel
 	--MEMORY_BLUR.Position = MemoryLabel.Position
-	TurtleFlags.formemory = MemoryLabel
 	
     local PlayersLabel = Instance.new("TextLabel")
     PlayersLabel.Name = "Player"
@@ -3805,8 +3802,7 @@ function lib:Window(text,preset,closebind)
 	local PLAYERS_BLUR = Blur_FpsPing:Clone()
 	PLAYERS_BLUR.Parent = PlayersLabel
 	--PLAYERS_BLUR.Position = PlayersLabel.Position
-	TurtleFlags.forplayers = PlayersLabel
-
+	
     local TimesLabel = Instance.new("TextLabel")
     TimesLabel.Name = "Player"
     TimesLabel.Parent = FpsPingFrame
@@ -3824,8 +3820,7 @@ function lib:Window(text,preset,closebind)
 	local TIMES_BLUR = Blur_FpsPing:Clone()
 	TIMES_BLUR.Parent = TimesLabel
 	--TIMES_BLUR.Position = TimesLabel.Position
-	TurtleFlags.fortimes = TimesLabel
-
+	
     local TIMEPLAYEDLabel = Instance.new("TextLabel")
     TIMEPLAYEDLabel.Name = "Time Played"
     TIMEPLAYEDLabel.Parent = FpsPingFrame
@@ -3843,19 +3838,67 @@ function lib:Window(text,preset,closebind)
 	local TIME_PLAYED_BLUR = Blur_FpsPing:Clone()
 	TIME_PLAYED_BLUR.Parent = TIMEPLAYEDLabel
 	--TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
-	TurtleFlags.fortimeplayed = TIMEPLAYEDLabel
 	
+    local ExploitIdentify = Instance.new("TextLabel")
+    ExploitIdentify.Name = "ExploitIdentify"
+    ExploitIdentify.Parent = FpsPingFrame
+    ExploitIdentify.BackgroundTransparency = 1
+    ExploitIdentify.BorderSizePixel = 0
+    ExploitIdentify.Position = UDim2.new(0.1,0,TIMEPLAYEDLabel.Position.Y.Scale + 0.4,0)
+    ExploitIdentify.Size = UDim2.new(0.8,0,0.3,0)
+    ExploitIdentify.Font = Enum.Font.JosefinSans
+    ExploitIdentify.Text = "User-Agent : " .. (typeof(identifyexecutor) == "function" and identifyexecutor() or "null")
+    ExploitIdentify.TextColor3 = Color3.fromRGB(93,255,255)
+    ExploitIdentify.TextSize = 14
+    ExploitIdentify.TextXAlignment = Enum.TextXAlignment.Left
+    ExploitIdentify.RichText = true
+    ExploitIdentify.TextStrokeTransparency = 0
+	local IDENTIFY_EXPLOIT_BLUR = Blur_FpsPing:Clone()
+	IDENTIFY_EXPLOIT_BLUR.Parent = ExploitIdentify
+	--TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
+	
+	local HighestFPS = 60
+	local LowestFPS = 60 -- set 60 for easy set
+	
+	local HighestPing = 100
+	local LowestPing = 100 -- dont change
+	
+	local HighestMemory = 100 -- dont change
+	local LowestMemory = 100 -- this also
+	
+	local HighestPlayers = 0
+	local LowestPlayers = 100
     if emoji then -- GetTimePlayed()
 	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify("Current event : " .. emoji,10)
 	lib:runtime(function(v)
-		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White"))}/R)`
-		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","White"))} ({math.floor((LocalPlayer:GetNetworkPing() or 0))} ms)`
-		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")}`
-		PlayersLabel.Text = `Players : {(#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren())}`
+		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS})({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
+		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","Sky Blue"))} (↑ {HighestPing}ms • ↓ {LowestPing}ms) ({math.floor((LocalPlayer:GetNetworkPing() or 0))} ms)`
+		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")} (↑ {lib:MemoryFormat(HighestMemory)} • ↓ {lib:MemoryFormat(LowestMemory)})`
+		PlayersLabel.Text = `Players : {#game:GetService("Players"):GetPlayers()} (↑ {HighestPlayers} • ↓ {LowestPlayers})`
 		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
 		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
-		--\\\--
+		if math.round(1/v) > HighestFPS then
+			HighestFPS = math.round(1/v)
+		elseif math.round(1/v) < LowestFPS then
+			LowestFPS = math.round(1/v)
+		end
+		if getPing() > HighestPing then
+			HighestPing = getPing()
+		elseif getPing() < LowestPing then
+			LowestPing = getPing()
+		end
+		if Stats.GetTotalMemoryUsageMb(Stats) > HighestMemory then
+			HighestMemory = Stats.GetTotalMemoryUsageMb(Stats)
+		elseif Stats.GetTotalMemoryUsageMb(Stats) < LowestMemory then
+			LowestMemory = Stats.GetTotalMemoryUsageMb(Stats)
+		end
+		if #game:GetService("Players"):GetPlayers() > HighestPlayers then
+			HighestPlayers = #game:GetService("Players"):GetPlayers()
+		elseif #game:GetService("Players"):GetPlayers() < LowestPlayers then
+			LowestPlayers = #game:GetService("Players"):GetPlayers()
+		end
+				
 		FPS_BLUR.Size = UDim2.new(0,FpsLabel.TextBounds.X + 10,0,FpsLabel.TextBounds.Y + 6)
 		PING_BLUR.Size = UDim2.new(0,PingLabel.TextBounds.X + 10,0,PingLabel.TextBounds.Y + 6)
 		MEMORY_BLUR.Size = UDim2.new(0,MemoryLabel.TextBounds.X + 10,0,MemoryLabel.TextBounds.Y + 6)
