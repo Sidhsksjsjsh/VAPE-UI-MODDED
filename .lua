@@ -2950,7 +2950,7 @@ local emoji = ({
 	["04 15"] = lib:ColorFonts("🎉 VANGUARD ANNIVERSARY 🎉","Bold,Red"),
 	["02 14"] = lib:ColorFonts("💕 VALENTINE'S DAY 💕","Bold,Pink"),
 	["03 08"] = lib:ColorFonts("👸🏻 INTERNATIONAL WOMENS DAY 👸🏻","Bold,Pink"),
-	["04 01"] = lib:ColorFonts("❌ LAST UPDATE ❌","Bold,Red"),
+	["04 01"] = lib:ColorFonts("🎉 TURTLE HUB ELITE+ ANNIVERSARY 🎉","Bold,Red"),
 	["05 01"] = lib:ColorFonts("🔪 INTERNATIONAL LABOR DAY 🔪","Bold,Red"),
 	["08 17"] = lib:ColorFonts("🇮🇩 INDONESIA'S INDEPENDENCE DAY 🇮🇩","Bold,Red")
 })[os.date("%m %d")] --Light Green
@@ -3868,9 +3868,9 @@ function lib:Window(text,preset,closebind)
 	
 	local HighestPlayers = 0
 	local LowestPlayers = 100
-    if emoji then -- GetTimePlayed()
+    if typeof(emoji) == "string" then -- GetTimePlayed()
 	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
-	lib:notify("Current event : " .. emoji,10)
+	lib:notify(lib:ColorFonts("Current event : " .. emoji,"Bold,Green"),10)
 	lib:runtime(function(v)
 		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS})({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
 		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","Sky Blue"))} (↑ {HighestPing}ms • ↓ {LowestPing}ms) ({math.floor((LocalPlayer:GetNetworkPing() or 0))} ms)`
@@ -3909,13 +3909,33 @@ function lib:Window(text,preset,closebind)
     else --DateTime.now():FormatLocalTime("h:mm:ss A","en-us")
 	lib:runtime(function(v)
 		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts((getPing() >= 1000 and lib:ColorFonts(getPing(),"Red") or getPing() >= 500 and lib:ColorFonts(getPing(),"Yellow") or lib:ColorFonts(getPing(),"White")) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. (math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White")) .. "FPS (" .. (math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White")) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
-		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White"))}/R)`
-		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","White"))} ({math.floor((LocalPlayer:GetNetworkPing() or 0))} ms)`
-		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")}`
-		PlayersLabel.Text = `Players : {(#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren())}`
+		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS})({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
+		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","Sky Blue"))} (↑ {HighestPing}ms • ↓ {LowestPing}ms) ({math.floor((LocalPlayer:GetNetworkPing() or 0))} ms)`
+		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")} (↑ {lib:MemoryFormat(HighestMemory)} • ↓ {lib:MemoryFormat(LowestMemory)})`
+		PlayersLabel.Text = `Players : {#game:GetService("Players"):GetPlayers()} (↑ {HighestPlayers} • ↓ {LowestPlayers})`
 		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
 		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
-		--\\\--
+		if math.round(1/v) > HighestFPS then
+			HighestFPS = math.round(1/v)
+		elseif math.round(1/v) < LowestFPS then
+			LowestFPS = math.round(1/v)
+		end
+		if getPing() > HighestPing then
+			HighestPing = getPing()
+		elseif getPing() < LowestPing then
+			LowestPing = getPing()
+		end
+		if Stats.GetTotalMemoryUsageMb(Stats) > HighestMemory then
+			HighestMemory = Stats.GetTotalMemoryUsageMb(Stats)
+		elseif Stats.GetTotalMemoryUsageMb(Stats) < LowestMemory then
+			LowestMemory = Stats.GetTotalMemoryUsageMb(Stats)
+		end
+		if #game:GetService("Players"):GetPlayers() > HighestPlayers then
+			HighestPlayers = #game:GetService("Players"):GetPlayers()
+		elseif #game:GetService("Players"):GetPlayers() < LowestPlayers then
+			LowestPlayers = #game:GetService("Players"):GetPlayers()
+		end
+				
 		FPS_BLUR.Size = UDim2.new(0,FpsLabel.TextBounds.X + 10,0,FpsLabel.TextBounds.Y + 6)
 		PING_BLUR.Size = UDim2.new(0,PingLabel.TextBounds.X + 10,0,PingLabel.TextBounds.Y + 6)
 		MEMORY_BLUR.Size = UDim2.new(0,MemoryLabel.TextBounds.X + 10,0,MemoryLabel.TextBounds.Y + 6)
