@@ -3277,14 +3277,14 @@ function lib:FireTouch(gameservice,maindetect) -- sorted by vito, cuz fahri make
 		if typeof(maindetect) ~= "nil" then
 			if gameservice:FindFirstChild("TouchInterest") then
 				firetouchinterest(maindetect,gameservice,0)
-				wait()
+				task.wait(0.1)
 				firetouchinterest(maindetect,gameservice,1)
 			end
 		elseif typeof(maindetect) == "nil" then
 			lib:descendant(gameservice,function(v)
 				if v:IsA("TouchTransmitter") then
 					firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,0)
-					wait()
+					task.wait(0.1)
 					firetouchinterest(LocalPlayer.Character.HumanoidRootPart,v.Parent,1)
 				end
 			end)
@@ -3645,7 +3645,7 @@ local function GetTimePlayed()
 	local hours = math.floor(workspace.DistributedGameTime / 60 / 60)
 	local seconds = seconds - (minutes * 60)
 	local minutes = minutes - (hours * 60)
-	return (hours or 0) .. ':' .. (minutes or 0) .. ':' .. (seconds or 0) .. ''
+	return (typeof(hours) ~= "nil" and hours or 0) .. ':' .. (typeof(minutes) ~= "nil" and minutes or 0) .. ':' .. (typeof(seconds) ~= "nil" and seconds or 0) .. ''
 end
 
 --lib:FormatRGB("gradient") local method = getnamecallmethod()
