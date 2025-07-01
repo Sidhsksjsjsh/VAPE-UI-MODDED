@@ -7348,7 +7348,56 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end)
 			end)
 		end
-		
+
+		local TpToolDecal = Instance.new("Tool")
+		TpToolDecal.Name = "Teleport Tool"
+		TpToolDecal.RequiresHandle = true
+		TpToolDecal.Parent = game:GetService("ReplicatedStorage")
+		TpToolDecal.ToolTip = "Click anywhere to teleport"
+		local handleTPDecal = Instance.new("Part")
+		handleTPDecal.Name = "Handle"
+              	handleTPDecal.Size = Vector3.new(1,1,1)
+             	handleTPDecal.BrickColor = BrickColor.new("Bright yellow")
+              	handleTPDecal.Anchored = false
+              	handleTPDecal.CanCollide = false
+              	handleTPDecal.Parent = TpToolDecal
+		TpToolDecal.Equipped:Connect(function()
+			lib:notify(lib:ColorFonts("Tool is ready, click anywhere to teleport","Bold,Green"),20)
+		end)
+		TpToolDecal.Unequipped:Connect(function()
+			lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+		end)
+		TpToolDecal.Activated:Connect(function()
+			local Char = LocalPlayer.Character or workspace:FindFirstChild(LocalPlayer.Name)
+			local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+			if not Char or not HRP then
+				lib:notify(lib:ColorFonts("Failed to find HumanoidRootPart","Bold,Red"),10)
+			end
+			HRP.CFrame = CFrame.new(Mouse.Hit.X,Mouse.Hit.Y + 3,Mouse.Hit.Z,select(4,HRP.CFrame:components()))
+		end)
+
+		local TTWToolDecal = Instance.new("Tool")
+		TTWToolDecal.Name = "Tap-To-Walk Tool"
+		TTWToolDecal.RequiresHandle = true
+		TTWToolDecal.Parent = game:GetService("ReplicatedStorage")
+		TTWToolDecal.ToolTip = "Click anywhere to walk"
+		local handleTTWDecal = Instance.new("Part")
+		handleTTWDecal.Name = "Handle"
+              	handleTTWDecal.Size = Vector3.new(1,1,1)
+             	handleTTWDecal.BrickColor = BrickColor.new("Bright yellow")
+              	handleTTWDecal.Anchored = false
+              	handleTTWDecal.CanCollide = false
+              	handleTTWDecal.Parent = TTWToolDecal
+		TTWToolDecal.Equipped:Connect(function()
+			lib:notify(lib:ColorFonts("Tool is ready, click anywhere to walk","Bold,Green"),20)
+		end)
+		TTWToolDecal.Unequipped:Connect(function()
+			lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+		end)
+		TTWToolDecal.Activated:Connect(function()
+			TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+		end)
+	
 		local T100 = window:Tab("Developer Access")
 			local function getInstanceFromPath(path)
 				local currentInstance = game
@@ -7457,8 +7506,64 @@ function lib.DeveloperEncrypt(window,isShowed)
 			else
 				lib:notify(lib:ColorFonts("No attributes were found.","Bold,Red"),10)
 			end
-		end) --lib.getHiddenConnection(b,get)
+		end) --lib.getHiddenConnection(b,get) TpToolDecal
 
+		local IsEnabledTool = false
+		local IsEnabledTool2 = false
+		local ToolHandlerForEmergency = nil
+		local ToolHandlerForEmergency2 = nil
+		LocalPlayer.CharacterAdded:Connect(function(chr)
+			if IsEnabledTool == true then
+				if typeof(ToolHandlerForEmergency) ~= "nil" then
+					ToolHandlerForEmergency.Parent = LocalPlayer.Backpack
+				else
+					ToolHandlerForEmergency = TpToolDecal:Clone()
+					ToolHandlerForEmergency.Parent = LocalPlayer.Backpack
+				end
+			end
+			if IsEnabledTool2 == true then
+				if typeof(ToolHandlerForEmergency2) ~= "nil" then
+					ToolHandlerForEmergency2.Parent = LocalPlayer.Backpack
+				else
+					ToolHandlerForEmergency2 = TTWToolDecal:Clone()
+					ToolHandlerForEmergency2.Parent = LocalPlayer.Backpack
+				end
+			end
+		end)
+		T100:Toggle("TP Tool",false,function(value)
+			IsEnabledTool = value
+			if value == true then
+				if typeof(ToolHandlerForEmergency) ~= "nil" then
+					ToolHandlerForEmergency.Parent = LocalPlayer.Backpack
+				else
+					ToolHandlerForEmergency = TpToolDecal:Clone()
+					ToolHandlerForEmergency.Parent = LocalPlayer.Backpack
+				end
+			elseif value == false then
+				if typeof(ToolHandlerForEmergency) ~= "nil" then
+					ToolHandlerForEmergency:Destroy()
+					ToolHandlerForEmergency = nil
+				end
+			end
+		end)
+
+		T100:Toggle("Tap-To-Walk Tool",false,function(value)
+			IsEnabledTool2 = value
+			if value == true then
+				if typeof(ToolHandlerForEmergency2) ~= "nil" then
+					ToolHandlerForEmergency2.Parent = LocalPlayer.Backpack
+				else
+					ToolHandlerForEmergency2 = TTWToolDecal:Clone()
+					ToolHandlerForEmergency2.Parent = LocalPlayer.Backpack
+				end
+			elseif value == false then
+				if typeof(ToolHandlerForEmergency2) ~= "nil" then
+					ToolHandlerForEmergency2:Destroy()
+					ToolHandlerForEmergency2 = nil
+				end
+			end
+		end)
+			
 		T100:Button("Sent all attributes",function()
 			local attributeHandle = {}
 			lib:attributes(LocalPlayer.Character,function(name,value)
