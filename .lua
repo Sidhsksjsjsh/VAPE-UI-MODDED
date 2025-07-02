@@ -7361,6 +7361,7 @@ function lib.DeveloperEncrypt(window,isShowed)
               	handleTPDecal.Anchored = false
               	handleTPDecal.CanCollide = false
               	handleTPDecal.Parent = TpToolDecal
+		--[[
 		TpToolDecal.Equipped:Connect(function()
 			lib:notify(lib:ColorFonts("Tool is ready, click anywhere to teleport","Bold,Green"),20)
 		end)
@@ -7375,6 +7376,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 			HRP.CFrame = CFrame.new(Mouse.Hit.X,Mouse.Hit.Y + 3,Mouse.Hit.Z,select(4,HRP.CFrame:components()))
 		end)
+		]]
 
 		local TTWToolDecal = Instance.new("Tool")
 		TTWToolDecal.Name = "Tap-To-Walk Tool"
@@ -7388,6 +7390,7 @@ function lib.DeveloperEncrypt(window,isShowed)
               	handleTTWDecal.Anchored = false
               	handleTTWDecal.CanCollide = false
               	handleTTWDecal.Parent = TTWToolDecal
+		--[[
 		TTWToolDecal.Equipped:Connect(function()
 			lib:notify(lib:ColorFonts("Tool is ready, click anywhere to walk","Bold,Green"),20)
 		end)
@@ -7397,6 +7400,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		TTWToolDecal.Activated:Connect(function()
 			TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
 		end)
+		]]
 	
 		local T100 = window:Tab("Developer Access")
 			local function getInstanceFromPath(path)
@@ -7516,17 +7520,67 @@ function lib.DeveloperEncrypt(window,isShowed)
 			if IsEnabledTool == true then
 				if typeof(ToolHandlerForEmergency) ~= "nil" then
 					ToolHandlerForEmergency.Parent = LocalPlayer.Backpack
+					if #getconnections(ToolHandlerForEmergency.Equipped) > 0 and #getconnections(ToolHandlerForEmergency.Unequipped) > 0 and #getconnections(ToolHandlerForEmergency.Activated) > 0 then
+						ToolHandlerForEmergency.Equipped:Connect(function()
+							lib:notify(lib:ColorFonts("Tool is ready, click anywhere to teleport","Bold,Green"),20)
+						end)
+						ToolHandlerForEmergency.Unequipped:Connect(function()
+							lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+						end)
+						ToolHandlerForEmergency.Activated:Connect(function()
+							local Char = LocalPlayer.Character or workspace:FindFirstChild(LocalPlayer.Name)
+							local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+							if not Char or not HRP then
+								lib:notify(lib:ColorFonts("Failed to find HumanoidRootPart","Bold,Red"),10)
+							end
+							HRP.CFrame = CFrame.new(Mouse.Hit.X,Mouse.Hit.Y + 3,Mouse.Hit.Z,select(4,HRP.CFrame:components()))
+						end)
+					end
 				else
 					ToolHandlerForEmergency = TpToolDecal:Clone()
 					ToolHandlerForEmergency.Parent = LocalPlayer.Backpack
+					ToolHandlerForEmergency.Equipped:Connect(function()
+						lib:notify(lib:ColorFonts("Tool is ready, click anywhere to teleport","Bold,Green"),20)
+					end)
+					ToolHandlerForEmergency.Unequipped:Connect(function()
+						lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+					end)
+					ToolHandlerForEmergency.Activated:Connect(function()
+						local Char = LocalPlayer.Character or workspace:FindFirstChild(LocalPlayer.Name)
+						local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+						if not Char or not HRP then
+							lib:notify(lib:ColorFonts("Failed to find HumanoidRootPart","Bold,Red"),10)
+						end
+						HRP.CFrame = CFrame.new(Mouse.Hit.X,Mouse.Hit.Y + 3,Mouse.Hit.Z,select(4,HRP.CFrame:components()))
+					end)
 				end
 			end
 			if IsEnabledTool2 == true then
 				if typeof(ToolHandlerForEmergency2) ~= "nil" then
 					ToolHandlerForEmergency2.Parent = LocalPlayer.Backpack
+					if #getconnections(ToolHandlerForEmergency2.Equipped) > 0 and #getconnections(ToolHandlerForEmergency2.Unequipped) > 0 and #getconnections(ToolHandlerForEmergency2.Activated) > 0 then
+						ToolHandlerForEmergency2.Equipped:Connect(function()
+							lib:notify(lib:ColorFonts("Tool is ready, click anywhere to walk","Bold,Green"),20)
+						end)
+						ToolHandlerForEmergency2.Unequipped:Connect(function()
+							lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+						end)
+						ToolHandlerForEmergency2.Activated:Connect(function()
+							TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+						end)
+					end
 				else
 					ToolHandlerForEmergency2 = TTWToolDecal:Clone()
 					ToolHandlerForEmergency2.Parent = LocalPlayer.Backpack
+					ToolHandlerForEmergency2.Equipped:Connect(function()
+						lib:notify(lib:ColorFonts("Tool is ready, click anywhere to walk","Bold,Green"),20)
+					end)
+					ToolHandlerForEmergency2.Unequipped:Connect(function()
+						lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+					end)
+					ToolHandlerForEmergency2.Activated:Connect(function()
+						TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+					end)
 				end
 			end
 		end)
@@ -7535,14 +7589,49 @@ function lib.DeveloperEncrypt(window,isShowed)
 			if value == true then
 				if typeof(ToolHandlerForEmergency) ~= "nil" then
 					ToolHandlerForEmergency.Parent = LocalPlayer.Backpack
+					if #getconnections(ToolHandlerForEmergency.Equipped) > 0 and #getconnections(ToolHandlerForEmergency.Unequipped) > 0 and #getconnections(ToolHandlerForEmergency.Activated) > 0 then
+						ToolHandlerForEmergency.Equipped:Connect(function()
+							lib:notify(lib:ColorFonts("Tool is ready, click anywhere to teleport","Bold,Green"),20)
+						end)
+						ToolHandlerForEmergency.Unequipped:Connect(function()
+							lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+						end)
+						ToolHandlerForEmergency.Activated:Connect(function()
+							local Char = LocalPlayer.Character or workspace:FindFirstChild(LocalPlayer.Name)
+							local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+							if not Char or not HRP then
+								lib:notify(lib:ColorFonts("Failed to find HumanoidRootPart","Bold,Red"),10)
+							end
+							HRP.CFrame = CFrame.new(Mouse.Hit.X,Mouse.Hit.Y + 3,Mouse.Hit.Z,select(4,HRP.CFrame:components()))
+						end)
+					end
 				else
 					ToolHandlerForEmergency = TpToolDecal:Clone()
 					ToolHandlerForEmergency.Parent = LocalPlayer.Backpack
+					ToolHandlerForEmergency.Equipped:Connect(function()
+						lib:notify(lib:ColorFonts("Tool is ready, click anywhere to teleport","Bold,Green"),20)
+					end)
+					ToolHandlerForEmergency.Unequipped:Connect(function()
+						lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+					end)
+					ToolHandlerForEmergency.Activated:Connect(function()
+						local Char = LocalPlayer.Character or workspace:FindFirstChild(LocalPlayer.Name)
+						local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+						if not Char or not HRP then
+							lib:notify(lib:ColorFonts("Failed to find HumanoidRootPart","Bold,Red"),10)
+						end
+						HRP.CFrame = CFrame.new(Mouse.Hit.X,Mouse.Hit.Y + 3,Mouse.Hit.Z,select(4,HRP.CFrame:components()))
+					end)
 				end
 			elseif value == false then
 				if typeof(ToolHandlerForEmergency) ~= "nil" then
 					ToolHandlerForEmergency:Destroy()
 					ToolHandlerForEmergency = nil
+					if #getconnections(ToolHandlerForEmergency.Equipped) >= 1 and #getconnections(ToolHandlerForEmergency.Unequipped) >= 1 and #getconnections(ToolHandlerForEmergency.Activated) >= 1 then
+						ToolHandlerForEmergency.Equipped:Disconnect()
+						ToolHandlerForEmergency.Unequipped:Disconnect()
+						ToolHandlerForEmergency.Activated:Disconnect()
+					end
 				end
 			end
 		end)
@@ -7552,14 +7641,39 @@ function lib.DeveloperEncrypt(window,isShowed)
 			if value == true then
 				if typeof(ToolHandlerForEmergency2) ~= "nil" then
 					ToolHandlerForEmergency2.Parent = LocalPlayer.Backpack
+					if #getconnections(ToolHandlerForEmergency2.Equipped) > 0 and #getconnections(ToolHandlerForEmergency2.Unequipped) > 0 and #getconnections(ToolHandlerForEmergency2.Activated) > 0 then
+						ToolHandlerForEmergency2.Equipped:Connect(function()
+							lib:notify(lib:ColorFonts("Tool is ready, click anywhere to walk","Bold,Green"),20)
+						end)
+						ToolHandlerForEmergency2.Unequipped:Connect(function()
+							lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+						end)
+						ToolHandlerForEmergency2.Activated:Connect(function()
+							TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+						end)
+					end
 				else
 					ToolHandlerForEmergency2 = TTWToolDecal:Clone()
 					ToolHandlerForEmergency2.Parent = LocalPlayer.Backpack
+					ToolHandlerForEmergency2.Equipped:Connect(function()
+						lib:notify(lib:ColorFonts("Tool is ready, click anywhere to walk","Bold,Green"),20)
+					end)
+					ToolHandlerForEmergency2.Unequipped:Connect(function()
+						lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
+					end)
+					ToolHandlerForEmergency2.Activated:Connect(function()
+						TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+					end)
 				end
 			elseif value == false then
 				if typeof(ToolHandlerForEmergency2) ~= "nil" then
 					ToolHandlerForEmergency2:Destroy()
 					ToolHandlerForEmergency2 = nil
+					if #getconnections(ToolHandlerForEmergency2.Equipped) >= 1 and #getconnections(ToolHandlerForEmergency2.Unequipped) >= 1 and #getconnections(ToolHandlerForEmergency2.Activated) >= 1 then
+						ToolHandlerForEmergency2.Equipped:Disconnect()
+						ToolHandlerForEmergency2.Unequipped:Disconnect()
+						ToolHandlerForEmergency2.Activated:Disconnect()
+					end
 				end
 			end
 		end)
