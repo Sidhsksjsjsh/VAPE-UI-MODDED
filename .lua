@@ -7398,7 +7398,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
 		end)
 		TTWToolDecal.Activated:Connect(function()
-			TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+			TurtleRemoteEvent:Fire("AI","walk",Vector3.new(Mouse.Hit.X,Mouse.Hit.Y,Mouse.Hit.Z))
 		end)
 		]]
 	
@@ -7566,7 +7566,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 							lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
 						end)
 						ToolHandlerForEmergency2.Activated:Connect(function()
-							TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+							TurtleRemoteEvent:Fire("AI","walk",Vector3.new(Mouse.Hit.X,Mouse.Hit.Y,Mouse.Hit.Z))
 						end)
 					end
 				else
@@ -7579,7 +7579,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 						lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
 					end)
 					ToolHandlerForEmergency2.Activated:Connect(function()
-						TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+						TurtleRemoteEvent:Fire("AI","walk",Vector3.new(Mouse.Hit.X,Mouse.Hit.Y,Mouse.Hit.Z))
 					end)
 				end
 			end
@@ -7649,7 +7649,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 							lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
 						end)
 						ToolHandlerForEmergency2.Activated:Connect(function()
-							TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+							TurtleRemoteEvent:Fire("AI","walk",Vector3.new(Mouse.Hit.X,Mouse.Hit.Y,Mouse.Hit.Z))
 						end)
 					end
 				else
@@ -7662,7 +7662,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 						lib:notify(lib:ColorFonts("Tool deactivated.","Bold,Red"),20)
 					end)
 					ToolHandlerForEmergency2.Activated:Connect(function()
-						TurtleRemoteEvent:Fire("AI","walk",Mouse.Hit)
+						TurtleRemoteEvent:Fire("AI","walk",Vector3.new(Mouse.Hit.X,Mouse.Hit.Y,Mouse.Hit.Z))
 					end)
 				end
 			elseif value == false then
