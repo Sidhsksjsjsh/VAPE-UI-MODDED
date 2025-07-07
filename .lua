@@ -7516,11 +7516,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 		local IsEnabledTool2 = false
 		local ToolHandlerForEmergency = nil
 		local ToolHandlerForEmergency2 = nil
+		getgenv().RootPart = user.Character.HumanoidRootPart
 		LocalPlayer.CharacterAdded:Connect(function(chr)
 			if typeof(RootPart) ~= "nil" then
-				RootPart = user.Character.HumanoidRootPart
-			else
-				getgenv().RootPart = user.Character.HumanoidRootPart
+				task.delay(1,function()
+					RootPart = chr.HumanoidRoorPart --user.Character.HumanoidRootPart
+				end)
 			end
 			if IsEnabledTool == true then
 				if typeof(ToolHandlerForEmergency) ~= "nil" then
