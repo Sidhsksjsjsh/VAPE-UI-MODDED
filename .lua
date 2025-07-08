@@ -7520,7 +7520,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 		LocalPlayer.CharacterAdded:Connect(function(chr)
 			if typeof(RootPart) ~= "nil" then
 				task.delay(1,function()
-					RootPart = chr.HumanoidRoorPart --user.Character.HumanoidRootPart
+					RootPart = chr.HumanoidRootPart --user.Character.HumanoidRootPart
 				end)
 			end
 			if IsEnabledTool == true then
