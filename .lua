@@ -7939,7 +7939,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			}
 		}
 
-		T101:Toggle("Player in the same server",true,function(value)
+		T101:Toggle("Player in the same game/server",true,function(value)
 			var.sameserver = value
 		end,"if false, u need to type full name of the player username")
 					
@@ -7962,7 +7962,41 @@ function lib.DeveloperEncrypt(window,isShowed)
 
 		T101:Button("Start snipe",function()
 			lib.snipe(var.game_id,var.userid)
-		end)
+		end,"May not work depends on API")
+
+		T101:Button("Start snipe",function()
+			if var.userid ~= LocalPlayer.UserId then
+				if var.sameserver == true then
+					lib:children(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data,function() -- for _,v in ipairs(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+						if typeof(playerIds) == "table" then
+							if table.find(v.playerIds,var.userid) then
+								lib:notify(lib:ColorFonts("Player Found! Starting teleport.","Bold,Green"),10)
+								TeleportService:TeleportToPlaceInstance(game.PlaceId,v.id,LocalPlayer)
+							else
+								lib:notify(lib:ColorFonts('cant find player with that UserId in this experience with ServerAPI',"Bold,Red"),10)
+							end
+						else
+							lib:notify(lib:ColorFonts('table with name "playerIds" isnt found in ServerAPI',"Bold,Red"),10)
+						end
+					end)
+				else
+					lib:children(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. var.game_id .. "/servers/Public?sortOrder=Asc&limit=100")).data,function() -- for _,v in ipairs(HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+						if typeof(playerIds) == "table" then
+							if table.find(v.playerIds,var.userid) then
+								lib:notify(lib:ColorFonts("Player Found! Starting teleport.","Bold,Green"),10)
+								TeleportService:TeleportToPlaceInstance(var.game_id,v.id,LocalPlayer)
+							else
+								lib:notify(lib:ColorFonts('cant find player with that UserId in that experience with ServerAPI',"Bold,Red"),10)
+							end
+						else
+							lib:notify(lib:ColorFonts('table with name "playerIds" isnt found in ServerAPI',"Bold,Red"),10)
+						end
+					end)
+				end
+			else
+				lib:notify(lib:ColorFonts("UserId must be another player's id, not urs.","Bold,Red"),10)
+			end
+		end,"sometimes work but sometime not")
 					
 		local musiclib = window:Tab("Music")
 		local musicplayer = nil
