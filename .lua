@@ -8875,22 +8875,38 @@ function lib.DeveloperEncrypt(window,isShowed)
 		end)
 		local endpointresponse = nil
 		local kdnsosjekdnsksjekjeoensksjs = "100"
-
+		--https://www.roblox.com/id/games/189707/Kelangsungan-Hidup-Bencana-Alam?gameSetTypeId=100000003&homePageSessionInfo=0036b282-ac58-41e3-8f9f-636ebe07289d&isAd=false&numberOfLoadedTiles=177&page=homePage&placeId=189707&playContext=homePage&position=0&sortPos=3&universeId=65241
 		lib:Loop(function()
 			if IsHolyEnabled == true then
 				if PLAYERNAME == "me" or PLAYERNAME == "Me" or PLAYERNAME == "ME" then
-					lib:descendant(workspace,function(v)
-						if v:IsA("Part") or v:IsA("BasePart") and v.Anchored == false and not v:IsDescendantOf(user.Name) then
-							NetworkOwnershipPart(v,user.Character.HumanoidRootPart.Position)
-						end
-					end)
-				else
-					lib:TrackPlayer(PLAYERNAME,function(v)
-						lib:descendant(workspace,function(i)
-							if i:IsA("Part") or i:IsA("BasePart") and i.Anchored == false and not i:IsDescendantOf(v.Name) then
-								NetworkOwnershipPart(i,v.Character.HumanoidRootPart.Position)
+					if game.PlaceId == 189707 or game.PlaceId == 3696971654 then -- Natural Disaster (Global & Chinese)
+						lib:children(workspace["Structure"]:GetChildren()[1],function(v)
+							if v:IsA("Part") or v:IsA("BasePart") and v.Anchored == false then
+								NetworkOwnershipPart(v,user.Character.HumanoidRootPart)
 							end
 						end)
+					else
+						lib:descendant(workspace,function(v)
+							if v:IsA("Part") or v:IsA("BasePart") and v.Anchored == false then
+								NetworkOwnershipPart(v,user.Character.HumanoidRootPart)
+							end
+						end)
+					end
+				else
+					lib:TrackPlayer(PLAYERNAME,function(v)
+						if game.PlaceId == 189707 or game.PlaceId == 3696971654 then -- Natural Disaster (Global & Chinese)
+							lib:children(workspace["Structure"]:GetChildren()[1],function(i)
+								if i:IsA("Part") or i:IsA("BasePart") and i.Anchored == false then
+									NetworkOwnershipPart(i,v.Character.HumanoidRootPart)
+								end
+							end)
+						else
+							lib:descendant(workspace,function(i)
+								if i:IsA("Part") or i:IsA("BasePart") and i.Anchored == false then
+									NetworkOwnershipPart(i,v.Character.HumanoidRootPart)
+								end
+							end)
+						end
 					end)
 				end
 			end
