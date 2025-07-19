@@ -7513,6 +7513,14 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/Psyhub-Interface-Theme-1.lua")
 				end)
 
+				T100:Button("Turtle Exploit V8 For Client-Side",function()
+					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/client-exec.lua")
+				end,"Ported from Turtle Roblox Exploit")
+
+				T100:Button("Turtle Exploit V8 For Server-Side",function()
+					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/server-exec.lua")
+				end,"Ported from Turtle Roblox Exploit")
+
 				T100:Button("Rejoin",function()
 					lib:rejoin()
 				end)
