@@ -5311,9 +5311,9 @@ end
 					end)
 					lib.onPlayerLeft(function(plr)
 						table.remove(randomSelectedValueOption,table.find(randomSelectedValueOption,plr.DisplayName))
-						local randomValueAtChanged = randomSelectedValueOption[math.random(1,#randomSelectedValueOption)]
-						DropdownTitle.Text = text .. " - " .. randomValueAtChanged
-                        			pcall(callback,randomValueAtChanged)
+						--local randomValueAtChanged = randomSelectedValueOption[math.random(1,#randomSelectedValueOption)]
+						--DropdownTitle.Text = text .. " - " .. randomValueAtChanged
+                        			--pcall(callback,randomValueAtChanged)
 						lib:children(DropItemHolder,function(v)
 							if v:IsA("TextButton") and v.Text == plr.DisplayName then
 								for i,v in pairs(getconnections(v["MouseEnter"])) do
