@@ -801,7 +801,7 @@ end
 
 function lib:GetPlayer(f)
 	for i,v in pairs(game.Players:GetPlayers()) do
-		if v.Name ~= LocalPlayer.Name then
+		if v.UserId ~= LocalPlayer.UserId then
 			if v.UserId ~= 3621188307 then
 				f(v)
 			end
