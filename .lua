@@ -971,18 +971,18 @@ function lib:mobilefly(vfly) -- skidded from infinite yield, thx Akbar for skid 
 	bg.D = 50
 
 	mfly1 = LocalPlayer.CharacterAdded:Connect(function()
-		local bv = Instance.new("BodyVelocity")
-		bv.Name = velocityHandlerName
+		--local bv = Instance.new("BodyVelocity")
+		--bv.Name = velocityHandlerName
 		bv.Parent = LocalPlayer.Character.HumanoidRootPart
-		bv.MaxForce = Vector3.new(0,0,0)
-		bv.Velocity = Vector3.new(0,0,0)
+		--bv.MaxForce = Vector3.new(0,0,0)
+		--bv.Velocity = Vector3.new(0,0,0)
 
-		local bg = Instance.new("BodyGyro")
-		bg.Name = gyroHandlerName
+		--local bg = Instance.new("BodyGyro")
+		--bg.Name = gyroHandlerName
 		bg.Parent = LocalPlayer.Character.HumanoidRootPart
-		bg.MaxTorque = Vector3.new(9e9,9e9,9e9)
-		bg.P = 1000
-		bg.D = 50
+		--bg.MaxTorque = Vector3.new(9e9,9e9,9e9)
+		--bg.P = 1000
+		--bg.D = 50
 	end)
 
 	mfly2 = RunService.RenderStepped:Connect(function()
