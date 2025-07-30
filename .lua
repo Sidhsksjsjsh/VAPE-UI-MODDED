@@ -3913,18 +3913,12 @@ function lib:Window(text,preset,closebind)
     if typeof(emoji) == "string" then -- GetTimePlayed()
 	Title.Text = ("%s | %s"):format(lib:ColorFonts(Title.Text,"Bold,White"),emoji) -- VIP Turtle Hub V4 (17)
 	lib:notify(lib:ColorFonts("Current event : " .. emoji,"Bold,Green"),10)
-	lib:runtime(function(v)
-		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS})({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
+	lib:Loop(function()
 		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","Sky Blue"))} (↑ {HighestPing}ms • ↓ {LowestPing}ms) ({math.floor((LocalPlayer:GetNetworkPing() or 0))} ms)`
 		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")} (↑ {lib:MemoryFormat(HighestMemory)} • ↓ {lib:MemoryFormat(LowestMemory)})`
 		PlayersLabel.Text = `Players : {#game:GetService("Players"):GetPlayers()} (↑ {HighestPlayers} • ↓ {LowestPlayers})`
 		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
 		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
-		if math.round(1/v) > HighestFPS then
-			HighestFPS = math.round(1/v)
-		elseif math.round(1/v) < LowestFPS then
-			LowestFPS = math.round(1/v)
-		end
 		if getPing() > HighestPing then
 			HighestPing = getPing()
 		elseif getPing() < LowestPing then
@@ -3948,20 +3942,23 @@ function lib:Window(text,preset,closebind)
 		TIMES_BLUR.Size = UDim2.new(0,TimesLabel.TextBounds.X + 10,0,TimesLabel.TextBounds.Y + 6)
 		TIME_PLAYED_BLUR.Size = UDim2.new(0,TIMEPLAYEDLabel.TextBounds.X + 10,0,TIMEPLAYEDLabel.TextBounds.Y + 6)
 	end)
-    else --DateTime.now():FormatLocalTime("h:mm:ss A","en-us")
 	lib:runtime(function(v)
-		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts((getPing() >= 1000 and lib:ColorFonts(getPing(),"Red") or getPing() >= 500 and lib:ColorFonts(getPing(),"Yellow") or lib:ColorFonts(getPing(),"White")) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. (math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White")) .. "FPS (" .. (math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White")) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
-		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS})({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
-		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","Sky Blue"))} (↑ {HighestPing}ms • ↓ {LowestPing}ms) ({math.floor((LocalPlayer:GetNetworkPing() or 0))} ms)`
-		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")} (↑ {lib:MemoryFormat(HighestMemory)} • ↓ {lib:MemoryFormat(LowestMemory)})`
-		PlayersLabel.Text = `Players : {#game:GetService("Players"):GetPlayers()} (↑ {HighestPlayers} • ↓ {LowestPlayers})`
-		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
-		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
+		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS}) ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
 		if math.round(1/v) > HighestFPS then
 			HighestFPS = math.round(1/v)
 		elseif math.round(1/v) < LowestFPS then
 			LowestFPS = math.round(1/v)
 		end
+		task.wait(1)
+	end)
+    else --DateTime.now():FormatLocalTime("h:mm:ss A","en-us")
+	lib:Loop(function(v)
+		Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts((getPing() >= 1000 and lib:ColorFonts(getPing(),"Red") or getPing() >= 500 and lib:ColorFonts(getPing(),"Yellow") or lib:ColorFonts(getPing(),"White")) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. (math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White")) .. "FPS (" .. (math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White")) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
+		PingLabel.Text = `Ping : {(getPing() >= 1000 and lib:ColorFonts(getPing() .. "ms","Red") or getPing() >= 500 and lib:ColorFonts(getPing() .. "ms","Yellow") or lib:ColorFonts(getPing() .. "ms","Sky Blue"))} (↑ {HighestPing}ms • ↓ {LowestPing}ms) ({math.floor((LocalPlayer:GetNetworkPing() or 0))} ms)`
+		MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")} (↑ {lib:MemoryFormat(HighestMemory)} • ↓ {lib:MemoryFormat(LowestMemory)})`
+		PlayersLabel.Text = `Players : {#game:GetService("Players"):GetPlayers()} (↑ {HighestPlayers} • ↓ {LowestPlayers})`
+		TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
+		TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
 		if getPing() > HighestPing then
 			HighestPing = getPing()
 		elseif getPing() < LowestPing then
@@ -3984,6 +3981,15 @@ function lib:Window(text,preset,closebind)
 		PLAYERS_BLUR.Size = UDim2.new(0,PlayersLabel.TextBounds.X + 10,0,PlayersLabel.TextBounds.Y + 6)
 		TIMES_BLUR.Size = UDim2.new(0,TimesLabel.TextBounds.X + 10,0,TimesLabel.TextBounds.Y + 6)
 		TIME_PLAYED_BLUR.Size = UDim2.new(0,TIMEPLAYEDLabel.TextBounds.X + 10,0,TIMEPLAYEDLabel.TextBounds.Y + 6)
+	end)
+	lib:runtime(function(v)
+		FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS}) ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
+		if math.round(1/v) > HighestFPS then
+			HighestFPS = math.round(1/v)
+		elseif math.round(1/v) < LowestFPS then
+			LowestFPS = math.round(1/v)
+		end
+		task.wait(1)
 	end)
     end --LocalPlayer:GetNetworkPing()
 	
