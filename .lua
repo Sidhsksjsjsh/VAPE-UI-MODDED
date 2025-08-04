@@ -3899,8 +3899,8 @@ function lib:Window(text,preset,closebind)
 	IDENTIFY_EXPLOIT_BLUR.Parent = ExploitIdentify
 	--TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
 	
-	local HighestFPS = 60
-	local LowestFPS = 60 -- set 60 for easy set
+	getgenv().HighestFPS = 60
+	getgenv().LowestFPS = 60 -- set 60 for easy set
 	
 	local HighestPing = 100
 	local LowestPing = 100 -- dont change
