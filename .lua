@@ -823,9 +823,9 @@ function lib.PlayAnim(id,time,speed,ismp)
 		Anim.Parent = LocalPlayer.Character.Humanoid
 		Anim.Name = "SUP SKID"
 		if ismp == false then
-			Anim.AnimationId = "rbxassetid://" .. id
-		else
-			Anim.AnimationId = id
+			Anim.AnimationId = "rbxassetid://" .. id -- if the animation isnt in marketplace (ismp disabled)
+		elseif ismp == true then
+			Anim.AnimationId = "https://www.roblox.com/asset/?id=" .. id -- if the animation is in marketplace (ismp active)
 		end
 		local loadanim = LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
 		loadanim:Play()
