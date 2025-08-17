@@ -1573,7 +1573,7 @@ end
 
 function lib.getCharacterElementChanged(name,f)
 	LocalPlayer.Character:GetPropertyChangedSignal(name):Connect(function()
-		f()
+		f(LocalPlayer.Character[name])
 	end)
 end
 
@@ -1593,13 +1593,13 @@ end
 
 function lib.getHumanoidElementChanged(name,f)
 	LocalPlayer.Character.Humanoid:GetPropertyChangedSignal(name):Connect(function()
-		f()
+		f(LocalPlayer.Character.Humanoid[name])
 	end)
 end
 
 function lib.getRootElementChanged(name,f)
 	LocalPlayer.Character.HumanoidRootPart:GetPropertyChangedSignal(name):Connect(function()
-		f()
+		f(LocalPlayer.Character.HumanoidRootPart[name])
 	end)
 end
 
@@ -1617,7 +1617,7 @@ end
 
 function lib.getElementChanged(instance,name,f)
 	instance:GetPropertyChangedSignal(name):Connect(function()
-		f()
+		f(instance[name])
 	end)
 end
 --[[
