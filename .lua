@@ -3445,7 +3445,11 @@ end
 
 function lib:FormatRGB(str)
 	if str == "rgb" then
-		return Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(workspace.DistributedGameTime*1.5)/2)+0.5)*255))
+		return Color3.fromRGB(math.floor(((math.sin(workspace.DistributedGameTime / 2) / 2) + 0.5) * 255),math.floor(((math.sin(workspace.DistributedGameTime) / 2) + 0.5) * 255),math.floor(((math.sin(workspace.DistributedGameTime * 1.5) / 2) + 0.5) * 255))
+	elseif str == "hsv1" then
+		return Color3.fromHSV(math.floor(((math.sin(workspace.DistributedGameTime / 2) / 2) + 0.5) * 255),math.floor(((math.sin(workspace.DistributedGameTime) / 2) + 0.5) * 255),math.floor(((math.sin(workspace.DistributedGameTime * 1.5) / 2) + 0.5) * 255))
+	elseif str == "hsv2" then
+		return Color3.fromHSV(math.floor(((math.sin(workspace.DistributedGameTime / 2) / 2) + 0.5) * 255),1,1)
 	elseif str == "gradient" then
 		return {
 			ColorSequence.new{
