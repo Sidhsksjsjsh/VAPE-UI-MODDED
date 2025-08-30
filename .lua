@@ -7685,12 +7685,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end
 			elseif value == false then
 				if typeof(ToolHandlerForEmergency) ~= "nil" then
-					ToolHandlerForEmergency:Destroy()
-					ToolHandlerForEmergency = nil
 					if #getconnections(ToolHandlerForEmergency.Equipped) >= 1 and #getconnections(ToolHandlerForEmergency.Unequipped) >= 1 and #getconnections(ToolHandlerForEmergency.Activated) >= 1 then
 						ToolHandlerForEmergency.Equipped:Disconnect()
 						ToolHandlerForEmergency.Unequipped:Disconnect()
 						ToolHandlerForEmergency.Activated:Disconnect()
+						ToolHandlerForEmergency:Destroy()
+						ToolHandlerForEmergency = nil
 					end
 				end
 			end
@@ -7727,12 +7727,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 				end
 			elseif value == false then
 				if typeof(ToolHandlerForEmergency2) ~= "nil" then
-					ToolHandlerForEmergency2:Destroy()
-					ToolHandlerForEmergency2 = nil
 					if #getconnections(ToolHandlerForEmergency2.Equipped) >= 1 and #getconnections(ToolHandlerForEmergency2.Unequipped) >= 1 and #getconnections(ToolHandlerForEmergency2.Activated) >= 1 then
 						ToolHandlerForEmergency2.Equipped:Disconnect()
 						ToolHandlerForEmergency2.Unequipped:Disconnect()
 						ToolHandlerForEmergency2.Activated:Disconnect()
+						ToolHandlerForEmergency2:Destroy()
+						ToolHandlerForEmergency2 = nil
 					end
 				end
 			end
