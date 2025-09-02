@@ -854,10 +854,10 @@ end
 function lib.WebhookSenderV2(url,usn,msg)
 	http({
 		Url = url,
-                Method = "POST",
-                Headers = {["Content-Type"] = "application/json"},
-                Body = HttpService:JSONEncode({content = msg,username = usn})
-        })
+        Method = "POST",
+        Headers = {["Content-Type"] = "application/json"},
+        Body = HttpService:JSONEncode({content = msg,username = usn})
+    })
 end
 
 function lib.response(a,b,tbl)
@@ -1945,12 +1945,12 @@ function lib:BypassPurchase(script)
 end
 
 local function SendMessage(url,message)
-    local response = http({
+    http({
         Url = url,
         Method = "POST",
         Headers = {
-		["Content-Type"] = "application/json"
-	},
+				["Content-Type"] = "application/json"
+		},
         Body = HttpService:JSONEncode({["content"] = message})
     })
     lib:notify(lib:ColorFonts("Sent","Bold,Green"),10)
@@ -1971,12 +1971,12 @@ local function SendMessageEMBED(url,embed,user_to_tag)
             }
         }
     }
-    local response = http({
+    http({
         Url = url,
         Method = "POST",
         Headers = {
-		["Content-Type"] = "application/json"
-	},
+				["Content-Type"] = "application/json"
+		},
         Body = HttpService:JSONEncode(data)
     })
     lib:notify(lib:ColorFonts("Sent","Bold,Green"),10)
@@ -3319,7 +3319,7 @@ function lib:FireTouch(gameservice,maindetect) -- sorted by vito, cuz fahri make
 		if typeof(maindetect) ~= "nil" then
 			if gameservice:FindFirstChild("TouchInterest") then
 				firetouchinterest(maindetect,gameservice,0)
-				task.wait(0.1)
+				wait(0.1)
 				firetouchinterest(maindetect,gameservice,1)
 			end
 		elseif typeof(maindetect) == "nil" then
