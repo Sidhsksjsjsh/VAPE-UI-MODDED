@@ -9599,8 +9599,7 @@ TextChatService.OnIncomingMessage = function(textChatMessage: TextChatMessage)
 end
 ]]
 
-if typeof(env) == "nil" and typeof(colors) == "nil" then
-	getgenv().env = lib
+if typeof(colors) == "nil" then
 	getgenv().colors = HTMLcolors
 end
 
