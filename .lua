@@ -7523,6 +7523,10 @@ function lib.DeveloperEncrypt(window,isShowed)
 					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/Psyhub-Interface-Theme-1.lua")
 				end)
 
+				T100:Button("VSCode",function()
+					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/VSCode.lua")
+				end)
+
 				T100:Button("Turtle Exploit V8 For Client-Side",function()
 					lib:LoadRepository("https://raw.githubusercontent.com/Sidhsksjsjsh/Elite-Script-Folder/refs/heads/main/client-exec.lua")
 				end,"Ported from Turtle Roblox Exploit")
