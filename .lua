@@ -2492,7 +2492,11 @@ local function CrawlInstances(Inst)
         Iris.SameLine() do
             if Instance:IsA("LocalScript") or Instance:IsA("ModuleScript") then
                 if Iris.SmallButton({"View Script"}).clicked then
-                    ScriptContent = decompile(Instance)
+					if TurtleFlags.DirectDecompile == true then
+						TriggerCodePanel(decompile(Instance))
+					elseif TurtleFlags.DirectDecompile == false then
+						ScriptContent = decompile(Instance)
+					end
                 end
             end
             if Iris.SmallButton({"View and Copy Properties"}).clicked then
