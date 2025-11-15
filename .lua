@@ -2494,7 +2494,7 @@ local function CrawlInstances(Inst)
                 if Iris.SmallButton({"View Script"}).clicked then
 					if TurtleFlags.DirectDecompile == true then
 						if typeof(TriggerCodePanel) == "function" then
-							TriggerCodePanel("" .. (typeof(decompile(Instance)) ~= "nil" and decompile(Instance) or "sorry, decompile has failed"))
+							TriggerCodePanel("",decompile(Instance))
 							ScriptContent = decompile(Instance)
 						elseif typeof(TriggerCodePanel) ~= "function" then
 							ScriptContent = decompile(Instance)
