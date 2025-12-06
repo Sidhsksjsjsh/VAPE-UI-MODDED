@@ -6993,7 +6993,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 					loghttpsys:EditLabel(loglistsys)
 				end
 			end
-		elseif newreq.Url:find("api") or newreq.Url:find("Api") and not newreq.Url:find("api.github.com") or not newreq.Url:find("discord")) then
+		elseif newreq.Url:find("api") or newreq.Url:find("Api") and not newreq.Url:find("api.github.com") or not newreq.Url:find("discord") then
 			if newreq.Url:sub(1,#newreq.Url) == blacklist_api[table.find(blacklist_api,newreq.Url)] then
 				loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts("This http is blocked by Turtle-Tamper.","Bold,Red")
 				loghttpsys:EditLabel(loglistsys)
