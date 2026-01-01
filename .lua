@@ -3122,7 +3122,9 @@ function lib:ErrorReader(func,ssd)
 	local shit,dick = pcall(function()
 		if shut == true then
 			--lib:notify(lib:ColorFonts(lib:ColorFonts("UNDER MAINTENANCE!","Bold"),"Red"),9e9)
-			TurtleScreenNotify("Turtle Hub | Maintenance • Access Closed","Turtle Hub is under maintenance due to an update.",{},nil,{})
+			if game.PlaceId ~= 4580204640 then
+				TurtleScreenNotify("Turtle Hub | Maintenance • Access Closed","Turtle Hub is under maintenance due to an update.",{},nil,{})
+			end
 		else
 			func()
 		end
@@ -3131,11 +3133,13 @@ function lib:ErrorReader(func,ssd)
 		--lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","🔧 |"):gsub(":" .. dick:sub(2,4) .. ":","🔧 |"):gsub(":" .. dick:sub(2,3) .. ":","🔧 |"):gsub(":" .. dick:sub(2,2) .. ":","🔧 |"),"Bold,Red"),9e9)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
 		--dick:gsub(':' .. dick:sub(2,5) .. ': ',''):gsub(':' .. dick:sub(2,4) .. ': ',''):gsub(':' .. dick:sub(2,3) .. ': ',''):gsub(':' .. dick:sub(2,2) .. ': ','')
-		TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
+		if game.PlaceId ~= 4580204640 then -- survive the killer
+			TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
 				Yea = function()
 					func()
 				end
-		})
+			})
+		end
 		SendMessage("https://discord.com/api/webhooks/1238814420730249256/5HrILgPs4i6KejfyN5auAH19cW4cxoQQl3PPVmRfbWr8pkM9DCFLvFeJZjS5TK4aMyKT","An error has occured when running **Turtle Hub**.```diff\n- " .. dick .. "\n\nLocated at :\n" .. debug.traceback() .. "\n```")
 	end
 end
