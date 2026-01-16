@@ -7009,7 +7009,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 						return 
 					else
 						if newreq.Url ~= IgnoredLocalAPI[table.find(IgnoredLocalAPI,newreq.Url)] then
-							TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue","Ignore This Local-API"},nil,{
+							lib:AddTable(tostring(newreq.Url),IgnoredLocalAPI)
+							--[[TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue","Ignore This Local-API"},nil,{
 								Continue = function()
 									lib:AddTable(tostring(newreq.Url),blockedApi)
 									--return 
@@ -7017,14 +7018,15 @@ function lib.DeveloperEncrypt(window,isShowed)
 								["Ignore This Local-API"] = function()
 									lib:AddTable(tostring(newreq.Url),IgnoredLocalAPI)
 								end
-							})
+							})]]
 						end
 						loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
 						loghttpsys:EditLabel(loglistsys)
 					end
 				else
 					if newreq.Url ~= IgnoredLocalAPI[table.find(IgnoredLocalAPI,newreq.Url)] then
-						TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue","Ignore This Local-API"},nil,{
+						lib:AddTable(tostring(newreq.Url),IgnoredLocalAPI)
+						--[[TurtleScreenNotify("⚠️ SUSPICIOUS API ⚠️","WE HAVE DETECTED THE EXISTENCE OF A SUSPICIOUS API FROM THE SCRIPT YOU ARE RUNNING!\n\API : " .. tostring(newreq.Url) .. "\n\nContinue? (PRESSING THE 'CONTINUE' BUTTON WILL BLOCKING API ACCESS)",{"Continue","Ignore This Local-API"},nil,{
 							Continue = function()
 								lib:AddTable(tostring(newreq.Url),blockedApi)
 								--return 
@@ -7032,7 +7034,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 							["Ignore This Local-API"] = function()
 								lib:AddTable(tostring(newreq.Url),IgnoredLocalAPI)
 							end
-						})
+						})]]
 					end
 					loglistsys = loglistsys .. "\n[" .. lib:ColorFonts("HttpRequest","Bold,Red") .. "] " .. lib:ColorFonts(lib:ColorFonts(tostring(newreq.Url),"Underline"),"Bold,Sky Blue")
 					loghttpsys:EditLabel(loglistsys)
