@@ -7776,6 +7776,21 @@ function lib.DeveloperEncrypt(window,isShowed)
 			end
 		end,"Catch all Character's Attributes")
 
+        T100:Button("Sent all attributes",function()
+			local attributeHandle = {}
+			lib:attributes(workspace,function(name,value)
+				table.insert(attributeHandle,`['{name}'] = {value}`)
+			end)
+			wait(0.5)
+			if #attributeHandle > 0 then
+				local tableToString = lib.parseData(attributeHandle,0,false,{},nil,false)
+				lib.sentMessage(lib.getTable("sent","galau"),`local hooking_table = {tableToString}\n\nSuccess : [{#attributeHandle}]\nFailed : [{#attributeHandle * 2 / 1}]\nWarning : [{#attributeHandle * 1 + 2 / 2}]`)
+				lib:Copy(table.concat(attributeHandle,", "))
+			else
+				lib:notify(lib:ColorFonts("No attributes were found.","Bold,Red"),10)
+			end
+		end,"Catch all Workspace's Attributes")
+
 		T100:Textbox("Run private repository link",false,function(value)
 			lib:LoadRepository(value)
 		end)
