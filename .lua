@@ -2444,7 +2444,7 @@ function lib.isDeveloper()
 		--TurtleScreenNotify("Turtle Hub | Beta Tester","Welcome beta test!",{},nil,{})
 		return true
 	end
-	TurtleScreenNotify("Turtle Hub | Error","This script is being tested by our tester\nTester handled by fahri & syifa",{},nil,{})
+	TurtleScreenNotify("Turtle Hub | Error","This script is being tested by our tester\nTester handled by fahri & syifa",{},NotifyCooldown,{})
 	return false
 end
 
@@ -2453,10 +2453,10 @@ function lib:Copy(str)
 	if setclipboard then
            setclipboard(str)
 	   --lib:notify(`Copied! "{str}"`,10)
-	   TurtleScreenNotify("Turtle Hub | Clipboard",`Successfully copied "{str}"`,{},nil,{})
+	   TurtleScreenNotify("Turtle Hub | Clipboard",`Successfully copied "{str}"`,{},NotifyCooldown,{})
 	else
 	--lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
-	TurtleScreenNotify("Turtle Hub | Unsupported function",`{Exploit()} doesnt have "setclipboard" or "toclipboard" envs.\nget a better exploit, nigga!`,{},nil,{})
+	TurtleScreenNotify("Turtle Hub | Unsupported function",`{Exploit()} doesnt have "setclipboard" or "toclipboard" envs.\nget a better exploit, nigga!`,{},NotifyCooldown,{})
     end
 end
 
@@ -2956,7 +2956,7 @@ function lib:runtime(funct)
 	if typeof(funct) == "function" then
 		RunService.RenderStepped:Connect(funct)
 	else
-		TurtleScreenNotify("Turtle Hub | Runtime • Argument","Argument must be a function.",{},nil,{})
+		TurtleScreenNotify("Turtle Hub | Runtime • Argument","Argument must be a function.",{},NotifyCooldown,{})
 	end
 end
 
@@ -2965,7 +2965,7 @@ function lib:Loop(funct)
 		lib:notify(lib:ColorFonts("Real-Time Loop has started.","Bold,Green"),10)
 		RunService.Heartbeat:Connect(funct)
 	else
-		TurtleScreenNotify("Turtle Hub | Runtime • Argument","Argument must be a function.",{},nil,{})
+		TurtleScreenNotify("Turtle Hub | Runtime • Argument","Argument must be a function.",{},NotifyCooldown,{})
 	end
 end
 
@@ -3123,7 +3123,7 @@ function lib:ErrorReader(func,ssd)
 		if shut == true then
 			--lib:notify(lib:ColorFonts(lib:ColorFonts("UNDER MAINTENANCE!","Bold"),"Red"),9e9)
 			if game.PlaceId ~= 4580204640 then
-				TurtleScreenNotify("Turtle Hub | Maintenance • Access Closed","Turtle Hub is under maintenance due to an update.",{},nil,{})
+				TurtleScreenNotify("Turtle Hub | Maintenance • Access Closed","Turtle Hub is under maintenance due to an update.",{},NotifyCooldown,{})
 			end
 		else
 			func()
@@ -3134,7 +3134,7 @@ function lib:ErrorReader(func,ssd)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
 		--dick:gsub(':' .. dick:sub(2,5) .. ': ',''):gsub(':' .. dick:sub(2,4) .. ': ',''):gsub(':' .. dick:sub(2,3) .. ': ',''):gsub(':' .. dick:sub(2,2) .. ': ','')
 		if game.PlaceId ~= 4580204640 then -- survive the killer
-			TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,{"Yea"},nil,{
+			TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,{"Yea"},NotifyCooldown,{
 				Yea = function()
 					func()
 				end
@@ -3353,7 +3353,7 @@ end
 function lib:RemoteSpy(arg)
 	local verrspy = arg or "V1"
 	if getgenv and typeof(BindableRemotes) ~= "nil" then -- this table is for turtle client remotes
-		TurtleScreenNotify("Turtle Client",`Missing environment table\nPlease contact a scripter for fixing it\n\ngetgenv : {(getgenv and "added" or "missing")}\nEnvironment table : {(BindableRemotes and "added" or "missing")}`,{},nil,{})
+		TurtleScreenNotify("Turtle Client",`Missing environment table\nPlease contact a scripter for fixing it\n\ngetgenv : {(getgenv and "added" or "missing")}\nEnvironment table : {(BindableRemotes and "added" or "missing")}`,{},NotifyCooldown,{})
 		return
 	end
 	local isrun,iserror = pcall(function()
@@ -3397,7 +3397,7 @@ function lib:Serverhop(val)
 	end
     end
     if #x > 0 then
-	TurtleScreenNotify("Turtle Hub | Game Teleport","Teleporting u to a new server\nthis takes 2s or more due to the roblox GameTeleport limitations",{},nil,{})
+	TurtleScreenNotify("Turtle Hub | Game Teleport","Teleporting u to a new server\nthis takes 2s or more due to the roblox GameTeleport limitations",{},NotifyCooldown,{})
 	wait(2)
         TeleportService:TeleportToPlaceInstance(game.PlaceId,x[math.random(1,#x)])
     else
@@ -3428,13 +3428,13 @@ function lib:CheckServers(n,funct)
         tgh = false
     end
 	if tgh == true then
-		TurtleScreenNotify("Turtle Hub | Server Hop • Server found","Server found!\n\nAre u sure want to server hop?",{"Yea Sure"},nil,{
+		TurtleScreenNotify("Turtle Hub | Server Hop • Server found","Server found!\n\nAre u sure want to server hop?",{"Yea Sure"},NotifyCooldown,{
 				["Yea Sure"] = function()
 					funct(true)
 				end
 		})
 	else
-		TurtleScreenNotify("Turtle Hub | Server Hop • Server not found","Oops, we couldnt find a server for u\n\nClick again to server hop",{},nil,{})
+		TurtleScreenNotify("Turtle Hub | Server Hop • Server not found","Oops, we couldnt find a server for u\n\nClick again to server hop",{},NotifyCooldown,{})
 		funct(false)
 	end
 end
