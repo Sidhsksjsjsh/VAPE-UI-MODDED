@@ -614,7 +614,7 @@ end)
 --local autoclose = false
 
 local function HWID()
-	return string.gsub(game:GetService("RbxAnalyticsService"):GetClientId(), "-", "")
+	return string.gsub(game:GetService("RbxAnalyticsService"):GetClientId(),"-","")
 end
 
 function lib:WarnUser(title) --,params)
@@ -1419,10 +1419,10 @@ function lib:LoadRepository(path,bool)
 					lib:notify(lib:ColorFonts("[ Turtle-Client ] Done injecting...","Bold,Green"),5)
 				end
 			else
-				TurtleScreenNotify("Turtle Hub | Error","Failed to run script. Error located at \n" .. ModuleScript .. "\n" .. success,{},nil,{}) --logic.Body,{},nil,{})
+				TurtleScreenNotify("Turtle Hub | Error","Failed to run script. Error located at \n" .. ModuleScript .. "\n" .. success,{},NotifyCooldown,{}) --logic.Body,{},nil,{})
 			end
 		else
-			TurtleScreenNotify("Turtlen Hub | " .. tostring(logic.StatusCode),"Failed to make HTTP Request. Error Code : " .. tostring(logic.StatusCode),{},nil,{})
+			TurtleScreenNotify("Turtlen Hub | " .. tostring(logic.StatusCode),"Failed to make HTTP Request. Error Code : " .. tostring(logic.StatusCode),{},NotifyCooldown,{})
 		end
 	else
 		lib:notify(lib:ColorFonts("ONLY GITHUB API ENDPOINT ARE ALLOWED TO USE THIS FUNCTION","Bold,Red"),10)
