@@ -8579,7 +8579,8 @@ function lib.DeveloperEncrypt(window,isShowed)
 				"CalWalk Glam Animation",
 				"NFL Animation",
 				"Adidas Community",
-                                "Animal"
+                                "God Animation V1",
+				"God Animation V2",
 			},
 			sel = "",
 			looping = false
@@ -8814,14 +8815,22 @@ function lib.DeveloperEncrypt(window,isShowed)
 				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=75290611992385"
 				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=88763136693023"
 				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=98600215928904"
-			elseif anim_table.sel == "Animal" then
-				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=10921259953"
-				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=10921258489"
-				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=10921269718"
-				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=10921261968"
-				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=10921263860"
-				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=10921257536"
-				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=10921262864"
+			elseif anim_table.sel == "God Animation V1" then
+				Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=110211186840347"
+				Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=114191137265065"
+				Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=83842218823011"
+				Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=118320322718866"
+				Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=109996626521204"
+				Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=97824616490448"
+				Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=95603166884636"
+			elseif anim_table.sel == "God Animation V2" then
+				Animate.idle.Animation1.AnimationId = "rbxassetid://110211186840347"
+				Animate.idle.Animation2.AnimationId = "rbxassetid://114191137265065"
+				Animate.walk.WalkAnim.AnimationId = "rbxassetid://83842218823011"
+				Animate.run.RunAnim.AnimationId = "rbxassetid://118320322718866"
+				Animate.jump.JumpAnim.AnimationId = "rbxassetid://109996626521204"
+				Animate.climb.ClimbAnim.AnimationId = "rbxassetid://97824616490448"
+				Animate.fall.FallAnim.AnimationId = "rbxassetid://95603166884636"
 			end
 		end)
 
