@@ -2451,12 +2451,14 @@ end
 function lib:Copy(str)
 	--local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
 	if setclipboard then
-           setclipboard(str)
-	   --lib:notify(`Copied! "{str}"`,10)
-	   TurtleScreenNotify("Turtle Hub | Clipboard",`Successfully copied "{str}"`,{},NotifyCooldown,{})
+        setclipboard(str)
+		--lib:notify(`Copied! "{str}"`,10)
+		TurtleScreenNotify("Turtle Hub | Clipboard",`Successfully copied "{str}"`,{},NotifyCooldown,{})
+		TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts(`Successfully copied {str}`,"Bold,Red"))
 	else
-	--lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
-	TurtleScreenNotify("Turtle Hub | Unsupported function",`{Exploit()} doesnt have "setclipboard" or "toclipboard" envs.\nget a better exploit, nigga!`,{},NotifyCooldown,{})
+		--lib:notify(lib:ColorFonts(`{Exploit()} | missing-function - "setclipboard" or "toclipboard"`,"Red"),10)
+		TurtleScreenNotify("Turtle Hub | Unsupported function",`{Exploit()} doesnt have "setclipboard" or "toclipboard" envs.\nget a better exploit, nigga!`,{},NotifyCooldown,{})
+		TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts(`{Exploit()} doesnt have "setclipboard" or "toclipboard" envs.\nget a better exploit, nigga!`,"Bold,Red"))
     end
 end
 
@@ -2963,9 +2965,11 @@ end
 function lib:Loop(funct)
 	if typeof(funct) == "function" then
 		lib:notify(lib:ColorFonts("Real-Time Loop has started.","Bold,Green"),10)
+		TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts("Real-Time Loop has started.","Bold,Green"))
 		RunService.Heartbeat:Connect(funct)
 	else
 		TurtleScreenNotify("Turtle Hub | Runtime • Argument","Argument must be a function.",{},NotifyCooldown,{})
+		TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts("Argument must be a function.","Bold,Red"))
 	end
 end
 
@@ -3035,11 +3039,11 @@ end
 
 function lib:HookCalled(func)
 	local gmt = getrawmetatable(game)
-        setreadonly(gmt, false)
-        local oldNamecall = gmt.__namecall
-        gmt.__namecall = newcclosure(function(self, ...)
-                local Args = {...}
-                local method = getnamecallmethod()
+    setreadonly(gmt, false)
+    local oldNamecall = gmt.__namecall
+    gmt.__namecall = newcclosure(function(self, ...)
+        local Args = {...}
+        local method = getnamecallmethod()
 		if method == "FireServer" then
 			func(self,Args)
 		elseif method == "InvokeServer" then
@@ -3050,8 +3054,8 @@ function lib:HookCalled(func)
 		elseif method == "Invoke" then
 			func(self,Args)
 		end
-        return oldNamecall(self, ...)
-        end)
+		return oldNamecall(self, ...)
+    end)
 end
 		
 function lib:AddTable(gameservice,tbl,ElementToRemove)
@@ -3133,7 +3137,9 @@ function lib:ErrorReader(func,ssd)
 		--lib:notify(lib:ColorFonts(dick:gsub(":" .. dick:sub(2,5) .. ":","🔧 |"):gsub(":" .. dick:sub(2,4) .. ":","🔧 |"):gsub(":" .. dick:sub(2,3) .. ":","🔧 |"):gsub(":" .. dick:sub(2,2) .. ":","🔧 |"),"Bold,Red"),9e9)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
 		--dick:gsub(':' .. dick:sub(2,5) .. ': ',''):gsub(':' .. dick:sub(2,4) .. ': ',''):gsub(':' .. dick:sub(2,3) .. ': ',''):gsub(':' .. dick:sub(2,2) .. ': ','')
+		TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts(`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,"Bold,Red"))
 		if game.PlaceId ~= 4580204640 then -- survive the killer
+			TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts(`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,"Bold,Red"))
 			TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,{"Yea"},NotifyCooldown,{
 				Yea = function()
 					func()
