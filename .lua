@@ -3715,6 +3715,164 @@ local function GetTimePlayed()
 	return (typeof(hours) ~= "nil" and hours or 0) .. ':' .. (typeof(minutes) ~= "nil" and minutes or 0) .. ':' .. (typeof(seconds) ~= "nil" and seconds or 0) .. ''
 end
 
+local FpsPingFrame = Instance.new("Frame")
+FpsPingFrame.Name = "FpsPingFrame"
+FpsPingFrame.Parent = GO_FUCK_URSELF
+FpsPingFrame.BackgroundColor3 = Color3.fromRGB(29,29,29)
+FpsPingFrame.BackgroundTransparency = 0.2
+FpsPingFrame.BorderSizePixel = 0
+FpsPingFrame.Position = UDim2.new(0.01,0,0.01,0)
+FpsPingFrame.Size = UDim2.new(0,150,0,50) --UDim2.new(0,150,0,50)
+FpsPingFrame.Visible = false
+FpsPingFrame.Transparency = 1
+drag(FpsPingFrame)
+TurtleFlags.CounterFrame = FpsPingFrame
+
+local UICorner_FpsPing = Instance.new("UICorner")
+UICorner_FpsPing.CornerRadius = UDim.new(0,8)
+UICorner_FpsPing.Parent = FpsPingFrame
+
+local Blur_FpsPing = Instance.new("ImageLabel")
+Blur_FpsPing.Name = "Blur_FpsPing"
+Blur_FpsPing.Parent = nil
+Blur_FpsPing.BackgroundTransparency = 1
+Blur_FpsPing.BorderSizePixel = 0
+Blur_FpsPing.Size = UDim2.new(1,0,1,0)
+Blur_FpsPing.Image = "http://www.roblox.com/asset/?id=6758962034"
+Blur_FpsPing.ImageTransparency = 0.55
+
+local FpsLabel = Instance.new("TextLabel")
+FpsLabel.Name = "FPS"
+FpsLabel.Parent = FpsPingFrame
+FpsLabel.BackgroundTransparency = 1
+FpsLabel.BorderSizePixel = 0
+FpsLabel.Position = UDim2.new(0.1,0,0.1,0)
+FpsLabel.Size = UDim2.new(0.8,0,0.3,0)
+FpsLabel.Font = Enum.Font.JosefinSans
+FpsLabel.Text = "FPS : %"
+FpsLabel.TextColor3 = Color3.fromRGB(93,255,255)
+FpsLabel.TextSize = 14
+FpsLabel.TextXAlignment = Enum.TextXAlignment.Left
+FpsLabel.RichText = true
+FpsLabel.Visible = false
+FpsLabel.TextStrokeTransparency = 0
+local FPS_BLUR = Blur_FpsPing:Clone()
+FPS_BLUR.Parent = FpsLabel
+--FPS_BLUR.Position = FpsLabel.Position
+	
+local PingLabel = Instance.new("TextLabel")
+PingLabel.Name = "PING"
+PingLabel.Parent = FpsPingFrame
+PingLabel.BackgroundTransparency = 1
+PingLabel.BorderSizePixel = 0
+PingLabel.Position = UDim2.new(0.1,0,0.5,0)
+PingLabel.Size = UDim2.new(0.8,0,0.3,0)
+PingLabel.Font = Enum.Font.JosefinSans
+PingLabel.Text = "Ping : %ms"
+PingLabel.TextColor3 = Color3.fromRGB(93,255,255)
+PingLabel.TextSize = 14
+PingLabel.TextXAlignment = Enum.TextXAlignment.Left
+PingLabel.RichText = true
+PingLabel.Visible = false
+PingLabel.TextStrokeTransparency = 0
+local PING_BLUR = Blur_FpsPing:Clone()
+PING_BLUR.Parent = PingLabel
+--PING_BLUR.Position = PingLabel.Position
+	
+local MemoryLabel = Instance.new("TextLabel")
+MemoryLabel.Name = "MEMORY"
+MemoryLabel.Parent = FpsPingFrame
+MemoryLabel.BackgroundTransparency = 1
+MemoryLabel.BorderSizePixel = 0
+MemoryLabel.Position = UDim2.new(0.1,0,PingLabel.Position.Y.Scale + 0.4,0)
+MemoryLabel.Size = UDim2.new(0.8,0,0.3,0)
+MemoryLabel.Font = Enum.Font.JosefinSans
+MemoryLabel.Text = "Memory Usage : %MB"
+MemoryLabel.TextColor3 = Color3.fromRGB(93,255,255)
+MemoryLabel.TextSize = 14
+MemoryLabel.TextXAlignment = Enum.TextXAlignment.Left
+MemoryLabel.RichText = true
+MemoryLabel.Visible = false
+MemoryLabel.TextStrokeTransparency = 0
+local MEMORY_BLUR = Blur_FpsPing:Clone()
+MEMORY_BLUR.Parent = MemoryLabel
+--MEMORY_BLUR.Position = MemoryLabel.Position
+	
+local PlayersLabel = Instance.new("TextLabel")
+PlayersLabel.Name = "Player"
+PlayersLabel.Parent = FpsPingFrame
+PlayersLabel.BackgroundTransparency = 1
+PlayersLabel.BorderSizePixel = 0
+PlayersLabel.Position = UDim2.new(0.1,0,MemoryLabel.Position.Y.Scale + 0.4,0)
+PlayersLabel.Size = UDim2.new(0.8,0,0.3,0)
+PlayersLabel.Font = Enum.Font.JosefinSans
+PlayersLabel.Text = "Players : %"
+PlayersLabel.TextColor3 = Color3.fromRGB(93,255,255)
+PlayersLabel.TextSize = 14
+PlayersLabel.TextXAlignment = Enum.TextXAlignment.Left
+PlayersLabel.RichText = true
+PlayersLabel.Visible = false
+PlayersLabel.TextStrokeTransparency = 0
+local PLAYERS_BLUR = Blur_FpsPing:Clone()
+PLAYERS_BLUR.Parent = PlayersLabel
+--PLAYERS_BLUR.Position = PlayersLabel.Position
+
+local TimesLabel = Instance.new("TextLabel")
+TimesLabel.Name = "Player"
+TimesLabel.Parent = FpsPingFrame
+TimesLabel.BackgroundTransparency = 1
+TimesLabel.BorderSizePixel = 0
+TimesLabel.Position = UDim2.new(0.1,0,PlayersLabel.Position.Y.Scale + 0.4,0)
+TimesLabel.Size = UDim2.new(0.8,0,0.3,0)
+TimesLabel.Font = Enum.Font.JosefinSans
+TimesLabel.Text = "Time : %"
+TimesLabel.TextColor3 = Color3.fromRGB(93,255,255)
+TimesLabel.TextSize = 14
+TimesLabel.TextXAlignment = Enum.TextXAlignment.Left
+TimesLabel.RichText = true
+TimesLabel.Visible = false
+TimesLabel.TextStrokeTransparency = 0
+local TIMES_BLUR = Blur_FpsPing:Clone()
+TIMES_BLUR.Parent = TimesLabel
+--TIMES_BLUR.Position = TimesLabel.Position
+	
+local TIMEPLAYEDLabel = Instance.new("TextLabel")
+TIMEPLAYEDLabel.Name = "Time Played"
+TIMEPLAYEDLabel.Parent = FpsPingFrame
+TIMEPLAYEDLabel.BackgroundTransparency = 1
+TIMEPLAYEDLabel.BorderSizePixel = 0
+TIMEPLAYEDLabel.Position = UDim2.new(0.1,0,TimesLabel.Position.Y.Scale + 0.4,0)
+TIMEPLAYEDLabel.Size = UDim2.new(0.8,0,0.3,0)
+TIMEPLAYEDLabel.Font = Enum.Font.JosefinSans
+TIMEPLAYEDLabel.Text = "Time Played : %"
+TIMEPLAYEDLabel.TextColor3 = Color3.fromRGB(93,255,255)
+TIMEPLAYEDLabel.TextSize = 14
+TIMEPLAYEDLabel.TextXAlignment = Enum.TextXAlignment.Left
+TIMEPLAYEDLabel.RichText = true
+TIMEPLAYEDLabel.Visible = false
+TIMEPLAYEDLabel.TextStrokeTransparency = 0
+local TIME_PLAYED_BLUR = Blur_FpsPing:Clone()
+TIME_PLAYED_BLUR.Parent = TIMEPLAYEDLabel
+--TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
+	
+local ExploitIdentify = Instance.new("TextLabel")
+ExploitIdentify.Name = "ExploitIdentify"
+ExploitIdentify.Parent = FpsPingFrame
+ExploitIdentify.BackgroundTransparency = 1
+ExploitIdentify.BorderSizePixel = 0
+ExploitIdentify.Position = UDim2.new(0.1,0,TIMEPLAYEDLabel.Position.Y.Scale + 0.4,0)
+ExploitIdentify.Size = UDim2.new(0.8,0,0.3,0)
+ExploitIdentify.Font = Enum.Font.JosefinSans
+ExploitIdentify.Text = "User-Agent : " .. (typeof(identifyexecutor) == "function" and identifyexecutor() or "null")
+ExploitIdentify.TextColor3 = Color3.fromRGB(93,255,255)
+ExploitIdentify.TextSize = 14
+ExploitIdentify.TextXAlignment = Enum.TextXAlignment.Left
+ExploitIdentify.RichText = true
+ExploitIdentify.Visible = false
+ExploitIdentify.TextStrokeTransparency = 0
+local IDENTIFY_EXPLOIT_BLUR = Blur_FpsPing:Clone()
+IDENTIFY_EXPLOIT_BLUR.Parent = ExploitIdentify
+
 --lib:FormatRGB("gradient") local method = getnamecallmethod()
 function lib:Window(text,preset,closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
@@ -3722,7 +3880,7 @@ function lib:Window(text,preset,closebind)
     fs = false
     TurtleFlags.DescTextStyle = "Bold,Gray"
 
-	local FpsPingFrame = Instance.new("Frame")
+	--[[local FpsPingFrame = Instance.new("Frame")
 	FpsPingFrame.Name = "FpsPingFrame"
 	FpsPingFrame.Parent = GO_FUCK_URSELF
 	FpsPingFrame.BackgroundColor3 = Color3.fromRGB(29,29,29)
@@ -3746,7 +3904,7 @@ function lib:Window(text,preset,closebind)
 	Blur_FpsPing.BorderSizePixel = 0
 	Blur_FpsPing.Size = UDim2.new(1,0,1,0)
 	Blur_FpsPing.Image = "http://www.roblox.com/asset/?id=6758962034"
-	Blur_FpsPing.ImageTransparency = 0.55
+	Blur_FpsPing.ImageTransparency = 0.55]]
 	
     local Main = Instance.new("Frame")
     local TabHold = Instance.new("ScrollingFrame")
@@ -3798,7 +3956,7 @@ function lib:Window(text,preset,closebind)
     Title.TextXAlignment = Enum.TextXAlignment.Left
     Title.RichText = true
 
-    local FpsLabel = Instance.new("TextLabel")
+    --[[local FpsLabel = Instance.new("TextLabel")
     FpsLabel.Name = "FPS"
     FpsLabel.Parent = FpsPingFrame
     FpsLabel.BackgroundTransparency = 1
@@ -3921,7 +4079,7 @@ function lib:Window(text,preset,closebind)
     ExploitIdentify.RichText = true
     ExploitIdentify.TextStrokeTransparency = 0
 	local IDENTIFY_EXPLOIT_BLUR = Blur_FpsPing:Clone()
-	IDENTIFY_EXPLOIT_BLUR.Parent = ExploitIdentify
+	IDENTIFY_EXPLOIT_BLUR.Parent = ExploitIdentify]]
 	--TIME_PLAYED_BLUR.Position = TIMEPLAYEDLabel.Position
 	
 	getgenv().HighestFPS = 60
@@ -7578,8 +7736,30 @@ function lib.DeveloperEncrypt(window,isShowed)
 			TurtleFlags.ScreenClickForInGameScreenClick = value
 		end,"For a map that uses screen click")
 
-		T100:Toggle("Hide Client Statistic",GO_FUCK_URSELF.Enabled,function(value)
+		T100:Toggle("Show Client Statistic",GO_FUCK_URSELF.Enabled,function(value)
 			GO_FUCK_URSELF.Enabled = value
+		end)
+
+		T100:Toggle("Show FPS Statistic",FpsLabel.Visible,function(value)
+			FpsLabel.Visible = value
+		end)
+		T100:Toggle("Show Ping Statistic",PingLabel.Visible,function(value)
+			PingLabel.Visible = value
+		end)
+		T100:Toggle("Show Memory Statistic",MemoryLabel.Visible,function(value)
+			MemoryLabel.Visible = value
+		end)
+		T100:Toggle("Show Players Count Statistic",PlayersLabel.Visible,function(value)
+			PlayersLabel.Visible = value
+		end)
+		T100:Toggle("Show Time Statistic",TimesLabel.Visible,function(value)
+			TimesLabel.Visible = value
+		end)
+		T100:Toggle("Show Time Played Statistic",TIMEPLAYEDLabel.Visible,function(value)
+			TIMEPLAYEDLabel.Visible = value
+		end)
+		T100:Toggle("Show Exploit User-Agent Statistic",ExploitIdentify.Visible,function(value)
+			ExploitIdentify.Visible = value
 		end)
 		
 		T100:Button("Lag patcher [ FPS & PING ]",function()
@@ -7727,9 +7907,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 			elseif value == false then
 				if typeof(ToolHandlerForEmergency) ~= "nil" then
 					if #getconnections(ToolHandlerForEmergency.Equipped) >= 1 and #getconnections(ToolHandlerForEmergency.Unequipped) >= 1 and #getconnections(ToolHandlerForEmergency.Activated) >= 1 then
-						ToolHandlerForEmergency.Equipped:Disconnect()
-						ToolHandlerForEmergency.Unequipped:Disconnect()
-						ToolHandlerForEmergency.Activated:Disconnect()
 						ToolHandlerForEmergency:Destroy()
 						ToolHandlerForEmergency = nil
 					end
@@ -7769,9 +7946,6 @@ function lib.DeveloperEncrypt(window,isShowed)
 			elseif value == false then
 				if typeof(ToolHandlerForEmergency2) ~= "nil" then
 					if #getconnections(ToolHandlerForEmergency2.Equipped) >= 1 and #getconnections(ToolHandlerForEmergency2.Unequipped) >= 1 and #getconnections(ToolHandlerForEmergency2.Activated) >= 1 then
-						ToolHandlerForEmergency2.Equipped:Disconnect()
-						ToolHandlerForEmergency2.Unequipped:Disconnect()
-						ToolHandlerForEmergency2.Activated:Disconnect()
 						ToolHandlerForEmergency2:Destroy()
 						ToolHandlerForEmergency2 = nil
 					end
