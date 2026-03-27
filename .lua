@@ -3726,7 +3726,7 @@ FpsPingFrame.Size = UDim2.new(0,150,0,50) --UDim2.new(0,150,0,50)
 FpsPingFrame.Visible = false
 FpsPingFrame.Transparency = 1
 --drag(FpsPingFrame)
-TurtleFlags.CounterFrame = FpsPingFrame
+--TurtleFlags.CounterFrame = FpsPingFrame
 
 local UICorner_FpsPing = Instance.new("UICorner")
 UICorner_FpsPing.CornerRadius = UDim.new(0,8)
