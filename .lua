@@ -52,6 +52,7 @@ local CameraModule = nil
 local controlModule = nil
 local FPS_Interval = 0.5
 local FPSLastTimeUpdated = tick()
+local FPSSpoofLocalValue = 1
 if LocalPlayer["PlayerScripts"]:FindFirstChild("PlayerModule") then
 	if LocalPlayer["PlayerScripts"]["PlayerModule"]:FindFirstChild("CameraModule") then
 		CameraModule = LocalPlayer["PlayerScripts"]["PlayerModule"]["CameraModule"]
@@ -4129,13 +4130,13 @@ function lib:Window(text,preset,closebind)
 		end)
 		lib:runtime(function(v)
 			if tick() - FPSLastTimeUpdated >= FPS_Interval then
-				FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS}) ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
+				FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v) * FPSSpoofLocalValue,"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v) * FPSSpoofLocalValue,"Red") or lib:ColorFonts(math.round(1/v) * FPSSpoofLocalValue,"White"))} (↑ {HighestFPS} • ↓ {LowestFPS}) ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()) * FPSSpoofLocalValue,"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) * FPSSpoofLocalValue <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()) * FPSSpoofLocalValue,"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()) * FPSSpoofLocalValue,"Sky Blue"))}/R)`
 				FPSLastTimeUpdated = tick()
 				if math.round(1/v) > HighestFPS then
-					HighestFPS = math.round(1/v)
-					LowestFPS = math.round(1/v)
+					HighestFPS = math.round(1/v) * FPSSpoofLocalValue
+					LowestFPS = math.round(1/v) * FPSSpoofLocalValue
 				elseif math.round(1/v) < LowestFPS then
-					LowestFPS = math.round(1/v)
+					LowestFPS = math.round(1/v) * FPSSpoofLocalValue
 				end
 			end
 		end)
@@ -4174,14 +4175,14 @@ function lib:Window(text,preset,closebind)
 		end)
 		lib:runtime(function(v)
 			if tick() - FPSLastTimeUpdated >= FPS_Interval then
-				FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White"))} (↑ {HighestFPS} • ↓ {LowestFPS}) ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Sky Blue"))}/R)`
+				FpsLabel.Text = `FPS : {(math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v) * FPSSpoofLocalValue,"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v) * FPSSpoofLocalValue,"Red") or lib:ColorFonts(math.round(1/v) * FPSSpoofLocalValue,"White"))} (↑ {HighestFPS} • ↓ {LowestFPS}) ({(math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()) * FPSSpoofLocalValue,"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()) * FPSSpoofLocalValue,"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()) * FPSSpoofLocalValue,"Sky Blue"))}/R)`
 				Title.Text = lib:ColorFonts(lib:ColorFonts(text,"Bold"),"White") .. " | " .. lib:ColorFonts(lib:ColorFonts((getPing() >= 1000 and lib:ColorFonts(getPing(),"Red") or getPing() >= 500 and lib:ColorFonts(getPing(),"Yellow") or lib:ColorFonts(getPing(),"White")) .. "ms (" .. math.floor((LocalPlayer:GetNetworkPing() or 0)) .. "ms) - " .. (math.round(1/v) <= 30 and lib:ColorFonts(math.round(1/v),"Yellow") or math.round(1/v) <= 10 and lib:ColorFonts(math.round(1/v),"Red") or lib:ColorFonts(math.round(1/v),"White")) .. "FPS (" .. (math.floor(workspace:GetRealPhysicsFPS()) <= 30 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Yellow") or math.floor(workspace:GetRealPhysicsFPS()) <= 10 and lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"Red") or lib:ColorFonts(math.floor(workspace:GetRealPhysicsFPS()),"White")) .. "/R) - " .. (lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB") .. " - " .. (#game:GetService("Players"):GetPlayers() or #game:GetService("Players"):GetChildren()) .. "👤 - " .. DateTime.now():FormatLocalTime("h:mm:ss A","en-us"),"Bold"),"White")
 				FPSLastTimeUpdated = tick()
 				if math.round(1/v) > HighestFPS then
-					HighestFPS = math.round(1/v)
-					LowestFPS = math.round(1/v)
+					HighestFPS = math.round(1/v) * FPSSpoofLocalValue
+					LowestFPS = math.round(1/v) * FPSSpoofLocalValue
 				elseif math.round(1/v) < LowestFPS then
-					LowestFPS = math.round(1/v)
+					LowestFPS = math.round(1/v) * FPSSpoofLocalValue
 				end
 			end
 		end)
@@ -7736,6 +7737,12 @@ function lib.DeveloperEncrypt(window,isShowed)
 		T100:Toggle("Screen Click [ Screen Corner ]",false,function(value)
 			TurtleFlags.ScreenClickForInGameScreenClick = value
 		end,"For a map that uses screen click")
+			
+		GameEnv:Slider("FPS Spoof Multiplier",0,10,1,function(value)
+			FPSSpoofLocalValue = value
+			HighestFPS = HighestFPS * value
+			LowestFPS = LowestFPS * value
+		end,"Only Spoofing")
 
 		T100:Toggle("Show Client Statistic",GO_FUCK_URSELF.Enabled,function(value)
 			GO_FUCK_URSELF.Enabled = value
