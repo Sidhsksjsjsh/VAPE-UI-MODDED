@@ -7738,7 +7738,7 @@ function lib.DeveloperEncrypt(window,isShowed)
 			TurtleFlags.ScreenClickForInGameScreenClick = value
 		end,"For a map that uses screen click")
 			
-		GameEnv:Slider("FPS Spoof Multiplier",0,10,1,function(value)
+		T100:Slider("FPS Spoof Multiplier",0,10,1,function(value)
 			FPSSpoofLocalValue = value
 			HighestFPS = HighestFPS * value
 			LowestFPS = LowestFPS * value
