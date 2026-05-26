@@ -58,7 +58,7 @@ if LocalPlayer["PlayerScripts"]:FindFirstChild("PlayerModule") then
 		CameraModule = LocalPlayer["PlayerScripts"]["PlayerModule"]["CameraModule"]
 	end
 	if LocalPlayer["PlayerScripts"]["PlayerModule"]:FindFirstChild("ControlModule") then
-		--controlModule = require(LocalPlayer["PlayerScripts"]["PlayerModule"]["ControlModule"])
+		controlModule = require(LocalPlayer["PlayerScripts"]["PlayerModule"]["ControlModule"])
 	end
 end
 
