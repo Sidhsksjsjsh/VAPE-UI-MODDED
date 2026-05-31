@@ -3714,7 +3714,7 @@ local function GetTimePlayed()
 	local seconds = seconds - (minutes * 60)
 	local minutes = minutes - (hours * 60)
 	return (typeof(hours) ~= "nil" and hours or 0) .. ':' .. (typeof(minutes) ~= "nil" and minutes or 0) .. ':' .. (typeof(seconds) ~= "nil" and seconds or 0) .. ''
-end
+end --env:Time(workspace.DistributedGameTime)
 
 local FpsPingFrame = Instance.new("Frame")
 FpsPingFrame.Name = "FpsPingFrame"
@@ -4102,7 +4102,7 @@ function lib:Window(text,preset,closebind)
 			MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")} (↑ {lib:MemoryFormat(HighestMemory)} • ↓ {lib:MemoryFormat(LowestMemory)})`
 			PlayersLabel.Text = `Players : {#game:GetService("Players"):GetPlayers()} (↑ {HighestPlayers} • ↓ {LowestPlayers})`
 			TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
-			TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
+			TIMEPLAYEDLabel.Text = `Time Played : {env:Time(workspace.DistributedGameTime)}` --GetTimePlayed()}`
 			if getPing() > HighestPing then
 				HighestPing = getPing()
 				LowestPing = getPing()
@@ -4147,7 +4147,7 @@ function lib:Window(text,preset,closebind)
 			MemoryLabel.Text = `Memory Usage : {(lib:MemoryFormat(Stats.GetTotalMemoryUsageMb(Stats)) or "0 KB")} (↑ {lib:MemoryFormat(HighestMemory)} • ↓ {lib:MemoryFormat(LowestMemory)})`
 			PlayersLabel.Text = `Players : {#game:GetService("Players"):GetPlayers()} (↑ {HighestPlayers} • ↓ {LowestPlayers})`
 			TimesLabel.Text = `Time : {DateTime.now():FormatLocalTime("h:mm:ss A","en-us")}`
-			TIMEPLAYEDLabel.Text = `Time Played : {GetTimePlayed()}`
+			TIMEPLAYEDLabel.Text = `Time Played : {env:Time(workspace.DistributedGameTime)}` --GetTimePlayed()}`
 			if getPing() > HighestPing then
 				HighestPing = getPing()
 				LowestPing = getPing()
