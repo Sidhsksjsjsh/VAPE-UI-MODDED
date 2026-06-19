@@ -5142,13 +5142,12 @@ function lib:Window(text,preset,closebind)
 			end)
 			
             Toggle.MouseButton1Click:Connect(function()
-		        toggled = not toggled
-                if toggled == false then
-                    --[[TweenService:Create(
+		        if toggled == false then
+                    TweenService:Create(
                         Toggle,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
-                    ):Play()]]
+                    ):Play()
                     TweenService:Create(
                         FrameToggle1,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
@@ -5177,11 +5176,11 @@ function lib:Window(text,preset,closebind)
                         true
                     )]]
                 else
-                    --[[TweenService:Create(
+                    TweenService:Create(
                         Toggle,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         {BackgroundColor3 = Color3.fromRGB(34, 34, 34)}
-                    ):Play()]]
+                    ):Play()
                     TweenService:Create(
                         FrameToggle1,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
@@ -5593,7 +5592,7 @@ function lib:Window(text,preset,closebind)
 			DropdownBtn.MouseButton1Up:Connect(function()
 				TweenService:Create(DropdownBtn,infoJellyOut,{Size = UDim2.new(0,363,0,42)}):Play()
 				if droptog == true then
-					Dropdown.Size = UDim2.new(0,363,0,43)
+					--Dropdown.Size = UDim2.new(0,363,0,43)
 					TweenService:Create(Dropdown,infoJellyOut,{Size = UDim2.new(0,363,0,42)}):Play()
 				elseif droptog == false then
 					TweenService:Create(Dropdown,infoQuickSquish,{Size = UDim2.new(0,363,0,55 + framesize)}):Play()
