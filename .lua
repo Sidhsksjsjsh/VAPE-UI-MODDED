@@ -5123,7 +5123,7 @@ function lib:Window(text,preset,closebind)
 	    	end)
 
 			Toggle.MouseButton1Down:Connect(function()
-				TweenService:Create(Toggle,infoQuickSquish,{Size = UDim2.new(0,463,0,42)}):Play()
+				--TweenService:Create(Toggle,infoQuickSquish,{Size = UDim2.new(0,463,0,42)}):Play()
 				if toggled == false then
 					TweenService:Create(FrameToggleCircle,infoQuickSquish,{Size = UDim2.new(0,10,0,10),Position = UDim2.new(0.587,0,0.222000003,0)}):Play()
 				elseif toggled == true then
@@ -5131,18 +5131,18 @@ function lib:Window(text,preset,closebind)
 				end
 			end)
 			Toggle.MouseButton1Up:Connect(function()
-				toggled = not toggled
-				TweenService:Create(Toggle,infoJellyOut,{Size = UDim2.new(0,363,0,42)}):Play()
+				--TweenService:Create(Toggle,infoJellyOut,{Size = UDim2.new(0,363,0,42)}):Play()
 				if toggled == true then
-					TweenService:Create(Toggle,infoQuickSquish,{BackgroundColor3 = Color3.fromRGB(34,34,34)}):Play()
+					--TweenService:Create(Toggle,infoQuickSquish,{BackgroundColor3 = Color3.fromRGB(34,34,34)}):Play()
 					TweenService:Create(FrameToggleCircle,infoJellyOut,{Position = UDim2.new(0.127000004,0,0.222000003,0),Size = UDim2.new(0,10,0,10)}):Play()
 				elseif toggled == false then
-					TweenService:Create(Toggle,infoQuickSquish,{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
+					--TweenService:Create(Toggle,infoQuickSquish,{BackgroundColor3 = Color3.fromRGB(37,37,37)}):Play()
 					TweenService:Create(FrameToggleCircle,infoJellyOut,{Position = UDim2.new(0.587,0,0.222000003,0),Size = UDim2.new(0,10,0,10)}):Play()
 				end
 			end)
 			
             Toggle.MouseButton1Click:Connect(function()
+		        toggled = not toggled
                 if toggled == false then
                     --[[TweenService:Create(
                         Toggle,
