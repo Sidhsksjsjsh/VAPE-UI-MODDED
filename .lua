@@ -3144,6 +3144,7 @@ function lib:ErrorReader(func,ssd)
 		--lib:notify(lib:ColorFonts(lib:ColorFonts("A fatal error occured at connection '" .. lib:ColorFonts("Turtle_Backend_Service","Underline") .. "'. sent or screenshot this error to the developer","Bold"),"Red"),9e9)
 		--dick:gsub(':' .. dick:sub(2,5) .. ': ',''):gsub(':' .. dick:sub(2,4) .. ': ',''):gsub(':' .. dick:sub(2,3) .. ': ',''):gsub(':' .. dick:sub(2,2) .. ': ','')
 		TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts(`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,"Bold,Red"))
+		print(dick)
 		if game.PlaceId ~= 4580204640 then -- survive the killer
 			TurtleRemoteEvent:Fire("CONSOLE LOG",lib:ColorFonts(`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,"Bold,Red"))
 			TurtleScreenNotify("Turtle Hub | Something went wrong 🤔",`Its look like something has error...\nBut it say "{dick}"\n\nDo u wanna run it again?`,{"Yea"},NotifyCooldown,{
